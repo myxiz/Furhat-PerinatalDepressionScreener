@@ -1,0 +1,393 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana;
+    color: #FFFFFF;
+}
+
+body {
+    background-color: var(--mediumCoolGray01)
+}
+
+.center {
+    text-align: center;
+}
+
+p {
+    font-family: Verdana, sans-serif;
+    font-size: 19px;
+    font-weight: lighter;
+    line-height: 30px;
+}
+
+@font-face {
+    font-family: "Signika";
+    src: url("Signika-SemiBold.ttf") format("truetype")
+}
+
+h1 {
+    font-family: "Signika", Verdana;
+    color: var(--lightCoolGray02);
+}
+
+button:focus {
+    /*override bootstrap default*/
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+
+.btn:disabled{
+    /*override bootstrap default*/
+    opacity: 1;
+}
+
+:root {
+    --lightRed03: #F7D0D5;
+    --mediumRed01: #DE4257;
+    --red: #d6132d;
+    --blue: #6a47d8;
+    --green: #00CF84;
+    --mediumBlue01: #6a47d8;
+    --lightBlue03: #DAD1F5;
+    --lightBlue02: #B5A3EB;
+    --coolGray: #201D2B;
+    --mediumCoolGray01: #4D4A55;
+    --lightCoolGray02: #A6A5AA;
+    --lightCoolGray03: #D2D2D5;
+    #4D4A55
+}
+
+.hex-background {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    padding: 1px 2.5vw;
+    overflow: hidden;
+}
+
+.header {
+    position: relative;
+    height: 8.5vh;
+    min-height: 6rem;
+    width: 100%;
+    padding: 2rem 0 1rem;
+    border-bottom: solid white 4px;
+    margin-bottom: 4rem;
+}
+
+.header h1 {
+    color: var(--lightCoolGray02);
+    text-align: left;
+}
+
+.header button.menu {
+    margin: .5rem 0;
+    height: fit-content;
+    width: fit-content;
+    background: transparent;
+}
+
+.button-row {
+    min-height: 45vh;
+    align-items: center;
+    display: flex;
+    margin-top: 3rem;
+}
+
+.content {
+    max-height: calc(100vh - 8.5vh - 8rem)
+}
+
+.title-box h1 {
+    margin-bottom: 25px;
+    text-transform: lowercase;
+}
+
+#root .div {
+}
+
+.text-box p {
+    font-size: 30px;
+    line-height: 1.5em;
+}
+
+button.reply {
+    background-color: var(--green);
+    border-radius: 15px;
+    font-family: Signika, Verdana, sans-serif;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 0;
+
+    font-size: 1.6rem;
+    color: --blue);
+    white-space: normal;
+    min-height: 80px;
+    text-transform: lowercase;
+    width: 100%;
+    margin: 1rem auto;
+}
+
+.fade-enter, .fade-appear {
+    opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active, .fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+}
+
+.fade-leave {
+    opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+    opacity: 0.01;
+    transition: opacity 500ms ease-in-out;
+    transition-delay: 500ms;
+
+}
+
+button.reply.active, button.reply:active, button.reply:focus {
+    background-color: var(--mediumCoolGray01);
+    border: var(--green) solid 2px;
+}
+
+.results-container {
+    height: 100%;
+    max-height: 100%;
+}
+
+.results-container > .row:first-child {
+    height: 100%;
+}
+
+.results {
+    overflow-y: scroll;
+}
+
+.results::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+.results::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.results p {
+    text-align: left;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.results h2 {
+    color: var(--lightCoolGray02);
+    font-family: "Signika", Verdana;
+    text-transform: lowercase;
+    margin-bottom: 25px;
+}
+
+.results-container .continue-btn .reply {
+    -webkit-box-shadow: 0 0 5px 4px rgba(127, 127, 127, 0.5);
+    -moz-box-shadow: 0 0 5px 4px rgba(127, 127, 127, 0.5);
+    box-shadow: 0 0 5px 4px rgba(127, 127, 127, 0.5);
+}
+
+
+.fade.in.modal-backdrop {
+    opacity: 0.4;
+}
+
+.fade.in {
+    opacity: 1
+}
+
+.fade.out {
+    opacity: 0
+}
+
+.modal-dialog {
+    width: 66.7%;
+    max-width: inherit;
+}
+
+.modal.fade.in .modal-dialog {
+    transform: translate(0, 5%);
+}
+
+.modal.fade.out .modal-dialog {
+    /*transform: translate(0, -5%);*/
+}
+
+.modal-dialog .modal-content {
+    background-color: var(--blue);
+    color: #FFFFFF;
+    border: 4px solid white;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+}
+
+.modal-dialog .modal-title {
+    font-family: "Signika", Verdana;
+}
+
+.modal-dialog .modal-header {
+    padding: 25px;
+    border-bottom: none;
+    display: flex;
+    margin: auto;
+}
+
+.modal-dialog .modal-body {
+    padding: 25px 50px;
+    font-family: "Signika", Verdana;
+    color: #FFFFFF
+}
+
+.modal-dialog .modal-footer {
+    border-top: none;
+}
+
+.modal-dialog .modal-footer button {
+    border-top: none;
+}
+
+.modal-dialog span.logo-text {
+    font-family: "Signika", Verdana;
+    color: var(----lightCoolGray02);
+    display: flex;
+    font-size: 40px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-dialog .about-link {
+    text-align: center;
+    font-family: "Signika", Verdana;
+    color: #FFF;
+}
+
+.modal-dialog p{
+    font-family: "Signika", Verdana;
+    color: #FFF;
+}
+
+.modal-dialog img.logo {
+    display: flex;
+    margin: 20px auto auto;
+    max-width: 500px;
+}
+
+.dropdown .dropdown-toggle {
+    border: none;
+}
+
+.dropdown .dropdown-toggle svg {
+    width: 50px;
+    height: 35px;
+    color: white;
+    fill: white;
+}
+
+.dropdown .dropdown-toggle:after {
+    display: none;
+}
+
+.dropdown .dropdown-menu {
+    left: auto;
+    right: 0;
+    border-radius: 20px;
+    background-color: var(--blue);
+    border: 4px solid white;
+    opacity: 0;
+    transition: opacity ease-in-out 0.5s;
+}
+
+.dropdown .dropdown-menu.show {
+    opacity: 1;
+    transition: opacity ease-in-out 0.5s;
+}
+
+.dropdown .menu-backdrop {
+    opacity: 0;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.dropdown .menu-backdrop.show {
+    opacity: 0.2;
+    display: block;
+    transition: opacity 0.5s;
+}
+
+.dropdown-menu .btn {
+    background: url("left-arrow.png") no-repeat center;
+    font-size: 24px;
+    width: 294px;
+    height: 65px;
+    line-height: 65px;
+    text-align: right;
+    font-family: "Signika", Verdana;
+    padding: 0 34px;
+    margin: 16px;
+    color: var(--blue);
+    text-transform: lowercase;
+    vertical-align: center;
+}
+
+.fadeout-overlay {
+    position:absolute;
+    width:100%;
+    height:80px;
+    bottom:0;
+
+    -webkit-mask-image: -webkit-gradient(
+        linear, left 80%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0))
+    );
+}
+
+.language_selector {
+    position: relative;
+    bottom: 0px;
+    margin-right: 50px;
+}
+.language_button {
+    background: rgba(255, 255, 255, 0);
+    border: none;
+    margin-right: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+.language_button svg {
+    border-radius: 5px;
+    width: auto;
+    height: 35px;
+}
+.language_button:not(.language_button--selected):hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+.language_button--selected {
+    background: rgba(255, 255, 255, 1);
+}
+
+.btn.btn-svg svg {
+    border-radius: 5px;
+    width: auto;
+    height: 35px;
+    display: flex;
+    margin-top: 5px;
+    margin-left: 30px;
+}

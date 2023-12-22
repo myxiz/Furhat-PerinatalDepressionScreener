@@ -1,0 +1,15 @@
+<svg width="117px" height="232px" viewBox="0 0 117 232" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Results-page" transform="translate(-784.000000, -415.000000)" fill="#EB3C96">
+            <g id="Group" transform="translate(123.000000, 415.000000)">
+                <path
+                    d="M773.61903,126.233744 L687.383858,226.737439 C681.989312,233.024571 672.519441,233.748154 666.23231,228.353607 C662.911111,225.503919 661,221.345944 661,216.969749 L661,15.962359 C661,7.6780877 667.715729,0.962358952 676,0.962358952 C680.376195,0.962358952 684.53417,2.87346954 687.383858,6.19466867 L773.61903,106.698364 C778.440552,112.317658 778.440552,120.61445 773.61903,126.233744 Z"
+                    id="Triangle"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,1130 @@
+package furhatos.app.medicalscreener.i18n
+
+import furhatos.app.medicalscreener.currentLang
+import furhatos.app.medicalscreener.nlu.CustomNumber
+import furhatos.nlu.Intent
+import furhatos.util.Language
+
+class Yes : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "好的",
+                "好的谢谢",
+                "好的",
+                "当然",
+                "当然了",
+                "我想是的",
+                "是的",
+                "是得我有",
+                "是",
+                "当然",
+                "有",
+                "要", // is a homophone, although it actually means "i want"
+                "一定地",
+                "我愿意",
+                "经常",
+                "的确如此",
+                "好吧",
+                "OK", "可以了",
+                "接受"
+            )
+            Language.GERMAN -> listOf(
+                "Ja",
+                "Ja Bitte",
+                "mhm",
+                "sicher",
+                "absolut",
+                "Ich glaube schon",
+                "Ich denke schon",
+                "Ja ich will",
+                "ja will ich",
+                "Ja habe ich",
+                "Jep",
+                "auf jeden fall",
+                "definitiv",
+                "mach ich",
+                "oft",
+                "sehr gerne",
+                "gerne",
+                "mit vergnügen",
+                "OK", "okay", "in ordnung", "in ordung",
+                "gut"
+            )
+            else -> listOf(
+                "yes",
+                "yes please",
+                "yeah",
+                "sure",
+                "absolutely",
+                "I think so",
+                "yes I do",
+                "yes I have",
+                "yep",
+                "you bet",
+                "sometimes",
+                "definitely",
+                "alright", "all right", // "alright", and homophones.
+                "I do",
+                "from time to time",
+                "once in a while",
+                "occasionally",
+                "often",
+                "very much so",
+                "i would say so",
+                "why not",
+                "OK", "okay",
+                "fine"
+            )
+        }
+}
+
+class No: Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "没有",
+                "mail", // homphone for "mei you" above
+                "不行",
+                "没什么",
+                "不",
+                "不仅如此",
+                "不是",
+                "不是的",
+                "不一定",
+                "从不",
+                "不需要了",
+                "不要了",
+                "没有什么",
+                "拒绝",
+                "一点也不",
+                "可能不是",
+                "我不这么认为",
+                "肯定不是",
+                "一定不是",
+                "不像",
+                "不用",
+                "没有",
+                "美优", "美柚",// homonym for the above one
+                "从来没有"
+            )
+            Language.GERMAN -> listOf(
+                "Nein",
+                "nee",
+                "nicht",
+                "nö",
+                "nah",
+                "niemals",
+                "nichts",
+                "negativ",
+                "überhaupt nicht",
+                "wahrscheinlich nicht",
+                "Ich denke nicht",
+                "Ich glaube nicht",
+                "definitiv nicht",
+                "absolut nicht",
+                "nein danke",
+                "unwahrscheinlich",
+                "nicht gewesen",
+                "das habe ich nicht"
+            )
+            else -> listOf(
+                "nope",
+                "nix",
+                "not",
+                "nay",
+                "nah",
+                "never",
+                "nothing",
+                "negative",
+                "not at all",
+                "probably not",
+                "I don't think so",
+                "definitely not",
+                "absolutely not",
+                "no",
+                "unlikely",
+                "haven't",
+                "not been"
+            )
+        }
+}
+
+class Sometimes : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "有时", "有时候",
+                "不时地",
+                "偶尔", "偶尔地"
+            )
+            Language.GERMAN -> listOf(
+                "manchmal",
+                "hin und wieder",
+                "das eine oder andere Mal",
+                "von Zeit zu Zeit"
+            )
+            else -> listOf(
+                "sometimes", "some times",
+                "few times",
+                "every so often",
+                "once in a while"
+            )
+        }
+}
+
+class Maybe : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "可能",
+                "也许",
+                "偶然",
+                "大概",
+                "大约",
+                "可以是",
+                "可能是",
+                "大概是",
+                "可能地",
+                "我猜"
+            )
+            Language.GERMAN -> listOf(
+                "Vielleicht",
+                "unter Umständen",
+                "eventuell",
+                "kann sein",
+                "könnte sein",
+                "möglich"
+            )
+            else -> listOf(
+                "Maybe",
+                "Perhaps",
+                "Perchance",
+                "Can be",
+                "Could be",
+                "Might be",
+                "Possibly",
+                "i guess", "guess so", "i guess so"
+            )
+        }
+}
+
+class DontKnow : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "我不知道",
+                "不知道",
+                "不确定",
+                "谁能说呢？",
+                "不清楚")
+            Language.GERMAN -> listOf(
+                "Ich weiß nicht",
+                "weiß nicht",
+                "nicht sicher",
+                "wer weiß das schon?",
+                "keine Ahnung",
+                "Ich hab keine Ahnung",
+                "Keinen blassen Schimmer",
+                "Ich habe keinen blassen Schimmer"
+            )
+            else -> listOf(
+                "I don't know",
+                "don't know",
+                "not sure",
+                "who can say?",
+                "dunno",
+                "I dunno",
+                "I have no idea")
+        }
+}
+
+class YesYouCan : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("可以")
+            Language.GERMAN -> listOf("du kannst", "Sie können")
+            else -> listOf("you can", "you may","if you like","if you want to")
+        }
+}
+
+class Abort : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "关闭",
+                "退出",
+                "结束",
+                "终止",
+                "中止",
+                "重启",
+                "重新启动",
+                "停止"
+            )
+            Language.GERMAN -> listOf(
+                "Zurück",
+                "Abbruch",
+                "Stop",
+                "Von vorne",
+                "ende",
+                "schluss",
+                "exit"
+            )
+            else -> listOf(
+                "exit",
+                "quit",
+                "end",
+                "stop",
+                "abort",
+                "from the beginning"
+            )
+        }
+}
+
+class AboutFurhat : Intent() {
+    var furhat: FurhatEntity? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                // TODO @shobhan: check if "Furhat" is heard that way. Does priming the recogniser help?
+                "你是谁？",
+                "告诉我有关 @furhat 的信息",
+                "告诉我有关机器人的信息",
+                "说说你自己",
+                "谁是 @furhat?",
+                "@furhat 是谁?",
+                "@furhat 是什么",
+                "告诉我有关机器人的信息"
+            )
+            Language.GERMAN -> listOf(
+                "Wer bist Du?",
+                "Wer sind Sie?",
+                "Was bist du?",
+                "Was sollst du sein?",
+                "Erzählen Sie mir mehr über @furhat",
+                "Erzähle mir mehr über @furhat",
+                "Erklären Sie mir @furhat",
+                "Erkläre mir @furhat",
+                "Erzähle mir mehr über Roboter",
+                "Erkläre mir Roboter",
+                "Erzähle mir von dir selbst",
+                "Erzähl von dir",
+                "Erzähl über dich",
+                "Wer ist @furhat?",
+                "Was ist @furhat?",
+                "Wer ist hinter @furhat?",
+                "Erzähle mir mehr über den Roboter",
+                "Erzähle mir mehr über die Roboter",
+                "Erkläre mir den Roboter"
+            )
+            else -> listOf(
+                "+Who are +you?",
+                "Tell me about @furhat",
+                "Tell me +about +robot",
+                "Tell me +about +yourself",
+                "Who is @furhat?",
+                "Who are @furhat?",
+                "tell me +about +robots"
+            )
+        }
+}
+
+class SpecifyAge : Intent() {
+    var age: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "@age",
+                "我的 @age",
+                "我 @age",
+                "我 @age 岁",
+                "@age 岁",
+                "@age 大",
+                "我才 @age 岁",
+                "我已经 @age 岁了"
+            )
+            Language.GERMAN -> listOf(
+                "@age",
+                "Ich bin @age",
+                "@age Jahre",
+                "@age Jahre alt",
+                "Ich bin @age Jahre alt"
+            )
+            else -> listOf(
+                "@age",
+                "I'm @age",
+                "I am @age",
+                "@age years",
+                "@age years old",
+                "I am @age years old"
+            )
+        }
+}
+
+class SpecifyAboveAge : Intent() {
+    var age: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "超过 @age",
+                "超过 @age 多大",
+                "高于 @age"
+            )
+            Language.GERMAN -> listOf(
+                "über @age",
+                "mehr als @age Jahre alt",
+                "älter als @age"
+            )
+            else -> listOf(
+                "over @age",
+                "more than @age years old",
+                "older than @age"
+            )
+        }
+}
+
+class SpecifyBelowAge : Intent() {
+    var age: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "小于 @age",
+                "低于 @age",
+                "不到 @age",
+                "以下 @age"
+            )
+            Language.GERMAN -> listOf(
+                "unter @age",
+                "weniger als @age",
+                "jünger als @age"
+            )
+            else -> listOf(
+                "under @age",
+                "below @age",
+                "less than @age",
+                "younger than @age"
+            )
+        }
+}
+
+class WeightExactlyIntent : Intent() {
+    var weight: CustomNumber? = null
+    var weightUnit: WeightUnitEntity? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "@weight",
+                "@weight 千克",
+                "@weight 公斤",
+                "我重 @weight",
+                "我是 @weight"
+            )
+            Language.GERMAN -> listOf(
+                "@weight",
+                "@weight Kilogramm",
+                "@weight Kilos",
+                "@weight kg",
+                "Ich wiege @weight"
+            )
+            else -> listOf(
+                "@weight",
+                "@weight @weightUnit",
+                "I weigh @weight",
+                "I weigh @weight @weightUnit",
+                "like @weight @weightUnit",
+                "around @weight @weightUnit"
+            )
+        }
+}
+
+class WeightBelowIntent : Intent() {
+    var weightBelow: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "小于 @weightBelow",
+                "比 @weightBelow 矮",
+                "低于 @weightBelow",
+                "的于 @weightBelow",
+                "的于 @weightBelow",
+                "我的于 @weightBelow"
+            )
+            Language.GERMAN -> listOf(
+                "weniger als @weightBelow",
+                "unter @weightBelow",
+                "leichter als @weightBelow"
+            )
+            else -> listOf(
+                "less than @weightBelow",
+                "lower than @weightBelow",
+                "under @weightBelow"
+            )
+        }
+}
+
+class WeightAboveIntent : Intent() {
+    var weightAbove: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "大于 @weightAbove",
+                "比 @weightAbove 高",
+                "超过 @weightAbove"
+            )
+            Language.GERMAN -> listOf(
+                "größer als @weightAbove",
+                "mehr als @weightAbove",
+                "höher als @weightAbove",
+                "schwerer als @weightAbove",
+                "über @weightAbove"
+            )
+            else -> listOf(
+                "more than @weightAbove",
+                "higher than @weightAbove",
+                "over @weightAbove"
+            )
+        }
+}
+
+class WeightBetweenIntent : Intent() {
+    var weightBelow: CustomNumber? = null
+    var weightAbove: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "在 @weightBelow 到 @weightAbove 之间",
+                "@weightBelow 到 @weightAbove",
+                "大于 @weightBelow 小于 @weightAbove"
+            )
+            Language.GERMAN -> listOf(
+                "zwischen @weightBelow und @weightAbove",
+                "@weightBelow bis @weightAbove"
+            )
+            else -> listOf(
+                "between @weightBelow and @weightAbove",
+                "@weightBelow to @weightAbove"
+            )
+        }
+}
+
+class EveryDay : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "每天", "每天都", "天天",
+                "每天不止一次",
+                "一天几次"
+            )
+            Language.GERMAN -> listOf(
+                "jeden Tag",
+                "mehr als einmal pro Tag",
+                "Mehrmals täglich"
+            )
+            else -> listOf(
+                "every day", "everyday", "daily",
+                "more than once a day",
+                "several times a day"
+            )
+        }
+}
+
+class NotEveryDay : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "不是每天", "不是每天都",
+                "不经常",
+                "每隔一天"
+            )
+            Language.GERMAN -> listOf(
+                "nicht jeden Tag",
+                "nicht so oft",
+                "jeden zweiten Tag"
+            )
+            else -> listOf(
+                "not daily", "don't every day", "not every day", "don't everyday", "not everyday",
+                "not that often",
+                "every other day"
+            )
+        }
+}
+
+class IEatEveryDay : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                // when asked "do you eat fruits every day", mandarin speakers often reply "eat" (in mandarin).
+                "吃", "薛", "持", "迟", "池", "持", "痴", // "吃"="eat", and the rest are homophones
+                "恩我天天吃", "是的我每天都吃", // "i eat every day"
+                "天天吃", "每天都吃" // "eat every day"
+            )
+            Language.GERMAN -> listOf()
+            else -> listOf("eat every day", "eat everyday")
+        } + EveryDay().getExamples(lang)
+}
+
+class IDontEatEveryDay : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "我没吃", "我不吃", "不吃", // "i dont eat"
+                "我 不是 每天都 吃" // "i dont everyday eat"
+            )
+            Language.GERMAN -> listOf()
+            else -> listOf("don't every day", "eat everyday")
+        } + NotEveryDay().getExamples(lang)
+}
+
+class RelativeIntent : Intent() {
+    var relative: RelativeEntity? = null;
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "@relative",
+                "是 @relative",
+                "我的 @relative",
+                "我 @relative",
+                "是的 我的 @relative",
+                "我的 @relative 有",
+                "我 @relative 有糖尿病",
+                "有的 我 @relative 有糖尿病",
+                "是的 我的 @relative 有糖尿病",
+                "我们是 @relative 关系",
+                "是我 @relative"
+            )
+            Language.GERMAN -> listOf(
+                "@relative",
+                "Mein @relative",
+                "Meine @relative",
+                "ja mein @relative",
+                "ja meine @relative",
+                "Mein @relative hat es",
+                "Meine @relative hat es",
+                "Mein @relative hat Diabetes",
+                "Meine @relative hat Diabetes",
+                "ja mein @relative hat Diabetes",
+                "ja meine @relative hat Diabetes",
+                "Wir sind @relative verwandt"
+            )
+            else -> listOf(
+                "@relative",
+                "My @relative",
+                "yes my @relative",
+                "My @relative has it",
+                "My @relative has diabetes",
+                "Yes my @relative has diabetes",
+                "We are @relative related"
+            )
+        }
+}
+
+class SpecifySex : Intent() {
+    var sex: Sex? = null
+
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("@sex", "我是一个 @sex", "我是 @sex")
+            Language.GERMAN -> listOf("@sex", "Ich bin eine @sex", "Ich bin ein @sex", "I bin @sex")
+            else -> listOf("@sex", "I'm a @sex", "I am @sex")
+        }
+
+    override fun getSpeechRecPhrases(lang: Language?): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("男性", "男人", "女性", "女人")
+            Language.GERMAN -> listOf("männlich", "Mann", "weiblich", "Frau")
+            else -> listOf("male", "man", "female", "woman")
+        }
+}
+
+class HeightExactlyIntent : Intent() {
+    var height: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "@height",
+                "@height 厘米",
+                "我 @height",
+                "我的身高是 @height",
+                "我有 @height 厘米高"
+            )
+            Language.GERMAN -> listOf(
+                "@height",
+                "@height Zentimeter",
+                "@height cm",
+                "Ich bin @height",
+                "Meine Größe ist @height",
+                "Ich bin @height Zentimeter groß"
+            )
+            else -> listOf(
+                "@height",
+                "@height centimeters",
+                "@height cm",
+                "I'm @height",
+                "My height is @height",
+                "I'm @height centimeters tall"
+            )
+        }
+}
+
+class HeightBelowIntent : Intent() {
+    var heightBelow: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "小于 @heightBelow",
+                "比 @heightBelow 矮",
+                "低于 @heightBelow",
+                "的于 @heightBelow",
+                "我的于 @heightBelow"
+            )
+            Language.GERMAN -> listOf(
+                "weniger als @heightBelow",
+                "unter @heightBelow",
+                "kleiner als @heightBelow"
+            )
+            else -> listOf(
+                "less than @heightBelow",
+                "lower than @heightBelow",
+                "under @heightBelow"
+            )
+        }
+}
+
+class HeightAboveIntent : Intent() {
+    var heightAbove: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "大于 @heightAbove",
+                "比 @heightAbove 高",
+                "超过 @heightAbove"
+            )
+            Language.GERMAN -> listOf(
+                "größer als @heightAbove",
+                "mehr als @heightAbove",
+                "höher als @heightAbove",
+                "über @heightAbove"
+            )
+            else -> listOf(
+                "more than @heightAbove",
+                "higher than @heightAbove",
+                "over @heightAbove"
+            )
+        }
+}
+
+class HeightBetweenIntent : Intent() {
+    var heightBelow: CustomNumber? = null
+    var heightAbove: CustomNumber? = null
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "在 @heightBelow 到 @heightAbove 之间",
+                "@heightBelow 到 @heightAbove",
+                "大于 @heightBelow 小于 @heightAbove"
+            )
+            Language.GERMAN -> listOf(
+                "zwischen @heightBelow und @heightAbove",
+                "@heightBelow bis @heightAbove"
+            )
+            else -> listOf(
+                "between @heightBelow and @heightAbove",
+                "@heightBelow to @heightAbove"
+            )
+        }
+}
+
+data class I18nIntent(
+    val examples: List<String> = listOf(),
+    val speechRecPhrases: List<String> = listOf()
+)
+
+class I18nIntents {
+
+    val GoHome = mapOf(
+        en to I18nIntent(examples = listOf(
+            "go home",
+            "start over",
+            "from the start",
+            "to start",
+            "to introduction",
+            "go to intro",
+            "restart"
+            )),
+        de to I18nIntent(examples = listOf(
+            "geh nach hause",
+            "fang von vorne an",
+            "vom Anfang",
+            "zu Start",
+            "zur Einführung",
+            "zur Einleitung",
+            "geh zur Einleitung",
+            "geh zur Einführung",
+            "Neustart"
+            )),
+        zh to I18nIntent(examples = listOf(
+            "主页面",
+            "重新开始",
+            "从头开始",
+            "开始",
+            "简介页",
+            "转到简介"
+        ))
+    )[currentLang]!!
+
+    val Help = mapOf(
+        en to I18nIntent(examples = listOf(
+            "help",
+            "options",
+            "what are my options?",
+            "what?",
+            "what to do",
+            "what am I doing?"
+        )),
+        de to I18nIntent(examples = listOf(
+            "Hilfe",
+            "Optionen",
+            "Was sind meine Optionen?",
+            "Was sind meine Möglichkeiten?",
+            "Was?",
+            "Was kann ich machen?",
+            "Was kann ich tun?",
+            "Was kann man machen?",
+            "Was kann man tun?",
+            "Was tue ich?, Was mache ich?"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "帮助",
+            "选项",
+            "我的选择是什么？",
+            "什么？",
+            "做什么",
+            "我在做什么？"
+        ))
+    )[currentLang]!!
+
+    val IUnderstand = mapOf(
+        en to I18nIntent(examples = listOf(
+            "I understand",
+            "I comprehend",
+            "Understood",
+            "Got it",
+            "I concur",
+            "I agree"
+        )),
+        de to I18nIntent(examples = listOf(
+            "Ich verstehe",
+            "Verstanden",
+            "Achso",
+            "OK",
+            "Ich stimme zu",
+            "Klar",
+            "Klaro",
+            "Glasklar"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "我明白",
+            "我理解",
+            "理解",
+            "明白",
+            "我同意",
+            "我赞成",
+            "理解了", //
+            "一家了" // homophone of "理解了"
+        ))
+    )[currentLang]!!
+
+    val MoveOnIntent = mapOf(
+        en to I18nIntent(examples = listOf(
+            "move on",
+            "ready",
+            "next",
+            "go on",
+            "exit",
+            "continue",
+            "carry on",
+            "advance",
+            "got it",
+            "go back"
+        )),
+        de to I18nIntent(examples = listOf(
+            "weiter",
+            "fertig",
+            "nächstes",
+            "nächste",
+            "nächster",
+            "fahre fort",
+            "Ausgang",
+            "exit",
+            "mach weiter",
+            "weiter so",
+            "mehr",
+            "verstanden",
+            "zurück"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "继续",
+            "准备好",
+            "接下来",
+            "继续",
+            "接着",
+            "继续",
+            "继续",
+            "前进",
+            "明白",
+            "返回"
+        ))
+    )[currentLang]!!
+
+    val NoneOfTheAbove = mapOf(
+        en to I18nIntent(examples = listOf(
+            "neither",
+            "none",
+            "none of the above",
+            "not a single one",
+            "i don't want to say"
+        )),
+        de to I18nIntent(examples = listOf(
+            "keines",
+            "keins",
+            "keines der aufgelisteten",
+            "keins von denen",
+            "nicht ein einziges",
+            "nicht sagen"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "都不",
+            "没有",
+            "以上都不是",
+            "一个也没有"
+        ))
+    )[currentLang]!!
+
+    val RepeatQuestion = mapOf(
+        en to I18nIntent(examples = listOf(
+            "Repeat",
+            "Please repeat",
+            "please repeat the question",
+            "I didn't hear that",
+            "couldn't hear you",
+            "say again?",
+            "Seguin",  /* google sometimes returns "Seguin" when we say "say it again" to it. */
+            "say it again",
+            "again",
+            "you didn't ask me a question",
+            "what's the question",
+            "what did you say?",
+            "sorry",
+            "excuse me"
+        )),
+        de to I18nIntent(examples = listOf(
+            "Wiederhole",
+            "Wiederhole das bitte",
+            "Bitte",
+            "wiederhole die Frage",
+            "Ich hab das nicht gehört",
+            "Ich konnte das nicht hören",
+            "hab dich nicht verstanden",
+            "hab dich nicht gehört",
+            "kann dich nicht verstehen",
+            "kan dich nicht hören",
+            "nochmal?",
+            "Wie Bitte?",
+            "was?",
+            "Häh?",
+            "sags nochmal",
+            "sag das nochmal?",
+            "Was war das?",
+            "Du hast mir keine Frage gestellt",
+            "Sie haben mir keine Frage gestellt",
+            "Sie haben mich nichts gefragt",
+            "Du hast mich nichts gefragt",
+            "Was ist die Frage?",
+            "Was hast Du gesagt?",
+            "Was haben Sie gesagt?",
+            "Tschuldigung",
+            "Entschuldigung",
+            "wie?",
+            "was?"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "重复",
+            "请重复",
+            "请重复这问题",
+            "我听不到",
+            "听不到你说的",
+            "再说一遍？",
+            "再说一次",
+            "再来",
+            "你没有问我问题",
+            "问题是什么",
+            "你说什么？",
+            "抱歉",
+            "打扰一下",
+            "我没听懂"
+        ))
+    )[currentLang]!!
+
+    val Start = mapOf(
+        en to I18nIntent(examples = listOf(
+            "start",
+            "begin",
+            "commence",
+            "let's start",
+            "let's go",
+            "go ahead",
+            "screen me"
+        )),
+        de to I18nIntent(examples = listOf(
+            "Start",
+            "anfangen",
+            "fang an",
+            "los",
+            "los gehts",
+            "Ja",
+            "Ok",
+            "Untersuche mich",
+            "gern",
+            "teste mich"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "开始",
+            "启动",
+            "启动",
+            "开始吧",
+            "继续吧",
+            "继续",
+            "检查我"
+        ))
+    )[currentLang]!!
+
+    val WaistCircumferenceIntent = mapOf(
+        en to I18nIntent(examples = listOf(
+            "@cm",
+            "@cm centimeters",
+            "@cm cm",
+            "It's @cm",
+            "My circumference is @cm",
+            "I'm @cm centimeters",
+            "My waist is @cm centimeters"
+        )),
+        de to I18nIntent(examples = listOf(
+            "@cm",
+            "@cm Zentimeter",
+            "@cm cm",
+            "Es ist @cm",
+            "Mein Umfang ist @cm",
+            "Mein Taillenumfang ist @cm",
+            "Ich messe @cm Zentimeter",
+            "Meine Taille ist @cm Zentimeter",
+            "Meine Taille hat @cm Zentimeter",
+            "Meine Taille misst @cm Zentimeter"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "是 @cm",
+            "@cm",
+            "@cm 厘米", "@cm 公分", // cm has two different terms in mandarin: 厘米 and 公分
+            "我的腰围是 @cm",
+            "我的周长是 @cm"
+        ))
+    )[currentLang]!!
+
+    val WhatIs = mapOf(
+        en to I18nIntent(examples = listOf(
+            "what is",
+            "and what is ",
+            "I don't know what is ",
+            "Not sure I know what  means",
+            "I'm not sure what's ",
+            "what does it mean?",
+            "what does  mean?",
+            "what's ",
+            "define ",
+            "explain "
+        )),
+        de to I18nIntent(examples = listOf(
+            "was ist",
+            "und was ist ",
+            "I weiß nicht was ist ",
+            "Nicht sicher was das bedeutet",
+            "I weiß nicht was das bedeutet ",
+            "whas bedeutet das?",
+            "whats heißt das?",
+            "was ist ",
+            "definiere ",
+            "erkläre "
+        )),
+        zh to I18nIntent(examples = listOf(
+            "什么是",
+            "那么什么是",
+            "我不知道什么是",
+            "不确定我知道什么是",
+            "我不确定什么是",
+            "这是什么意思？",
+            "什么意思？",
+            "什么",
+            "定义",
+            "解释"
+        ))
+    )[currentLang]!!
+
+    val PsysicalActivityExplain = mapOf(
+        en to I18nIntent(examples = listOf(
+            "What do you mean physical activity?",
+            "What do you mean that",
+            "What do you mean",
+            "what counts as physical activity",
+            "that depends what counts as physical activity",
+            "That depends on",
+            "It depends"
+        )),
+        de to I18nIntent(examples = listOf(
+            "Was bedeutet Bewegung in diesem Kontext?",
+            "Was meinst Du damit?",
+            "Was meinen Sie damit?",
+            "Was bedeutet das?",
+            "kommt drauf an was als Bewegung zählt",
+            "kommt drauf an",
+            "was zählt ?"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "什么是体育活动？",
+            "那是什么意思",
+            "你是什么意思",
+            "这取决于什么是体育活动",
+            "那取决于",
+            "这取决于"
+        ))
+    )[currentLang]!!
+
+    val ImDone = mapOf(
+        en to I18nIntent(examples = listOf("I'm done", "Done")),
+        de to I18nIntent(examples = listOf("Ich bin fertig", "Fertig")),
+        zh to I18nIntent(examples = listOf("完成了", "做完了", "结束了"))
+    )[currentLang]!!
+
+    val ImReady = mapOf(
+        en to I18nIntent(examples = listOf("ready", "Continue")),
+        de to I18nIntent(examples = listOf("Ich bin so weit", "Weiter", "Fortfahren", "Ich bin bereit", "bereit")),
+        zh to I18nIntent(examples = listOf("准备好了", "可以了", "ok", "好了"))
+    )[currentLang]!!
+
+    val LetsProceed = mapOf(
+        en to I18nIntent(examples = listOf("go ahead", "go on", "proceed")),
+        de to I18nIntent(examples = listOf("fortsetzen", "weiterführen")),
+        zh to I18nIntent(examples = listOf("继续", "让我们继续", "我们继续", "下一步", "下一个程序是"))
+    )[currentLang]!!
+
+    val ThankYou = mapOf(
+        en to I18nIntent(examples = listOf("Thank You", "Thanks", "Bless you", "Cheers")),
+        de to I18nIntent(examples = listOf("Danke", "Vielen Dank", "Dankeschön", "Danke sehr", "Herzlichen Dank", "Besten Dank")),
+        zh to I18nIntent(examples = listOf("谢谢", "谢谢你", "多+谢", "非常感谢", "￿+谢了"))
+    )[currentLang]!!
+
+    val Goodbye = mapOf(
+        en to I18nIntent(examples = listOf("Goodbye", "Bye", "Good bye", "Farewell", "ciao", "good-bye", "good by")),
+        de to I18nIntent(examples = listOf("Auf Wiedersehen", "Wiedersehen", "Wiederschauen", "Bis dann", "Bis bald", "tschüss", "Servus", "ciao", "ciao ciao")),
+        zh to I18nIntent(examples = listOf("再见", "拜拜", "再会"))
+    )[currentLang]!!
+}
+
