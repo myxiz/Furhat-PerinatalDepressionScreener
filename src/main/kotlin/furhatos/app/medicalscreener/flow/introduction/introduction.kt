@@ -11,6 +11,7 @@ import furhatos.app.medicalscreener.setLindaVoice
 import furhatos.autobehavior.prominenceGesture
 import furhatos.autobehavior.userSpeechStartGesture
 import furhatos.flow.kotlin.*
+import furhatos.flow.kotlin.voice.AzureVoice
 import furhatos.flow.kotlin.voice.PollyVoice
 import furhatos.gestures.Gestures
 import furhatos.util.CommonUtils
@@ -18,7 +19,8 @@ import furhatos.util.Language
 
 val log = CommonUtils.getLogger(Interaction::class.java)!!
 
-var petraVoice : PollyVoice = PollyVoice()
+//var petraVoice : PollyVoice = PollyVoice()
+var petraVoice : AzureVoice = AzureVoice()
 
 val Idle: State = state(Interaction) {
     init {
@@ -66,7 +68,7 @@ val Idle: State = state(Interaction) {
 
 val IntroductionBaseState = state(Interaction, stateDefinition = abortableStateDef(Goodbye, null))
 
-val DefaultLang: Language = Language.ENGLISH_US
+val DefaultLang: Language = Language.SWEDISH
 
 private fun FlowControlRunner.setup() : Unit {    
     log.debug("Starting debug from Idle state")

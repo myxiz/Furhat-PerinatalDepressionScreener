@@ -8,6 +8,7 @@ import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.event.EventSystem.send
 import furhatos.flow.kotlin.Furhat
 import furhatos.flow.kotlin.furhat
+import furhatos.flow.kotlin.voice.AzureVoice
 import furhatos.flow.kotlin.voice.PollyVoice
 import furhatos.gestures.Gestures.BigSmile
 import furhatos.gestures.Gestures.Nod
@@ -17,7 +18,7 @@ import furhatos.gestures.Gestures.Wink
 import furhatos.records.Location
 import furhatos.util.Language
 
-var currentLang: Language = Language.ENGLISH_US
+var currentLang: Language = Language.SWEDISH
 
 fun Furhat.randomGesture() {
     val myGestures = listOf(Thoughtful, BigSmile, Wink, Surprise, Nod)
@@ -37,10 +38,10 @@ fun Furhat.attendRandomLocation() {
 fun Furhat.setLindaVoice(lang : Language) {
     i18n = I18n(lang)
     val speakingRate = 0.95
-    petraVoice = mapOf<Language, PollyVoice>(
-            Language.ENGLISH_US to PollyVoice(name = "Salli-Neural", language = Language.ENGLISH_US, rate = speakingRate),
-            Language.MANDARIN to PollyVoice(name="Zhiyu", language = Language.MANDARIN, rate = speakingRate),
-            Language.GERMAN to PollyVoice(name = "Marlene", language = Language.GERMAN, rate = speakingRate)
+    petraVoice = mapOf<Language, AzureVoice>(
+            Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
+            Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
+            Language.SWEDISH to AzureVoice(name = "HilleviNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
     runner.furhat.voice = petraVoice
 }
@@ -52,10 +53,10 @@ fun Furhat.setEnglishLanguage() {
     setLindaVoice(currentLang)
 }
 
-fun Furhat.setGermanLanguage() {
-    currentLang = Language.GERMAN
+fun Furhat.setSwedishLanguage() {
+    currentLang = Language.SWEDISH
     send(ClearScreen())
-    send(SetLanguageEvent("de"))
+    send(SetLanguageEvent("sv"))
     setLindaVoice(currentLang)
 }
 

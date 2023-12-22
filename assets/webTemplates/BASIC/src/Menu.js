@@ -18,17 +18,16 @@ class Menu extends React.PureComponent {
                 <div className={"menu-backdrop " + (isShown ? "show" : "")}
                      onClick={() => onUpdate(new actions.ToggleMenuShown())}/>
                 <div className={"dropdown-menu dropdown-menu-right " + (isShown ? "show" : "")}>
-                    <button
-                        className="btn dropdown-item"
-                        onClick={() => onUpdate(new actions.ShowFurhatModal(true))}>
-                        {i18n[lang].ABOUT_ME}
-                    </button>
-                    <button
-                        className="btn dropdown-item"
-                        onClick={() => onUpdate(new actions.ToggleText())}>
-                        {showText ? i18n[lang].HIDE_TEXT : i18n[lang].SHOW_TEXT}
-                    </button>
-
+                    {/*<button*/}
+                    {/*    className="btn dropdown-item"*/}
+                    {/*    onClick={() => onUpdate(new actions.ShowFurhatModal(true))}>*/}
+                    {/*    {i18n[lang].ABOUT_ME}*/}
+                    {/*</button>*/}
+                    {/*<button*/}
+                    {/*    className="btn dropdown-item"*/}
+                    {/*    onClick={() => onUpdate(new actions.ToggleText())}>*/}
+                    {/*    {showText ? i18n[lang].HIDE_TEXT : i18n[lang].SHOW_TEXT}*/}
+                    {/*</button>*/}
                     <button
                         onClick={() => onUpdate(new actions.UserClickedExit())}
                         className="btn dropdown-item">

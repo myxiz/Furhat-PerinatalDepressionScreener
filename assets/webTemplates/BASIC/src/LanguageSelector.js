@@ -12,7 +12,7 @@ class LanguageSelector extends React.PureComponent {
 
         console.log('language: ', lang)
         const enClasses = (lang === 'en') && 'language_button--selected';
-        const deClasses = (lang === 'se') && 'language_button--selected';
+        const seClasses = (lang === 'sv') && 'language_button--selected';
         const zhClasses = (lang === 'zh') && 'language_button--selected';
 
         const handleLanguageSelect = selected => (selected !== lang)
@@ -26,14 +26,14 @@ class LanguageSelector extends React.PureComponent {
                     <SVG alt="Chinese Flag" src={ChineseFlagIcon}/>
                 </button>
                 <button
+                    className={"language_button " + seClasses}
+                    onClick={() => handleLanguageSelect('sv')}>
+                    <SVG alt="Swedish Flag" src={SwedishFlagIcon}/>
+                </button>
+                <button
                     className={"language_button " + enClasses}
                     onClick={() => handleLanguageSelect('en')}>
                     <SVG alt="English Flag" src={EnglishFlagIcon}/>
-                </button>
-                <button
-                    className={"language_button " + deClasses}
-                    onClick={() => handleLanguageSelect('se')}>
-                    <SVG alt="Swedish Flag" src={SwedishFlagIcon} />
                 </button>
             </div>
         )

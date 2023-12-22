@@ -59,7 +59,7 @@ val GreetVisitor: State = state(IntroductionBaseState) {
 fun allButCurrentLang(): List<String> {
     val list = mutableListOf<String>()
     if (currentLang != Language.ENGLISH_US) list.add("en: ${i18n.phrases.CHANGE_TO_LANGUAGE_EN}")
-    if (currentLang != Language.GERMAN) list.add("de: ${i18n.phrases.CHANGE_TO_LANGUAGE_DE}")
+    if (currentLang != Language.SWEDISH) list.add("sv: ${i18n.phrases.CHANGE_TO_LANGUAGE_SV}")
     if (currentLang != Language.MANDARIN) list.add("zh: ${i18n.phrases.CHANGE_TO_LANGUAGE_ZH}")
 
     return list

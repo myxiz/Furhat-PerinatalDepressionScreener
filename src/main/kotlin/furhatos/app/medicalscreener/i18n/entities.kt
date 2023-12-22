@@ -9,7 +9,7 @@ class FurhatEntity : EnumEntity(speechRecPhrases = true) {
         when (lang) {
             // TODO
             Language.MANDARIN -> listOf("furhat")
-            Language.GERMAN -> listOf("furhat")
+            Language.SWEDISH -> listOf("furhat")
             else -> listOf("furhat")
         }
 }
@@ -22,7 +22,7 @@ class WeightUnitEntity : EnumEntity() {
                 "pound: pound, pounds, lb, lbs", // lbs is not used by mandarin-speakers
                 "jin: 斤,今,金,因,集" // 斤 is the only correct symbol, but google-asr returns the other symbols if you say 'jin' without any numbers (i.e., no context), so they are included here.
             )
-            Language.GERMAN -> listOf(
+            Language.SWEDISH -> listOf(
                 "kilo:kilo, kilos, kgs, kg, Kilogramm, Kilogramme",
                 "pound: pound, pounds, lb, lbs" // lbs is not used by german-speakers
             )

@@ -751,17 +751,17 @@ class I18nIntents {
             "go to intro",
             "restart"
             )),
-        de to I18nIntent(examples = listOf(
-            "geh nach hause",
-            "fang von vorne an",
-            "vom Anfang",
-            "zu Start",
-            "zur Einführung",
-            "zur Einleitung",
-            "geh zur Einleitung",
-            "geh zur Einführung",
-            "Neustart"
-            )),
+        sv to I18nIntent(examples = listOf(
+            "gå hem",
+            "börja om från början",
+            "från början",
+            "till start",
+            "till introduktion",
+            "till inledning",
+            "gå till inledning",
+            "gå till introduktion",
+            "omstart"
+        )),
         zh to I18nIntent(examples = listOf(
             "主页面",
             "重新开始",
@@ -781,17 +781,17 @@ class I18nIntents {
             "what to do",
             "what am I doing?"
         )),
-        de to I18nIntent(examples = listOf(
-            "Hilfe",
-            "Optionen",
-            "Was sind meine Optionen?",
-            "Was sind meine Möglichkeiten?",
-            "Was?",
-            "Was kann ich machen?",
-            "Was kann ich tun?",
-            "Was kann man machen?",
-            "Was kann man tun?",
-            "Was tue ich?, Was mache ich?"
+        sv to I18nIntent(examples = listOf(
+            "Hjälp",
+            "Alternativ",
+            "Vad är mina alternativ?",
+            "Vad är mina möjligheter?",
+            "Vad?",
+            "Vad kan jag göra?",
+            "Vad kan jag göra?",
+            "Vad kan man göra?",
+            "Vad kan man göra?",
+            "Vad gör jag?, Vad gör jag?"
         )),
         zh to I18nIntent(examples = listOf(
             "帮助",
@@ -812,15 +812,15 @@ class I18nIntents {
             "I concur",
             "I agree"
         )),
-        de to I18nIntent(examples = listOf(
-            "Ich verstehe",
-            "Verstanden",
-            "Achso",
+        sv to I18nIntent(examples = listOf(
+            "Jag förstår",
+            "Förstått",
+            "Aha",
             "OK",
-            "Ich stimme zu",
-            "Klar",
-            "Klaro",
-            "Glasklar"
+            "Jag håller med",
+            "Klart",
+            "Klart det",
+            "Kristallklart"
         )),
         zh to I18nIntent(examples = listOf(
             "我明白",
@@ -847,20 +847,20 @@ class I18nIntents {
             "got it",
             "go back"
         )),
-        de to I18nIntent(examples = listOf(
-            "weiter",
-            "fertig",
-            "nächstes",
-            "nächste",
-            "nächster",
-            "fahre fort",
-            "Ausgang",
-            "exit",
-            "mach weiter",
-            "weiter so",
-            "mehr",
-            "verstanden",
-            "zurück"
+        sv to I18nIntent(examples = listOf(
+            "fortsätt",
+            "klar",
+            "nästa",
+            "näst",
+            "näste",
+            "fortsätt",
+            "avsluta",
+            "avslut",
+            "fortsätt",
+            "fortsätt så",
+            "mer",
+            "förstått",
+            "tillbaka"
         )),
         zh to I18nIntent(examples = listOf(
             "继续",
@@ -884,13 +884,13 @@ class I18nIntents {
             "not a single one",
             "i don't want to say"
         )),
-        de to I18nIntent(examples = listOf(
-            "keines",
-            "keins",
-            "keines der aufgelisteten",
-            "keins von denen",
-            "nicht ein einziges",
-            "nicht sagen"
+        sv to I18nIntent(examples = listOf(
+            "inget",
+            "ingen",
+            "inget av listade",
+            "inget av dem",
+            "inte ett enda",
+            "inte säga"
         )),
         zh to I18nIntent(examples = listOf(
             "都不",
@@ -917,35 +917,21 @@ class I18nIntents {
             "sorry",
             "excuse me"
         )),
-        de to I18nIntent(examples = listOf(
-            "Wiederhole",
-            "Wiederhole das bitte",
-            "Bitte",
-            "wiederhole die Frage",
-            "Ich hab das nicht gehört",
-            "Ich konnte das nicht hören",
-            "hab dich nicht verstanden",
-            "hab dich nicht gehört",
-            "kann dich nicht verstehen",
-            "kan dich nicht hören",
-            "nochmal?",
-            "Wie Bitte?",
-            "was?",
-            "Häh?",
-            "sags nochmal",
-            "sag das nochmal?",
-            "Was war das?",
-            "Du hast mir keine Frage gestellt",
-            "Sie haben mir keine Frage gestellt",
-            "Sie haben mich nichts gefragt",
-            "Du hast mich nichts gefragt",
-            "Was ist die Frage?",
-            "Was hast Du gesagt?",
-            "Was haben Sie gesagt?",
-            "Tschuldigung",
-            "Entschuldigung",
-            "wie?",
-            "was?"
+        sv to I18nIntent(examples = listOf(
+            "Upprepa",
+            "Snälla upprepa",
+            "snälla upprepa frågan",
+            "Jag hörde inte det",
+            "kunde inte höra dig",
+            "säg igen?",
+            "Seguin",
+            "säg det igen",
+            "igen",
+            "du har inte frågat mig",
+            "vad är frågan",
+            "vad sa du?",
+            "ursäkta",
+            "ursäkta mig"
         )),
         zh to I18nIntent(examples = listOf(
             "重复",
@@ -975,28 +961,25 @@ class I18nIntents {
             "go ahead",
             "screen me"
         )),
-        de to I18nIntent(examples = listOf(
-            "Start",
-            "anfangen",
-            "fang an",
-            "los",
-            "los gehts",
-            "Ja",
-            "Ok",
-            "Untersuche mich",
-            "gern",
-            "teste mich"
+        sv to I18nIntent(examples = listOf(
+            "starta",
+            "börja",
+            "inleda",
+            "ska vi börja",
+            "ska vi gå",
+            "kör på",
+            "screna mig"
         )),
         zh to I18nIntent(examples = listOf(
             "开始",
-            "启动",
-            "启动",
             "开始吧",
-            "继续吧",
+            "启动",
+            "让我们开始",
+            "走吧",
             "继续",
-            "检查我"
-        ))
-    )[currentLang]!!
+            "对我进行筛查"
+        )),
+        )[currentLang]!!
 
     val WaistCircumferenceIntent = mapOf(
         en to I18nIntent(examples = listOf(
@@ -1008,18 +991,20 @@ class I18nIntents {
             "I'm @cm centimeters",
             "My waist is @cm centimeters"
         )),
-        de to I18nIntent(examples = listOf(
-            "@cm",
-            "@cm Zentimeter",
-            "@cm cm",
-            "Es ist @cm",
-            "Mein Umfang ist @cm",
-            "Mein Taillenumfang ist @cm",
-            "Ich messe @cm Zentimeter",
-            "Meine Taille ist @cm Zentimeter",
-            "Meine Taille hat @cm Zentimeter",
-            "Meine Taille misst @cm Zentimeter"
-        )),
+        sv to I18nIntent(
+            examples = listOf(
+                "@cm",
+                "@cm Centimeter",
+                "@cm cm",
+                "Det är @cm",
+                "Min omkrets är @cm",
+                "Min midja är @cm",
+                "Jag mäter @cm centimeter",
+                "Min midja är @cm centimeter",
+                "Min midja är @cm centimeter",
+                "Min midja är @cm centimeter"
+            )
+        ),
         zh to I18nIntent(examples = listOf(
             "是 @cm",
             "@cm",
@@ -1042,17 +1027,17 @@ class I18nIntents {
             "define ",
             "explain "
         )),
-        de to I18nIntent(examples = listOf(
-            "was ist",
-            "und was ist ",
-            "I weiß nicht was ist ",
-            "Nicht sicher was das bedeutet",
-            "I weiß nicht was das bedeutet ",
-            "whas bedeutet das?",
-            "whats heißt das?",
-            "was ist ",
-            "definiere ",
-            "erkläre "
+        sv to I18nIntent(examples = listOf(
+            "vad är",
+            "och vad är",
+            "Jag vet inte vad det är",
+            "Osäker på vad det betyder",
+            "Jag vet inte vad det betyder",
+            "vad betyder det här?",
+            "vad betyder det?",
+            "vad är",
+            "definiera",
+            "förklara"
         )),
         zh to I18nIntent(examples = listOf(
             "什么是",
@@ -1069,61 +1054,68 @@ class I18nIntents {
     )[currentLang]!!
 
     val PsysicalActivityExplain = mapOf(
-        en to I18nIntent(examples = listOf(
-            "What do you mean physical activity?",
-            "What do you mean that",
-            "What do you mean",
-            "what counts as physical activity",
-            "that depends what counts as physical activity",
-            "That depends on",
-            "It depends"
-        )),
-        de to I18nIntent(examples = listOf(
-            "Was bedeutet Bewegung in diesem Kontext?",
-            "Was meinst Du damit?",
-            "Was meinen Sie damit?",
-            "Was bedeutet das?",
-            "kommt drauf an was als Bewegung zählt",
-            "kommt drauf an",
-            "was zählt ?"
-        )),
-        zh to I18nIntent(examples = listOf(
-            "什么是体育活动？",
-            "那是什么意思",
-            "你是什么意思",
-            "这取决于什么是体育活动",
-            "那取决于",
-            "这取决于"
-        ))
+            en to I18nIntent(
+                examples = listOf(
+                    "What does movement mean in this context?",
+                    "What do you mean by that?",
+                    "What do you mean?",
+                    "What does that mean?",
+                    "Depends on what counts as movement.",
+                    "It depends.",
+                    "What counts?"
+                )
+            ),
+            sv to I18nIntent(
+                examples = listOf(
+                    "Vad innebär rörelse i detta sammanhang?",
+                    "Vad menar du med det?",
+                    "Vad menar du?",
+                    "Vad betyder det?",
+                    "Beror på vad som räknas som rörelse.",
+                    "Det beror på.",
+                    "Vad räknas?"
+                )
+            ),
+            zh to I18nIntent(
+                examples = listOf(
+                    "这个情境中的运动是什么意思？",
+                    "你指的是什么？",
+                    "您是指什么？",
+                    "那是什么意思？",
+                    "取决于什么算作运动。",
+                    "这要看情况。",
+                    "算什么？"
+                )
+            )
     )[currentLang]!!
 
     val ImDone = mapOf(
         en to I18nIntent(examples = listOf("I'm done", "Done")),
-        de to I18nIntent(examples = listOf("Ich bin fertig", "Fertig")),
-        zh to I18nIntent(examples = listOf("完成了", "做完了", "结束了"))
+        sv to I18nIntent(examples = listOf("Jag är klar", "Klar")),
+        zh to I18nIntent(examples = listOf("我完成了", "完成", "结束了"))
     )[currentLang]!!
 
     val ImReady = mapOf(
         en to I18nIntent(examples = listOf("ready", "Continue")),
-        de to I18nIntent(examples = listOf("Ich bin so weit", "Weiter", "Fortfahren", "Ich bin bereit", "bereit")),
-        zh to I18nIntent(examples = listOf("准备好了", "可以了", "ok", "好了"))
+        sv to I18nIntent(examples = listOf("jag är redo", "fortsätt")),
+        zh to I18nIntent(examples = listOf("准备好了", "可以了", "好了"))
     )[currentLang]!!
 
     val LetsProceed = mapOf(
         en to I18nIntent(examples = listOf("go ahead", "go on", "proceed")),
-        de to I18nIntent(examples = listOf("fortsetzen", "weiterführen")),
+        sv to I18nIntent(examples = listOf("gå vidare", "fortsätt")),
         zh to I18nIntent(examples = listOf("继续", "让我们继续", "我们继续", "下一步", "下一个程序是"))
     )[currentLang]!!
 
     val ThankYou = mapOf(
         en to I18nIntent(examples = listOf("Thank You", "Thanks", "Bless you", "Cheers")),
-        de to I18nIntent(examples = listOf("Danke", "Vielen Dank", "Dankeschön", "Danke sehr", "Herzlichen Dank", "Besten Dank")),
+        sv to I18nIntent(examples = listOf("Tack", "Tack så mycket", "Tackar", "Tack så mycket", "Hjärtligt tack", "Bästa tack")),
         zh to I18nIntent(examples = listOf("谢谢", "谢谢你", "多+谢", "非常感谢", "￿+谢了"))
     )[currentLang]!!
 
     val Goodbye = mapOf(
         en to I18nIntent(examples = listOf("Goodbye", "Bye", "Good bye", "Farewell", "ciao", "good-bye", "good by")),
-        de to I18nIntent(examples = listOf("Auf Wiedersehen", "Wiedersehen", "Wiederschauen", "Bis dann", "Bis bald", "tschüss", "Servus", "ciao", "ciao ciao")),
+        sv to I18nIntent(examples = listOf("Adjö", "Hej då", "Farväl", "Hejdå")),
         zh to I18nIntent(examples = listOf("再见", "拜拜", "再会"))
     )[currentLang]!!
 }

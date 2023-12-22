@@ -2,7 +2,7 @@ import * as React from "react"
 import * as PropTypes from 'prop-types'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import EnglishFlagIcon from "./assets/english_flag.svg"
-import GermanFlagIcon from "./assets/german_flag.svg"
+// import GermanFlagIcon from "./assets/german_flag.svg"
 import ChineseFlagIcon from "./assets/chinese_flag.svg"
 import SVG from 'react-inlinesvg';
 
@@ -52,7 +52,7 @@ class Question extends React.PureComponent {
                                             {title || value}
                                             { value==="en" && <SVG alt="English Flag" src={EnglishFlagIcon}/> }
                                             { value==="zh" && <SVG alt="Chinese Flag" src={ChineseFlagIcon}/> }
-                                            { value==="de" && <SVG alt="German Flag" src={GermanFlagIcon}/> }
+                                            { value==="sv" && <SVG alt="Swedish Flag" src={SwedishFlagIcon}/> }
                                         </button>}
 
                                     </ReactCSSTransitionGroup>
