@@ -21,7 +21,7 @@ export class Screen extends React.PureComponent {
                     <div className="col">
                         <Menu isShown={menuShown} onUpdate={onUpdate} showText={showText} lang={lang}/>
                         <LanguageSelector onUpdate={onUpdate} lang={lang} />
-                        <h1>Health Screener</h1>
+                        <h1>Mental Health Screener</h1>
                     </div>
                 </div>
                 <div className="content row">

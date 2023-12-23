@@ -142,8 +142,8 @@ val DebugButtons = partialState {
         furhat.setEnglishLanguage()
         reentry()
     }
-    onButton("Set language: German") {
-        furhat.setGermanLanguage()
+    onButton("Set language: Swedish") {
+        furhat.setSwedishLanguage()
         reentry()
     }
 
@@ -448,10 +448,10 @@ fun FlowControlRunner.handleLanguageChange(language : String?) {
             furhat.say(i18n.phrases.CHANGE_LANGUAGE_SOUNDS_BETTER)
             delay(500)
         }
-        "de" -> {
+        "sv" -> {
             furhat.say(i18n.phrases.CHANGE_LANGUAGE_SUPPORT)
             delay(1000)
-            furhat.setGermanLanguage()
+            furhat.setSwedishLanguage()
             furhat.say(i18n.phrases.CHANGE_LANGUAGE_SOUNDS_BETTER)
             delay(500)
         }
@@ -461,11 +461,6 @@ fun FlowControlRunner.handleLanguageChange(language : String?) {
             furhat.setChineseLanguage()
             furhat.say(i18n.phrases.CHANGE_LANGUAGE_SOUNDS_BETTER)
             delay(500)
-        }
-        "ko" -> {
-            furhat.say(i18n.phrases.CHANGE_LANGUAGE_KOREAN)
-            delay(500)
-            reentry()
         }
         else -> {
             furhat.say(i18n.phrases.CHANGE_LANGUAGE_NO_SUPPORT)
@@ -594,7 +589,7 @@ fun FlowControlRunner.ackAndGoto(nextState: State, lastQuestion: Boolean = false
         reset(1.5)
     }
 
-    val isGerman = furhat.inputLanguages.first() == Language.GERMAN
+    val isSwedish = furhat.inputLanguages.first() == Language.SWEDISH
 
     furhat.say({
         random {
@@ -607,7 +602,7 @@ fun FlowControlRunner.ackAndGoto(nextState: State, lastQuestion: Boolean = false
         }
 
         // In german these get really repetitive, so we only do them 25% as often
-        if (!lastQuestion && !isGerman || Math.random() > 0.75) {
+        if (!lastQuestion && !isSwedish || Math.random() > 0.75) {
             random {
                 +i18n.phrases.GENERAL_NEXT_QUESTION_VAR1
                 +i18n.phrases.GENERAL_NEXT_QUESTION_VAR2
@@ -769,7 +764,7 @@ fun <D> yesNoQuestion(question: String,
 
             onEvent("UserResponse") {
                 log.debug("User responded ${it.get("response")} through GUI")
-                when ((it.get("response") as String?)?.toLowerCase()) {
+                when ((it.get("response") as String?)?.lowercase()) {
                     "yes" -> onYes(dataGetter(this.users.current))
                     "no" -> onNo(dataGetter(this.users.current))
                 }

@@ -4,6 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import EnglishFlagIcon from "./assets/english_flag.svg"
 // import GermanFlagIcon from "./assets/german_flag.svg"
 import ChineseFlagIcon from "./assets/chinese_flag.svg"
+import SwedishFlagIcon from "./assets/sweden_flag.svg"
 import SVG from 'react-inlinesvg';
 
 class Question extends React.PureComponent {
