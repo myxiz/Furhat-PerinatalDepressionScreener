@@ -4,7 +4,7 @@ import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.nlu.Intent
 import furhatos.util.Language
 
-class GoHome : Intent() {
+class ChangeBack : Intent() {
     override fun getExamples(lang: Language): List<String> =
-            i18n.intents.GoHome.examples
+            i18n.intents.ChangeBack.examples
 }

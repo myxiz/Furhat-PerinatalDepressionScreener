@@ -7,7 +7,7 @@ import furhatos.app.medicalscreener.flow.introduction.Goodbye
 import furhatos.app.medicalscreener.flow.introduction.GreetVisitor
 import furhatos.app.medicalscreener.flow.introduction.Idle
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
-import furhatos.app.medicalscreener.flow.scenes.SexQuestion
+//import furhatos.app.medicalscreener.flow.scenes.SexQuestion
 import furhatos.app.medicalscreener.flow.scenes.diabetes.*
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
@@ -93,9 +93,9 @@ val DebugButtons = partialState {
         send("Restart")
     }
 
-    onButton("0. Sex") {
-        goto(SexQuestion)
-    }
+//    onButton("0. Sex") {
+//        goto(SexQuestion)
+//    }
 
     onButton("1. Age") {
         goto(AgeQuestion)
@@ -154,7 +154,7 @@ val DebugButtons = partialState {
 
     onButton("Log Users Current Score", instant = true) {
         try {
-            log.info("${users.current.diabetesData.score}")
+            log.info("${users.current.EPDSData.score}")
         } catch(error: Error) {
             // Let fail silently
             log.info("Couldn't log score, $error")

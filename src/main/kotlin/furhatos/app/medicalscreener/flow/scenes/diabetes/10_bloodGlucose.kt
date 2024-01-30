@@ -1,7 +1,7 @@
 package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.No
 import furhatos.app.medicalscreener.i18n.Yes
@@ -12,7 +12,7 @@ import furhatos.flow.kotlin.state
 import furhatos.app.medicalscreener.i18n.DontKnow
 import furhatos.app.medicalscreener.i18n.Maybe
 
-val BloodGlucoseQuestion1: State = state(DiabetesQuestionBase) {
+val BloodGlucoseQuestion1: State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_BLOOD_GLUCOSE_QUESTION_1) {
             send(ShowOptionsEvent(
@@ -48,7 +48,7 @@ val BloodGlucoseQuestion1: State = state(DiabetesQuestionBase) {
     }
 }
 
-val BloodGlucoseQuestion2: State = state(DiabetesQuestionBase) {
+val BloodGlucoseQuestion2: State = state(EPDSQuestionBase) {
     include(
         yesNoQuestion(
             i18n.phrases.DIABETES_BLOOD_GLUCOSE_QUESTION_2,
@@ -56,7 +56,7 @@ val BloodGlucoseQuestion2: State = state(DiabetesQuestionBase) {
             onYes = { it.addToScore(5, "BloodGlucoseQuestion") },
             onNo = { Unit },
             onMaybe = { Unit },
-            dataGetter = { user -> user.diabetesData },
+            dataGetter = { user -> user.EPDSData },
             extraYesPhrases = listOf(
                 "高" // "high", which is a common chinese answer to a question that asks "was it high"
             ),

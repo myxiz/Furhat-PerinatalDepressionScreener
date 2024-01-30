@@ -3,15 +3,15 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 import furhatos.app.medicalscreener.flow.OptionSelectedEvent
 import furhatos.app.medicalscreener.flow.ShowOptionsEvent
 import furhatos.app.medicalscreener.flow.askAndDo
-import furhatos.app.medicalscreener.flow.diabetesData
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.EPDSData
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import java.util.concurrent.TimeUnit
 
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
 val relativeOptions : Map<String, String> = mapOf(
         "no" to i18n.phrases.GENERAL_NO,
@@ -20,7 +20,7 @@ val relativeOptions : Map<String, String> = mapOf(
         "distant" to i18n.phrases.DIABETES_FAMILY_HISTORY_ALTERNATIVE_2
 )
 
-val FamilyQuestion1: State = state(DiabetesQuestionBase) {
+val FamilyQuestion1: State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_FAMILY_HISTORY_QUESTION_1) {
             send(ShowOptionsEvent(
@@ -48,7 +48,7 @@ val FamilyQuestion1: State = state(DiabetesQuestionBase) {
 }
 
 
-val FamilyQuestion2: State = state(DiabetesQuestionBase) {
+val FamilyQuestion2: State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_FAMILY_HISTORY_QUESTION_2) {
             send(ShowOptionsEvent(
@@ -67,12 +67,12 @@ private fun TriggerRunner<*>.handleUserResponse(res : String?) {
     when {
         (res == "close") -> {
             log.debug("User responded 'close'")
-            users.current.diabetesData.addToScore(5, "FamilyQuestion")
+            users.current.EPDSData.addToScore(5, "FamilyQuestion")
             goto(DiabetesResults)
         }
         (res == "distant") -> {
             log.debug("User responded 'distant'")
-            users.current.diabetesData.addToScore(3, "FamilyQuestion")
+            users.current.EPDSData.addToScore(3, "FamilyQuestion")
             goto(DiabetesResults)
         }
         (res == "no") -> goto(DiabetesResults)
@@ -91,7 +91,7 @@ private val sharedResponseHandlers = partialState {
         furhat.say("${i18n.phrases.GENERAL_OK_NO_PROBLEM}, ${i18n.phrases.GENERAL_MOVE_ON_REPLY}")
 
         // When not known, we assume the worst-case scenario
-        users.current.diabetesData.addToScore(5, "FamilyQuestion")
+        users.current.EPDSData.addToScore(5, "FamilyQuestion")
         goto(DiabetesResults)
     }
 

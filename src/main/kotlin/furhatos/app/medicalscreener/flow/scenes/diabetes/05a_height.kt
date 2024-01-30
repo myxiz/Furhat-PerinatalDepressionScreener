@@ -1,16 +1,16 @@
 package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 
 const val minHeight = 40 //cm
 const val maxHeight = 300 // cm
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val HeightQuestion: State = state(DiabetesQuestionBase) {
+val HeightQuestion: State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_HEIGHT_QUESTION) {
             send(ShowOptionsEvent(

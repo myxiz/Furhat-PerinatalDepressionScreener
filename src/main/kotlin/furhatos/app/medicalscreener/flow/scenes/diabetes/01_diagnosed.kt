@@ -2,7 +2,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.flow.scenes.SexQuestion
 import furhatos.app.medicalscreener.i18n.No
 import furhatos.app.medicalscreener.i18n.Yes
@@ -10,9 +10,9 @@ import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val AlreadyDiagnosed1 : State = state(DiabetesQuestionBase) {
+val AlreadyDiagnosed1 : State = state(EPDSQuestionBase) {
     onEntry {
         send(ClearScreen())
         furhat.askAndDo(i18n.phrases.DIABETES_ALREADY_DIAGNOSED_QUESTION_1) {
@@ -50,7 +50,7 @@ val AlreadyDiagnosed1 : State = state(DiabetesQuestionBase) {
     }
 }
 
-val AlreadyDiagnosed2 : State = state(DiabetesQuestionBase) {
+val AlreadyDiagnosed2 : State = state(EPDSQuestionBase) {
     onEntry {
         send(ShowOptionsEvent(
             listOf("yes:${i18n.phrases.GENERAL_YES}","no:${i18n.phrases.GENERAL_NO}"),

@@ -1,7 +1,7 @@
 package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
@@ -26,19 +26,19 @@ private fun TriggerRunner<*>.handleAgeResponse(age: Int?, isCategory: Boolean): 
             age in 45..54 -> {
                 send(OptionSelectedEvent("49"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Between40to49) else UserAge.SpecificAge(age)
-                this.users.current.diabetesData.addToScore(2, "AgeQuestion")
+                this.users.current.EPDSData.addToScore(2, "AgeQuestion")
                 return true
             }
             age in 55..64 -> {
                 send(OptionSelectedEvent("59"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Between50to59) else UserAge.SpecificAge(age)
-                this.users.current.diabetesData.addToScore(3, "AgeQuestion")
+                this.users.current.EPDSData.addToScore(3, "AgeQuestion")
                 return true
             }
             age in 65..120 -> {
                 send(OptionSelectedEvent("60"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Over60) else UserAge.SpecificAge(age)
-                this.users.current.diabetesData.addToScore(4, "AgeQuestion")
+                this.users.current.EPDSData.addToScore(4, "AgeQuestion")
                 return true
             }
             age > 120 -> {
@@ -54,9 +54,9 @@ private fun TriggerRunner<*>.handleAgeResponse(age: Int?, isCategory: Boolean): 
     return false
 }
 
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val AgeQuestion = state(DiabetesQuestionBase) {
+val AgeQuestion = state(EPDSQuestionBase) {
     withHelpOptions(i18n.phrases.DIABETES_AGE_QUESTION_PROMT)
     onEntry {
         log.debug("Entering AgeQuestion state")

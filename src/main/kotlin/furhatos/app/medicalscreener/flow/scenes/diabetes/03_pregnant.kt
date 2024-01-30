@@ -2,16 +2,16 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.No
 import furhatos.app.medicalscreener.i18n.Yes
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val Pregnant : State = state(DiabetesQuestionBase) {
+val Pregnant : State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_PREGNANT_QUESTION_1) {
             send(ShowOptionsEvent(
@@ -45,7 +45,7 @@ val Pregnant : State = state(DiabetesQuestionBase) {
     }
 }
 
-val Pregnant2 : State = state(DiabetesQuestionBase) {
+val Pregnant2 : State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_PREGNANT_QUESTION_2) {
             send(ShowOptionsEvent(

@@ -2,7 +2,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.flow.introduction.StartOver
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.nlu.ImDone
@@ -12,14 +12,14 @@ import furhatos.flow.kotlin.*
 import furhatos.records.Location
 import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
 val DiabetesResults = state(WaitForCommand(nextState = StartOver)) {
     onEntry {
         val user = this.users.current
-        val diabetesData = user.diabetesData
+        val diabetesData = user.EPDSData
         diabetesData.completed = true
-        users.current.diabetesData.endTimestamp()
+        users.current.EPDSData.endTimestamp()
         log.debug("Completed diabetes screening. Data: $diabetesData")
 
         log.debug("Waiting for user to continue")

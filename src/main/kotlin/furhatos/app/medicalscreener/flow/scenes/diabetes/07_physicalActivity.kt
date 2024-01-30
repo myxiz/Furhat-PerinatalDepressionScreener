@@ -1,7 +1,7 @@
 package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.DontKnow
@@ -12,7 +12,7 @@ import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.flow.kotlin.users
 
-val PhysicalActivityQuestion = state(DiabetesQuestionBase) {
+val PhysicalActivityQuestion = state(EPDSQuestionBase) {
     onEntry {
         send(ClearScreen())
         furhat.askAndDo(i18n.phrases.DIABETES_PHYSICAL_ACTIVITY_QUESTION) {
@@ -32,24 +32,24 @@ val PhysicalActivityQuestion = state(DiabetesQuestionBase) {
     }
     onResponse<No> {
         send(OptionSelectedEvent("no"))
-        users.current.diabetesData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<Maybe> {
-        users.current.diabetesData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<DontKnow> {
-        users.current.diabetesData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<Sometimes> {
-        users.current.diabetesData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<NotEveryDay> {
         send(OptionSelectedEvent("no"))
-        users.current.diabetesData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<PsysicalActivityExplain> {
@@ -61,7 +61,7 @@ val PhysicalActivityQuestion = state(DiabetesQuestionBase) {
         when ((it.get("response") as String?)?.toLowerCase()) {
             "yes" -> ackAndGoto(VegetablesQuestion)
             "no" -> {
-                users.current.diabetesData.addToScore(2)
+                users.current.EPDSData.addToScore(2)
                 ackAndGoto(VegetablesQuestion)
             }
         }

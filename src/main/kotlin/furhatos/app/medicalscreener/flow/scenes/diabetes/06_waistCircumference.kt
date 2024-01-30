@@ -2,7 +2,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.No
 import furhatos.app.medicalscreener.i18n.Yes
 import furhatos.app.medicalscreener.i18n.i18n
@@ -32,14 +32,14 @@ private fun getWaistCircumferenceAskPhrase(sex : String? = "male") : String {
     return if (sex == "male") i18n.phrases.DIABETES_WAIST_CIRCUMFERENCE_MALE_QUESTION else i18n.phrases.DIABETES_WAIST_CIRCUMFERENCE_FEMALE_QUESTION
 }
 
-val WaistCircumferenceQuestion = state(DiabetesQuestionBase) {
+val WaistCircumferenceQuestion = state(EPDSQuestionBase) {
     var timeOfEntry : Long = System.currentTimeMillis()
     val listenTimeMS = 30000
     onEntry {
         println("Entering WaistCircumferenceQuestion state")
         send(ClearScreen())
-        val guiOptions = getWaistCircumferenceOptionsList(this.users.current.diabetesData.biologicalSex)
-        val askPhrase = getWaistCircumferenceAskPhrase(this.users.current.diabetesData.biologicalSex)
+        val guiOptions = getWaistCircumferenceOptionsList(this.users.current.EPDSData.biologicalSex)
+        val askPhrase = getWaistCircumferenceAskPhrase(this.users.current.EPDSData.biologicalSex)
         furhat.askAndDo(askPhrase, timeout = listenTimeMS, endSil = 3500) {
             send(ShowOptionsEvent(
                     guiOptions,
@@ -52,7 +52,7 @@ val WaistCircumferenceQuestion = state(DiabetesQuestionBase) {
     }
     include(waistCircumferenceShared(listenTimeMS))}
 
-val WaistCircumferenceTimeout = state(DiabetesQuestionBase) {
+val WaistCircumferenceTimeout = state(EPDSQuestionBase) {
     var timeOfEntry : Long = System.currentTimeMillis()
     val listenTimeMS = 20000
     onEntry {
@@ -87,9 +87,9 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
     onEvent("UserResponse") {
         println("User responded ${it.get("response")} through GUI")
         when ((it.get("response") as String?)?.toLowerCase()) {
-            "normal" -> this.users.current.diabetesData.addToScore(0, "WaistCircumferenceQuestion")
-            "elevated" -> this.users.current.diabetesData.addToScore(3, "WaistCircumferenceQuestion")
-            "high" -> this.users.current.diabetesData.addToScore(4, "WaistCircumferenceQuestion")
+            "normal" -> this.users.current.EPDSData.addToScore(0, "WaistCircumferenceQuestion")
+            "elevated" -> this.users.current.EPDSData.addToScore(3, "WaistCircumferenceQuestion")
+            "high" -> this.users.current.EPDSData.addToScore(4, "WaistCircumferenceQuestion")
         }
 
         AcknowledgeAndGoToNext()
@@ -135,7 +135,7 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
 
         val lowerWaistBoundary: Int
         val higherWaistBoundary: Int
-        if(this.users.current.diabetesData.biologicalSex == "male") {
+        if(this.users.current.EPDSData.biologicalSex == "male") {
             lowerWaistBoundary = 94
             higherWaistBoundary = 102
         } else {
@@ -152,17 +152,17 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
                 furhat.ask(i18n.phrases.GENERAL_ANSWER_NOT_ACCEPTED_REPEAT)
             }
             centimeters <= lowerWaistBoundary -> {
-                this.users.current.diabetesData.addToScore(0, "WaistCircumferenceQuestion")
+                this.users.current.EPDSData.addToScore(0, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("normal"))
                 AcknowledgeAndGoToNext()
             }
             centimeters in (lowerWaistBoundary + 1)..(higherWaistBoundary - 1) ->{
-                this.users.current.diabetesData.addToScore(3, "WaistCircumferenceQuestion")
+                this.users.current.EPDSData.addToScore(3, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("elevated"))
                 AcknowledgeAndGoToNext()
             }
             else -> {
-                this.users.current.diabetesData.addToScore(4, "WaistCircumferenceQuestion")
+                this.users.current.EPDSData.addToScore(4, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("high"))
                 AcknowledgeAndGoToNext()
             }

@@ -3,19 +3,21 @@ package furhatos.app.medicalscreener
 import furhatos.app.medicalscreener.flow.ClearScreen
 import furhatos.app.medicalscreener.flow.SetLanguageEvent
 import furhatos.app.medicalscreener.flow.introduction.petraVoice
+import furhatos.app.medicalscreener.flow.introduction.petraVoiceF
+import furhatos.app.medicalscreener.flow.introduction.petraVoiceM
 import furhatos.app.medicalscreener.i18n.I18n
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.event.EventSystem.send
 import furhatos.flow.kotlin.Furhat
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.voice.AzureVoice
-import furhatos.flow.kotlin.voice.PollyVoice
 import furhatos.gestures.Gestures.BigSmile
 import furhatos.gestures.Gestures.Nod
 import furhatos.gestures.Gestures.Surprise
 import furhatos.gestures.Gestures.Thoughtful
 import furhatos.gestures.Gestures.Wink
 import furhatos.records.Location
+import furhatos.util.Gender
 import furhatos.util.Language
 
 var currentLang: Language = Language.SWEDISH
@@ -35,7 +37,7 @@ fun Furhat.attendRandomLocation() {
     )
 }
 
-fun Furhat.setLindaVoice(lang : Language) {
+fun Furhat.setRobotVoice(lang : Language, gen: Gender = Gender.NEUTRAL) {
     i18n = I18n(lang)
     val speakingRate = 0.95
     petraVoice = mapOf<Language, AzureVoice>(
@@ -43,26 +45,42 @@ fun Furhat.setLindaVoice(lang : Language) {
             Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
             Language.SWEDISH to AzureVoice(name = "HilleviNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
-    runner.furhat.voice = petraVoice
+    petraVoiceM = mapOf<Language, AzureVoice>(
+        Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
+        Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
+        Language.SWEDISH to AzureVoice(name = "MattiasNeural", language = Language.SWEDISH, rate = speakingRate)
+    )[lang]!!
+    petraVoiceF = mapOf<Language, AzureVoice>(
+        Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
+        Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
+        Language.SWEDISH to AzureVoice(name = "SofieNeural", language = Language.SWEDISH, rate = speakingRate)
+    )[lang]!!
+
+    when (gen) {
+        Gender.MALE -> runner.furhat.voice = petraVoiceM
+        Gender.FEMALE -> runner.furhat.voice = petraVoiceF
+        Gender.NEUTRAL -> runner.furhat.voice = petraVoice
+    }
+
 }
 
-fun Furhat.setEnglishLanguage() {
+fun Furhat.setEnglishLanguage(gen : Gender = Gender.NEUTRAL) {
     currentLang = Language.ENGLISH_US
     send(ClearScreen())
     send(SetLanguageEvent("en"))
-    setLindaVoice(currentLang)
+    setRobotVoice(currentLang,gen)
 }
 
-fun Furhat.setSwedishLanguage() {
+fun Furhat.setSwedishLanguage(gen : Gender = Gender.NEUTRAL) {
     currentLang = Language.SWEDISH
     send(ClearScreen())
     send(SetLanguageEvent("sv"))
-    setLindaVoice(currentLang)
+    setRobotVoice(currentLang,gen)
 }
 
-fun Furhat.setChineseLanguage() {
+fun Furhat.setChineseLanguage(gen : Gender = Gender.NEUTRAL) {
     currentLang = Language.MANDARIN
     send(ClearScreen())
     send(SetLanguageEvent("zh"))
-    setLindaVoice(currentLang)
+    setRobotVoice(currentLang, gen)
 }

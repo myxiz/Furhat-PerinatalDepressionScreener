@@ -29,7 +29,7 @@ interface Timestamped {
     }
 }
 
-data class DiabetesData(
+data class EPDSData(
         var score: Int = 0,
         var biologicalSex: String? = null,
         override var completed: Boolean = false,
@@ -54,8 +54,8 @@ data class DiabetesData(
     }
 }
 
-val User.diabetesData: DiabetesData
-    get() = data.getOrPut(DiabetesData::class.qualifiedName, DiabetesData())
+val User.EPDSData: EPDSData
+    get() = data.getOrPut(EPDSData::class.qualifiedName, EPDSData())
 
 var User.numNoResponse: Int
     get() = data.getOrPut("numNoResponse", 0)
@@ -121,17 +121,17 @@ var User.restarted: Boolean
 fun User.reset() {
     userAge = UserAge.UnknownAge()
     sex = Sex.Unknown
-    diabetesData.reset()
+    EPDSData.reset()
     restarted = true
 }
 
 fun User.asJson(phase: String) =
         JsonObject()
                 .add("diabetesData", JsonObject()
-                        .add("completed", diabetesData.completed)
-                        .add("score", diabetesData.score)
-                        .add("startTime", diabetesData.startTime?.toString())
-                        .add("endTime", diabetesData.endTime?.toString())
+                        .add("completed", EPDSData.completed)
+                        .add("score", EPDSData.score)
+                        .add("startTime", EPDSData.startTime?.toString())
+                        .add("endTime", EPDSData.endTime?.toString())
                 )
                 .add("sex", sex.name)
                 .add("interactionInfo", JsonObject()

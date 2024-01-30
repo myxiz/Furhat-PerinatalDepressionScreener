@@ -305,8 +305,9 @@ class I18nPhrases {
 //    )[currentLang]!!
 
     val GENERAL_ABOUT_FURHAT = mapOf(
-        en to "I'm Linda - a mental health screening Robot. I was developed by Uppsala Social Robotics Lab.",
-        sv to "Jag är Linda - en hälsoscreeningsrobot. Jag utvecklades av Uppsala Social Robotics Lab.",
+        en to "Welcome, I'm a health screening Robot designed by Uppsala Social Robotics Lab to help you with interviews about your mental health.",
+        sv to "Jag är en robot som är designad av Uppsala Social Robotics Lab för att hjälpa till med intervjuer som bedömer mental hälsa. " +
+                "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara fördelaktigt att kontrollera hur din mentala välbefinnande är.",
         zh to "我是 Linda， 我是一个健康筛查机器人。我由乌普萨拉社交机器人实验室开发"
     )[currentLang]!!
 
@@ -370,17 +371,31 @@ class I18nPhrases {
 
 
     // Introduction
-    val INTRODUCTION_WELCOME_TITLE = mapOf(
-        en to "Welcome!",
-        sv to "Välkommen!",
+    val INTRODUCTION_GREETING = mapOf(
+        en to "Welcome! Nice to meet you. How are you?",
+        sv to "Hej. Trevligt att träffa dig. Hur mår du?",
         zh to "欢迎！"
     )[currentLang]!!
 
-    val INTRODUCTION_GREETING = mapOf(
-        en to "Welcome, I'm Linda - a health screening Robot.",
-        sv to "Välkommen, Ich bin Linda - ein $SV_sayVoruntersuchungsroboter.",
-        zh to "我是 Linda， 我是一个医疗预检机器人"
+    val INTRODUCTION_ROBOTINTRO = mapOf(
+        //en does not need to match the swedish
+        en to "I am a robot designed to assist you with interviews for assessing mental health. We notice that you have scored high on the EPDS screening. It would be beneficial to check on your mental well-being.",
+        sv to "Jag är en robot designad för att hjälpa dig med intervjuer för bedömning av mental hälsa. " +
+                "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara fördelaktigt att kontrollera hur din mentala välbefinnande är.",
+        zh to "我是一个为了帮助您进行心理健康评估访谈而设计的机器人。我们注意到您在EPDS筛查中得分较高。检查一下您的心理健康状况将会是有益的。"
     )[currentLang]!!
+
+    val INTRODUCTION_EPDS_NOW = mapOf(
+        en to "I will help you to go through EPDS questionnaire again. Would you like to do it now?",
+        sv to "Jag kommer att hjälpa dig att gå igenom EPDS-enkäten igen. Vill du göra det nu?",
+        zh to "我将协助您再次填写EPDS问卷。您想现在开始吗？"
+    )
+
+    val INTRODUCTION_THANSFORTURST = mapOf(
+        en to "Thanks for trusting me!",
+        sv to "Bra, tack för att du litar på mig.",
+        zh to "谢谢您的信任。"
+    )
 
     val INTRODUCTION_ALL_DONE = mapOf(
         en to "You have completed the screening. Would you like to repeat it?",
@@ -388,34 +403,23 @@ class I18nPhrases {
         zh to "您已经完成了检查.您想要再重复一遍吗？"
     )[currentLang]!!
 
-    val INTRODUCTION_DIABETES = mapOf(
-        en to "I’m here to help you check if you are at risk of developing diabetes. First, can I tell you a bit about why this is important?",
-        sv to "Ich bin hier, um Ihr $SV_sayDiabetesrisiko zu testen. Bevor wir beginnen, soll ich Ihnen ein wenig darüber erzählen warum dies wichtig ist?",
-        zh to "我在这里帮助您检查您是否有患糖尿病的风险.首先, 我可以告诉您为什么这很重要吗？"
+    val INTRODUCTION_PND_PROMPT = mapOf(
+        en to "I’m here to help you check if you are at risk of perinatal depression. First, can I tell you a bit about why this is important?",
+        sv to "Jag är här för att hjälpa dig att kontrollera om du löper risk för perinatal depression. Först, kan jag berätta lite om varför detta är viktigt?",
+        zh to "我在这里帮助您检查是否有围产期抑郁症的风险。首先，我可以告诉您为什么这很重要吗？"
     )[currentLang]!!
 
-    val INTRODUCTION_DIABETES_PROMPT = mapOf(
-        en to INTRODUCTION_DIABETES,
-        sv to "Ich bin hier, um Ihr diabetesrisiko zu testen. Bevor wir beginnen, soll ich Ihnen ein wenig darüber erzählen warum dies wichtig ist?",
-        zh to INTRODUCTION_DIABETES
-    )[currentLang]!!
-
-    val INTRODUCTION_USER_SAID_YES_BUT_NOT_SELECTED = mapOf(
-        en to "Please tell me which screening you would like to take.",
-        sv to "Bitte teilen Sie mir mit welche Voruntersuchung Sie machen wollen.",
-        zh to "请告诉我您想要进行哪种检查"
-    )[currentLang]!!
 
     val INTRODUCTION_REPEAT_OPTIONS_VAR1 = mapOf(
-        en to "Would you like to know more about Diabetes, before we start the screening?",
-        sv to "Möchten Sie mehr über $SV_sayDiabetes wissen, bevor wir mit dem Test beginnen?",
-        zh to "在开始检查之前, 您想了解有关糖尿病的更多信息吗？"
+        en to "Would you like to know more about perinatal depression, before we start the screening?",
+        sv to "Vill du veta mer om perinatal depression innan vi börjar screeningen?",
+        zh to "在开始检查之前, 您想了解有关围产期抑郁症的更多信息吗？"
     )[currentLang]!!
 
     val INTRODUCTION_REPEAT_OPTIONS_VAR2 = mapOf(
-        en to "I can perform a screening for diabetes, would you like me to tell you more about Diabetes?",
-        sv to "Ich kann Sie auf $SV_sayDiabetes untersuchen. Soll ich damit fortfahren?",
-        zh to "我可以进行糖尿病检查, 你想告诉我更多有关糖尿病的信息吗？"
+        en to "I can perform a screening for perinatal depression, would you like me to tell you more about perinatal depression?",
+        sv to "Jag kan utföra en screening för perinatal depression, vill du att jag berättar mer om perinatal depression?",
+        zh to "我可以进行围产期抑郁症检查, 你想告诉我更多有关围产期抑郁症的信息吗？"
     )[currentLang]!!
 
     val INTRODUCTION_INVALID_RESPONSE_VAR1 = mapOf(
@@ -427,7 +431,7 @@ class I18nPhrases {
     val INTRODUCTION_INVALID_RESPONSE_VAR2 = mapOf(
         en to "I am not familiar with that.",
         sv to "Damit bin ich nicht vertraut.",
-        zh to "我不是很熟悉."
+        zh to "我不是很熟悉这个."
     )[currentLang]!!
 
     val INTRODUCTION_INVALID_RESPONSE_VAR3 = mapOf(
@@ -457,17 +461,17 @@ class I18nPhrases {
         zh to "再见！"
     )[currentLang]!!
 
-    val INTRODUCTION_DIABETES_DESCRIPTION = mapOf(
-        en to "Diabetes is a group of diseases characterized by high blood sugar levels. There are two main types of diabetes. Type 1 and type 2. Early stages of type 2 diabetes seldom cause any symptoms. So it’s important to check yourself for the risk factors.",
-        sv to "Diabetes är en grupp sjukdomar som kännetecknas av höga blodsockernivåer. Det finns två huvudtyper av diabetes. Typ 1 och typ 2. Tidiga stadier av typ 2-diabetes orsakar sällan några symtom. Det är viktigt att kontrollera dig själv för riskfaktorerna.",
-        zh to "糖尿病是一组以高血糖为特征的疾病。主要有两种糖尿病的类型。1型和2型。2型糖尿病早期很少引起任何症状。因此，检查自己是否有风险因素非常重要。"
+    val INTRODUCTION_PND_DESCRIPTION = mapOf(
+        en to "Perinatal depression is a form of clinical depression that can occur in women during pregnancy and after childbirth. It involves intense feelings of sadness, anxiety, and fatigue that can interfere with a woman's ability to care for herself and her baby, extending beyond the typical \"baby blues.\"",
+        sv to "Perinatal depression är en form av klinisk depression som kan drabba kvinnor under graviditeten och efter förlossningen. Den innefattar intensiva känslor av sorg, ångest och trötthet som kan störa en kvinnas förmåga att ta hand om sig själv och sitt barn, vilket går utöver de typiska \"babybluesen\".",
+        zh to "围产期抑郁症是一种可以在怀孕期间和分娩后影响女性的临床抑郁症。它涉及到强烈的悲伤、焦虑和疲劳感，这些感觉可能会干扰女性照顾自己和婴儿的能力，超出了典型的“产后忧郁”范畴。"
     )[currentLang]!!
 
-    val INTRODUCTION_DIABETES_DESCRIPTION_PROMPT = mapOf(
-        en to INTRODUCTION_DIABETES_DESCRIPTION,
-        sv to "Diabetes är en grupp sjukdomar som kännetecknas av höga blodsockernivåer. Det finns två huvudtyper av diabetes. Typ 1 och typ 2. Tidiga stadier av typ 2-diabetes orsakar sällan några symtom. Det är viktigt att kontrollera dig själv för riskfaktorerna.",
-        zh to INTRODUCTION_DIABETES_DESCRIPTION
-    )[currentLang]!!
+//    val INTRODUCTION_DIABETES_DESCRIPTION_PROMPT = mapOf(
+//        en to INTRODUCTION_DIABETES_DESCRIPTION,
+//        sv to "Diabetes är en grupp sjukdomar som kännetecknas av höga blodsockernivåer. Det finns två huvudtyper av diabetes. Typ 1 och typ 2. Tidiga stadier av typ 2-diabetes orsakar sällan några symtom. Det är viktigt att kontrollera dig själv för riskfaktorerna.",
+//        zh to INTRODUCTION_DIABETES_DESCRIPTION
+//    )[currentLang]!!
 
     val INTRODUCTION_DIABETES_NO_DESCRIPTION = mapOf(
         en to "Ok. Then we will skip directly to the questions.",
@@ -476,9 +480,9 @@ class I18nPhrases {
     )[currentLang]!!
 
     val INTRODUCTION_DESCRIPTION_OPTION_PROMPT = mapOf(
-        en to "This screening and this risk assessment is based on the FINDRISK screening test designed by Professor Jaakko Tuomilehto at the department of Public Health, University of Helsinki and Jaana Lindström, MFS, National Public Health Institute. The screening might not be validated in your specific country. If you would like to know more, ask your doctor.",
-        sv to "Denna screening och riskbedömning är baserad på FINDRISK-screeningstestet utformat av professor Jaakko Tuomilehto vid institutionen för folkhälsa, Helsingfors universitet, och Jaana Lindström, MFS, National Institute of Public Health. Screeningtestet kanske inte är validerat i ditt specifika land. Om du vill veta mer, fråga din läkare.",
-        zh to "这项筛查和风险评估是基于赫尔辛基大学公共卫生系Jaakko Tuomilehto教授和国家公共卫生研究院MFS的Jaana Lindström设计的FINDRISK筛查测试。这项筛查可能未在参与者所在的国家/地区进行验证。如果您不确定，请咨询您的医生。"
+        en to "This screening and this risk assessment is based on the Edinburgh Postnatal Depression Scale (EPDS) screening test designed by Professor John Cox. Since 2010, the National Board of Health and Welfare has recommended general screening of all new mothers for depression.",
+        sv to "Denna screening och riskbedömning är baserad på Edinburghs skala för efterfödseldepression (EPDS), ett screeningtest som utformats av professor John Cox. Sedan 2010 har Socialstyrelsen rekommenderat generell screening av alla nyblivna mammor för depression.",
+        zh to "该筛查和风险评估是基于由约翰·考克斯教授设计的爱丁堡产后抑郁量表（EPDS）筛查测试。自2010年起，瑞典国家卫生和福利委员会推荐对所有新妈妈进行抑郁症的普遍筛查。"
     )[currentLang]!!
 
     val INTRODUCTION_DESCRIPTION_OPTION_YES = mapOf(
@@ -507,9 +511,165 @@ class I18nPhrases {
         zh to "好的，那我们重新开始吧。"
     )[currentLang]!!
 
+
+
     // Question / Scenes
 
-    val DIABETES_GETTING_STARTED = mapOf(
+    // Scene - Personalization
+
+    val PERSONALIZATION_GENDER_MATTERS = mapOf(
+        en to "A few set up before we start. Would you prefer to interact with a robot with a particular gender?",
+        sv to "Några inställningar innan vi börjar. Föredrar du att interagera med en robot av ett specifikt kön?",
+        zh to "tbd"
+    )[currentLang]!!
+
+    val PERSONALIZATION_GENDER_PREFERENCE = mapOf(
+        en to "Which gender do you prefer?",
+        sv to "Vilket kön föredrar du?",
+        zh to "您更希望与哪种性别交互？"
+    )[currentLang]!!
+
+    val PERSONALIZATION_VOICE_OPTION_MALE = mapOf(
+        en to "male",
+        sv to "manlig",
+        zh to "男性"
+    )[currentLang]!!
+
+    val PERSONALIZATION_VOICE_OPTION_FEMALE = mapOf(
+        en to "female",
+        sv to "kvinnlig",
+        zh to "女性"
+    )[currentLang]!!
+
+    val PERSONALIZATION_VOICE_OPTION_ORIGINAL = mapOf(
+        en to "original voice",
+        sv to "ursprungliga rösten",
+        zh to "原始语音"
+    )[currentLang]!!
+
+    val PERSONALIZATION_MALE_VOICE = mapOf(
+        en to "Sure. We now changed to male voice for you. You can still change to female, or the original voice.",
+        sv to "Självklart. Vi har nu bytt till en manlig röst åt dig. " +
+                "Du kan fortfarande byta till en kvinnlig eller till den ursprungliga rösten.",
+        zh to "好的。已经帮您切换到男性化的语音。你仍然可以切换到女性语音或切回原始语音。"
+    )[currentLang]!!
+
+    val PERSONALIZATION_FEMALE_VOICE = mapOf(
+        en to "Of course. We have now switched to a female voice for you. " +
+                "You can still switch to a male voice or back to the original voice.",
+        sv to "Absolut. Vi har nu bytt till en kvinnlig röst åt dig. " +
+                "Du kan fortfarande byta till en manlig eller till den ursprungliga rösten.",
+        zh to "没问题。已经帮您切换到女性化的语音。你仍然可以切换到男性语音或切回原始语音。"
+    )[currentLang]!!
+
+    val PERSONALIZATION_FACE_CHOOSE = mapOf(
+        en to "There are 8 options. Touch to apply it on the robot.",
+        sv to "Det finns 8 alternativ. Tryck för att tillämpa det på roboten.",
+        zh to "请触摸选择的8个选项其中之一。"
+    )[currentLang]!!
+
+    val PERSONALIZATION_REMEMBER_CHOICE = mapOf(
+        en to "Do you want me to remember your personalization setting for the next time you visit?",
+        sv to "Vill du att jag ska komma ihåg dina anpassningsinställningar till nästa gång du besöker?",
+        zh to "您希望在您下次访问时记住您的个性化设置吗？"
+    )[currentLang]!!
+
+    val PERSONALIZATION_REMEMBER_OPTION_YES = mapOf(
+        en to "Yes, please remember",
+        sv to "Ja, snälla kom ihåg.",
+        zh to "是的，请记住"
+    )[currentLang]!!
+
+    val PERSONALIZATION_REMEMBER_OPTION_NO = mapOf(
+        en to "No, please don't remember",
+        sv to "Nej, kom inte ihåg.",
+        zh to "不，请不要记住"
+    )[currentLang]!!
+
+    val PERSONALIZATION_REMEMBER_YES_RESPONSE = mapOf(
+        en to "Ok, I'll remember it.",
+        sv to "Okej, jag kommer ihåg det.",
+        zh to "好的，我会为您记住的。"
+    )[currentLang]!!
+
+    val PERSONALIZATION_CONFIRMATION = mapOf(
+        en to "Hi, do you want me to conduct the interview with you?",
+        sv to "Hej, vill du att jag ska genomföra intervjun med dig?",
+        zh to "你好，你希望由我来进行这次访问吗？"
+    )[currentLang]!!
+
+    // Scene - EPDS
+
+    val EPDS_INTRO  = mapOf(
+        en to "Now I will ask you a few questions. It might take around 10 minutes."
+            + "Please chose the response that best reflects how you have been feeling over the last 7 days, not just how you are feeling today.",
+        sv to "Nu ska jag ställa några frågor. Det kan ta cirka 10 minuter."
+            + "Var god välj det svar som bäst återspeglar hur du har känt dig under de senaste 7 dagarna, inte bara hur du mår idag.",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_ONE = mapOf(
+        en to "",
+        sv to "Jag har kunnat se tillvaron från den ljusa sidan:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_TWO = mapOf(
+        en  to "",
+        sv to "Jag har glatt mig åt saker som skall hända:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_THREE = mapOf(
+        en to "",
+        sv to "Jag har lagt skulden på mig själv onödigt mycket när något har gått snett:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_FOUR = mapOf(
+        en to "",
+        sv to "Jag har känt mig rädd och orolig utan egentlig anledning:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_FIVE = mapOf(
+        en to "",
+        sv to "Jag har känt mig skrämd eller panikslagen utan speciell anledning:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_SIX = mapOf(
+        en to "",
+        sv to "Det har kört ihop sig för mig och blivit för mycket:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_SEVEN = mapOf(
+        en to "",
+        sv to "Jag har känt mig så ledsen och olycklig att jag har haft svårt att sova:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_EIGHT = mapOf(
+        en to "",
+        sv to "Jag har känt mig ledsen och nere:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_NINE = mapOf(
+        en to "",
+        sv to "Jag har känt mig så olycklig att jag har gråtit:",
+        zh to ""
+    )[currentLang]!!
+
+    val EPDS_TEN = mapOf(
+        en to "",
+        sv to "Tankar på att göra mig själv illa har förekommit:",
+        zh to ""
+    )[currentLang]!!
+
+
+    val EPDS_GETTING_STARTED = mapOf(
         en to "Let's get started.",
         sv to "Låt oss börja.",
         zh to "让我们开始吧."
@@ -624,6 +784,13 @@ class I18nPhrases {
         sv to "Weiblich",
         zh to "女性"
     )[currentLang]!!
+
+    val EPDS_1 = mapOf(
+        en to "For medical purposes, please specify your biological sex.",
+        sv to "Jag har kunnat se tillvaron från den ljusa sidan",
+        zh to "出于医疗目的, 请表明您的生理性别."
+    )[currentLang]!!
+
 
     val DIABETES_SEX_QUESTION_BIOLOGICAL_SEX = mapOf(
         en to "For medical purposes, please specify your biological sex.",

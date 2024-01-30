@@ -7,12 +7,11 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.app.medicalscreener.screenerPolicy
 import furhatos.app.medicalscreener.randomGesture
-import furhatos.app.medicalscreener.setLindaVoice
+import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.autobehavior.prominenceGesture
 import furhatos.autobehavior.userSpeechStartGesture
 import furhatos.flow.kotlin.*
 import furhatos.flow.kotlin.voice.AzureVoice
-import furhatos.flow.kotlin.voice.PollyVoice
 import furhatos.gestures.Gestures
 import furhatos.util.CommonUtils
 import furhatos.util.Language
@@ -21,6 +20,8 @@ val log = CommonUtils.getLogger(Interaction::class.java)!!
 
 //var petraVoice : PollyVoice = PollyVoice()
 var petraVoice : AzureVoice = AzureVoice()
+var petraVoiceM : AzureVoice = AzureVoice()
+var petraVoiceF : AzureVoice = AzureVoice()
 
 val Idle: State = state(Interaction) {
     init {
@@ -75,7 +76,7 @@ private fun FlowControlRunner.setup() : Unit {
     log.info("Logging with level: " + log.level)
 
     currentLang = DefaultLang
-    furhat.setLindaVoice(DefaultLang)
+    furhat.setRobotVoice(DefaultLang)
     furhat.setModel("adult", "Isabel")
     furhat.prominenceGesture = listOf(Gestures.BrowRaise, Gestures.BrowFrown, Gestures.Smile)
     furhat.userSpeechStartGesture = listOf(Gestures.BrowRaise, Gestures.Smile)

@@ -53,7 +53,7 @@ button:focus {
     --mediumCoolGray01: #4D4A55;
     --lightCoolGray02: #A6A5AA;
     --lightCoolGray03: #D2D2D5;
-    #4D4A55
+    /*#4D4A55*/
 }
 
 .hex-background {
@@ -122,7 +122,7 @@ button.reply {
     padding-top: 0;
 
     font-size: 1.6rem;
-    color: --blue);
+    color: var(--blue);
     white-space: normal;
     min-height: 80px;
     text-transform: lowercase;
@@ -260,7 +260,7 @@ button.reply.active, button.reply:active, button.reply:focus {
 
 .modal-dialog span.logo-text {
     font-family: "Signika", Verdana;
-    color: var(----lightCoolGray02);
+    color: var(--lightCoolGray02);
     display: flex;
     font-size: 40px;
     justify-content: center;
@@ -352,9 +352,9 @@ button.reply.active, button.reply:active, button.reply:focus {
     height:80px;
     bottom:0;
 
-    -webkit-mask-image: -webkit-gradient(
-        linear, left 80%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0))
-    );
+    /*-webkit-mask-image: -webkit-gradient(*/
+    /*    linear, left 80%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0))*/
+    /*);*/
 }
 
 .language_selector {

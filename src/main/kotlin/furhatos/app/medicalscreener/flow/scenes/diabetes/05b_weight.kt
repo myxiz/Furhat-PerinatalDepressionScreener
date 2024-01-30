@@ -2,7 +2,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
 import furhatos.records.User
@@ -13,9 +13,9 @@ import kotlin.math.roundToInt
 const val maxPossibleWeight = 650 // kilos
 const val maxAllowedWeight = 200 // kilos
 const val minPossibleWeight = 30 // kilos
-private val log = CommonUtils.getLogger(DiabetesQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val WeightQuestion: State = state(DiabetesQuestionBase) {
+val WeightQuestion: State = state(EPDSQuestionBase) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_WEIGHT_QUESTION) {
             send(ShowOptionsEvent(
@@ -127,13 +127,13 @@ private fun addBmiScore(user: User) {
     if (user.height > 0 && user.weight > 0) {
         val bmi = (user.weight.toDouble() / user.height.toDouble().pow(2.0)).toInt()
         when {
-            bmi in 25..30 -> user.diabetesData.addToScore(1, "Bmi")
-            bmi > 30 -> user.diabetesData.addToScore(3, "Bmi")
+            bmi in 25..30 -> user.EPDSData.addToScore(1, "Bmi")
+            bmi > 30 -> user.EPDSData.addToScore(3, "Bmi")
         }
     }
 }
 
-val ContinueAnyway = state(DiabetesQuestionBase) {
+val ContinueAnyway = state(EPDSQuestionBase) {
     onEntry {
         furhat.ask(i18n.phrases.GENERAL_CONTINUE_ANYWAY)
     }

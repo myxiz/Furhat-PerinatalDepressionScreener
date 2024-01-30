@@ -1,7 +1,7 @@
 package furhatos.app.medicalscreener.flow.scenes.diabetes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.DiabetesQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.i18n.DontKnow
 import furhatos.app.medicalscreener.i18n.Maybe
@@ -10,7 +10,7 @@ import furhatos.flow.kotlin.onResponse
 import furhatos.flow.kotlin.state
 import furhatos.flow.kotlin.users
 
-val VegetablesQuestion = state(DiabetesQuestionBase) {
+val VegetablesQuestion = state(EPDSQuestionBase) {
     onEntry {
         send(ClearScreen())
         furhat.askAndDo(i18n.phrases.DIABETES_VEGETABLES_QUESTION) {
@@ -28,12 +28,12 @@ val VegetablesQuestion = state(DiabetesQuestionBase) {
 
     onResponse(listOf(No(), IDontEatEveryDay())) {
         send(OptionSelectedEvent("no"))
-        users.current.diabetesData.addToScore(1, "VegetablesQuestion")
+        users.current.EPDSData.addToScore(1, "VegetablesQuestion")
         ackAndGoto(BloodPressureMedicationQuestion)
     }
 
     onResponse(listOf(Maybe(), DontKnow(), Sometimes())) {
-        users.current.diabetesData.addToScore(1, "VegetablesQuestion")
+        users.current.EPDSData.addToScore(1, "VegetablesQuestion")
         ackAndGoto(BloodPressureMedicationQuestion)
     }
 
@@ -42,7 +42,7 @@ val VegetablesQuestion = state(DiabetesQuestionBase) {
         when ((it.get("response") as String?)?.toLowerCase()) {
             "yes" -> ackAndGoto(BloodPressureMedicationQuestion)
             "no" -> {
-                users.current.diabetesData.addToScore(1)
+                users.current.EPDSData.addToScore(1)
                 ackAndGoto(BloodPressureMedicationQuestion)
             }
         }
