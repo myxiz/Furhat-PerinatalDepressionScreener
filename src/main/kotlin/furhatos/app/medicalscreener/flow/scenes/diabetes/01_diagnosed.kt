@@ -3,7 +3,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
-import furhatos.app.medicalscreener.flow.scenes.SexQuestion
+//import furhatos.app.medicalscreener.flow.scenes.SexQuestion
 import furhatos.app.medicalscreener.i18n.No
 import furhatos.app.medicalscreener.i18n.Yes
 import furhatos.app.medicalscreener.i18n.i18n
@@ -35,7 +35,7 @@ val AlreadyDiagnosed1 : State = state(EPDSQuestionBase) {
     }
     onResponse<No> {
         send(OptionSelectedEvent("no"))
-        ackAndGoto(SexQuestion)
+//        ackAndGoto(SexQuestion)
     }
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
@@ -44,7 +44,7 @@ val AlreadyDiagnosed1 : State = state(EPDSQuestionBase) {
                 goto(AlreadyDiagnosed2)
             }
             "no" -> {
-                ackAndGoto(SexQuestion)
+//                ackAndGoto(SexQuestion)
             }
         }
     }
@@ -60,14 +60,14 @@ val AlreadyDiagnosed2 : State = state(EPDSQuestionBase) {
     }
     onResponse<Yes> {
         send(OptionSelectedEvent("yes"))
-        ackAndGoto(SexQuestion)
+//        ackAndGoto(SexQuestion)
     }
     onResponse(listOf(
             i18n.phrases.DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_3,
             i18n.phrases.DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_4
     )) {
         send(OptionSelectedEvent("yes"))
-        ackAndGoto(SexQuestion)
+//        ackAndGoto(SexQuestion)
     }
     onResponse<No> {
         send(OptionSelectedEvent("no"))
@@ -78,7 +78,7 @@ val AlreadyDiagnosed2 : State = state(EPDSQuestionBase) {
         log.debug("User responded ${it.get("response")} through GUI")
         when (it.get("response")) {
             "yes" -> {
-                ackAndGoto(SexQuestion)
+//                ackAndGoto(SexQuestion)
             }
             "no" -> {
                 furhat.say(i18n.phrases.GENERAL_OK_NO_PROBLEM)

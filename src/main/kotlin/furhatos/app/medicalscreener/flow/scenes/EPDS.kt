@@ -122,6 +122,6 @@ private fun FlowControlRunner.diabetesSexResponse(response: String?, isNew: Bool
     }
 }
 
-//val SexQuestion = sexQuestion(
-//        DiabetesQuestionBase,
-//        responseHandler = { response, isNew -> diabetesSexResponse(response, isNew) })
+val SexQuestion = sexQuestion(
+        EPDSQuestionBase,
+        responseHandler = { response, isNew -> diabetesSexResponse(response, isNew) })

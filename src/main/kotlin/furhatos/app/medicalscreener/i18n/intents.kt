@@ -741,6 +741,29 @@ data class I18nIntent(
 
 class I18nIntents {
 
+    val ChangeBack = mapOf(
+        en to I18nIntent(examples = listOf(
+            "change back",
+            "go back",
+            "revert",
+            "undo",
+            "return to previous"
+        )),
+        sv to I18nIntent(examples = listOf(
+            "ändra tillbaka",
+            "gå tillbaka",
+            "återgå",
+            "ångra",
+            "återvänd till tidigare"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "改回去",
+            "返回",
+            "撤销",
+            "回到之前"
+        ))
+    )[currentLang]!!
+
     val GoHome = mapOf(
         en to I18nIntent(examples = listOf(
             "go home",
@@ -980,6 +1003,53 @@ class I18nIntents {
             "对我进行筛查"
         )),
         )[currentLang]!!
+
+    val Female = mapOf(
+        en to I18nIntent(examples = listOf(
+            "woman",
+            "female",
+            "girl",
+            "lady",
+            "she"
+        )),
+        sv to I18nIntent(examples = listOf(
+            "kvinna",
+            "flicka",
+            "dam",
+            "hon"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "女性",
+            "女人",
+            "女孩",
+            "女士",
+            "女"
+        ))
+    )[currentLang]!!
+
+
+    val Male = mapOf(
+        en to I18nIntent(examples = listOf(
+            "male",
+            "man",
+            "boy",
+            "gentleman",
+            "he"
+        )),
+        sv to I18nIntent(examples = listOf(
+            "man",
+            "pojke",
+            "herr",
+            "han"
+        )),
+        zh to I18nIntent(examples = listOf(
+            "男性",
+            "男人",
+            "男孩",
+            "绅士",
+            "男"
+        ))
+    )[currentLang]!!
 
     val WaistCircumferenceIntent = mapOf(
         en to I18nIntent(examples = listOf(

@@ -12,6 +12,8 @@ import furhatos.app.medicalscreener.flow.scenes.diabetes.Pregnant
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.MoveOnIntent
 import furhatos.app.medicalscreener.nlu.ChangeBack
+import furhatos.app.medicalscreener.nlu.Male
+import furhatos.app.medicalscreener.nlu.Female
 import furhatos.flow.kotlin.*
 import furhatos.nlu.Response
 import furhatos.util.CommonUtils
