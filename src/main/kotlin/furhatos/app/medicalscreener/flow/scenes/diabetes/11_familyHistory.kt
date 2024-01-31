@@ -3,7 +3,7 @@ package furhatos.app.medicalscreener.flow.scenes.diabetes
 import furhatos.app.medicalscreener.flow.OptionSelectedEvent
 import furhatos.app.medicalscreener.flow.ShowOptionsEvent
 import furhatos.app.medicalscreener.flow.askAndDo
-import furhatos.app.medicalscreener.flow.EPDSData
+import furhatos.app.medicalscreener.flow.epdsData
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
@@ -67,15 +67,15 @@ private fun TriggerRunner<*>.handleUserResponse(res : String?) {
     when {
         (res == "close") -> {
             log.debug("User responded 'close'")
-            users.current.EPDSData.addToScore(5, "FamilyQuestion")
-            goto(DiabetesResults)
+            users.current.epdsData.addToScore(5, "FamilyQuestion")
+            goto(Results)
         }
         (res == "distant") -> {
             log.debug("User responded 'distant'")
-            users.current.EPDSData.addToScore(3, "FamilyQuestion")
-            goto(DiabetesResults)
+            users.current.epdsData.addToScore(3, "FamilyQuestion")
+            goto(Results)
         }
-        (res == "no") -> goto(DiabetesResults)
+        (res == "no") -> goto(Results)
         (res == "yes") -> goto(FamilyQuestion2)
         else -> throw IllegalArgumentException("Must be either close, distant, yes, or no")
     }
@@ -91,8 +91,8 @@ private val sharedResponseHandlers = partialState {
         furhat.say("${i18n.phrases.GENERAL_OK_NO_PROBLEM}, ${i18n.phrases.GENERAL_MOVE_ON_REPLY}")
 
         // When not known, we assume the worst-case scenario
-        users.current.EPDSData.addToScore(5, "FamilyQuestion")
-        goto(DiabetesResults)
+        users.current.epdsData.addToScore(5, "FamilyQuestion")
+        goto(Results)
     }
 
     onEvent("UserResponse") {

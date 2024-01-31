@@ -135,7 +135,7 @@ val DebugButtons = partialState {
     }
 
     onButton("Skip To Results") {
-        goto(DiabetesResults)
+        goto(Results)
     }
 
     onButton("Set language: English") {
@@ -154,7 +154,7 @@ val DebugButtons = partialState {
 
     onButton("Log Users Current Score", instant = true) {
         try {
-            log.info("${users.current.EPDSData.score}")
+            log.info("${users.current.epdsData.score}")
         } catch(error: Error) {
             // Let fail silently
             log.info("Couldn't log score, $error")

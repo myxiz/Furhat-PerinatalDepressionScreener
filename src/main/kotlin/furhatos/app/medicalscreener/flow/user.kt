@@ -29,12 +29,12 @@ interface Timestamped {
     }
 }
 
-data class EPDSData(
-        var score: Int = 0,
-        var biologicalSex: String? = null,
-        override var completed: Boolean = false,
-        override var startTime: LocalDateTime? = null,
-        override var endTime: LocalDateTime? = null
+data class DiabetesData(
+    var score: Int = 0,
+    var biologicalSex: String? = null,
+    override var completed: Boolean = false,
+    override var startTime: LocalDateTime? = null,
+    override var endTime: LocalDateTime? = null
 ) : Completable, Timestamped, Record() {
     fun addToScore(points : Int, question: String? = null) {
         score += points
@@ -54,14 +54,14 @@ data class EPDSData(
     }
 }
 
-val User.EPDSData: EPDSData
-    get() = data.getOrPut(EPDSData::class.qualifiedName, EPDSData())
+val User.epdsData: DiabetesData
+    get() = data.getOrPut(DiabetesData::class.qualifiedName, DiabetesData())
 
 var User.numNoResponse: Int
     get() = data.getOrPut("numNoResponse", 0)
     set(value) = data.put("numNoResponse", value)
 
-var User.showSscreeningButtons: Boolean
+var User.showScreeningButtons: Boolean
     get() = data.getOrPut("showScreeningButtons", false)
     set(v) = data.put("showScreeningButtons", v)
 
@@ -107,8 +107,8 @@ var User.height : Int by NullSafeUserDataDelegate { 0 }
 var User.weight : Int by NullSafeUserDataDelegate { 0 }
 
 data class InteractionInfo(
-        override var startTime: LocalDateTime? = null,
-        override var endTime: LocalDateTime? = null
+    override var startTime: LocalDateTime? = null,
+    override var endTime: LocalDateTime? = null
 ) : Timestamped, Record()
 
 val User.interactionInfo: InteractionInfo
@@ -121,23 +121,23 @@ var User.restarted: Boolean
 fun User.reset() {
     userAge = UserAge.UnknownAge()
     sex = Sex.Unknown
-    EPDSData.reset()
+    epdsData.reset()
     restarted = true
 }
 
 fun User.asJson(phase: String) =
-        JsonObject()
-                .add("diabetesData", JsonObject()
-                        .add("completed", EPDSData.completed)
-                        .add("score", EPDSData.score)
-                        .add("startTime", EPDSData.startTime?.toString())
-                        .add("endTime", EPDSData.endTime?.toString())
-                )
-                .add("sex", sex.name)
-                .add("interactionInfo", JsonObject()
-                        .add("startTime", interactionInfo.startTime?.toString())
-                        .add("endTime", interactionInfo.endTime?.toString()))
-                .add("age", userAge.toJSON())
-                .add("id", id)
-                .add("phase", phase)
+    JsonObject()
+        .add("epdsData", JsonObject()
+            .add("completed", epdsData.completed)
+            .add("score", epdsData.score)
+            .add("startTime", epdsData.startTime?.toString())
+            .add("endTime", epdsData.endTime?.toString())
+        )
+        .add("sex", sex.name)
+        .add("interactionInfo", JsonObject()
+            .add("startTime", interactionInfo.startTime?.toString())
+            .add("endTime", interactionInfo.endTime?.toString()))
+        .add("age", userAge.toJSON())
+        .add("id", id)
+        .add("phase", phase)
 

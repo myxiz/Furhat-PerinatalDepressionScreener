@@ -56,7 +56,7 @@ val BloodGlucoseQuestion2: State = state(EPDSQuestionBase) {
             onYes = { it.addToScore(5, "BloodGlucoseQuestion") },
             onNo = { Unit },
             onMaybe = { Unit },
-            dataGetter = { user -> user.EPDSData },
+            dataGetter = { user -> user.epdsData },
             extraYesPhrases = listOf(
                 "高" // "high", which is a common chinese answer to a question that asks "was it high"
             ),

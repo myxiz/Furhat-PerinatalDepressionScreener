@@ -32,24 +32,24 @@ val PhysicalActivityQuestion = state(EPDSQuestionBase) {
     }
     onResponse<No> {
         send(OptionSelectedEvent("no"))
-        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<Maybe> {
-        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<DontKnow> {
-        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<Sometimes> {
-        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<NotEveryDay> {
         send(OptionSelectedEvent("no"))
-        users.current.EPDSData.addToScore(2, "PhysicalActivityQuestion")
+        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
         ackAndGoto(VegetablesQuestion)
     }
     onResponse<PsysicalActivityExplain> {
@@ -61,7 +61,7 @@ val PhysicalActivityQuestion = state(EPDSQuestionBase) {
         when ((it.get("response") as String?)?.toLowerCase()) {
             "yes" -> ackAndGoto(VegetablesQuestion)
             "no" -> {
-                users.current.EPDSData.addToScore(2)
+                users.current.epdsData.addToScore(2)
                 ackAndGoto(VegetablesQuestion)
             }
         }

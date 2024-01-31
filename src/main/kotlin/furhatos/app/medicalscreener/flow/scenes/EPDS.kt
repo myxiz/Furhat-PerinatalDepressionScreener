@@ -14,15 +14,15 @@ import furhatos.util.CommonUtils
 import java.util.concurrent.TimeUnit
 
 val EPDSQuestionBase = state(InteractionWithBadResponse,
-        stateDefinition = abortableStateDef(ScreeningSelection, { it.EPDSData.endTimestamp() }))
+        stateDefinition = abortableStateDef(ScreeningSelection, { it.epdsData.endTimestamp() }))
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
 val EPDSStart: State = state(EPDSQuestionBase) {
     onEntry {
         log.debug("Entering DiabetesStart state")
-        users.current.EPDSData.score = 0
-        users.current.EPDSData.startTimestamp()
+        users.current.epdsData.score = 0
+        users.current.epdsData.startTimestamp()
         writeKpi(users.current, "Screening Started")
         furhat.say({
             +i18n.phrases.EPDS_GETTING_STARTED
@@ -100,7 +100,7 @@ private fun FlowControlRunner.diabetesSexResponse(response: String?, isNew: Bool
     when (response?.toLowerCase()) {
         "male" -> {
             if (isNew) {
-                this.users.current.EPDSData.biologicalSex = "male"
+                this.users.current.epdsData.biologicalSex = "male"
                 ackAndGoto(AgeQuestion)
             } else {
                 goto(AgeQuestion)
@@ -108,7 +108,7 @@ private fun FlowControlRunner.diabetesSexResponse(response: String?, isNew: Bool
         }
         "female" -> {
             if (isNew) {
-                this.users.current.EPDSData.biologicalSex = "female"
+                this.users.current.epdsData.biologicalSex = "female"
                 ackAndGoto(Pregnant)
             } else {
                 goto(Pregnant)

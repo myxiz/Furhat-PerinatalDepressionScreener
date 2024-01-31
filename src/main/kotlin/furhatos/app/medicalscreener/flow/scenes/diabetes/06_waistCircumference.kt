@@ -38,8 +38,8 @@ val WaistCircumferenceQuestion = state(EPDSQuestionBase) {
     onEntry {
         println("Entering WaistCircumferenceQuestion state")
         send(ClearScreen())
-        val guiOptions = getWaistCircumferenceOptionsList(this.users.current.EPDSData.biologicalSex)
-        val askPhrase = getWaistCircumferenceAskPhrase(this.users.current.EPDSData.biologicalSex)
+        val guiOptions = getWaistCircumferenceOptionsList(this.users.current.epdsData.biologicalSex)
+        val askPhrase = getWaistCircumferenceAskPhrase(this.users.current.epdsData.biologicalSex)
         furhat.askAndDo(askPhrase, timeout = listenTimeMS, endSil = 3500) {
             send(ShowOptionsEvent(
                     guiOptions,
@@ -87,9 +87,9 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
     onEvent("UserResponse") {
         println("User responded ${it.get("response")} through GUI")
         when ((it.get("response") as String?)?.toLowerCase()) {
-            "normal" -> this.users.current.EPDSData.addToScore(0, "WaistCircumferenceQuestion")
-            "elevated" -> this.users.current.EPDSData.addToScore(3, "WaistCircumferenceQuestion")
-            "high" -> this.users.current.EPDSData.addToScore(4, "WaistCircumferenceQuestion")
+            "normal" -> this.users.current.epdsData.addToScore(0, "WaistCircumferenceQuestion")
+            "elevated" -> this.users.current.epdsData.addToScore(3, "WaistCircumferenceQuestion")
+            "high" -> this.users.current.epdsData.addToScore(4, "WaistCircumferenceQuestion")
         }
 
         AcknowledgeAndGoToNext()
@@ -135,7 +135,7 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
 
         val lowerWaistBoundary: Int
         val higherWaistBoundary: Int
-        if(this.users.current.EPDSData.biologicalSex == "male") {
+        if(this.users.current.epdsData.biologicalSex == "male") {
             lowerWaistBoundary = 94
             higherWaistBoundary = 102
         } else {
@@ -152,17 +152,17 @@ fun waistCircumferenceShared(listenTimeMS: Int) = partialState {
                 furhat.ask(i18n.phrases.GENERAL_ANSWER_NOT_ACCEPTED_REPEAT)
             }
             centimeters <= lowerWaistBoundary -> {
-                this.users.current.EPDSData.addToScore(0, "WaistCircumferenceQuestion")
+                this.users.current.epdsData.addToScore(0, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("normal"))
                 AcknowledgeAndGoToNext()
             }
             centimeters in (lowerWaistBoundary + 1)..(higherWaistBoundary - 1) ->{
-                this.users.current.EPDSData.addToScore(3, "WaistCircumferenceQuestion")
+                this.users.current.epdsData.addToScore(3, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("elevated"))
                 AcknowledgeAndGoToNext()
             }
             else -> {
-                this.users.current.EPDSData.addToScore(4, "WaistCircumferenceQuestion")
+                this.users.current.epdsData.addToScore(4, "WaistCircumferenceQuestion")
                 send(OptionSelectedEvent("high"))
                 AcknowledgeAndGoToNext()
             }

@@ -26,19 +26,19 @@ private fun TriggerRunner<*>.handleAgeResponse(age: Int?, isCategory: Boolean): 
             age in 45..54 -> {
                 send(OptionSelectedEvent("49"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Between40to49) else UserAge.SpecificAge(age)
-                this.users.current.EPDSData.addToScore(2, "AgeQuestion")
+                this.users.current.epdsData.addToScore(2, "AgeQuestion")
                 return true
             }
             age in 55..64 -> {
                 send(OptionSelectedEvent("59"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Between50to59) else UserAge.SpecificAge(age)
-                this.users.current.EPDSData.addToScore(3, "AgeQuestion")
+                this.users.current.epdsData.addToScore(3, "AgeQuestion")
                 return true
             }
             age in 65..120 -> {
                 send(OptionSelectedEvent("60"))
                 users.current.userAge = if (isCategory) UserAge.AgeCategory(UserAge.AgeCategories.Over60) else UserAge.SpecificAge(age)
-                this.users.current.EPDSData.addToScore(4, "AgeQuestion")
+                this.users.current.epdsData.addToScore(4, "AgeQuestion")
                 return true
             }
             age > 120 -> {

@@ -127,8 +127,8 @@ private fun addBmiScore(user: User) {
     if (user.height > 0 && user.weight > 0) {
         val bmi = (user.weight.toDouble() / user.height.toDouble().pow(2.0)).toInt()
         when {
-            bmi in 25..30 -> user.EPDSData.addToScore(1, "Bmi")
-            bmi > 30 -> user.EPDSData.addToScore(3, "Bmi")
+            bmi in 25..30 -> user.epdsData.addToScore(1, "Bmi")
+            bmi > 30 -> user.epdsData.addToScore(3, "Bmi")
         }
     }
 }

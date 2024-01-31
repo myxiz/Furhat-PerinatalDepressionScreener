@@ -14,12 +14,12 @@ import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val DiabetesResults = state(WaitForCommand(nextState = StartOver)) {
+val Results = state(WaitForCommand(nextState = StartOver)) {
     onEntry {
         val user = this.users.current
-        val diabetesData = user.EPDSData
+        val diabetesData = user.epdsData
         diabetesData.completed = true
-        users.current.EPDSData.endTimestamp()
+        users.current.epdsData.endTimestamp()
         log.debug("Completed diabetes screening. Data: $diabetesData")
 
         log.debug("Waiting for user to continue")

@@ -28,12 +28,12 @@ val VegetablesQuestion = state(EPDSQuestionBase) {
 
     onResponse(listOf(No(), IDontEatEveryDay())) {
         send(OptionSelectedEvent("no"))
-        users.current.EPDSData.addToScore(1, "VegetablesQuestion")
+        users.current.epdsData.addToScore(1, "VegetablesQuestion")
         ackAndGoto(BloodPressureMedicationQuestion)
     }
 
     onResponse(listOf(Maybe(), DontKnow(), Sometimes())) {
-        users.current.EPDSData.addToScore(1, "VegetablesQuestion")
+        users.current.epdsData.addToScore(1, "VegetablesQuestion")
         ackAndGoto(BloodPressureMedicationQuestion)
     }
 
@@ -42,7 +42,7 @@ val VegetablesQuestion = state(EPDSQuestionBase) {
         when ((it.get("response") as String?)?.toLowerCase()) {
             "yes" -> ackAndGoto(BloodPressureMedicationQuestion)
             "no" -> {
-                users.current.EPDSData.addToScore(1)
+                users.current.epdsData.addToScore(1)
                 ackAndGoto(BloodPressureMedicationQuestion)
             }
         }

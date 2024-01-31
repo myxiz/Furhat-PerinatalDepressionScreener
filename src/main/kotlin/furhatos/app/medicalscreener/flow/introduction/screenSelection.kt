@@ -14,6 +14,7 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 
     onEntry {
         log.debug("In ScreeningSelection state")
+        furhat.say(i18n.phrases.INTRODUCTION_ROBOTINTRO)
         furhat.askAndDo(i18n.phrases.INTRODUCTION_PND_DESCRIPTION) {
             send(ClearScreen())
             delay(800)
@@ -82,7 +83,7 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
     include(NoOrInvalidResponseState(customBadResponse = {
         onResponse {
             log.debug("Unrecognized response to ScreeningSelection (\"${it.text}\")")
-            users.current.showSscreeningButtons = true
+            users.current.showScreeningButtons = true
             furhat.say({
                 random {
                     +i18n.phrases.INTRODUCTION_INVALID_RESPONSE_VAR1
@@ -106,7 +107,7 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 }
 
 private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFromGui: Boolean = false) {
-    users.current.showSscreeningButtons = true
+    users.current.showScreeningButtons = true
     when (choice) {
         "yes" -> {
             if (!respondedFromGui) {

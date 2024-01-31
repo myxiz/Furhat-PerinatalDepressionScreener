@@ -13,6 +13,7 @@ val GreetVisitor: State = state(IntroductionBaseState) {
     onEntry {
         send(ClearScreen())
         log.debug("In GreetVisitor state")
+        send(ShowOptionsEvent(allButCurrentLang()))
         users.current.interactionInfo.startTimestamp()
         writeKpi(users.current, "Interaction Started")
 
