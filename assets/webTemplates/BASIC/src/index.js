@@ -18,7 +18,17 @@ function update(state, action) {
             text: null,
             options: null,
             results: null,
-            modal: ModalState.NoModal
+            modal: ModalState.NoModal,
+            showFaces : "none",
+        }),
+        [actions.ShowFaces] : (showFaces,delay) => ({
+            ...state,
+            selectedOption: null,
+            buttonsDisabled: false,
+            results: null,
+            optionsDelay: delay,
+            modal: ModalState.NoModal,
+            showFaces : showFaces,
         }),
         [actions.AppendText]: ({text}) => ({...state, text: [state.text, text].join('\n')}),
         [actions.ShowOnScreen]: ({title, text}) => ({
@@ -77,6 +87,7 @@ function update(state, action) {
             results: null,
             modal: ModalState.NoModal,
             menu: false,
+            showFaces : "none",
             command: () => state.dispatcher({event_name: "Restart"})
         }),
         [actions.SetLanguage]: ({language, calledFromGui = false}) => ({
@@ -153,6 +164,12 @@ class FurhatGuiApp extends React.Component {
                 this.updateHandler(new actions.ShowOptions(options, prompt, append, delaySeconds, title))
             })
 
+            furhat.subscribe('ShowFacesEvent', (event) => {
+                console.log('ShowFacesEvent event', event)
+                const {delay} = event
+                this.updateHandler(new actions.ShowFaces("show",delay))
+            })
+
             furhat.subscribe('ShowResultsEvent', (event) => {
                 console.log('ShowResultsEvent event', event)
                 this.updateHandler(new actions.ShowResults({
@@ -207,6 +224,7 @@ class FurhatGuiApp extends React.Component {
             selectedOption={this.state.selectedOption}
             buttonsDisabled={this.state.buttonsDisabled}
             menuShown={this.state.menuShown}
+            showFaces={this.state.showFaces}
             modal={this.state.modal}
             lang={this.state.language}
             onUpdate={this.updateHandler.bind(this)}

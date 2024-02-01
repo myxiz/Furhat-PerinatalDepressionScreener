@@ -2,10 +2,18 @@ import Modal from "react-bootstrap/lib/Modal"
 import {ModalState} from "./model"
 import PropTypes from "prop-types"
 import React from "react"
-import FurhatLogo from "./assets/furhat-logo-white.png"
+import FurhatLogo  from "./assets/furhat-logo-white.png"
+import Face0Titan from "./assets/Face_0_Titan.png"
+import Face1Jane from "./assets/Face_1_Jane.png"
+import Face2Nazar from "./assets/Face_2_Nazar.png"
+import Face3Isabel from "./assets/Face_3_Isabel.png"
+import Face4 from "./assets/Face_4_Yumi.png"
+import Face5Alex from "./assets/Face_5_Alex.png"
+import Face6Samuel from "./assets/Face_6_Samuel.png"
+import Face7Kinoe from "./assets/Face_7_Kione.png"
 import i18n from './copy/i18n';
 
-export function AboutModal(props) {
+export function FurhatModal(props) {
     const { lang } = props
 
     return <Modal
@@ -15,7 +23,9 @@ export function AboutModal(props) {
         <Modal.Header>
             {
                 {  [ModalState.AboutFurhat]: <Modal.Title>
-                        <img src={'dist' + FurhatLogo} className="logo"/>
+                        <img src={'dist' + FurhatLogo}
+                             className={"logo"}
+                        />
                     </Modal.Title>
                 }[props.modal]
             }
@@ -43,7 +53,7 @@ export function AboutModal(props) {
     </Modal>
 }
 
-AboutModal.propTypes = {
+FurhatModal.propTypes = {
     modal: PropTypes.any,
     onHide: PropTypes.func
 }

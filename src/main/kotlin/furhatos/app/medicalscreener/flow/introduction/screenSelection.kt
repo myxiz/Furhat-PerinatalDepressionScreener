@@ -3,7 +3,7 @@
 package furhatos.app.medicalscreener.flow.introduction
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSStart
+import furhatos.app.medicalscreener.flow.scenes.EPDSIntro
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.flow.kotlin.*
@@ -14,21 +14,17 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 
     onEntry {
         log.debug("In ScreeningSelection state")
-        furhat.say(i18n.phrases.INTRODUCTION_ROBOTINTRO)
-        furhat.askAndDo(i18n.phrases.INTRODUCTION_PND_DESCRIPTION) {
+        furhat.askAndDo(i18n.phrases.INTRODUCTION_PND_PROMPT) {
             send(ClearScreen())
-            delay(800)
             send(ShowOptionsEvent(
                     listOf(
                         "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
                         "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
                     ),
-                    prompt = i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_PROMPT
+                    prompt = i18n.phrases.INTRODUCTION_PND_PROMPT
             ))
         }
     }
-
-
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
         val response = it.get("response") as String?
@@ -51,6 +47,7 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
                 +i18n.phrases.INTRODUCTION_REPEAT_OPTIONS_VAR2
             }
         }) {
+            delay(800)
             send(ShowOptionsEvent(
                     listOf(
                             "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
@@ -118,7 +115,7 @@ private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFro
             send(ClearScreen())
             furhat.say(i18n.phrases.INTRODUCTION_PND_DESCRIPTION)
             delay(400)
-            goto(EPDSStart)
+            goto(EPDSIntro)
         }
         "no" -> {
             if (!respondedFromGui) {
@@ -126,7 +123,7 @@ private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFro
             }
             furhat.say(i18n.phrases.INTRODUCTION_DIABETES_NO_DESCRIPTION)
             delay(400)
-            goto(EPDSStart)
+            goto(EPDSIntro)
         }
         else -> throw IllegalArgumentException("Must be either 'yes' or 'no'")
     }

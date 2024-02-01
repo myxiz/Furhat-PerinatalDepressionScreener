@@ -5,6 +5,8 @@ import EnglishFlagIcon from "./assets/english_flag.svg"
 // import GermanFlagIcon from "./assets/german_flag.svg"
 import ChineseFlagIcon from "./assets/chinese_flag.svg"
 import SwedishFlagIcon from "./assets/sweden_flag.svg"
+import Face0Titan from "./assets/Face_0_Titan.png"
+import Face5Alex from "./assets/Face_5_Alex.png"
 import SVG from 'react-inlinesvg';
 
 class Question extends React.PureComponent {
@@ -15,9 +17,9 @@ class Question extends React.PureComponent {
                 <div className="row question-text-content">
                     <div className="col-10 offset-1">
                         <div className="title-box row">
-                            <h1 className="col center">
+                            <h2 className="col center">
                                 {showText ? title : ""}
-                            </h1>
+                            </h2>
                         </div>
                         <div className="row text-box center">
                             <div className="col">
@@ -55,7 +57,6 @@ class Question extends React.PureComponent {
                                             { value==="zh" && <SVG alt="Chinese Flag" src={ChineseFlagIcon}/> }
                                             { value==="sv" && <SVG alt="Swedish Flag" src={SwedishFlagIcon}/> }
                                         </button>}
-
                                     </ReactCSSTransitionGroup>
                                     )
                                 })

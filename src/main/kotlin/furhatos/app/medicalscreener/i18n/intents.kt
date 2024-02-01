@@ -29,27 +29,28 @@ class Yes : Intent() {
                 "OK", "可以了",
                 "接受"
             )
-            Language.GERMAN -> listOf(
+            Language.SWEDISH -> listOf(
                 "Ja",
-                "Ja Bitte",
-                "mhm",
-                "sicher",
-                "absolut",
-                "Ich glaube schon",
-                "Ich denke schon",
-                "Ja ich will",
-                "ja will ich",
-                "Ja habe ich",
-                "Jep",
-                "auf jeden fall",
-                "definitiv",
-                "mach ich",
-                "oft",
-                "sehr gerne",
-                "gerne",
-                "mit vergnügen",
-                "OK", "okay", "in ordnung", "in ordung",
-                "gut"
+                "Jag",
+                "Ja, tack",
+                "Mhm",
+                "Säkert",
+                "Absolut",
+                "Jag tror det",
+                "Jag tycker det",
+                "Ja, jag vill",
+                "Ja, det vill jag",
+                "Ja, det har jag",
+                "Japp",
+                "Absolut",
+                "Definitivt",
+                "Det gör jag",
+                "Ofta",
+                "Mycket gärna",
+                "Gärna",
+                "Med nöje",
+                "OK", "Okej", "I ordning",
+                "Bra"
             )
             else -> listOf(
                 "yes",
@@ -108,25 +109,47 @@ class No: Intent() {
                 "美优", "美柚",// homonym for the above one
                 "从来没有"
             )
-            Language.GERMAN -> listOf(
+            Language.SWEDISH -> listOf(
+                "Nej",
+                "Inte alls",
+                "Absolut inte",
+                "Jag tror inte det",
+                "Jag tycker inte det",
+                "Nej, jag vill inte",
+                "Nej, det vill jag inte",
+                "Nej, det har jag inte",
+                "Nix",
+                "Inte på något sätt",
+                "Definitivt inte",
+                "Det gör jag inte",
+                "Aldrig",
+                "Inte gärna",
+                "Inte direkt",
+                "Nej tack",
+                "Inte okej",
+                "Dåligt",
                 "Nein",
                 "nee",
                 "nicht",
                 "nö",
                 "nah",
-                "niemals",
-                "nichts",
-                "negativ",
-                "überhaupt nicht",
-                "wahrscheinlich nicht",
-                "Ich denke nicht",
-                "Ich glaube nicht",
-                "definitiv nicht",
-                "absolut nicht",
-                "nein danke",
-                "unwahrscheinlich",
-                "nicht gewesen",
-                "das habe ich nicht"
+                "Nej",
+                "Nä",
+                "Inte",
+                "Nä",
+                "Aldrig",
+                "Ingenting",
+                "Negativ",
+                "Inte alls",
+                "Troligen inte",
+                "Jag tror inte det",
+                "Jag tror inte",
+                "Definitivt inte",
+                "Absolut inte",
+                "Nej tack",
+                "Osannolikt",
+                "Inte varit",
+                "Det har jag inte"
             )
             else -> listOf(
                 "nope",
@@ -158,11 +181,11 @@ class Sometimes : Intent() {
                 "不时地",
                 "偶尔", "偶尔地"
             )
-            Language.GERMAN -> listOf(
-                "manchmal",
-                "hin und wieder",
-                "das eine oder andere Mal",
-                "von Zeit zu Zeit"
+            Language.SWEDISH -> listOf(
+                "Ibland",
+                "Då och då",
+                "Någon gång",
+                "Från tid till annan"
             )
             else -> listOf(
                 "sometimes", "some times",
@@ -868,7 +891,6 @@ class I18nIntents {
             "carry on",
             "advance",
             "got it",
-            "go back"
         )),
         sv to I18nIntent(examples = listOf(
             "fortsätt",
@@ -1014,9 +1036,15 @@ class I18nIntents {
         )),
         sv to I18nIntent(examples = listOf(
             "kvinna",
+            "kvinnlig",
             "flicka",
             "dam",
-            "hon"
+            "hon",
+            "woman",
+            "female",
+            "girl",
+            "lady",
+            "she"
         )),
         zh to I18nIntent(examples = listOf(
             "女性",
@@ -1040,7 +1068,13 @@ class I18nIntents {
             "man",
             "pojke",
             "herr",
-            "han"
+            "han",
+            "manlig",
+            "male",
+            "man",
+            "boy",
+            "gentleman",
+            "he"
         )),
         zh to I18nIntent(examples = listOf(
             "男性",

@@ -12,6 +12,19 @@ class I18nPhrases {
 
 // All the other translations are listed below:
 
+    val GENERAL_MALE = mapOf(
+        en to "Male",
+        sv to "Man",
+        zh to "男性"
+    )[currentLang]!!
+
+
+    val GENERAL_FEMALE = mapOf(
+        en to "Female",
+        sv to "Kvinna",
+        zh to "女性"
+    )[currentLang]!!
+
     val GENERAL_YES = mapOf(
         en to "Yes",
         sv to "Ja",
@@ -268,16 +281,22 @@ class I18nPhrases {
         zh to " "
     )[currentLang]!!
 
-    val GENERAL_POSITIVE_ACKNOWLEDGE_1 = mapOf(
+    val GENERAL_POSITIVE_ACKNOWLEDGE_GOOD = mapOf(
         en to "Good,",
         sv to "Bra,",
         zh to "好, "
     )[currentLang]!!
 
+    val GENERAL_POSITIVE_ACKNOWLEDGE_1 = mapOf(
+        en to "Of course",
+        sv to "Absolut",
+        zh to "当然",
+    )[currentLang]!!
+
     val GENERAL_POSITIVE_ACKNOWLEDGE_2 = mapOf(
-        en to "Great",
-        sv to "Utmärkt",
-        zh to "很好"
+        en to "Sure",
+        sv to "Säkert,",
+        zh to "好的",
     )[currentLang]!!
 
     val GENERAL_CONFIRM_ABORT = mapOf(
@@ -347,6 +366,19 @@ class I18nPhrases {
         zh to "重启"
     )[currentLang]!!
 
+    val GENERAL_CONTINUE = mapOf(
+        en to "Continue",
+        sv to "Fortsätt",
+        zh to "继续"
+    )[currentLang]!!
+
+    val GENERAL_RESELECT = mapOf(
+        en to "Re-select",
+        sv to "Välj igen",
+        zh to "重新选择"
+    )[currentLang]!!
+
+
 
     // Change Language
 
@@ -372,8 +404,8 @@ class I18nPhrases {
 
     // Introduction
     val INTRODUCTION_GREETING = mapOf(
-        en to "Welcome! Nice to meet you. How are you?",
-        sv to "Hej. Trevligt att träffa dig. Hur mår du?",
+        en to "Welcome! Nice to meet you.",
+        sv to "Hej. Trevligt att träffa dig.",
         zh to "欢迎！"
     )[currentLang]!!
 
@@ -385,11 +417,7 @@ class I18nPhrases {
         zh to "我是一个为了帮助您进行心理健康评估访谈而设计的机器人。我们注意到您在EPDS筛查中得分较高。检查一下您的心理健康状况将会是有益的。"
     )[currentLang]!!
 
-    val INTRODUCTION_EPDS_NOW = mapOf(
-        en to "I will help you to go through EPDS questionnaire again. Would you like to do it now?",
-        sv to "Jag kommer att hjälpa dig att gå igenom EPDS-enkäten igen. Vill du göra det nu?",
-        zh to "我将协助您再次填写EPDS问卷。您想现在开始吗？"
-    )
+
 
     val INTRODUCTION_THANSFORTURST = mapOf(
         en to "Thanks for trusting me!",
@@ -404,16 +432,15 @@ class I18nPhrases {
     )[currentLang]!!
 
     val INTRODUCTION_PND_PROMPT = mapOf(
-        en to "I’m here to help you check if you are at risk of perinatal depression. First, can I tell you a bit about why this is important?",
-        sv to "Jag är här för att hjälpa dig att kontrollera om du löper risk för perinatal depression. Först, kan jag berätta lite om varför detta är viktigt?",
-        zh to "我在这里帮助您检查是否有围产期抑郁症的风险。首先，我可以告诉您为什么这很重要吗？"
-    )[currentLang]!!
-
-
-    val INTRODUCTION_REPEAT_OPTIONS_VAR1 = mapOf(
         en to "Would you like to know more about perinatal depression, before we start the screening?",
         sv to "Vill du veta mer om perinatal depression innan vi börjar screeningen?",
         zh to "在开始检查之前, 您想了解有关围产期抑郁症的更多信息吗？"
+    )[currentLang]!!
+
+    val INTRODUCTION_REPEAT_OPTIONS_VAR1  = mapOf(
+        en to "I’m here to help you check if you are at risk of perinatal depression. First, can I tell you a bit about why this is important?",
+        sv to "Jag är här för att hjälpa dig att kontrollera om du löper risk för perinatal depression. Först, kan jag berätta lite om varför detta är viktigt?",
+        zh to "我在这里帮助您检查是否有围产期抑郁症的风险。首先，我可以告诉您为什么这很重要吗？"
     )[currentLang]!!
 
     val INTRODUCTION_REPEAT_OPTIONS_VAR2 = mapOf(
@@ -448,7 +475,7 @@ class I18nPhrases {
 
     val INTRODUCTION_SAY_GOODBYE = mapOf(
         en to "Thank you for participating! Goodbye!",
-        sv to "Vielen dank für Ihre Teilnahme! Auf Wiedersehen!",
+        sv to "Tack så mycket för ditt deltagande! Hejdå!",
         zh to "感谢您的参与！再见！"
     )[currentLang]!!
 
@@ -457,7 +484,7 @@ class I18nPhrases {
 
     val INTRODUCTION_GOODBYE_TITLE_PROMPT = mapOf(
         en to "Goodbye!",
-        sv to "Auf Wiedersehen!",
+        sv to "Hejdå!",
         zh to "再见！"
     )[currentLang]!!
 
@@ -479,7 +506,7 @@ class I18nPhrases {
         zh to "好的。然后我们将直接跳转到问题。"
     )[currentLang]!!
 
-    val INTRODUCTION_DESCRIPTION_OPTION_PROMPT = mapOf(
+    val INTRODUCTION_EPDS_DESCRIPTION = mapOf(
         en to "This screening and this risk assessment is based on the Edinburgh Postnatal Depression Scale (EPDS) screening test designed by Professor John Cox. Since 2010, the National Board of Health and Welfare has recommended general screening of all new mothers for depression.",
         sv to "Denna screening och riskbedömning är baserad på Edinburghs skala för efterfödseldepression (EPDS), ett screeningtest som utformats av professor John Cox. Sedan 2010 har Socialstyrelsen rekommenderat generell screening av alla nyblivna mammor för depression.",
         zh to "该筛查和风险评估是基于由约翰·考克斯教授设计的爱丁堡产后抑郁量表（EPDS）筛查测试。自2010年起，瑞典国家卫生和福利委员会推荐对所有新妈妈进行抑郁症的普遍筛查。"
@@ -520,7 +547,13 @@ class I18nPhrases {
     val PERSONALIZATION_GENDER_MATTERS = mapOf(
         en to "A few set up before we start. Would you prefer to interact with a robot with a particular gender?",
         sv to "Några inställningar innan vi börjar. Föredrar du att interagera med en robot av ett specifikt kön?",
-        zh to "tbd"
+        zh to "在我们开始之前先进行一些设置。您是否更喜欢与特定性别的机器人互动？"
+    )[currentLang]!!
+
+    val PERSONALIZATION_GENDER_MATTERS_PROMPT = mapOf(
+        en to " Would you prefer to interact with a robot with a particular gender?",
+        sv to " Föredrar du att interagera med en robot av ett specifikt kön?",
+        zh to "您是否更喜欢与特定性别的机器人互动?"
     )[currentLang]!!
 
     val PERSONALIZATION_GENDER_PREFERENCE = mapOf(
@@ -562,6 +595,13 @@ class I18nPhrases {
         zh to "没问题。已经帮您切换到女性化的语音。你仍然可以切换到男性语音或切回原始语音。"
     )[currentLang]!!
 
+
+    val PERSONALIZATION_ORIGINAL_VOICE = mapOf(
+        en to "Got it. We now change to the original voice for you. Do you want to move on? ",
+        sv to "Förstått. Vi byter nu till den ursprungliga rösten åt dig. Vill du gå vidare?",
+        zh to "明白了。我们现在为您切换到原始语音。您想进行下一步吗？"
+    )[currentLang]!!
+
     val PERSONALIZATION_FACE_CHOOSE = mapOf(
         en to "There are 8 options. Touch to apply it on the robot.",
         sv to "Det finns 8 alternativ. Tryck för att tillämpa det på roboten.",
@@ -572,6 +612,18 @@ class I18nPhrases {
         en to "Do you want me to remember your personalization setting for the next time you visit?",
         sv to "Vill du att jag ska komma ihåg dina anpassningsinställningar till nästa gång du besöker?",
         zh to "您希望在您下次访问时记住您的个性化设置吗？"
+    )[currentLang]!!
+
+    val PERSONALIZATION_CONFIRMATION = mapOf(
+        en to "Hi, do you want me to conduct the interview with you?",
+        sv to "Hej, vill du att jag ska genomföra intervjun med dig?",
+        zh to "你好，你希望由我来进行这次访问吗？"
+    )[currentLang]!!
+
+    val PERSONALIZATION_RESELECT_PROMPT = mapOf(
+        en to "Touch to apply on the robot",
+        sv to "Tryck för att tillämpa det på roboten",
+        zh to "请触摸以应用到机器人上。"
     )[currentLang]!!
 
     val PERSONALIZATION_REMEMBER_OPTION_YES = mapOf(
@@ -592,15 +644,21 @@ class I18nPhrases {
         zh to "好的，我会为您记住的。"
     )[currentLang]!!
 
-    val PERSONALIZATION_CONFIRMATION = mapOf(
-        en to "Hi, do you want me to conduct the interview with you?",
-        sv to "Hej, vill du att jag ska genomföra intervjun med dig?",
-        zh to "你好，你希望由我来进行这次访问吗？"
-    )[currentLang]!!
+
 
     // Scene - EPDS
+//    val EPDS_GETTING_STARTED = mapOf(
+//        en to "Let's get started.",
+//        sv to "Låt oss börja.",
+//        zh to "让我们开始吧."
+//    )[currentLang]!!
 
-    val EPDS_INTRO  = mapOf(
+    val INTRODUCTION_EPDS_NOW = mapOf(
+        en to "I will help you to go through EPDS questionnaire again. Would you like to do it now?",
+        sv to "Jag kommer att hjälpa dig att gå igenom EPDS-enkäten igen. Vill du göra det nu?",
+        zh to "我将协助您再次填写EPDS问卷。您想现在开始吗？"
+    )
+    val EPDS_GETTING_STARTED  = mapOf(
         en to "Now I will ask you a few questions. It might take around 10 minutes."
             + "Please chose the response that best reflects how you have been feeling over the last 7 days, not just how you are feeling today.",
         sv to "Nu ska jag ställa några frågor. Det kan ta cirka 10 minuter."
@@ -669,11 +727,7 @@ class I18nPhrases {
     )[currentLang]!!
 
 
-    val EPDS_GETTING_STARTED = mapOf(
-        en to "Let's get started.",
-        sv to "Låt oss börja.",
-        zh to "让我们开始吧."
-    )[currentLang]!!
+
 
     val DIABETES_STARTING_SCREEN_TITLE = mapOf(
         en to "Diabetes Screening",

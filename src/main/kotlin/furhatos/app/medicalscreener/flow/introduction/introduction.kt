@@ -77,7 +77,7 @@ private fun FlowControlRunner.setup() : Unit {
 
     currentLang = DefaultLang
     furhat.setRobotVoice(DefaultLang)
-    furhat.setModel("adult", "Isabel")
+    furhat.character = "Titan"
     furhat.prominenceGesture = listOf(Gestures.BrowRaise, Gestures.BrowFrown, Gestures.Smile)
     furhat.userSpeechStartGesture = listOf(Gestures.BrowRaise, Gestures.Smile)
     furhat.param.endSilTimeout = DEFAULT_ENDSIL_MS

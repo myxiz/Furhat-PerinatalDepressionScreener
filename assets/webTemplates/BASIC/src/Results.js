@@ -41,7 +41,7 @@ class Results extends React.PureComponent {
             <div className="container-fluid results-container">
                 <div className="row">
                     <div className="col results">
-                        <h1 className="title-box text-left">{i18n[lang].RESULTS}</h1>
+                        <h2 className="title-box text-left">{i18n[lang].RESULTS}</h2>
                         <p>
                             <span>
                                 {`${i18n[lang].YOUR_RISK_IS} ${i18n[lang].DIABETES_RISK_LABELS[getDiabetesRisk(results.score)]}.`}

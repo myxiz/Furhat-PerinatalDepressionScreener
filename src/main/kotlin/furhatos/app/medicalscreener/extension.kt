@@ -46,12 +46,12 @@ fun Furhat.setRobotVoice(lang : Language, gen: Gender = Gender.NEUTRAL) {
             Language.SWEDISH to AzureVoice(name = "HilleviNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
     petraVoiceM = mapOf<Language, AzureVoice>(
-        Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
-        Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
+        Language.ENGLISH_US to AzureVoice(name = "BlueNeural", language = Language.ENGLISH_US, rate = speakingRate),
+        Language.MANDARIN to AzureVoice(name="YunyiMultilingualNeural", language = Language.MANDARIN, rate = speakingRate),
         Language.SWEDISH to AzureVoice(name = "MattiasNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
     petraVoiceF = mapOf<Language, AzureVoice>(
-        Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
+        Language.ENGLISH_US to AzureVoice(name = "Emma-Neural", language = Language.ENGLISH_GB, rate = speakingRate),
         Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
         Language.SWEDISH to AzureVoice(name = "SofieNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!

@@ -16,7 +16,8 @@ export const initState = {
     buttonsDisabled: false,
     command: null,
     modal: ModalState.NoModal,
-    language: 'zh'
+    language: 'sv',
+    showFaces : "none",
 }
 
 function ClearScreen() {
@@ -52,6 +53,10 @@ function SendUserResponse(response) {
 
 function ShowResults(results) {
     Object.assign(this, {results})
+}
+
+function ShowFaces(showFaces,delay) {
+    Object.assign(this, {showFaces,delay})
 }
 
 function OptionSelected(option) {
@@ -94,6 +99,7 @@ export const actions = {
     SetFurhatDispatcher,
     SendUserResponse,
     ShowResults,
+    ShowFaces,
     OptionSelected,
     ToggleMenuShown,
     ShowFurhatModal,

@@ -16,14 +16,16 @@ val GreetVisitor: State = state(IntroductionBaseState) {
         send(ShowOptionsEvent(allButCurrentLang()))
         users.current.interactionInfo.startTimestamp()
         writeKpi(users.current, "Interaction Started")
+//        send(ShowFacesEvent("show"))
+//        send(ShowOptionsEvent(allButCurrentLang()))
 
-        send(ShowOptionsEvent(allButCurrentLang()))
-
+//        send(ShowOptionsEvent(listOf("male:${i18n.phrases.GENERAL_MALE}", "female:${i18n.phrases.GENERAL_FEMALE}")))
         furhat.say(utterance {
             +i18n.phrases.INTRODUCTION_GREETING
             +Gestures.Smile
+            +i18n.phrases.INTRODUCTION_ROBOTINTRO
         })
-        furhat.listen(timeout = 2000)
+        furhat.listen(timeout = 800)
     }
 
 

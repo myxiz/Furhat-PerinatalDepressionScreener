@@ -6,6 +6,7 @@ import com.eclipsesource.json.JsonValue
 import furhatos.flow.kotlin.NullSafeUserDataDelegate
 import furhatos.records.Record
 import furhatos.records.User
+import furhatos.util.Gender
 import java.time.LocalDateTime
 
 interface Completable {
@@ -29,9 +30,32 @@ interface Timestamped {
     }
 }
 
-data class DiabetesData(
+data class PersonalizationData(
+    var genderMatters : Boolean = false,
+    var gender :Gender = Gender.NEUTRAL,
+    var mask: String? = "none",
+    var remember : Boolean = true,
+    override var startTime: LocalDateTime? = null,
+    override var endTime: LocalDateTime? = null
+) : Timestamped, Record()
+
+
+val User.personaliztionData : PersonalizationData
+    get() = data.getOrPut(PersonalizationData::class.qualifiedName, PersonalizationData())
+
+data class EpdsData(
     var score: Int = 0,
     var biologicalSex: String? = null,
+    var e1 : Int = -99,
+    var e2 : Int = -99,
+    var e4 : Int = -99,
+    var e5 : Int = -99,
+    var e3 : Int = -99,
+    var e6 : Int = -99,
+    var e7 : Int = -99,
+    var e8 : Int = -99,
+    var e9 : Int = -99,
+    var e10 : Int = -99,
     override var completed: Boolean = false,
     override var startTime: LocalDateTime? = null,
     override var endTime: LocalDateTime? = null
@@ -54,8 +78,8 @@ data class DiabetesData(
     }
 }
 
-val User.epdsData: DiabetesData
-    get() = data.getOrPut(DiabetesData::class.qualifiedName, DiabetesData())
+val User.epdsData: EpdsData
+    get() = data.getOrPut(EpdsData::class.qualifiedName, EpdsData())
 
 var User.numNoResponse: Int
     get() = data.getOrPut("numNoResponse", 0)
@@ -75,6 +99,10 @@ enum class Sex {
 var User.sex: Sex
     get() = data.getOrPut("sex", Sex.Unknown)
     set(sex) = data.put("sex", sex)
+
+
+
+
 
 abstract class UserAge {
     class UnknownAge : UserAge() {
@@ -130,6 +158,24 @@ fun User.asJson(phase: String) =
         .add("epdsData", JsonObject()
             .add("completed", epdsData.completed)
             .add("score", epdsData.score)
+            .add("e1", epdsData.e1)
+            .add("e2", epdsData.e2)
+            .add("e3", epdsData.e3)
+            .add("e4", epdsData.e4)
+            .add("e5", epdsData.e5)
+            .add("e6", epdsData.e6)
+            .add("e7", epdsData.e7)
+            .add("e8", epdsData.e8)
+            .add("e9", epdsData.e9)
+            .add("e10", epdsData.e10)
+            .add("startTime", epdsData.startTime?.toString())
+            .add("endTime", epdsData.endTime?.toString())
+        )
+        .add("personalization", JsonObject()
+            .add("mask", personaliztionData.mask)
+            .add("genderMatters", personaliztionData.genderMatters)
+            .add("gender", personaliztionData.gender.toString())
+            .add("remember", personaliztionData.remember)
             .add("startTime", epdsData.startTime?.toString())
             .add("endTime", epdsData.endTime?.toString())
         )

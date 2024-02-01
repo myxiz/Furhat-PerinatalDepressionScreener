@@ -18,7 +18,22 @@ val EPDSQuestionBase = state(InteractionWithBadResponse,
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val EPDSStart: State = state(EPDSQuestionBase) {
+val EPDSIntro: State = state(EPDSQuestionBase) {
+    onEntry {
+        log.debug("Entering EPDSIntro state")
+        users.current.epdsData.score = 0
+        users.current.epdsData.startTimestamp()
+        writeKpi(users.current, "Screening Started: EPDS intro")
+//        furhat.say({
+//            +i18n.phrases.EPDS_GETTING_STARTED
+//        })
+//        delay(500)
+        goto(PersonalizationStart)
+//        goto(DiabetesDisclaimer)
+    }
+}
+
+val EPDSStartQuestion: State = state(EPDSQuestionBase) {
     onEntry {
         log.debug("Entering DiabetesStart state")
         users.current.epdsData.score = 0
@@ -28,58 +43,26 @@ val EPDSStart: State = state(EPDSQuestionBase) {
             +i18n.phrases.EPDS_GETTING_STARTED
         })
         delay(500)
+        goto(EPDSQuestion1)
 //        goto(DiabetesDisclaimer)
     }
 }
 
-//val DiabetesDisclaimer: State = state(DiabetesQuestionBase) {
-//    withHelpOptions(i18n.phrases.DIABETES_DISCLAIMER_HELP_OPTION_1, i18n.phrases.DIABETES_DISCLAIMER_HELP_OPTION_2)
-//    onEntry {
-//        send(ClearScreen())
-//        log.debug("Presenting diabetes disclaimer")
-//        furhat.askAndDo(i18n.phrases.DIABETES_DISCLAIMER) {
-//            send(ShowOptionsEvent(
-//                    listOf("yes:${i18n.phrases.DIABETES_DISCLAIMER_I_UNDERSTAND}", "no:${i18n.phrases.GENERAL_NO}"),
-//                    prompt = i18n.phrases.DIABETES_DISCLAIMER_PROMPT,
-//                    append = true))
-//        }
-//    }
-//
-//    onReentry {
-//        furhat.ask {
-//            +behavior { send(ShowOptionsEvent(listOf("yes:${i18n.phrases.DIABETES_DISCLAIMER_I_UNDERSTAND}", "no:${i18n.phrases.GENERAL_NO}"), prompt = i18n.phrases.DIABETES_DISCLAIMER_PROMPT, append = false)) }
-//            +i18n.phrases.DIABETES_DISCLAIMER
-//        }
-//    }
-//
-//    onResponse<Yes> {
-//        handleAffirmativeAnswer(it)
-//    }
-//
-//    onResponse<IUnderstand> {
-//        handleAffirmativeAnswer(it)
-//    }
-//
-//    onResponse<No> {
-//        log.debug("User responded \"No\" (\"${it.text}\")")
-//        send(OptionSelectedEvent("no"))
-//        handleGoodBye()
-//    }
-//
-//    onEvent("UserResponse") {
-//        log.debug("User responded ${it.get("response")} through GUI")
-//        when (it.get("response")) {
-//            "yes" -> {
-//                sayGeneralAcknowledgement()
-//                delay(500, TimeUnit.MILLISECONDS)
-//                goto(AlreadyDiagnosed1)
-//            }
-//            "no" -> {
-//                handleGoodBye()
-//            }
-//        }
-//    }
-//}
+
+val EPDSQuestion1: State = state(EPDSQuestionBase) {
+    onEntry {
+        log.debug("Entering EPDSQuestion1 state")
+        users.current.epdsData.score = 0
+        users.current.epdsData.startTimestamp()
+        writeKpi(users.current, "Screening Started : EPDSQuestion1")
+        furhat.askAndDo(i18n.phrases.EPDS_ONE){
+
+        }
+
+        delay(500)
+    }
+}
+
 private fun TriggerRunner<*>.handleGoodBye() {
     furhat.say({
         + i18n.phrases.DIABETES_DISCLAIMER_REFUSED

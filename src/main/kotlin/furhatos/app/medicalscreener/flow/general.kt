@@ -97,44 +97,44 @@ val DebugButtons = partialState {
 //        goto(SexQuestion)
 //    }
 
-    onButton("1. Age") {
+    onButton("EPDS1") {
         goto(AgeQuestion)
     }
 
-    onButton("2a. Height") {
+    onButton("EPDS2") {
         furhat.stopSpeaking()
         goto(HeightQuestion)
     }
-    onButton("2b. Weight") {
+    onButton("EPDS3") {
         furhat.stopSpeaking()
         goto(WeightQuestion)
     }
 
-    onButton("3. WaistCircumference") {
+    onButton("EPDS4") {
         goto(WaistCircumferenceQuestion)
     }
 
-    onButton("4. Physical Activity") {
+    onButton("EPDS5") {
         goto(PhysicalActivityQuestion)
     }
 
-    onButton("5. Vegetables") {
+    onButton("EPDS6") {
         goto(VegetablesQuestion)
     }
 
-    onButton("6. BloodPressureMedication") {
+    onButton("EPDS7") {
         goto(BloodPressureMedicationQuestion)
     }
 
-    onButton("7. Blood Glucose") {
+    onButton("EPDS8") {
         goto(BloodGlucoseQuestion1)
     }
 
-    onButton("8. FamilyHistory") {
+    onButton("EPDS9") {
         goto(FamilyQuestion1)
     }
 
-    onButton("Skip To Results") {
+    onButton("EPDS10") {
         goto(Results)
     }
 

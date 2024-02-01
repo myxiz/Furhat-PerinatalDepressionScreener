@@ -16,6 +16,11 @@ data class ShowOptionsEvent(
         val title: String? = null
 ) : Event("ShowOptionsEvent")
 
+data class ShowFacesEvent(
+        val showFaces: String? = "show",
+        val delaySeconds: Double = 0.5,
+) : Event("ShowFacesEvent")
+
 data class ShowResultsEvent(
         val results: String,
         val positive: Boolean,
