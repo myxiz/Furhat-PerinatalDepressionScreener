@@ -550,6 +550,326 @@ class EveryDay : Intent() {
             )
         }
 }
+class YesMostOfTheTime : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "大部分时间都是", "大多数情况下是的",
+                "通常情况下是",
+                "绝大多数时间"
+            )
+            Language.GERMAN -> listOf(
+                "ja, meistens",
+                "ja, die meiste Zeit",
+                "meist",
+                "überwiegend ja"
+            )
+            Language.SWEDISH -> listOf(
+                "ja, för det mesta",
+                "ja, mestadels",
+                "för det mesta ja",
+                "i de flesta fall ja"
+            )
+            else -> listOf(
+                "yes, most of the time", "yes, mostly", "mostly yes",
+                "for the most part yes",
+                "in most cases, yes"
+            )
+        }
+}
+
+class YesSometimes : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "有时候是", "偶尔",
+                "有时",
+                "偶尔是的"
+            )
+            Language.GERMAN -> listOf(
+                "ja, manchmal",
+                "gelegentlich",
+                "ab und zu",
+                "hin und wieder"
+            )
+            Language.SWEDISH -> listOf(
+                "ja, ibland",
+                "ibland",
+                "då och då",
+                "emellanåt"
+            )
+            else -> listOf(
+                "yes, sometimes", "sometimes", "occasionally",
+                "now and then",
+                "from time to time"
+            )
+        }
+}
+
+class NoNotVeryOften : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "不，不太频繁", "不经常",
+                "很少",
+                "不，不是很经常"
+            )
+            Language.GERMAN -> listOf(
+                "nein, nicht so oft",
+                "selten",
+                "nicht häufig",
+                "nicht allzu oft"
+            )
+            Language.SWEDISH -> listOf(
+                "nej, inte så ofta",
+                "inte så ofta",
+                "sällan",
+                "inte ofta"
+            )
+            else -> listOf(
+                "no, not very often", "not so often", "rarely",
+                "not that often",
+                "infrequently"
+            )
+        }
+}
+
+class NoNever : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "不，从不", "永不",
+                "绝不",
+                "从来没有"
+            )
+            Language.GERMAN -> listOf(
+                "nein, nie",
+                "niemals",
+                "keinesfalls",
+                "nie im Leben"
+            )
+            Language.SWEDISH -> listOf(
+                "nej, aldrig",
+                "aldrig",
+                "absolut inte",
+                "inte en enda gång"
+            )
+            else -> listOf(
+                "no, never", "never", "absolutely not",
+                "not once",
+                "not at all"
+            )
+        }
+}
+
+class YesVeryOften : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，很频繁", "经常", "总是这样", "很多次")
+            Language.GERMAN -> listOf("ja, ziemlich oft", "oft", "häufig", "sehr oft")
+            Language.SWEDISH -> listOf("ja, mycket ofta", "ofta", "mycket ofta", "väldigt ofta")
+            else -> listOf("yes, quite often", "quite often", "often", "very often")
+        }
+}
+
+//EPDS 5
+//class YesSometimes : Intent() {
+//    override fun getExamples(lang: Language): List<String> =
+//        when (lang) {
+//            Language.MANDARIN -> listOf("是的，有时候", "有时", "偶尔", "有时会这样")
+//            Language.GERMAN -> listOf("ja, manchmal", "manchmal", "ab und zu", "gelegentlich")
+//            Language.SWEDISH -> listOf("ja, ibland", "ibland", "någon gång", "då och då")
+//            else -> listOf("yes, sometimes", "sometimes", "occasionally", "now and then")
+//        }
+//}
+class NoNotOften : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("不，不经常", "不太经常", "很少", "不常")
+            Language.GERMAN -> listOf("nein, nicht oft", "selten", "nicht so oft", "nicht häufig")
+            Language.SWEDISH -> listOf("nej, ganska sällan", "sällan", "inte ofta", "ganska sällan")
+            else -> listOf("no, not often", "not often", "rarely", "seldom")
+        }
+}
+class NoNotAtAll : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("不，完全没有", "一点也不", "根本没有", "完全不")
+            Language.GERMAN -> listOf("nein, überhaupt nicht", "überhaupt nicht", "gar nicht", "keineswegs")
+            Language.SWEDISH -> listOf("nej, inte alls", "inte alls", "absolut inte", "aldrig")
+            else -> listOf("no, not at all", "not at all", "absolutely not", "never")
+        }
+}
+
+
+class AsMuchAsUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "和往常一样多", "像平时一样多",
+                "数量如既往",
+                "依旧保持相同数量"
+            )
+            Language.GERMAN -> listOf(
+                "so viel wie üblich",
+                "wie gewohnt gleich viel",
+                "gleichbleibende Menge",
+                "immer noch so viel"
+            )
+            Language.SWEDISH -> listOf(
+                "lika mycket som vanligt",
+                "som vanligt",
+                "samma mängd som alltid",
+                "fortfarande lika mycket"
+            )
+            else -> listOf(
+                "as much as usual", "the same amount as always", "still as much",
+                "consistently the same quantity",
+                "no change in amount"
+            )
+        }
+}
+
+class SomewhatLessThanUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "比平时少一些", "稍微不如往常",
+                "略低于平时的量",
+                "有点少于平常"
+            )
+            Language.GERMAN -> listOf(
+                "etwas weniger als üblich",
+                "ein bisschen weniger als gewohnt",
+                "leicht unter dem Üblichen",
+                "nicht ganz so viel wie sonst"
+            )
+            Language.SWEDISH -> listOf(
+                "något mindre än vanligt",
+                "lite mindre än vanligt",
+                "inte riktigt som vanligt",
+                "en aning mindre än vanligt"
+            )
+            else -> listOf(
+                "somewhat less than usual", "a bit less than always", "not quite as much",
+                "slightly below the usual amount",
+                "a little less than normal"
+            )
+        }
+}
+
+class AsWellAsUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "像往常一样好", "和平时一样好",
+                "一如既往地好",
+                "依旧不错"
+            )
+            Language.GERMAN -> listOf(
+                "wie üblich gut",
+                "so gut wie immer",
+                "gleichbleibend gut",
+                "nach wie vor gut"
+            )
+            Language.SWEDISH -> listOf(
+                "lika bra som vanligt",
+                "som vanligt bra",
+                "fortfarande lika bra",
+                "alltid lika bra"
+            )
+            else -> listOf(
+                "as well as usual", "just as good as always", "still as good",
+                "always as good",
+                "consistently good"
+            )
+        }
+}
+class AlmostAsWellAsUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "几乎和往常一样好", "差不多像平时一样好",
+                "接近平时的水平",
+                "不错，但略逊平时"
+            )
+            Language.GERMAN -> listOf(
+                "fast wie üblich gut",
+                "nahezu so gut wie immer",
+                "beinahe gleichbleibend gut",
+                "fast nach wie vor gut"
+            )
+            Language.SWEDISH -> listOf(
+                "nästan lika bra som vanligt",
+                "nästan som vanligt",
+                "nära vanlig standard",
+                "inte riktigt som vanligt, men nästan"
+            )
+            else -> listOf(
+                "almost as well as usual", "nearly as good as always", "not quite as good, but close",
+                "close to the usual standard",
+                "almost consistently good"
+            )
+        }
+}
+
+
+class MuchLessThanUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "比平时少得多", "远不如往常",
+                "比往常差很多",
+                "远远低于标准"
+            )
+            Language.GERMAN -> listOf(
+                "viel weniger als üblich",
+                "weit unter dem Üblichen",
+                "deutlich weniger als sonst",
+                "erheblich unter dem Standard"
+            )
+            Language.SWEDISH -> listOf(
+                "mycket mindre än vanligt",
+                "långt under det vanliga",
+                "betydligt mindre än normalt",
+                "väsentligt under standarden"
+            )
+            else -> listOf(
+                "much less than usual", "far below usual", "significantly less than normal",
+                "well below the standard",
+                "considerably less than typical"
+            )
+        }
+}
+
+class NotAtAll : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "一点也不", "根本不",
+                "完全不",
+                "毫无"
+            )
+            Language.GERMAN -> listOf(
+                "überhaupt nicht",
+                "ganz und gar nicht",
+                "nicht im Geringsten",
+                "keineswegs"
+            )
+            Language.SWEDISH -> listOf(
+                "inte alls",
+                "absolut inte",
+                "inte det minsta",
+                "på inget sätt"
+            )
+            else -> listOf(
+                "not at all", "absolutely not", "not in the slightest",
+                "in no way",
+                "not by any means"
+            )
+        }
+}
+
 
 class NotEveryDay : Intent() {
     override fun getExamples(lang: Language): List<String> =
@@ -571,6 +891,173 @@ class NotEveryDay : Intent() {
             )
         }
 }
+
+//EPDS 6
+class YesMostTimeNotCopeAtAll : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，大部分时间我都无法应对任何事情", "大多数时间我都处理不了", "几乎总是无法应对")
+            Language.GERMAN -> listOf("Ja, meistens konnte ich mich mit nichts auseinandersetzen", "Meistens konnte ich gar nichts bewältigen")
+            Language.SWEDISH -> listOf("ja, mest hela tiden har jag inte kunnat ta itu med något alls", "för det mesta kan jag inte hantera något alls", "nästan alltid oförmögen att hantera något")
+            else -> listOf("yes, most of the time I haven't been able to cope with anything at all", "mostly unable to deal with anything", "almost always unable to cope")
+        }
+}
+
+class YesSometimesNotCopeAsWell : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，有时我无法像往常一样应对", "有时候处理不了", "偶尔无法像平时那样应对")
+            Language.GERMAN -> listOf("Ja, manchmal konnte ich nicht so gut zurechtkommen wie üblich", "Manchmal konnte ich die Dinge nicht so gut bewältigen")
+            Language.SWEDISH -> listOf("ja, ibland har jag inte kunnat ta itu med saker lika bra som vanligt", "ibland kan jag inte hantera saker som vanligt", "stundtals inte lika kapabel som vanligt")
+            else -> listOf("yes, sometimes I haven't been able to cope as well as usual", "sometimes unable to handle things as usual", "occasionally not as capable as usual")
+        }
+}
+
+class NoMostlyCopedWell : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("不，大部分时间我都处理得相当好", "大多数情况下我都能应对", "大部分时间我都做得不错")
+            Language.GERMAN -> listOf("Nein, meistens habe ich ziemlich gut zurechtkommen", "Für die meiste Zeit konnte ich die Dinge gut bewältigen")
+            Language.SWEDISH -> listOf("nej, för det mesta har jag kunnat ta itu med saker ganska bra", "mestadels har jag hanterat saker väl", "för det mesta klarar jag mig bra")
+            else -> listOf("no, for the most part, I have been able to cope quite well", "mostly I've managed things well", "for the most part, I've been coping well")
+        }
+}
+
+class NoCopedAsUsual : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf(
+                "不，我能像往常一样处理事情",
+                "我能像平时一样应对",
+                "像往常一样管理一切"
+            )
+            Language.GERMAN -> listOf(
+                "Nein, ich konnte mit den Dingen wie gewohnt umgehen",
+                "Ich habe die Dinge wie üblich bewältigt",
+                "Wie gewohnt konnte ich alles handhaben"
+            )
+            Language.SWEDISH -> listOf(
+                "nej, jag har kunnat ta itu med saker precis som vanligt",
+                "jag har hanterat saker som vanligt",
+                "precis som vanligt har jag kunnat hantera allt"
+            )
+            else -> listOf(
+                "no, I have been able to cope with things just as usual",
+                "I have handled things as usual",
+                "just like always, I've been able to manage everything"
+            )
+        }
+}
+
+class NoRarely : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("不，很少", "很少不")
+            Language.GERMAN -> listOf("Nein, selten", "Selten nein")
+            Language.SWEDISH -> listOf("nej, sällan", "sällan nej", "sällan")
+            else -> listOf("no, rarely", "rarely no", "seldom")
+        }
+}
+
+
+
+//EPDS 7
+
+
+//EPDS 8
+class YesQuiteOften : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，相当频繁", "很频繁")
+            Language.GERMAN -> listOf("Ja, ziemlich oft", "Recht oft")
+            Language.SWEDISH -> listOf("ja, rätt ofta", "rätt ofta")
+            else -> listOf("yes, quite often", "quite often")
+        }
+}
+
+
+//EPDS 9
+
+class YesAlmostAlways : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，几乎总是", "几乎总是")
+            Language.GERMAN -> listOf("Ja, fast immer", "Fast immer")
+            Language.SWEDISH -> listOf("ja, nästan jämt", "nästan jämt")
+            else -> listOf("yes, almost always", "almost always")
+        }
+}
+
+class YesQuiteOftenGanska : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，相当频繁", "相当频繁")
+            Language.GERMAN -> listOf("Ja, ziemlich oft", "Ziemlich oft")
+            Language.SWEDISH -> listOf("ja, ganska ofta", "ganska ofta")
+            else -> listOf("yes, quite often", "quite often")
+        }
+}
+
+class JustOccasionally : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("只是偶尔", "偶尔")
+            Language.GERMAN -> listOf("Nur gelegentlich", "Gelegentlich")
+            Language.SWEDISH -> listOf("bara någon gång", "någon gång")
+            else -> listOf("just occasionally", "occasionally")
+        }
+}
+//class NoNever : Intent() {
+//    override fun getExamples(lang: Language): List<String> =
+//        when (lang) {
+//            Language.MANDARIN -> listOf("不，从不", "从不")
+//            Language.GERMAN -> listOf("Nein, nie", "Nie")
+//            Language.SWEDISH -> listOf("nej, aldrig", "aldrig")
+//            else -> listOf("no, never", "never")
+//        }
+//}
+//
+
+
+//EPDS 10
+
+class YesQuiteOftenRattSa : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("是的，相当频繁", "相当频繁") // Official translation placeholder
+            Language.GERMAN -> listOf("Ja, recht oft", "Recht oft")
+            Language.SWEDISH -> listOf("ja, rätt så ofta", "rätt så ofta")
+            else -> listOf("yes, quite often", "quite often") // Official translation placeholder
+        }
+}
+
+class SometimesIbland : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("有时", "偶尔") // Official translation placeholder
+            Language.GERMAN -> listOf("Manchmal", "Gelegentlich")
+            Language.SWEDISH -> listOf("ibland", "emellanåt")
+            else -> listOf("sometimes", "occasionally") // Official translation placeholder
+        }
+}
+
+class HardlyEverNastanAldrig : Intent() {
+    override fun getExamples(lang: Language): List<String> =
+        when (lang) {
+            Language.MANDARIN -> listOf("几乎从不", "很少") // Official translation placeholder
+            Language.GERMAN -> listOf("Fast nie", "Kaum")
+            Language.SWEDISH -> listOf("nästan aldrig", "nästan inte alls")
+            else -> listOf("hardly ever", "almost never") // Official translation placeholder
+        }
+}
+
+
+
+
+
+
+
+
 
 class IEatEveryDay : Intent() {
     override fun getExamples(lang: Language): List<String> =
@@ -1029,6 +1516,7 @@ class I18nIntents {
     val Female = mapOf(
         en to I18nIntent(examples = listOf(
             "woman",
+            "women",
             "female",
             "girl",
             "lady",
@@ -1041,6 +1529,7 @@ class I18nIntents {
             "dam",
             "hon",
             "woman",
+            "women",
             "female",
             "girl",
             "lady",
@@ -1071,10 +1560,11 @@ class I18nIntents {
             "han",
             "manlig",
             "male",
-            "man",
+            "men",
             "boy",
             "gentleman",
-            "he"
+            "he",
+            "him"
         )),
         zh to I18nIntent(examples = listOf(
             "男性",
@@ -1156,6 +1646,7 @@ class I18nIntents {
             "解释"
         ))
     )[currentLang]!!
+
 
     val PsysicalActivityExplain = mapOf(
             en to I18nIntent(

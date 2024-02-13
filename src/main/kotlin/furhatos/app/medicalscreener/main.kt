@@ -18,6 +18,22 @@ class ScreenerSkill : Skill() {
 
 val log = CommonUtils.getLogger(ScreenerSkill::class.java)!!
 
+var name: String? = ""
+
+fun readName() {
+    name = readlnOrNull()
+
+    // Check if the input is not null before using it
+    if (name != null && name!!.isNotEmpty()) {
+        println("Hello, $name!")
+    } else {
+        println("No name was entered.")
+    }
+}
+
 fun main(args: Array<String>) {
+    println("Please enter user name:")
+    readName()
+    // Read a line of input from the command line
     Skill.main(args)
 }

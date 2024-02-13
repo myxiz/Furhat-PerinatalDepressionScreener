@@ -14,14 +14,14 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 
     onEntry {
         log.debug("In ScreeningSelection state")
-        furhat.askAndDo(i18n.phrases.INTRODUCTION_PND_PROMPT) {
+        furhat.askAndDo(i18n.phrases.INTRODUCTION_EPDS_CONSENT) {
             send(ClearScreen())
             send(ShowOptionsEvent(
                     listOf(
-                        "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
-                        "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
+                        "yes:${i18n.phrases.GENERAL_YES}",
+                        "no:${i18n.phrases.GENERAL_NO}"
                     ),
-                    prompt = i18n.phrases.INTRODUCTION_PND_PROMPT
+                    prompt = i18n.phrases.INTRODUCTION_EPDS_CONSENT
             ))
         }
     }
@@ -38,22 +38,21 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
         }
     }
 
-
     onReentry {
         log.debug("Reentering ScreenSelection state")
         furhat.askAndDo(utterance {
             random {
-                +i18n.phrases.INTRODUCTION_REPEAT_OPTIONS_VAR1
-                +i18n.phrases.INTRODUCTION_REPEAT_OPTIONS_VAR2
+                +i18n.phrases.INTRODUCTION_EPDS_CONSENT
+                +i18n.phrases.INTRODUCTION_EPDS_CONSENT
             }
         }) {
             delay(800)
             send(ShowOptionsEvent(
                     listOf(
-                            "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
-                            "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
+                            "yes:${i18n.phrases.GENERAL_YES}",
+                            "no:${i18n.phrases.GENERAL_NO}"
                     ),
-                    i18n.phrases.INTRODUCTION_PND_PROMPT,
+                    i18n.phrases.INTRODUCTION_EPDS_CONSENT,
                     append = false))
         }
     }
@@ -103,7 +102,124 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
     include(abortableStateDef(Goodbye, null))
 }
 
+
+val PNDIntro :State = state(IntroductionBaseState) {
+    onEntry {
+        log.debug("In ScreeningSelection state")
+        furhat.askAndDo(utterance = i18n.phrases.INTRODUCTION_PND_PROMPT) {
+            send(ClearScreen())
+            send(ShowOptionsEvent(
+                listOf(
+                    "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
+                    "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
+                ),
+                prompt = i18n.phrases.INTRODUCTION_PND_PROMPT
+            ))
+        }
+    }
+    onEvent("UserResponse") {
+        log.debug("User responded ${it.get("response")} through GUI")
+        val response = it.get("response") as String?
+        when {
+            response === null -> throw Error("Response from GUI was null")
+            listOf("yes", "no").contains(response) -> {
+                log.debug("User selected screening ${it.get("response")} through GUI")
+                handleIntroChoice(it.get("response") as String?, true)
+            }
+            else -> handleLanguageChange(language = response)
+        }
+    }
+
+    onReentry {
+        log.debug("Reentering ScreenSelection state")
+        furhat.askAndDo(utterance {
+            random {
+                +i18n.phrases.INTRODUCTION_REPEAT_OPTIONS_VAR1
+                +i18n.phrases.INTRODUCTION_REPEAT_OPTIONS_VAR2
+            }
+        }) {
+            delay(800)
+            send(ShowOptionsEvent(
+                listOf(
+                    "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
+                    "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
+                ),
+                i18n.phrases.INTRODUCTION_PND_PROMPT,
+                append = false))
+        }
+    }
+
+    onResponse<Yes> { handleIntroChoice("yes") }
+    onResponse<YesYouCan> { handleIntroChoice("yes") } // in mandarin, "can" is often the answer given to any question beginning with "can i..." or "can you..."
+    onResponse("tell me", "want to know", "why is it important") { handleIntroChoice("yes") }
+    onResponse<Maybe> { handleIntroChoice("yes") }
+    onResponse<LetsProceed> { handleIntroChoice("yes") }
+    onResponse<No> { handleIntroChoice("no") }
+    onResponse("don't want to know", "already know") { handleIntroChoice("no") }
+    onResponse<Start> { handleIntroChoice("no") }
+
+    addRepeatQuestionHandler()
+    addGoodbyeHandler()
+    addTellAboutStatesHandlers()
+    addGazeAversionBehaviour()
+
+    onResponse<EnglishDontUnderstandLanguage> {
+        handleLanguageChange(language = "en")
+    }
+
+    include(ChangeLanguageBehavior)
+    include(NoOrInvalidResponseState(customBadResponse = {
+        onResponse {
+            log.debug("Unrecognized response to ScreeningSelection (\"${it.text}\")")
+            users.current.showScreeningButtons = true
+            furhat.say({
+                random {
+                    +i18n.phrases.INTRODUCTION_INVALID_RESPONSE_VAR1
+                    +i18n.phrases.INTRODUCTION_INVALID_RESPONSE_VAR2
+                    +i18n.phrases.INTRODUCTION_INVALID_RESPONSE_VAR3
+                }
+            })
+            furhat.askAndDo(i18n.phrases.INTRODUCTION_PND_PROMPT) {
+                send(ShowOptionsEvent(
+                    listOf(
+                        "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
+                        "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
+                    ),
+                    prompt = i18n.phrases.INTRODUCTION_PND_PROMPT,
+                    append = true
+                ))
+            }
+        }
+    }))
+    include(abortableStateDef(Goodbye, null))
+
+}
 private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFromGui: Boolean = false) {
+    users.current.showScreeningButtons = true
+    when (choice) {
+        "yes" -> {
+            if (!respondedFromGui) {
+                send(OptionSelectedEvent("yes"))
+            }
+            furhat.say(i18n.phrases.INTRODUCTION_THANSFORTURST)
+            delay(400)
+            send(ClearScreen())
+            goto(PNDIntro)
+        }
+        "no" -> {
+            if (!respondedFromGui) {
+                send(OptionSelectedEvent("no"))
+            }
+            furhat.say(i18n.phrases.GENERAL_OK_NO_PROBLEM)
+            delay(400)
+            send(ClearScreen())
+            goto(Goodbye)
+        }
+        else -> throw IllegalArgumentException("Must be either 'yes' or 'no'")
+    }
+}
+
+private fun TriggerRunner<*>.handleIntroChoice(choice: String?, respondedFromGui: Boolean = false) {
     users.current.showScreeningButtons = true
     when (choice) {
         "yes" -> {
@@ -121,7 +237,7 @@ private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFro
             if (!respondedFromGui) {
                 send(OptionSelectedEvent("no"))
             }
-            furhat.say(i18n.phrases.INTRODUCTION_DIABETES_NO_DESCRIPTION)
+            furhat.say(i18n.phrases.INTRODUCTION_EPDS_NO_DESCRIPTION)
             delay(400)
             goto(EPDSIntro)
         }

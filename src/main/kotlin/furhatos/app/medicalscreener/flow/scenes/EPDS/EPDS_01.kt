@@ -1,69 +1,81 @@
-package furhatos.app.medicalscreener.flow.scenes.diabetes
-
+package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
 import furhatos.app.medicalscreener.i18n.*
+import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.i18n.i18n
-import furhatos.app.medicalscreener.i18n.DontKnow
-import furhatos.app.medicalscreener.i18n.Maybe
-import furhatos.app.medicalscreener.nlu.PsysicalActivityExplain
-import furhatos.flow.kotlin.furhat
-import furhatos.flow.kotlin.onResponse
-import furhatos.flow.kotlin.state
-import furhatos.flow.kotlin.users
+import furhatos.app.medicalscreener.i18n.AsWellAsUsual
+import furhatos.app.medicalscreener.i18n.AlmostAsWellAsUsual
+import furhatos.app.medicalscreener.i18n.MuchLessThanUsual
+import furhatos.app.medicalscreener.i18n.NotAtAll
 
-val PhysicalActivityQuestion = state(EPDSQuestionBase) {
+
+val EPDSQuestion01: State = state(EPDSStartQuestion) {
     onEntry {
-        send(ClearScreen())
-        furhat.askAndDo(i18n.phrases.DIABETES_PHYSICAL_ACTIVITY_QUESTION) {
+        furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion1 state")
+        users.current.epdsData.score = 0
+        users.current.epdsData.startTimestamp()
+        writeKpi(users.current, "Screening Started : EPDSQuestion1")
+        furhat.askAndDo(i18n.phrases.EPDS_ONE) {
             send(ShowOptionsEvent(
-                    listOf("yes:${i18n.phrases.GENERAL_YES}", "no:${i18n.phrases.GENERAL_NO}"),
-                    i18n.phrases.DIABETES_PHYSICAL_ACTIVITY_QUESTION_PROMPT
+                listOf(
+                    "0:${i18n.phrases.EPDS_ONE_RESPONSES_0}",
+                    "1:${i18n.phrases.EPDS_ONE_RESPONSES_1}",
+                    "2:${i18n.phrases.EPDS_ONE_RESPONSES_2}",
+                    "3:${i18n.phrases.EPDS_ONE_RESPONSES_3}"),
+                i18n.phrases.EPDS_ONE_PROMPT
             ))
         }
+        delay(500)
     }
-    onResponse<Yes> {
-        send(OptionSelectedEvent("yes"))
-        ackAndGoto(VegetablesQuestion)
+
+    onResponse<AsWellAsUsual> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e1= 0
+        ackAndGoto(EPDSQuestion02)
     }
-    onResponse<EveryDay> {
-        send(OptionSelectedEvent("yes"))
-        ackAndGoto(VegetablesQuestion)
+    onResponse<AlmostAsWellAsUsual> {
+        send(OptionSelectedEvent("1"))
+        users.current.epdsData.e1= 1
+        users.current.epdsData.addToScore(1, "EPDS01")
+        ackAndGoto(EPDSQuestion02)
     }
-    onResponse<No> {
-        send(OptionSelectedEvent("no"))
-        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
-        ackAndGoto(VegetablesQuestion)
+    onResponse<MuchLessThanUsual> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e1= 2
+        users.current.epdsData.addToScore(2, "EPDS01")
+        ackAndGoto(EPDSQuestion02)
     }
-    onResponse<Maybe> {
-        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
-        ackAndGoto(VegetablesQuestion)
-    }
-    onResponse<DontKnow> {
-        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
-        ackAndGoto(VegetablesQuestion)
-    }
-    onResponse<Sometimes> {
-        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
-        ackAndGoto(VegetablesQuestion)
-    }
-    onResponse<NotEveryDay> {
-        send(OptionSelectedEvent("no"))
-        users.current.epdsData.addToScore(2, "PhysicalActivityQuestion")
-        ackAndGoto(VegetablesQuestion)
-    }
-    onResponse<PsysicalActivityExplain> {
-        furhat.ask(i18n.phrases.DIABETES_PHYSICAL_ACTIVITY_EXPLAIN)
+    onResponse<NotAtAll> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e1= 3
+        users.current.epdsData.addToScore(3, "EPDS01")
+        ackAndGoto(EPDSQuestion02)
     }
 
     onEvent("UserResponse") {
         furhatos.app.medicalscreener.log.debug("User responded ${it.get("response")} through GUI")
         when ((it.get("response") as String?)?.toLowerCase()) {
-            "yes" -> ackAndGoto(VegetablesQuestion)
-            "no" -> {
+            "0" -> {
+                users.current.epdsData.e1 = 0
+                goto(EPDSQuestion02)
+            }
+            "1" -> {
+                users.current.epdsData.e1 = 1
+                users.current.epdsData.addToScore(1)
+                goto(EPDSQuestion02)
+            }
+            "2" -> {
+                users.current.epdsData.e1 = 2
                 users.current.epdsData.addToScore(2)
-                ackAndGoto(VegetablesQuestion)
+                goto(EPDSQuestion02)
+            }
+            "3" -> {
+                users.current.epdsData.e1 = 3
+                users.current.epdsData.addToScore(3)
+                goto(EPDSQuestion02)
             }
         }
     }
 }
+

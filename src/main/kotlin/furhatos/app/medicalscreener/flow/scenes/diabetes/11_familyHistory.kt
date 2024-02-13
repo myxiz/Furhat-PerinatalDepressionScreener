@@ -4,14 +4,14 @@ import furhatos.app.medicalscreener.flow.OptionSelectedEvent
 import furhatos.app.medicalscreener.flow.ShowOptionsEvent
 import furhatos.app.medicalscreener.flow.askAndDo
 import furhatos.app.medicalscreener.flow.epdsData
-import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import java.util.concurrent.TimeUnit
 
-private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
+private val log = CommonUtils.getLogger(EPDSStartQuestion::class.java)!!
 
 val relativeOptions : Map<String, String> = mapOf(
         "no" to i18n.phrases.GENERAL_NO,
@@ -20,7 +20,7 @@ val relativeOptions : Map<String, String> = mapOf(
         "distant" to i18n.phrases.DIABETES_FAMILY_HISTORY_ALTERNATIVE_2
 )
 
-val FamilyQuestion1: State = state(EPDSQuestionBase) {
+val FamilyQuestion1: State = state(EPDSStartQuestion) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_FAMILY_HISTORY_QUESTION_1) {
             send(ShowOptionsEvent(
@@ -48,7 +48,7 @@ val FamilyQuestion1: State = state(EPDSQuestionBase) {
 }
 
 
-val FamilyQuestion2: State = state(EPDSQuestionBase) {
+val FamilyQuestion2: State = state(EPDSStartQuestion) {
     onEntry {
         furhat.askAndDo(i18n.phrases.DIABETES_FAMILY_HISTORY_QUESTION_2) {
             send(ShowOptionsEvent(

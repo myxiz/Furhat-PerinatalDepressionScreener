@@ -26,24 +26,7 @@ export class Screen extends React.PureComponent {
                         <h1>Mental Health Screener</h1>
                     </div>
                 </div>
-
                 <div className="content row">
-                    <div>
-                        confirm
-                    </div>
-                </div>
-                <div className="content row">
-                    <div className="row center button-row">
-                        <div className="col-8 offset-2 center">
-                            <button
-                                key={"confirmFace"}
-                                type="button"
-                                disabled={buttonsDisabled}
-                                onClick={() => onOptionSelected("confirmFace")}>
-                                confirm
-                            </button>
-                        </div>
-                    </div>
                     <div className="col-10 offset-1">
                         <FaceOptions
                             isShown= {showFaces.toString()}

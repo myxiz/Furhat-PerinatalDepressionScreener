@@ -3,34 +3,34 @@ import PropTypes from "prop-types"
 import {actions} from "./model"
 import i18n from './copy/i18n';
 
-const getDiabetesRisk = score => {
+const getEPDSRisk = score => {
     switch (true) {
-        case score < 7:
+        case score < 9:
             return "low";
-        case score <= 11:
-            return "slightly_elevated";
-        case score <= 14:
-            return "moderate";
-        case score <= 20:
+        case score <= 10:
+            return "depression_possible";
+        case score <= 12:
+            return "fairly_high";
+        case score <= 30:
             return "high";
         default:
             return "very_high"
     }
 };
 
-const getDiabetesResultInfo = (score, lang) => {
+const getEPDSResultInfo = (score, lang) => {
     console.log('score when fetching info: ', score)
     switch (true) {
-        case score < 7:
-            return i18n[lang].DIABETES_LOW_RISK_INFO;
-        case score <= 11:
-            return i18n[lang].DIABETES_SLIGHTLY_ELEVATED_RISK_INFO;
-        case score <= 14:
-            return i18n[lang].DIABETES_MODERATE_RISK_INFO;
-        case score <= 20:
-            return i18n[lang].DIABETES_HIGH_RISK_INFO;
+        case score < 9:
+            return i18n[lang].EPDS_LOW_RISK_INFO;
+        case score <= 10:
+            return i18n[lang].EPDS_DEPRESSION_POSSIBLE_INFO;
+        case score <= 12:
+            return i18n[lang].EPDS_MODERATE_RISK_INFO;
+        case score <= 30:
+            return i18n[lang].EPDS_HIGH_RISK_INFO;
         default:
-            return i18n[lang].DIABETES_VERY_HIGH_RISK_INFO
+            return i18n[lang].EPDS_VERY_HIGH_RISK_INFO
     }
 };
 
@@ -44,9 +44,9 @@ class Results extends React.PureComponent {
                         <h2 className="title-box text-left">{i18n[lang].RESULTS}</h2>
                         <p>
                             <span>
-                                {`${i18n[lang].YOUR_RISK_IS} ${i18n[lang].DIABETES_RISK_LABELS[getDiabetesRisk(results.score)]}.`}
+                                {`${i18n[lang].YOUR_RISK_IS} ${i18n[lang].EPDS_RISK_LABELS[getEPDSRisk(results.score)]}.`}
                                 <br/>
-                                {getDiabetesResultInfo(results.score, lang)}
+                                {getEPDSResultInfo(results.score, lang)}
                             </span>
                         </p>
                         <p>

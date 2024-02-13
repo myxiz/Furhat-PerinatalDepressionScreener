@@ -423,7 +423,7 @@ class I18nPhrases {
         en to "Thanks for trusting me!",
         sv to "Bra, tack för att du litar på mig.",
         zh to "谢谢您的信任。"
-    )
+    )[currentLang]!!
 
     val INTRODUCTION_ALL_DONE = mapOf(
         en to "You have completed the screening. Would you like to repeat it?",
@@ -438,15 +438,15 @@ class I18nPhrases {
     )[currentLang]!!
 
     val INTRODUCTION_REPEAT_OPTIONS_VAR1  = mapOf(
-        en to "I’m here to help you check if you are at risk of perinatal depression. First, can I tell you a bit about why this is important?",
-        sv to "Jag är här för att hjälpa dig att kontrollera om du löper risk för perinatal depression. Först, kan jag berätta lite om varför detta är viktigt?",
-        zh to "我在这里帮助您检查是否有围产期抑郁症的风险。首先，我可以告诉您为什么这很重要吗？"
+        en to "First, can I tell you a bit about why this is important?",
+        sv to "Först, kan jag berätta lite om varför detta är viktigt?",
+        zh to "首先，我可以告诉您为什么这很重要吗？"
     )[currentLang]!!
 
     val INTRODUCTION_REPEAT_OPTIONS_VAR2 = mapOf(
-        en to "I can perform a screening for perinatal depression, would you like me to tell you more about perinatal depression?",
-        sv to "Jag kan utföra en screening för perinatal depression, vill du att jag berättar mer om perinatal depression?",
-        zh to "我可以进行围产期抑郁症检查, 你想告诉我更多有关围产期抑郁症的信息吗？"
+        en to "Would you like me to tell you more about perinatal depression?",
+        sv to "Vill du berättar mer om perinatal depression?",
+        zh to "你想我告诉你更多有关围产期抑郁症的信息吗？"
     )[currentLang]!!
 
     val INTRODUCTION_INVALID_RESPONSE_VAR1 = mapOf(
@@ -494,13 +494,8 @@ class I18nPhrases {
         zh to "围产期抑郁症是一种可以在怀孕期间和分娩后影响女性的临床抑郁症。它涉及到强烈的悲伤、焦虑和疲劳感，这些感觉可能会干扰女性照顾自己和婴儿的能力，超出了典型的“产后忧郁”范畴。"
     )[currentLang]!!
 
-//    val INTRODUCTION_DIABETES_DESCRIPTION_PROMPT = mapOf(
-//        en to INTRODUCTION_DIABETES_DESCRIPTION,
-//        sv to "Diabetes är en grupp sjukdomar som kännetecknas av höga blodsockernivåer. Det finns två huvudtyper av diabetes. Typ 1 och typ 2. Tidiga stadier av typ 2-diabetes orsakar sällan några symtom. Det är viktigt att kontrollera dig själv för riskfaktorerna.",
-//        zh to INTRODUCTION_DIABETES_DESCRIPTION
-//    )[currentLang]!!
 
-    val INTRODUCTION_DIABETES_NO_DESCRIPTION = mapOf(
+    val INTRODUCTION_EPDS_NO_DESCRIPTION = mapOf(
         en to "Ok. Then we will skip directly to the questions.",
         sv to "Okej. Då hoppar vi direkt till frågorna.",
         zh to "好的。然后我们将直接跳转到问题。"
@@ -653,11 +648,12 @@ class I18nPhrases {
 //        zh to "让我们开始吧."
 //    )[currentLang]!!
 
-    val INTRODUCTION_EPDS_NOW = mapOf(
-        en to "I will help you to go through EPDS questionnaire again. Would you like to do it now?",
-        sv to "Jag kommer att hjälpa dig att gå igenom EPDS-enkäten igen. Vill du göra det nu?",
-        zh to "我将协助您再次填写EPDS问卷。您想现在开始吗？"
-    )
+    val INTRODUCTION_EPDS_CONSENT = mapOf(
+        en to "I will help you to go through EPDS questionnaire again. Would you like to do it with me?",
+        sv to "Jag hjälper dig att gå igenom EPDS-frågeformuläret igen. Vill du göra det tillsammans med mig?",
+        zh to "我将协助您再次填写EPDS问卷。您想由我来进行检查吗？"
+    )[currentLang]!!
+
     val EPDS_GETTING_STARTED  = mapOf(
         en to "Now I will ask you a few questions. It might take around 10 minutes."
             + "Please chose the response that best reflects how you have been feeling over the last 7 days, not just how you are feeling today.",
@@ -667,65 +663,335 @@ class I18nPhrases {
     )[currentLang]!!
 
     val EPDS_ONE = mapOf(
-        en to "",
+        en to "I have been able to laugh and see the funny side of things",
         sv to "Jag har kunnat se tillvaron från den ljusa sidan:",
-        zh to ""
+        zh to "我能够笑看事物的有趣之处"  // This is a commonly used translation for reference purposes. Please verify against the official EPDS documentation.
+    )[currentLang]!!
+
+    val EPDS_ONE_PROMPT = EPDS_ONE
+
+    val EPDS_ONE_RESPONSES_0 = mapOf(
+        en to "I have been able to laugh and see the funny side of things as much as I always could",
+        sv to "Lika bra som vanligt",
+        zh to "我能像往常一样笑和看到事情的有趣之处"
+    )[currentLang]!!
+
+    val EPDS_ONE_RESPONSES_1 = mapOf(
+        en to "I have not been able to laugh and see the funny side of things as much as I used to",
+        sv to "Nästan lika bra som vanligt",
+        zh to "我无法像以前那样笑和看到事情的有趣之处"
+    )[currentLang]!!
+
+    val EPDS_ONE_RESPONSES_2 = mapOf(
+        en to "I have felt sad or miserable",
+        sv to "Mycket mindre än vanligt",
+        zh to "我感到悲伤或痛苦"
+    )[currentLang]!!
+
+    val EPDS_ONE_RESPONSES_3 = mapOf(
+        en to "I have been so unhappy that I have had difficulty sleeping",
+        sv to "Inte alls",
+        zh to "我一直很不开心，以至于难以入睡"
     )[currentLang]!!
 
     val EPDS_TWO = mapOf(
-        en  to "",
+        en to "I have looked forward with enjoyment to things",
         sv to "Jag har glatt mig åt saker som skall hända:",
-        zh to ""
+        zh to "我期待着以愉悦的心情去面对将要发生的事情"  // This is a commonly used translation for reference purposes. Please verify against the official EPDS documentation.
+    )[currentLang]!!
+
+    val EPDS_TWO_PROMPT = EPDS_TWO
+
+    val EPDS_TWO_RESPONSES_0 = mapOf(
+        en to "As much as I always could",
+        sv to "Lika mycket som vanligt",
+        zh to "像往常一样期待"
+    )[currentLang]!!
+
+    val EPDS_TWO_RESPONSES_1 = mapOf(
+        en to "Rather less than I used to",
+        sv to "Något mindre än vanligt",
+        zh to "比以前稍微少一些"
+    )[currentLang]!!
+
+    val EPDS_TWO_RESPONSES_2 = mapOf(
+        en to "Definitely less than I used to",
+        sv to "Mycket mindre än vanligt",
+        zh to "肯定比以前少"
+    )[currentLang]!!
+
+    val EPDS_TWO_RESPONSES_3 = mapOf(
+        en to "Hardly at all",
+        sv to "Inte alls",
+        zh to "几乎没有"
     )[currentLang]!!
 
     val EPDS_THREE = mapOf(
-        en to "",
+        en to "I have blamed myself unnecessarily when things went wrong",
         sv to "Jag har lagt skulden på mig själv onödigt mycket när något har gått snett:",
-        zh to ""
+        zh to "当事情进展不顺时，我会不必要地责怪自己"  // This is provided for reference purposes. Please verify against the official EPDS documentation.
     )[currentLang]!!
+
+
+    val EPDS_THREE_PROMPT = EPDS_THREE
+
+    val EPDS_THREE_RESPONSES_3 = mapOf(
+        en to "Yes, most of the time",
+        sv to "Ja, för det mesta",
+        zh to "是的，大多数时间"
+    )[currentLang]!!
+
+    val EPDS_THREE_RESPONSES_2 = mapOf(
+        en to "Yes, sometimes",
+        sv to "Ja, ibland",
+        zh to "是的，有时候"
+    )[currentLang]!!
+
+    val EPDS_THREE_RESPONSES_1 = mapOf(
+        en to "No, not very often",
+        sv to "Nej, inte så ofta",
+        zh to "不，不太经常"
+    )[currentLang]!!
+
+    val EPDS_THREE_RESPONSES_0 = mapOf(
+        en to "No, never",
+        sv to "Nej, aldrig",
+        zh to "不，从不"
+    )[currentLang]!!
+
 
     val EPDS_FOUR = mapOf(
-        en to "",
+        en to "I have been anxious or worried for no good reason",
         sv to "Jag har känt mig rädd och orolig utan egentlig anledning:",
-        zh to ""
+        zh to "我无缘无故地感到焦虑或担心"  // This is provided for reference purposes. Please verify against the official EPDS documentation.
     )[currentLang]!!
+
+    val EPDS_FOUR_PROMPT = EPDS_FOUR
+
+    val EPDS_FOUR_RESPONSES_0 = mapOf(
+        en to "No, not at all",
+        sv to "Nej, inte alls",
+        zh to "不，完全没有"
+    )[currentLang]!!
+
+    val EPDS_FOUR_RESPONSES_1 = mapOf(
+        en to "No, hardly ever",
+        sv to "Nej, knappast alls",
+        zh to "不，几乎没有"
+    )[currentLang]!!
+
+    val EPDS_FOUR_RESPONSES_2 = mapOf(
+        en to "Yes, sometimes",
+        sv to "Ja, ibland",
+        zh to "是的，有时候"
+    )[currentLang]!!
+
+    val EPDS_FOUR_RESPONSES_3 = mapOf(
+        en to "Yes, quite often",
+        sv to "Ja, mycket ofta",
+        zh to "是的，相当频繁"
+    )[currentLang]!!
+
+
 
     val EPDS_FIVE = mapOf(
-        en to "",
+        en to "I have felt scared or panicky for no very good reason",
         sv to "Jag har känt mig skrämd eller panikslagen utan speciell anledning:",
-        zh to ""
+        zh to "我无明显理由感到害怕或惊慌失措"  // Provided for reference purposes. Please verify against the official EPDS documentation.
     )[currentLang]!!
+
+
+    val EPDS_FIVE_PROMPT = EPDS_FIVE
+
+    val EPDS_FIVE_RESPONSES_0 = mapOf(
+        en to "No, not at all",
+        sv to "Nej, inte alls",
+        zh to "不，完全没有"
+    )[currentLang]!!
+
+    val EPDS_FIVE_RESPONSES_1 = mapOf(
+        en to "No, not often",
+        sv to "Nej, ganska sällan",
+        zh to "不，不经常"
+    )[currentLang]!!
+
+    val EPDS_FIVE_RESPONSES_2 = mapOf(
+        en to "Yes, sometimes",
+        sv to "Ja, ibland",
+        zh to "是的，有时候"
+    )[currentLang]!!
+
+    val EPDS_FIVE_RESPONSES_3 = mapOf(
+        en to "Yes, quite often",
+        sv to "Ja, mycket ofta",
+        zh to "是的，相当频繁"
+    )[currentLang]!!
+
 
     val EPDS_SIX = mapOf(
-        en to "",
+        en to "Things have been getting on top of me",
         sv to "Det har kört ihop sig för mig och blivit för mycket:",
-        zh to ""
+        zh to "事情变得我无法应对"  // Provided for reference purposes. Please verify against the official EPDS documentation.
     )[currentLang]!!
+
+
+    val EPDS_SIX_PROMPT = EPDS_SIX
+
+    val EPDS_SIX_RESPONSES_3 = mapOf(
+        en to "Yes, most of the time I haven't been able to cope at all",
+        sv to "Ja, mest hela tiden har jag inte kunnat ta itu med något alls",
+        zh to "是的，大部分时间我完全无法应对"
+    )[currentLang]!!
+
+    val EPDS_SIX_RESPONSES_2 = mapOf(
+        en to "Yes, sometimes I haven't been able to cope as well as usual",
+        sv to "Ja, ibland har jag inte kunnat ta itu med saker lika bra som vanligt",
+        zh to "是的，有时我无法像往常一样好地应对"
+    )[currentLang]!!
+
+    val EPDS_SIX_RESPONSES_1 = mapOf(
+        en to "No, most of the time I have coped quite well",
+        sv to "Nej, för det mesta har jag kunnat ta itu med saker ganska bra",
+        zh to "不，大部分时间我都应对得相当好"
+    )[currentLang]!!
+
+    val EPDS_SIX_RESPONSES_0 = mapOf(
+        en to "No, I have been coping as well as ever",
+        sv to "Nej, jag har kunnat ta itu med saker precis som vanligt",
+        zh to "不，我一如既往地应对得很好"
+    )[currentLang]!!
+
 
     val EPDS_SEVEN = mapOf(
-        en to "",
+        en to "I have been so unhappy that I have had trouble sleeping",
         sv to "Jag har känt mig så ledsen och olycklig att jag har haft svårt att sova:",
-        zh to ""
+        zh to "我一直不开心到难以入睡"  // For illustrative purposes, please verify against the official EPDS documentation.
     )[currentLang]!!
 
+
+    val EPDS_SEVEN_PROMPT = EPDS_SEVEN
+
+    val EPDS_SEVEN_RESPONSES_3 = mapOf(
+        en to "Yes, most of the time",
+        sv to "Ja, för det mesta",
+        zh to "是的，大多数时间"
+    )[currentLang]!!
+
+    val EPDS_SEVEN_RESPONSES_2 = mapOf(
+        en to "Yes, sometimes",
+        sv to "Ja, ibland",
+        zh to "是的，有时候"
+    )[currentLang]!!
+
+    val EPDS_SEVEN_RESPONSES_1 = mapOf(
+        en to "No, not often",
+        sv to "Nej, sällan",
+        zh to "不，不经常"
+    )[currentLang]!!
+
+    val EPDS_SEVEN_RESPONSES_0 = mapOf(
+        en to "No, never",
+        sv to "Nej, aldrig",
+        zh to "不，从不"
+    )[currentLang]!!
+
+
     val EPDS_EIGHT = mapOf(
-        en to "",
+        en to "I have felt sad or miserable",
         sv to "Jag har känt mig ledsen och nere:",
-        zh to ""
+        zh to "我感到悲伤或痛苦"  // For illustrative purposes, please verify against the official EPDS documentation.
+    )[currentLang]!!
+
+
+    val EPDS_EIGHT_PROMPT = EPDS_EIGHT
+
+    val EPDS_EIGHT_RESPONSES_0 = mapOf(
+        en to "No, never",
+        sv to "Nej, aldrig",
+        zh to "不，从不"
+    )[currentLang]!!
+
+    val EPDS_EIGHT_RESPONSES_1 = mapOf(
+        en to "No, not often",
+        sv to "Nej, sällan",
+        zh to "不，不经常"
+    )[currentLang]!!
+
+    val EPDS_EIGHT_RESPONSES_2 = mapOf(
+        en to "Yes, quite often",
+        sv to "Ja, rätt ofta",
+        zh to "是的，相当频繁"
+    )[currentLang]!!
+
+    val EPDS_EIGHT_RESPONSES_3 = mapOf(
+        en to "Yes, most of the time",
+        sv to "Ja, för det mesta",
+        zh to "是的，大多数时间"
     )[currentLang]!!
 
     val EPDS_NINE = mapOf(
-        en to "",
+        en to "I have been so unhappy that I have been crying",
         sv to "Jag har känt mig så olycklig att jag har gråtit:",
-        zh to ""
+        zh to "我不开心到哭泣"  // For illustrative purposes, please verify against the official EPDS documentation.
+    )[currentLang]!!
+
+
+    val EPDS_NINE_PROMPT = EPDS_NINE
+    val EPDS_NINE_RESPONSES_0 = mapOf(
+        en to "No, never",
+        sv to "Nej, aldrig",
+        zh to "不，从不"
+    )[currentLang]!!
+
+    val EPDS_NINE_RESPONSES_1 = mapOf(
+        en to "Only occasionally",
+        sv to "Bara någon gång",
+        zh to "只是偶尔"
+    )[currentLang]!!
+
+    val EPDS_NINE_RESPONSES_2 = mapOf(
+        en to "Yes, quite often",
+        sv to "Ja, ganska ofta",
+        zh to "是的，相当频繁"
+    )[currentLang]!!
+
+    val EPDS_NINE_RESPONSES_3 = mapOf(
+        en to "Yes, most of the time",
+        sv to "Ja, nästan jämt",
+        zh to "是的，大部分时间"
     )[currentLang]!!
 
     val EPDS_TEN = mapOf(
-        en to "",
+        en to "The thought of harming myself has occurred to me",
         sv to "Tankar på att göra mig själv illa har förekommit:",
-        zh to ""
+        zh to "我曾想过伤害自己"  // For illustrative purposes, please verify against the official EPDS documentation.
     )[currentLang]!!
 
+    val EPDS_TEN_PROMPT = EPDS_TEN
+
+    val EPDS_TEN_RESPONSES_0 = mapOf(
+        en to "Never",
+        sv to "Aldrig",
+        zh to "从不"
+    )[currentLang]!!
+
+    val EPDS_TEN_RESPONSES_1 = mapOf(
+        en to "Hardly ever",
+        sv to "Nästan aldrig",
+        zh to "几乎从不"
+    )[currentLang]!!
+
+    val EPDS_TEN_RESPONSES_2 = mapOf(
+        en to "Sometimes",
+        sv to "Ibland",
+        zh to "有时"
+    )[currentLang]!!
+
+    val EPDS_TEN_RESPONSES_3 = mapOf(
+        en to "Yes, quite often",
+        sv to "Ja, rätt så ofta",
+        zh to "是的，相当频繁"
+    )[currentLang]!!
 
 
 
@@ -1149,6 +1415,12 @@ class I18nPhrases {
         en to "What is your waist circumference?",
         sv to "Was ist Ihr Taillenumfang?",
         zh to "您的腰围是多少？"
+    )[currentLang]!!
+
+    val EPDS_READ_RESULTS_1 = mapOf(
+        en to "That was the last question. See the screen for your results. And as I said in the beginning, I'm not a doctor so the results are only an indicator. Take your time, and we will have a specialist follow up with your result and get back to you later. Thank you for participating.",
+        sv to "Det var den sista frågan. Se skärmen för dina resultat. Och som jag sa i början, jag är inte läkare så resultaten är endast en indikator. Ta din tid, och vi kommer att ha en specialist som följer upp ditt resultat och återkommer till dig senare. Tack för att du deltog.",
+        zh to "那是最后一个问题。请查看屏幕上的结果。正如我刚开始所说的，我不是医生，所以结果仅供参考。别着急，我们将会有专家跟进您的结果，并稍后与您联系。谢谢您的参与。"
     )[currentLang]!!
 
     val DIABETES_READ_RESULTS_1 = mapOf(

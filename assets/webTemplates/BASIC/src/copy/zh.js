@@ -16,11 +16,11 @@ export default {
     ABOUT_PETRA: `我是Linda， 我是一个医疗预检机器人。我是由Furhat 机器人公司开发的, 该公司是位于斯德哥尔摩的社交机器人公司。他们生产像我一样的机器人, 它们可以在社交场合中与人类自然互动。像我一样, Furhat 机器人已经在世界范围内使用, 以帮助人们过上更快乐, 更富有成效的生活。更多相关信息, 请访问其网站。要返回请说“继续”。`,
 
     // Results page
-    DIABETES_LOW_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/100。</span>,
-    DIABETES_SLIGHTLY_ELEVATED_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/25。</span>,
-    DIABETES_MODERATE_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/6。 <br/>强烈建议您认真考虑自己的身体活动和饮食习惯, 并注意体重, 以防止自己患上糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
-    DIABETES_HIGH_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/3。<br/>您应该对血糖进行测量, 以确定您是否患有无症状的糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
-    DIABETES_VERY_HIGH_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/2。<br/>您应该对血糖进行测量, 以确定您是否患有无症状的糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
+    EPDS_LOW_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/100。</span>,
+    EPDS_DEPRESSION_POSSIBLE_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/25。</span>,
+    EPDS_MODERATE_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/6。 <br/>强烈建议您认真考虑自己的身体活动和饮食习惯, 并注意体重, 以防止自己患上糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
+    EPDS_HIGH_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/3。<br/>您应该对血糖进行测量, 以确定您是否患有无症状的糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
+    EPDS_VERY_HIGH_RISK_INFO: <span>这意味着在十年内, 您患糖尿病的风险估计为1/2。<br/>您应该对血糖进行测量, 以确定您是否患有无症状的糖尿病。联系公共卫生护士或您自己的医生以获取进一步指导。</span>,
 
     RESULTS_ABOUT_TEST: '这项检查和风险评估是基于赫尔辛基大学公共卫生系Jaakko Tuomilehto 教授和国家公共卫生研究院MFS 的JaanaLindström 设计的FINDRISK 检查测试。该项检查可能未在参与者所在的国家/地区进行验证。如果您不确定，请咨询您的医生。',
     RESULTS_MORE_ABOUT: '有关糖尿病及其症状的更多信息',

@@ -3,7 +3,9 @@
 package furhatos.app.medicalscreener.flow.scenes
 
 import furhatos.app.medicalscreener.flow.*
+import furhatos.app.medicalscreener.flow.introduction.IntroductionBaseState
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
+import furhatos.app.medicalscreener.flow.scenes.EPDS.*
 import furhatos.app.medicalscreener.flow.scenes.diabetes.AgeQuestion
 import furhatos.app.medicalscreener.flow.scenes.diabetes.AlreadyDiagnosed1
 import furhatos.app.medicalscreener.flow.scenes.diabetes.Pregnant
@@ -34,6 +36,52 @@ val EPDSIntro: State = state(EPDSQuestionBase) {
 }
 
 val EPDSStartQuestion: State = state(EPDSQuestionBase) {
+    onButton("EPDS1") {
+        furhat.stopSpeaking()
+        goto(EPDSQuestion01)
+    }
+
+    onButton("EPDS2") {
+        furhat.stopSpeaking()
+        goto(EPDSQuestion02)
+    }
+    onButton("EPDS3") {
+        furhat.stopSpeaking()
+        goto(EPDSQuestion03)
+    }
+
+    onButton("EPDS4") {
+        furhat.stopSpeaking()
+        goto(EPDSQuestion04)
+    }
+
+    onButton("EPDS5") {
+        goto(EPDSQuestion05)
+    }
+
+    onButton("EPDS6") {
+        goto(EPDSQuestion06)
+    }
+
+    onButton("EPDS7") {
+        goto(EPDSQuestion07)
+    }
+
+    onButton("EPDS8") {
+        goto(EPDSQuestion08)
+    }
+
+    onButton("EPDS9") {
+        goto(EPDSQuestion09)
+    }
+
+    onButton("EPDS10") {
+        goto(EPDSQuestion10)
+    }
+
+    onButton("Result") {
+        goto(EPDS_Results)
+    }
     onEntry {
         log.debug("Entering DiabetesStart state")
         users.current.epdsData.score = 0
@@ -43,25 +91,11 @@ val EPDSStartQuestion: State = state(EPDSQuestionBase) {
             +i18n.phrases.EPDS_GETTING_STARTED
         })
         delay(500)
-        goto(EPDSQuestion1)
-//        goto(DiabetesDisclaimer)
+        goto(EPDSQuestion01)
     }
+
 }
 
-
-val EPDSQuestion1: State = state(EPDSQuestionBase) {
-    onEntry {
-        log.debug("Entering EPDSQuestion1 state")
-        users.current.epdsData.score = 0
-        users.current.epdsData.startTimestamp()
-        writeKpi(users.current, "Screening Started : EPDSQuestion1")
-        furhat.askAndDo(i18n.phrases.EPDS_ONE){
-
-        }
-
-        delay(500)
-    }
-}
 
 private fun TriggerRunner<*>.handleGoodBye() {
     furhat.say({
@@ -104,7 +138,3 @@ private fun FlowControlRunner.diabetesSexResponse(response: String?, isNew: Bool
         else -> reentry()
     }
 }
-
-val SexQuestion = sexQuestion(
-        EPDSQuestionBase,
-        responseHandler = { response, isNew -> diabetesSexResponse(response, isNew) })

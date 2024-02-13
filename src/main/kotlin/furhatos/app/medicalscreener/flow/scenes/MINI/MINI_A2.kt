@@ -1,7 +1,6 @@
-package furhatos.app.medicalscreener.flow.scenes.EPDS
+package furhatos.app.medicalscreener.flow.scenes.MINI
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
-import furhatos.app.medicalscreener.i18n.*
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.AsMuchAsUsual
@@ -11,7 +10,7 @@ import furhatos.app.medicalscreener.i18n.NotAtAll
 import furhatos.flow.kotlin.state
 
 
-val EPDSQuestion02: State = state(EPDSStartQuestion) {
+val EPDSQuestion02: State = state(EPDSQuestionBase) {
     onEntry {
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion2 state")
         furhat.askAndDo(i18n.phrases.EPDS_TWO) {

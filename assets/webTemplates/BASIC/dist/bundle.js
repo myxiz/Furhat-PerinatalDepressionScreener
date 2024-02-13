@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ae3ea5d0dc67ab498ca6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d9aa5dba703ec11c73c6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -3898,34 +3898,6 @@ var Screen = exports.Screen = function (_React$PureComponent) {
                     { className: "content row" },
                     _react2.default.createElement(
                         "div",
-                        null,
-                        "confirm"
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "content row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row center button-row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-8 offset-2 center" },
-                            _react2.default.createElement(
-                                "button",
-                                {
-                                    key: "confirmFace",
-                                    type: "button",
-                                    disabled: buttonsDisabled,
-                                    onClick: function onClick() {
-                                        return onOptionSelected("confirmFace");
-                                    } },
-                                "confirm"
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        "div",
                         { className: "col-10 offset-1" },
                         _react2.default.createElement(_Faces2.default, {
                             isShown: showFaces.toString(),
@@ -5047,34 +5019,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var getDiabetesRisk = function getDiabetesRisk(score) {
+var getEPDSRisk = function getEPDSRisk(score) {
     switch (true) {
-        case score < 7:
+        case score < 9:
             return "low";
-        case score <= 11:
-            return "slightly_elevated";
-        case score <= 14:
-            return "moderate";
-        case score <= 20:
+        case score <= 10:
+            return "depression_possible";
+        case score <= 12:
+            return "fairly_high";
+        case score <= 30:
             return "high";
         default:
             return "very_high";
     }
 };
 
-var getDiabetesResultInfo = function getDiabetesResultInfo(score, lang) {
+var getEPDSResultInfo = function getEPDSResultInfo(score, lang) {
     console.log('score when fetching info: ', score);
     switch (true) {
-        case score < 7:
-            return _i18n2.default[lang].DIABETES_LOW_RISK_INFO;
-        case score <= 11:
-            return _i18n2.default[lang].DIABETES_SLIGHTLY_ELEVATED_RISK_INFO;
-        case score <= 14:
-            return _i18n2.default[lang].DIABETES_MODERATE_RISK_INFO;
-        case score <= 20:
-            return _i18n2.default[lang].DIABETES_HIGH_RISK_INFO;
+        case score < 9:
+            return _i18n2.default[lang].EPDS_LOW_RISK_INFO;
+        case score <= 10:
+            return _i18n2.default[lang].EPDS_DEPRESSION_POSSIBLE_INFO;
+        case score <= 12:
+            return _i18n2.default[lang].EPDS_MODERATE_RISK_INFO;
+        case score <= 30:
+            return _i18n2.default[lang].EPDS_HIGH_RISK_INFO;
         default:
-            return _i18n2.default[lang].DIABETES_VERY_HIGH_RISK_INFO;
+            return _i18n2.default[lang].EPDS_VERY_HIGH_RISK_INFO;
     }
 };
 
@@ -5117,9 +5089,9 @@ var Results = function (_React$PureComponent) {
                             React.createElement(
                                 "span",
                                 null,
-                                _i18n2.default[lang].YOUR_RISK_IS + " " + _i18n2.default[lang].DIABETES_RISK_LABELS[getDiabetesRisk(results.score)] + ".",
+                                _i18n2.default[lang].YOUR_RISK_IS + " " + _i18n2.default[lang].EPDS_RISK_LABELS[getEPDSRisk(results.score)] + ".",
                                 React.createElement("br", null),
-                                getDiabetesResultInfo(results.score, lang)
+                                getEPDSResultInfo(results.score, lang)
                             )
                         ),
                         React.createElement(
@@ -5215,51 +5187,51 @@ exports.default = {
     RESULTS: 'Results',
 
     // Main menu texts
-    ABOUT_PETRA: 'I\'m Alice - a  health screening Robot. I was developed by Furhat robotics - a social robotics company located in Stockholm, Sweden. They produce robots like myself, who can interact with humans in a natural way in social situations. Furhat robots, just like me, are already being used around the world, to help people lead happier and more productive lives. For more information, please visit their website. Say "Continue" when you want to go back.',
+    ABOUT_PETRA: 'I\'m Alice - a  health screening Robot. Say "Continue" when you want to go back.',
 
     // Results page
-    DIABETES_LOW_RISK_INFO: React.createElement(
+    EPDS_LOW_RISK_INFO: React.createElement(
         'span',
         null,
-        'That means that within ten years, the risk for you to develop diabetes is estimated as 1 in 100.'
+        'That means that you are not likely suffering from perinatal depression.'
     ),
-    DIABETES_SLIGHTLY_ELEVATED_RISK_INFO: React.createElement(
+    EPDS_DEPRESSION_POSSIBLE_INFO: React.createElement(
         'span',
         null,
-        'That means that within ten years, the risk for you to develop diabetes is estimated as 1 in 25.'
+        'That means it is possible that you are suffering from perinatal depression.'
     ),
-    DIABETES_MODERATE_RISK_INFO: React.createElement(
+    EPDS_MODERATE_RISK_INFO: React.createElement(
         'span',
         null,
-        'That means that within ten years, the risk for you to develop diabetes is estimated as 1 in 6. ',
+        'That means the risk for you currently having a perinatal depression is fairly high. ',
         React.createElement('br', null),
-        'You are well advised to seriously consider your physical activity and eating habits and pay attention to you weight, to prevent yourself from developing diabetes. Contact a public-health nurse or your own doctor for further guidance.'
+        'We will have a specialist follow up with your result and get back to you later.'
     ),
-    DIABETES_HIGH_RISK_INFO: React.createElement(
+    EPDS_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
-        'That means that within ten years, the risk for you to develop diabetes is estimated as 1 in 3.',
+        'That means you are in high risk of having a perinatal depression currently.',
         React.createElement('br', null),
-        'You should have your blood glucose measured to determine if you have diabetes without symptoms. Contact a public-health nurse or your own doctor for further guidance.'
+        'You might need a further diagnosis. We will have a specialist follow up with your result and get back to you later.'
     ),
-    DIABETES_VERY_HIGH_RISK_INFO: React.createElement(
+    EPDS_VERY_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
-        'That means that within ten years, the risk for you to develop diabetes is estimated as 1 in 2.',
+        'That means you are in very high risk of having a perinatal depression currently.',
         React.createElement('br', null),
-        'You should have your blood glucose measured to determine if you have diabetes without symptoms. Contact a public-health nurse or your own doctor for further guidance.'
+        'Our nurse will talk to you in a moment. We will also have a specialist follow up with your result and get back to you later.'
     ),
 
-    RESULTS_ABOUT_TEST: 'This screening and this risk assessment is based on the FINDRISK screening test designed by Professor Jaakko Tuomilehto at the department of Public Health, University of Helsinki and Jaana Lindström, MFS, National Public Health Institute. The screening might not be validated in your specific country. If you would like to know more, ask your doctor.',
-    RESULTS_MORE_ABOUT: 'More about diabetes and its symptoms',
-    RESULTS_EXTRA_CONTENT: 'Diabetes arises when the body cannot produce enough insulin (type 1 diabetes) or when the body produces insulin but cannot use it properly (type 2 diabetes). Insulin is a hormone produced by the pancreas that helps the body to process the sugars in food. When the body cannot use or produce insulin, the blood sugars build up to levels, which can arouse serious health issues. It mainly affects people in developed countries. While its causes are partly genetic, lifestyle factors – such as smoking, obesity, poor nutrition and lack of exercise – also play a major role.',
+    RESULTS_ABOUT_TEST: 'This screening and this risk assessment is based on the EPDS screening test designed by Professor John Cox at the Department of Psychiatry at the University of Edinburgh. It has been widely used in Sweden for perinatal depression screening.',
+    RESULTS_MORE_ABOUT: 'More about perinatal depression and its symptoms',
+    RESULTS_EXTRA_CONTENT: 'Perinatal depression arises when hormonal changes, physical changes, and the psychological adjustments to motherhood overwhelm a woman\'s ability to cope. These hormonal fluctuations can significantly affect a woman\'s mood and emotions, leading to feelings of sadness, anxiety, hopelessness, and in severe cases, thoughts of harming oneself or the baby.',
     YOUR_RISK_IS: 'Your risk is',
     THANKS_FOR_TEST: 'Thank you for doing the test! Please beware that I\'m not a medical doctor and these results are only indicators.',
 
-    DIABETES_RISK_LABELS: {
+    EPDS_RISK_LABELS: {
         'low': 'low',
-        'slightly_elevated': 'slightly elevated',
-        'moderate': 'moderate',
+        'depression_possible': 'depression possible',
+        'fairly_high': 'fairly high',
         'high': 'high',
         'very_high': 'very high'
     }
@@ -5297,31 +5269,31 @@ exports.default = {
     ABOUT_PETRA: "Jag \xE4r Linda - en robot f\xF6r h\xE4lsounders\xF6kningar. Jag har utvecklats av Furhat Robotics - ett f\xF6retag f\xF6r social robotteknik i Stockholm. De utvecklar robotar som jag som kan interagera med m\xE4nniskor i naturliga sociala situationer. Furhat-robotar som jag anv\xE4nds redan \xF6ver hela v\xE4rlden f\xF6r att hj\xE4lpa m\xE4nniskor leva h\xE4lsosammare och mer produktiva liv. F\xF6r mer information, bes\xF6k v\xE5r webbplats. S\xE4g \"Forts\xE4tt\" f\xF6r att \xE5terv\xE4nda till menyn.",
 
     // Resultatsidan
-    DIABETES_LOW_RISK_INFO: React.createElement(
+    EPDS_LOW_RISK_INFO: React.createElement(
         "span",
         null,
         "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 100."
     ),
-    DIABETES_SLIGHTLY_ELEVATED_RISK_INFO: React.createElement(
+    EPDS_DEPRESSION_POSSIBLE_INFO: React.createElement(
         "span",
         null,
         "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 25."
     ),
-    DIABETES_MODERATE_RISK_INFO: React.createElement(
+    EPDS_MODERATE_RISK_INFO: React.createElement(
         "span",
         null,
         "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 6. ",
         React.createElement("br", null),
         " Du b\xF6r allvarligt \xF6verv\xE4ga dina fysiska aktiviteter och matvanor och vara uppm\xE4rksam p\xE5 din vikt f\xF6r att f\xF6rebygga diabetes. Det \xE4r b\xE4st att kontakta en sjuksk\xF6terska eller din l\xE4kare f\xF6r vidare r\xE5dgivning."
     ),
-    DIABETES_HIGH_RISK_INFO: React.createElement(
+    EPDS_HIGH_RISK_INFO: React.createElement(
         "span",
         null,
         "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 3. ",
         React.createElement("br", null),
         " Du b\xF6r f\xE5 ditt blodsocker testat f\xF6r att ta reda p\xE5 om du har diabetes utan synliga symtom. Det \xE4r b\xE4st att kontakta en sjuksk\xF6terska eller din l\xE4kare f\xF6r vidare r\xE5dgivning."
     ),
-    DIABETES_VERY_HIGH_RISK_INFO: React.createElement(
+    EPDS_VERY_HIGH_RISK_INFO: React.createElement(
         "span",
         null,
         "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 2. ",
@@ -5377,31 +5349,31 @@ exports.default = {
     ABOUT_PETRA: '\u6211\u662FLinda\uFF0C \u6211\u662F\u4E00\u4E2A\u533B\u7597\u9884\u68C0\u673A\u5668\u4EBA\u3002\u6211\u662F\u7531Furhat \u673A\u5668\u4EBA\u516C\u53F8\u5F00\u53D1\u7684, \u8BE5\u516C\u53F8\u662F\u4F4D\u4E8E\u65AF\u5FB7\u54E5\u5C14\u6469\u7684\u793E\u4EA4\u673A\u5668\u4EBA\u516C\u53F8\u3002\u4ED6\u4EEC\u751F\u4EA7\u50CF\u6211\u4E00\u6837\u7684\u673A\u5668\u4EBA, \u5B83\u4EEC\u53EF\u4EE5\u5728\u793E\u4EA4\u573A\u5408\u4E2D\u4E0E\u4EBA\u7C7B\u81EA\u7136\u4E92\u52A8\u3002\u50CF\u6211\u4E00\u6837, Furhat \u673A\u5668\u4EBA\u5DF2\u7ECF\u5728\u4E16\u754C\u8303\u56F4\u5185\u4F7F\u7528, \u4EE5\u5E2E\u52A9\u4EBA\u4EEC\u8FC7\u4E0A\u66F4\u5FEB\u4E50, \u66F4\u5BCC\u6709\u6210\u6548\u7684\u751F\u6D3B\u3002\u66F4\u591A\u76F8\u5173\u4FE1\u606F, \u8BF7\u8BBF\u95EE\u5176\u7F51\u7AD9\u3002\u8981\u8FD4\u56DE\u8BF7\u8BF4\u201C\u7EE7\u7EED\u201D\u3002',
 
     // Results page
-    DIABETES_LOW_RISK_INFO: React.createElement(
+    EPDS_LOW_RISK_INFO: React.createElement(
         'span',
         null,
         '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/100\u3002'
     ),
-    DIABETES_SLIGHTLY_ELEVATED_RISK_INFO: React.createElement(
+    EPDS_DEPRESSION_POSSIBLE_INFO: React.createElement(
         'span',
         null,
         '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/25\u3002'
     ),
-    DIABETES_MODERATE_RISK_INFO: React.createElement(
+    EPDS_MODERATE_RISK_INFO: React.createElement(
         'span',
         null,
         '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/6\u3002 ',
         React.createElement('br', null),
         '\u5F3A\u70C8\u5EFA\u8BAE\u60A8\u8BA4\u771F\u8003\u8651\u81EA\u5DF1\u7684\u8EAB\u4F53\u6D3B\u52A8\u548C\u996E\u98DF\u4E60\u60EF, \u5E76\u6CE8\u610F\u4F53\u91CD, \u4EE5\u9632\u6B62\u81EA\u5DF1\u60A3\u4E0A\u7CD6\u5C3F\u75C5\u3002\u8054\u7CFB\u516C\u5171\u536B\u751F\u62A4\u58EB\u6216\u60A8\u81EA\u5DF1\u7684\u533B\u751F\u4EE5\u83B7\u53D6\u8FDB\u4E00\u6B65\u6307\u5BFC\u3002'
     ),
-    DIABETES_HIGH_RISK_INFO: React.createElement(
+    EPDS_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
         '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/3\u3002',
         React.createElement('br', null),
         '\u60A8\u5E94\u8BE5\u5BF9\u8840\u7CD6\u8FDB\u884C\u6D4B\u91CF, \u4EE5\u786E\u5B9A\u60A8\u662F\u5426\u60A3\u6709\u65E0\u75C7\u72B6\u7684\u7CD6\u5C3F\u75C5\u3002\u8054\u7CFB\u516C\u5171\u536B\u751F\u62A4\u58EB\u6216\u60A8\u81EA\u5DF1\u7684\u533B\u751F\u4EE5\u83B7\u53D6\u8FDB\u4E00\u6B65\u6307\u5BFC\u3002'
     ),
-    DIABETES_VERY_HIGH_RISK_INFO: React.createElement(
+    EPDS_VERY_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
         '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/2\u3002',

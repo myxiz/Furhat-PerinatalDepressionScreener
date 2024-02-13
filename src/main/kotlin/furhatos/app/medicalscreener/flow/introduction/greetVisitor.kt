@@ -2,7 +2,13 @@ package furhatos.app.medicalscreener.flow.introduction
 
 import furhatos.app.medicalscreener.currentLang
 import furhatos.app.medicalscreener.flow.*
+
+import furhatos.app.medicalscreener.i18n.No
+import furhatos.app.medicalscreener.i18n.Yes
+//import furhatos.app.medicalscreener.flow.scenes.diabetes.AgeQuestion
+import furhatos.app.medicalscreener.name
 import furhatos.app.medicalscreener.i18n.i18n
+import furhatos.app.medicalscreener.main
 import furhatos.app.medicalscreener.nlu.EnglishDontUnderstandLanguage
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
@@ -16,18 +22,12 @@ val GreetVisitor: State = state(IntroductionBaseState) {
         send(ShowOptionsEvent(allButCurrentLang()))
         users.current.interactionInfo.startTimestamp()
         writeKpi(users.current, "Interaction Started")
-//        send(ShowFacesEvent("show"))
-//        send(ShowOptionsEvent(allButCurrentLang()))
-
-//        send(ShowOptionsEvent(listOf("male:${i18n.phrases.GENERAL_MALE}", "female:${i18n.phrases.GENERAL_FEMALE}")))
-        furhat.say(utterance {
-            +i18n.phrases.INTRODUCTION_GREETING
-            +Gestures.Smile
-            +i18n.phrases.INTRODUCTION_ROBOTINTRO
-        })
+        furhat.say(i18n.phrases.INTRODUCTION_GREETING + name!!)
+        furhat.gesture(Gestures.BigSmile)
+        delay(800)
+        furhat.say(utterance {i18n.phrases.INTRODUCTION_ROBOTINTRO})
         furhat.listen(timeout = 800)
     }
-
 
     onResponse<EnglishDontUnderstandLanguage> {
         handleLanguageChange(language = "en")
@@ -58,6 +58,8 @@ val GreetVisitor: State = state(IntroductionBaseState) {
     addGazeAversionBehaviour()
     include(NoOrInvalidResponseState())
 }
+
+
 
 fun allButCurrentLang(): List<String> {
     val list = mutableListOf<String>()

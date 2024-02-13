@@ -34,7 +34,7 @@ val PersonalizationStart: State = state(PersonalizationQuestionBase) {
             send(ShowOptionsEvent(
                 listOf("yes:${i18n.phrases.GENERAL_YES}", "no:${i18n.phrases.GENERAL_NO}"),
                 prompt = i18n.phrases.PERSONALIZATION_GENDER_MATTERS_PROMPT,
-                append = true))
+                ))
         }
     }
     onResponse<Yes> {
@@ -86,7 +86,6 @@ val PersonalizationGender: State = state(PersonalizationStart) {
                     listOf("male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}",
                         "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
                         "next:${i18n.phrases.GENERAL_CONTINUE}"),
-
                     prompt = i18n.phrases.PERSONALIZATION_GENDER_PREFERENCE,
                     append = true))
         }
@@ -371,12 +370,6 @@ private fun  TriggerRunner<*>.handleApplyFace(key: String?) {
     }
 //    goto(PersonalizationFace)
 }
-
-//private fun  TriggerRunner<*>.handleReselectFace() {
-//
-//    goto(PersonalizationReselectFace)
-//}
-
 
 private fun TriggerRunner<*>.handleMoveToFace() {
     send(OptionSelectedEvent("next"))

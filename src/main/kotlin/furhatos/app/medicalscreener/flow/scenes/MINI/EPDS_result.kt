@@ -1,8 +1,8 @@
-package furhatos.app.medicalscreener.flow.scenes.EPDS
+package furhatos.app.medicalscreener.flow.scenes.MINI
 
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.flow.introduction.StartOver
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.nlu.ImDone
@@ -12,17 +12,9 @@ import furhatos.flow.kotlin.*
 import furhatos.records.Location
 import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(EPDSStartQuestion::class.java)!!
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
 val EPDS_Results = state(WaitForCommand(nextState = StartOver)) {
-    onButton("Log Result") {
-        try {
-            furhatos.app.medicalscreener.log.info("Current score, ${users.current.epdsData.score}")
-        } catch(error: Error) {
-            // Let fail silently
-            furhatos.app.medicalscreener.log.info("Couldn't log score, $error")
-        }
-    }
     onEntry {
         val user = this.users.current
         val epdsData = user.epdsData

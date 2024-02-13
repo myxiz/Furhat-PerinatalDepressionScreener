@@ -45,6 +45,7 @@ val User.personaliztionData : PersonalizationData
 
 data class EpdsData(
     var score: Int = 0,
+    var consent : String? = null ,
     var biologicalSex: String? = null,
     var e1 : Int = -99,
     var e2 : Int = -99,
@@ -77,9 +78,102 @@ data class EpdsData(
         super.reset()
     }
 }
+data class MiniData(
+    var score: Int = 0,
+    var consent : String? = null ,
+    // Group A Variables
+    var A1a: String? = null,
+    var A1b: String? = null,
+    var A2a: String? = null,
+    var A2b: String? = null,
+    var A3a: String? = null,
+    var A3b: String? = null,
+    var A3c: String? = null,
+    var A3d: String? = null,
+    var A3e: String? = null,
+    var A3e_Delu: String? = null,
+    var A3f: String? = null,
+    var A3g: String? = null,
+    var A4: String? = null,
+    var A5: String? = null,
+    var A6: String? = null,
+
+// Group B Variables
+    var B1: String? = null,
+    var B1a: String? = null,
+    var B1b: String? = null,
+    var B2: String? = null,
+    var B3: String? = null,
+    var B3_fre: String? = null,
+    var B3_int: String? = null,
+
+// Group C Variables
+    var C1a: String? = null,
+    var C1b: String? = null,
+    var C2a: String? = null,
+    var C2b: String? = null,
+    var C3: String? = null,
+    var C3a: String? = null,
+    var C3a_delu: String? = null,
+    var C3b: String? = null,
+    var C3c: String? = null,
+    var C3d: String? = null,
+    var C3e: String? = null,
+    var C3f: String? = null,
+    var C3g: String? = null,
+    var C4: String? = null,
+    var C5: String? = null,
+    var C6: String? = null,
+    var C7: String? = null,
+    var C8a: String? = null,
+    var C8b: String? = null,
+    var C8c: String? = null,
+
+// Group Ongoing and Period Indicator Variables
+    var OngoingA: String? = null,
+    var OngoingC: String? = null,
+    var PeriodIndicatorA: String? = null,
+
+// Group Hypomania, Depression, and Mania Variables
+    var Hypoman_current: String? = null,
+    var Hypoman_past: String? = null,
+    var HypomanSyptom_current: String? = null,
+    var HypomanSyptom_past: String? = null,
+    var Manic_past: String? = null,
+    var Depression_current: String? = null,
+    var Depression_previous: String? = null,
+    var Depression_recurrent: String? = null,
+
+    override var completed: Boolean = false,
+    override var startTime: LocalDateTime? = null,
+    override var endTime: LocalDateTime? = null
+) : Completable, Timestamped, Record() {
+    fun addToScore(points : Int, question: String? = null) {
+        score += points
+        if (question != null) {
+            println("$question - Added $points to score.")
+            println("$question - Current score: $score.")
+        } else {
+            println("Added $points to score.")
+            println("Current score: $score.")
+        }
+    }
+    override fun reset() {
+        println("resetting user: $this")
+        score = 0
+        completed = false
+        super.reset()
+    }
+}
 
 val User.epdsData: EpdsData
     get() = data.getOrPut(EpdsData::class.qualifiedName, EpdsData())
+
+val User.miniData: MiniData
+    get() = data.getOrPut(MiniData::class.qualifiedName, MiniData())
+
+val User.name: String?
+    get() = data.getOrPut("name", null)
 
 var User.numNoResponse: Int
     get() = data.getOrPut("numNoResponse", 0)
@@ -99,7 +193,6 @@ enum class Sex {
 var User.sex: Sex
     get() = data.getOrPut("sex", Sex.Unknown)
     set(sex) = data.put("sex", sex)
-
 
 
 

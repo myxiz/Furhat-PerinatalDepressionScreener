@@ -7,8 +7,9 @@ import furhatos.app.medicalscreener.flow.introduction.Goodbye
 import furhatos.app.medicalscreener.flow.introduction.GreetVisitor
 import furhatos.app.medicalscreener.flow.introduction.Idle
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
-//import furhatos.app.medicalscreener.flow.scenes.SexQuestion
-import furhatos.app.medicalscreener.flow.scenes.diabetes.*
+import furhatos.app.medicalscreener.flow.scenes.EPDS.*
+import furhatos.app.medicalscreener.flow.scenes.EPDSIntro
+import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.event.Event
@@ -78,7 +79,7 @@ val Interaction: State = state {
         goto(Idle)
     }
 
-    include(DebugButtons)
+    include(RemoteButtons)
     include(ChangeLanguageBehavior)
 
     onEvent<MonitorListenStart>(instant = true) {
@@ -88,7 +89,7 @@ val Interaction: State = state {
 
 }
 
-val DebugButtons = partialState {
+val RemoteButtons = partialState {
     onButton(Button("Restart")) {
         send("Restart")
     }
@@ -96,47 +97,12 @@ val DebugButtons = partialState {
 //    onButton("0. Sex") {
 //        goto(SexQuestion)
 //    }
-
-    onButton("EPDS1") {
-        goto(AgeQuestion)
-    }
-
-    onButton("EPDS2") {
+    onButton("EPDS start")  {
         furhat.stopSpeaking()
-        goto(HeightQuestion)
-    }
-    onButton("EPDS3") {
-        furhat.stopSpeaking()
-        goto(WeightQuestion)
+        goto(EPDSStartQuestion)
     }
 
-    onButton("EPDS4") {
-        goto(WaistCircumferenceQuestion)
-    }
 
-    onButton("EPDS5") {
-        goto(PhysicalActivityQuestion)
-    }
-
-    onButton("EPDS6") {
-        goto(VegetablesQuestion)
-    }
-
-    onButton("EPDS7") {
-        goto(BloodPressureMedicationQuestion)
-    }
-
-    onButton("EPDS8") {
-        goto(BloodGlucoseQuestion1)
-    }
-
-    onButton("EPDS9") {
-        goto(FamilyQuestion1)
-    }
-
-    onButton("EPDS10") {
-        goto(Results)
-    }
 
     onButton("Set language: English") {
         furhat.setEnglishLanguage()
@@ -154,7 +120,7 @@ val DebugButtons = partialState {
 
     onButton("Log Users Current Score", instant = true) {
         try {
-            log.info("${users.current.epdsData.score}")
+            log.info("Current score, ${users.current.epdsData.score}")
         } catch(error: Error) {
             // Let fail silently
             log.info("Couldn't log score, $error")
