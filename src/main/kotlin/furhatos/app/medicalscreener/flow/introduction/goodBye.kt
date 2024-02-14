@@ -19,7 +19,7 @@ val Goodbye: State = state(Interaction) {
             log.debug("In Goodbye state")
 
             if (users.count < 1) goto(Idle) // User leaves at the end of another state leading to this one
-
+            users.current.interactionInfo.endTimestamp()
             endAndWriteKpi(users.current)
             furhat.say({
                 +Gestures.BigSmile
@@ -48,7 +48,6 @@ val GoodbyeNoSpeech: State = state(Interaction) {
         send(ShowOptionsEvent(
             listOf("restart:${i18n.phrases.GENERAL_RESTART}"))
         )
-
         include(GoodbyeShared)
     }
 

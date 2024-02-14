@@ -50,7 +50,10 @@ class Yes : Intent() {
                 "Gärna",
                 "Med nöje",
                 "OK", "Okej", "I ordning",
-                "Bra"
+                "Bra",
+                "yes",
+                "yes please",
+                "yeah",
             )
             else -> listOf(
                 "yes",
@@ -672,16 +675,6 @@ class YesVeryOften : Intent() {
         }
 }
 
-//EPDS 5
-//class YesSometimes : Intent() {
-//    override fun getExamples(lang: Language): List<String> =
-//        when (lang) {
-//            Language.MANDARIN -> listOf("是的，有时候", "有时", "偶尔", "有时会这样")
-//            Language.GERMAN -> listOf("ja, manchmal", "manchmal", "ab und zu", "gelegentlich")
-//            Language.SWEDISH -> listOf("ja, ibland", "ibland", "någon gång", "då och då")
-//            else -> listOf("yes, sometimes", "sometimes", "occasionally", "now and then")
-//        }
-//}
 class NoNotOften : Intent() {
     override fun getExamples(lang: Language): List<String> =
         when (lang) {
@@ -691,6 +684,7 @@ class NoNotOften : Intent() {
             else -> listOf("no, not often", "not often", "rarely", "seldom")
         }
 }
+
 class NoNotAtAll : Intent() {
     override fun getExamples(lang: Language): List<String> =
         when (lang) {
@@ -700,7 +694,6 @@ class NoNotAtAll : Intent() {
             else -> listOf("no, not at all", "not at all", "absolutely not", "never")
         }
 }
-
 
 class AsMuchAsUsual : Intent() {
     override fun getExamples(lang: Language): List<String> =
@@ -1264,7 +1257,14 @@ class I18nIntents {
             "gå tillbaka",
             "återgå",
             "ångra",
-            "återvänd till tidigare"
+            "återvänd till tidigare",
+            "ursprungliga rösten",
+            "rösten",
+            "change back",
+            "go back",
+            "revert",
+            "undo",
+            "return to previous"
         )),
         zh to I18nIntent(examples = listOf(
             "改回去",
@@ -1388,11 +1388,21 @@ class I18nIntents {
             "fortsätt",
             "avsluta",
             "avslut",
-            "fortsätt",
+            "fortsättar",
             "fortsätt så",
             "mer",
-            "förstått",
-            "tillbaka"
+            "första",
+            "förståta",
+            "tillbaka",
+            "move on",
+            "ready",
+            "next",
+            "go on",
+            "exit",
+            "continue",
+            "carry on",
+            "advance",
+            "got it",
         )),
         zh to I18nIntent(examples = listOf(
             "继续",
@@ -1692,7 +1702,7 @@ class I18nIntents {
 
     val ImReady = mapOf(
         en to I18nIntent(examples = listOf("ready", "Continue")),
-        sv to I18nIntent(examples = listOf("jag är redo", "fortsätt")),
+        sv to I18nIntent(examples = listOf("ready", "Continue","jag är redo", "fortsätt","Gå vidare","Fortsätter")),
         zh to I18nIntent(examples = listOf("准备好了", "可以了", "好了"))
     )[currentLang]!!
 
@@ -1710,7 +1720,7 @@ class I18nIntents {
 
     val Goodbye = mapOf(
         en to I18nIntent(examples = listOf("Goodbye", "Bye", "Good bye", "Farewell", "ciao", "good-bye", "good by")),
-        sv to I18nIntent(examples = listOf("Adjö", "Hej då", "Farväl", "Hejdå")),
+        sv to I18nIntent(examples = listOf("Adjö", "Hej då", "Farväl", "Hejdå","Goodbye", "Bye", "Good bye", "Farewell", "ciao", "good-bye", "good by","Stop")),
         zh to I18nIntent(examples = listOf("再见", "拜拜", "再会"))
     )[currentLang]!!
 }

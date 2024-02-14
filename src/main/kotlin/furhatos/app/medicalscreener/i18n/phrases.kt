@@ -457,20 +457,14 @@ class I18nPhrases {
 
     val INTRODUCTION_INVALID_RESPONSE_VAR2 = mapOf(
         en to "I am not familiar with that.",
-        sv to "Damit bin ich nicht vertraut.",
+        sv to "Jag är inte bekant med det.",
         zh to "我不是很熟悉这个."
     )[currentLang]!!
 
     val INTRODUCTION_INVALID_RESPONSE_VAR3 = mapOf(
         en to "That's beyond my capabilities",
-        sv to "Das übersteigt meine Fähigkeiten.",
+        sv to "Det överstiger mina förmågor.",
         zh to "这超出了我的能力."
-    )[currentLang]!!
-
-    val INTRODUCTION_OLD_SCREENING = mapOf(
-        en to "I am sorry, but I don't do this anymore.",
-        sv to "Es tut mir sehr Leid, aber das mache ich nicht mehr.",
-        zh to "很抱歉, 我不能再这样做了."
     )[currentLang]!!
 
     val INTRODUCTION_SAY_GOODBYE = mapOf(

@@ -19,14 +19,14 @@ val EPDS_Results = state(WaitForCommand(nextState = StartOver)) {
         try {
             furhatos.app.medicalscreener.log.info("Current score, ${users.current.epdsData.score}")
         } catch(error: Error) {
-            // Let fail silently
             furhatos.app.medicalscreener.log.info("Couldn't log score, $error")
         }
     }
+
     onEntry {
         val user = this.users.current
         val epdsData = user.epdsData
-        epdsData.completed = true
+        users.current.epdsData.completed = true
         users.current.epdsData.endTimestamp()
         log.debug("Completed EPDS screening. Data: $epdsData")
 

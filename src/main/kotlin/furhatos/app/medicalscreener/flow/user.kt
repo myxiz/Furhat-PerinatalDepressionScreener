@@ -75,6 +75,16 @@ data class EpdsData(
         println("resetting user: $this")
         score = 0
         completed = false
+        e1 = -99
+        e2 = -99
+        e4 = -99
+        e5 = -99
+        e3 = -99
+        e6 = -99
+        e7 = -99
+        e8 = -99
+        e9 = -99
+        e10= -99
         super.reset()
     }
 }
@@ -183,50 +193,6 @@ var User.showScreeningButtons: Boolean
     get() = data.getOrPut("showScreeningButtons", false)
     set(v) = data.put("showScreeningButtons", v)
 
-enum class Sex {
-    Male,
-    Female,
-    Unspecified,
-    Unknown
-}
-
-var User.sex: Sex
-    get() = data.getOrPut("sex", Sex.Unknown)
-    set(sex) = data.put("sex", sex)
-
-
-
-
-abstract class UserAge {
-    class UnknownAge : UserAge() {
-        override fun toJSON() = Json.value("UnknownAge")
-    }
-
-    data class SpecificAge(val age: Int) : UserAge() {
-        override fun toJSON(): JsonValue = Json.value(age)
-    }
-
-    data class AgeCategory(val category: AgeCategories) : UserAge() {
-        override fun toJSON(): JsonValue = Json.value(category.name)
-    }
-
-    enum class AgeCategories {
-        YoungerThan40,
-        Between40to49,
-        Between50to59,
-        Over60
-    }
-
-    abstract fun toJSON(): JsonValue
-}
-
-var User.userAge: UserAge
-    get() = data.getOrPut("userAge", UserAge.UnknownAge())
-    set(value) = data.put("userAge", value)
-
-var User.height : Int by NullSafeUserDataDelegate { 0 }
-var User.weight : Int by NullSafeUserDataDelegate { 0 }
-
 data class InteractionInfo(
     override var startTime: LocalDateTime? = null,
     override var endTime: LocalDateTime? = null
@@ -240,8 +206,6 @@ var User.restarted: Boolean
     set(value) = data.put("restarted", value)
 
 fun User.reset() {
-    userAge = UserAge.UnknownAge()
-    sex = Sex.Unknown
     epdsData.reset()
     restarted = true
 }
@@ -272,11 +236,9 @@ fun User.asJson(phase: String) =
             .add("startTime", epdsData.startTime?.toString())
             .add("endTime", epdsData.endTime?.toString())
         )
-        .add("sex", sex.name)
         .add("interactionInfo", JsonObject()
             .add("startTime", interactionInfo.startTime?.toString())
             .add("endTime", interactionInfo.endTime?.toString()))
-        .add("age", userAge.toJSON())
         .add("id", id)
         .add("phase", phase)
 

@@ -14,7 +14,8 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 
     onEntry {
         log.debug("In ScreeningSelection state")
-        furhat.askAndDo(i18n.phrases.INTRODUCTION_EPDS_CONSENT) {
+        furhat.askAndDo(i18n.phrases.INTRODUCTION_ROBOTINTRO
+                +i18n.phrases.INTRODUCTION_EPDS_CONSENT) {
             send(ClearScreen())
             send(ShowOptionsEvent(
                     listOf(
@@ -220,7 +221,6 @@ private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFro
 }
 
 private fun TriggerRunner<*>.handleIntroChoice(choice: String?, respondedFromGui: Boolean = false) {
-    users.current.showScreeningButtons = true
     when (choice) {
         "yes" -> {
             if (!respondedFromGui) {

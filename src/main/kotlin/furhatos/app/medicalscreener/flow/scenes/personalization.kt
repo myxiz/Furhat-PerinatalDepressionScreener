@@ -4,80 +4,111 @@ package furhatos.app.medicalscreener.flow.scenes
 
 import furhatos.app.medicalscreener.currentLang
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.introduction.IntroductionBaseState
-import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
+import furhatos.app.medicalscreener.flow.introduction.*
 import furhatos.app.medicalscreener.i18n.*
-import furhatos.app.medicalscreener.nlu.MoveOnIntent
-import furhatos.app.medicalscreener.nlu.ChangeBack
-import furhatos.app.medicalscreener.nlu.Male
-import furhatos.app.medicalscreener.nlu.Female
+import furhatos.app.medicalscreener.nlu.*
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import furhatos.util.Gender
 import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.gestures.Gestures
+import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
+import java.time.LocalDateTime
 
+//val PersonalizationQuestionBase = state(Interaction, stateDefinition = abortableStateDef(ScreeningSelection, null))
 
-val PersonalizationQuestionBase = state(IntroductionBaseState,
-        stateDefinition = abortableStateDef(ScreeningSelection, null))
+val PersonalizationQuestionBase: State = state(IntroductionBaseState) {
+    include(ChangeLanguageBehavior)
+    addRepeatQuestionHandler()
+    addGoodbyeHandler()
+    addTellAboutStatesHandlers()
+    addGazeAversionBehaviour()
+    include(NoOrInvalidResponseState())
+    onResponse<EnglishDontUnderstandLanguage> {
+        handleLanguageChange(language = "en")
+    }
+}
 
 private val log = CommonUtils.getLogger(PersonalizationQuestionBase::class.java)!!
 
 val PersonalizationStart: State = state(PersonalizationQuestionBase) {
+//    include(ChangeLanguageBehavior)
+//    addRepeatQuestionHandler()
+//    addGoodbyeHandler()
+//    addTellAboutStatesHandlers()
+//    addGazeAversionBehaviour()
+//    include(NoOrInvalidResponseState())
     onEntry {
-        send(ClearScreen())
         log.debug("Entering PersonalizationStart state")
         users.current.personaliztionData.startTimestamp()
-        writeKpi(users.current, "Personalization Started")
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_GENDER_MATTERS) {
+            send(ClearScreen())
             send(ShowOptionsEvent(
                 listOf("yes:${i18n.phrases.GENERAL_YES}", "no:${i18n.phrases.GENERAL_NO}"),
                 prompt = i18n.phrases.PERSONALIZATION_GENDER_MATTERS_PROMPT,
                 ))
         }
     }
-    onResponse<Yes> {
-        log.debug("User responded \"yes, gender matters\" (\"${it.text}\")")
-        users.current.personaliztionData.genderMatters = true
-        users.current.personaliztionData.startTimestamp()
-        writeKpi(users.current, "Personalization Started: "+"User responded \"yes, gender matters\" (\"${it.text}\")")
-        send(OptionSelectedEvent("yes"))
-        handleMoveToGender()
+
+    onReentry {
+        furhat.askAndDo(i18n.phrases.PERSONALIZATION_GENDER_MATTERS) {
+            send(ClearScreen())
+            send(ShowOptionsEvent(
+                listOf("yes:${i18n.phrases.GENERAL_YES}", "no:${i18n.phrases.GENERAL_NO}"),
+                prompt = i18n.phrases.PERSONALIZATION_GENDER_MATTERS_PROMPT,
+            ))
+        }
     }
-//
-    onResponse<No> {
-        log.debug("User responded \"No, continue to faces\" (\"${it.text}\")")
-        users.current.personaliztionData.genderMatters = false
-        users.current.personaliztionData.startTimestamp()
-        writeKpi(users.current, "Personalization Started: "+"User responded \"No, continue to faces\" (\"${it.text}\")")
-        send(OptionSelectedEvent("no"))
-        handleMoveToFace()
-    }
+
+    onResponse<Yes> { handleGenderMattersChoice("yes") }
+    onResponse<YesYouCan> { handleGenderMattersChoice("yes") }
+    onResponse<Maybe> { handleGenderMattersChoice("yes") }
+    onResponse<LetsProceed> { handleGenderMattersChoice("no") }
+    onResponse<No> { handleGenderMattersChoice("no") }
+    onResponse("don't want to" ) { handleGenderMattersChoice("no") }
+
+
     onEvent("UserResponse") {
-        log.debug("User responded ${it.get("response")} through GUI")
-        when (it.get("response")) {
-            "yes" -> {
-                users.current.personaliztionData.genderMatters = true
-                users.current.personaliztionData.startTimestamp()
-                writeKpi(users.current, "Personalization Started: "+"User responded \"Yes\" through GUI\"")
-                sayGeneralAcknowledgement()
-                delay(500, TimeUnit.MILLISECONDS)
-                goto(PersonalizationGender)
+        furhatos.app.medicalscreener.flow.introduction.log.debug("User responded ${it.get("response")} through GUI")
+        val response = it.get("response") as String?
+        when {
+            response === null -> throw Error("Response from GUI was null")
+            listOf("yes", "no").contains(response) -> {
+                furhatos.app.medicalscreener.flow.introduction.log.debug("User selected screening ${it.get("response")} through GUI")
+                handleGenderMattersChoice(it.get("response") as String?, true)
             }
-            "no" -> {
-                users.current.personaliztionData.genderMatters = false
-                users.current.personaliztionData.startTimestamp()
-                writeKpi(users.current, "Personalization Started: "+"User responded \"No\" through GUI\"")
-                handleMoveToFace()
-            }
+            else -> handleLanguageChange(language = response)
         }
     }
 }
 
-val PersonalizationGender: State = state(PersonalizationStart) {
-    withHelpOptions(i18n.phrases.GENERAL_YES, i18n.phrases.GENERAL_NO)
+private fun TriggerRunner<*>.handleGenderMattersChoice(choice: String?, respondedFromGui: Boolean = false) {
 
+    when (choice) {
+        "yes" -> {
+            if (!respondedFromGui) {
+                send(OptionSelectedEvent("yes"))
+            }
+            users.current.personaliztionData.genderMatters = true
+            sayGeneralAcknowledgement()
+            delay(500, TimeUnit.MILLISECONDS)
+            goto(PersonalizationGender)
+        }
+        "no" -> {
+            if (!respondedFromGui) {
+                send(OptionSelectedEvent("no"))
+            }
+            users.current.personaliztionData.genderMatters = false
+            log.debug( "Personalization Started: "+"User responded No")
+            handleMoveToFace()
+        }
+        else -> throw IllegalArgumentException("Must be either 'yes' or 'no'")
+    }
+}
+
+val PersonalizationGender: State = state(PersonalizationQuestionBase) {
+    withHelpOptions(i18n.phrases.GENERAL_YES, i18n.phrases.GENERAL_NO)
     onEntry {
         send(ClearScreen())
         log.debug("Entering PersonalizationGender state")
@@ -90,7 +121,7 @@ val PersonalizationGender: State = state(PersonalizationStart) {
                     append = true))
         }
     }
-//
+
     onReentry {
         furhat.ask {
             +behavior { send(ShowOptionsEvent(listOf("next:${i18n.phrases.GENERAL_CONTINUE}","male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}", "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}"),
@@ -104,32 +135,42 @@ val PersonalizationGender: State = state(PersonalizationStart) {
         log.debug("User responded \"male\" (\"${it.text}\")")
         handleChooseMale()
     }
-//
+
     onResponse<Female> {
         log.debug("User responded \"female\" (\"${it.text}\")")
         handleChooseFemale()
+    }
+
+    onResponse<MoveOnIntent>{
+        log.debug("User responded \"move on\" (\"${it.text}\")")
+        handleMoveToFace()
     }
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
         when (it.get("response")) {
             "male" -> {
-//                sayGeneralAcknowledgement()
                 delay(500, TimeUnit.MILLISECONDS)
+
                 handleChooseMale()
             }
             "female" -> {
-//                sayGeneralAcknowledgement()
                 delay(500, TimeUnit.MILLISECONDS)
                 handleChooseFemale()
+            }
+            "next" -> {
+                sayGeneralAcknowledgement()
+                delay(500, TimeUnit.MILLISECONDS)
+                goto(PersonalizationFace)
             }
         }
     }
 }
-val PersonalizationApplyMale: State = state(PersonalizationGender) {
+
+val PersonalizationApplyMale: State = state(PersonalizationQuestionBase) {
     onEntry {
         send(ClearScreen())
         log.debug("Entering PersonalizationApplyMale state")
-        writeKpi(users.current, "PersonalizationApplyMale")
+
         furhat.setRobotVoice(currentLang,Gender.MALE)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_MALE_VOICE) {
             send(ShowOptionsEvent(
@@ -139,6 +180,7 @@ val PersonalizationApplyMale: State = state(PersonalizationGender) {
                 append = true))
         }
     }
+
     onResponse<MoveOnIntent> {
         log.debug("User responded \"move on\" (\"${it.text}\")")
         send(OptionSelectedEvent("next"))
@@ -150,10 +192,9 @@ val PersonalizationApplyMale: State = state(PersonalizationGender) {
         send(OptionSelectedEvent("next"))
         handleMoveToFace()
     }
-//
+
     onResponse<Female> {
         log.debug("User responded \"female\" (\"${it.text}\")")
-//        send(OptionSelectedEvent("female"))
         handleChooseFemale()
     }
 
@@ -181,13 +222,13 @@ val PersonalizationApplyMale: State = state(PersonalizationGender) {
     }
 }
 
-val PersonalizationApplyOriginal : State = state(PersonalizationGender) {
+val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
     onEntry {
-        send(ClearScreen())
         log.debug("Entering PersonalizationApplyOriginal state")
-        writeKpi(users.current, "PersonalizationApplyOriginal")
+        writeKpi(users.current, "User Chose PersonalizationApplyOriginal on" + LocalDateTime.now() )
         furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_ORIGINAL_VOICE) {
+            send(ClearScreen())
             send(ShowOptionsEvent(
                 listOf( "male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}"
                     ,"female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
@@ -196,20 +237,22 @@ val PersonalizationApplyOriginal : State = state(PersonalizationGender) {
                 append = true))
         }
     }
+
     onResponse<MoveOnIntent> {
         log.debug("User responded \"move on\" (\"${it.text}\")")
         send(OptionSelectedEvent("next"))
         handleMoveToFace()
-
     }
+
     onResponse<Yes> {
         log.debug("User responded \"move on\" (\"${it.text}\")")
         send(OptionSelectedEvent("next"))
         handleMoveToFace()
     }
-//
+
     onResponse<Male> {
         log.debug("User responded \"male\" (\"${it.text}\")")
+        send(OptionSelectedEvent("male"))
         handleChooseMale()
     }
 
@@ -223,25 +266,28 @@ val PersonalizationApplyOriginal : State = state(PersonalizationGender) {
         log.debug("User responded ${it.get("response")} through GUI")
         when (it.get("response")) {
             "next" -> {
+                log.debug("User responded ${it.get("response")} through GUI")
                 handleMoveToFace()
             }
             "male" -> {
+                log.debug("User responded ${it.get("response")} through GUI")
                 handleChooseMale()
             }
             "original" -> {
+                log.debug("User responded ${it.get("response")} through GUI")
                 handleChooseOriginal()
             }
         }
     }
 }
 
-val PersonalizationApplyFemale: State = state(PersonalizationGender) {
+val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
     onEntry {
-        send(ClearScreen())
         log.debug("Entering PersonalizationApplyFemale state")
         writeKpi(users.current, "PersonalizationApplyFemale")
         furhat.setRobotVoice(currentLang,Gender.FEMALE)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FEMALE_VOICE) {
+            send(ClearScreen())
             send(ShowOptionsEvent(
                 listOf( "male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}"
                     ,"original:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_ORIGINAL}",
@@ -250,6 +296,7 @@ val PersonalizationApplyFemale: State = state(PersonalizationGender) {
                 append = true))
         }
     }
+
     onResponse<MoveOnIntent> {
         log.debug("User responded \"move on\" (\"${it.text}\")")
         send(OptionSelectedEvent("next"))
@@ -262,8 +309,6 @@ val PersonalizationApplyFemale: State = state(PersonalizationGender) {
         handleMoveToFace()
     }
 
-
-//
     onResponse<Male> {
         log.debug("User responded \"male\" (\"${it.text}\")")
         handleChooseMale()
@@ -291,30 +336,35 @@ val PersonalizationApplyFemale: State = state(PersonalizationGender) {
     }
 }
 
-val PersonalizationFace: State = state(PersonalizationGender) {
+val PersonalizationFace: State = state(PersonalizationQuestionBase) {
     onEntry {
         log.debug("Entering PersonalizationFace state")
-        writeKpi(users.current, "Personalization face choosing started")
-        send(ClearScreen())
-        writeKpi(users.current, "Face Choosing Started")
-        send(ShowFacesEvent("show"))
-        send(ShowOptionsEvent(
-            listOf( "confirm:${i18n.phrases.GENERAL_CONTINUE}",
-            ),
-            append = true))
-        furhat.say(i18n.phrases.PERSONALIZATION_FACE_CHOOSE)
+        furhat.askAndDo(i18n.phrases.PERSONALIZATION_FACE_CHOOSE){
+            send(ClearScreen())
+            send(ShowFacesEvent("show"))
+            send(ShowOptionsEvent(
+                listOf( "yes:${i18n.phrases.GENERAL_CONTINUE}",
+                )))
+        }
     }
     onReentry{
-        send(ShowFacesEvent("show"))
-        send(ShowOptionsEvent(
-            listOf( "confirm:${i18n.phrases.GENERAL_CONTINUE}",
-            ),
-            append = true))
+        furhat.askAndDo(i18n.phrases.PERSONALIZATION_FACE_CHOOSE){
+            send(ClearScreen())
+            send(ShowFacesEvent("show"))
+            send(ShowOptionsEvent(
+                listOf( "yes:${i18n.phrases.GENERAL_CONTINUE}",
+                )))
+        }
+    }
+    onResponse<Yes>{
+        sayGeneralAcknowledgement()
+        send(OptionSelectedEvent("yes"))
+        handleToRememberPersonalization()
     }
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
         when (it.get("response")) {
-            "confirm" -> {
+            "yes" -> {
                 sayGeneralAcknowledgement()
                 delay(500, TimeUnit.MILLISECONDS)
                 handleToRememberPersonalization()
@@ -327,11 +377,10 @@ val PersonalizationFace: State = state(PersonalizationGender) {
     }
 }
 
-val PersonalizationRemember: State = state(PersonalizationFace) {
+val PersonalizationRemember: State = state(PersonalizationQuestionBase) {
     onEntry{
         log.debug("Entering PersonalizationRemember state")
         send(ClearScreen())
-        writeKpi(users.current, "Face Choosing Waiting for Confirmation")
         furhat.askAndDo(
             utterance { Gestures.Smile
                 +i18n.phrases.PERSONALIZATION_REMEMBER_CHOICE
@@ -340,9 +389,20 @@ val PersonalizationRemember: State = state(PersonalizationFace) {
                 listOf( "yes:${i18n.phrases.PERSONALIZATION_REMEMBER_OPTION_YES}",
                     "no:${i18n.phrases.PERSONALIZATION_REMEMBER_OPTION_NO}",
                 ),
-                prompt = i18n.phrases.PERSONALIZATION_REMEMBER_CHOICE,
-                append = true))
+                prompt = i18n.phrases.PERSONALIZATION_REMEMBER_CHOICE))
         }
+    }
+
+    onResponse<Yes>{
+        sayGeneralAcknowledgement()
+        users.current.personaliztionData.remember = true
+        handleMoveToEPDS()
+    }
+
+    onResponse<No>{
+        sayGeneralAcknowledgement()
+        users.current.personaliztionData.remember = false
+        handleMoveToEPDS()
     }
 
     onEvent("UserResponse") {
@@ -350,11 +410,11 @@ val PersonalizationRemember: State = state(PersonalizationFace) {
         when (it.get("response")) {
             "yes" -> {
                 sayGeneralAcknowledgement()
-                delay(500, TimeUnit.MILLISECONDS)
                 users.current.personaliztionData.remember = true
                 handleMoveToEPDS()
             }
             "no" -> {
+                sayGeneralAcknowledgement()
                 users.current.personaliztionData.remember = false
                 handleMoveToEPDS()
             }
@@ -368,7 +428,6 @@ private fun  TriggerRunner<*>.handleApplyFace(key: String?) {
     furhat.askAndDo(i18n.phrases.PERSONALIZATION_CONFIRMATION){
         send(ShowFacesEvent("show"))
     }
-//    goto(PersonalizationFace)
 }
 
 private fun TriggerRunner<*>.handleMoveToFace() {
@@ -377,65 +436,36 @@ private fun TriggerRunner<*>.handleMoveToFace() {
     delay(500, TimeUnit.MILLISECONDS)
     goto(PersonalizationFace)
 }
-//
+
 private fun TriggerRunner<*>.handleMoveToGender() {
     goto(PersonalizationGender)
 }
 
 private fun TriggerRunner<*>.handleChooseMale() {
+    writeKpi(users.current, "User Chose Male" )
     send(OptionSelectedEvent("male"))
     goto(PersonalizationApplyMale)
 }
 
 private fun TriggerRunner<*>.handleChooseOriginal(){
     send(OptionSelectedEvent("neutral"))
+    writeKpi(users.current, "User Chose Ori")
     furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
     delay(500, TimeUnit.MILLISECONDS)
     goto(PersonalizationApplyOriginal)
 }
 
 private fun TriggerRunner<*>.handleChooseFemale() {
+    writeKpi(users.current, "User Chose female")
     send(OptionSelectedEvent("female"))
     goto(PersonalizationApplyFemale)
 }
 
 private fun TriggerRunner<*>.handleToRememberPersonalization(){
+    writeKpi(users.current, "User Chose Remember Personalization" )
     goto(PersonalizationRemember)
 }
 
-private fun TriggerRunner<*>.handleRememberPersonalization(){
-    goto(EPDSStartQuestion)
-}
 private fun TriggerRunner<*>.handleMoveToEPDS(){
     goto(EPDSStartQuestion)
 }
-//
-//private fun FlowControlRunner.diabetesSexResponse(response: String?, isNew: Boolean) {
-//    when (response?.toLowerCase()) {
-//        "male" -> {
-//            if (isNew) {
-//                this.users.current.EPDSData.biologicalSex = "male"
-//                ackAndGoto(AgeQuestion)
-//            } else {
-//                goto(AgeQuestion)
-//            }
-//        }
-//        "female" -> {
-//            if (isNew) {
-//                this.users.current.EPDSData.biologicalSex = "female"
-//                ackAndGoto(Pregnant)
-//            } else {
-//                goto(Pregnant)
-//            }
-//        }
-//        "other" -> {
-//            furhat.say(i18n.phrases.DIABETES_SEX_QUESTION_BIOLOGICAL_SEX)
-//            furhat.listen()
-//        }
-//        else -> reentry()
-//    }
-//}
-//
-//val SexQuestion = sexQuestion(
-//        EPDSQuestionBase,
-//        responseHandler = { response, isNew -> diabetesSexResponse(response, isNew) })

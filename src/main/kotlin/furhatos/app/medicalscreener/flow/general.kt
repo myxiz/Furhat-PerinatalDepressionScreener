@@ -94,16 +94,11 @@ val RemoteButtons = partialState {
         send("Restart")
     }
 
-//    onButton("0. Sex") {
-//        goto(SexQuestion)
-//    }
     onButton("EPDS start")  {
         furhat.stopSpeaking()
         goto(EPDSStartQuestion)
     }
-
-
-
+    
     onButton("Set language: English") {
         furhat.setEnglishLanguage()
         reentry()
