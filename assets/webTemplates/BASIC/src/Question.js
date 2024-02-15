@@ -8,10 +8,15 @@ import SwedishFlagIcon from "./assets/sweden_flag.svg"
 import Face0Titan from "./assets/Face_0_Titan.png"
 import Face5Alex from "./assets/Face_5_Alex.png"
 import SVG from 'react-inlinesvg';
+import {actions} from "./model";
 
 class Question extends React.PureComponent {
     render() {
-        const {showText, title, text, options, onOptionSelected, selectedOption, buttonsDisabled } = this.props
+        let {showText, text, onOptionSelected, selectedOption, buttonsDisabled } = this.props
+        let savedOptionEvent = localStorage.getItem('optionEvent');
+        let {options, prompt, append, delaySeconds, title} = savedOptionEvent ? JSON.parse(savedOptionEvent) ?  JSON.parse(savedOptionEvent):this.props :this.props
+        actions.ShowOptions(options, prompt, append, delaySeconds, title)
+        // const {showText, title, text, options, onOptionSelected, selectedOption, buttonsDisabled } = this.props
         return (
             <div className="container-fluid question">
                 <div className="row question-text-content">

@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d9aa5dba703ec11c73c6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1c175a2889abe541139d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1000,9 +1000,9 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(183);
+  module.exports = __webpack_require__(187);
 } else {
-  module.exports = __webpack_require__(182);
+  module.exports = __webpack_require__(186);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
@@ -1072,90 +1072,6 @@ module.exports = _inheritsLoose;
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _Object$keys = __webpack_require__(92);
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-
-  var sourceKeys = _Object$keys(source);
-
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutPropertiesLoose;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
-				var inner = classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -1184,7 +1100,9 @@ var initState = exports.initState = {
     showFaces: "none"
 };
 
-function ClearScreen() {}
+function ClearScreen() {
+    localStorage.removeItem('optionEvent');
+}
 
 function ShowOnScreen(title, text) {
     Object.assign(this, { title: title, text: text });
@@ -1199,6 +1117,12 @@ function SetLanguage(language) {
 }
 
 function ShowOptions(options, prompt, shouldAppend, delay, title) {
+    var isFirstVisit = localStorage.getItem('isFirstVisit');
+    if (!isFirstVisit) {
+        console.log(isFirstVisit);
+        localStorage.removeItem('optionEvent');
+        localStorage.setItem('isFirstVisit', 'no');
+    }
     Object.assign(this, { options: options, prompt: prompt, shouldAppend: shouldAppend, delay: delay, title: title });
 }
 
@@ -1273,6 +1197,90 @@ var actions = exports.actions = {
     SetLanguage: SetLanguage,
     GetLanguage: GetLanguage
 };
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Object$keys = __webpack_require__(92);
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+
+  var sourceKeys = _Object$keys(source);
+
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return classNames;
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
 
 /***/ }),
 /* 12 */
@@ -1731,7 +1739,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIs = __webpack_require__(187);
+var _reactIs = __webpack_require__(191);
 
 var _createChainableTypeChecker = __webpack_require__(75);
 
@@ -1908,7 +1916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_httpplease___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_httpplease__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(188);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3596,106 +3604,11 @@ module.exports = exports['default'];
 
 
 
-module.exports = __webpack_require__(197);
+module.exports = __webpack_require__(171);
 
 
 /***/ }),
 /* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-/**
- * Safe chained function
- *
- * Will only create a new function if needed,
- * otherwise will pass back existing functions or null.
- *
- * @param {function} functions to chain
- * @returns {function|null}
- */
-function createChainedFunction() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.filter(function (f) {
-    return f != null;
-  }).reduce(function (acc, f) {
-    if (typeof f !== 'function') {
-      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-    }
-
-    if (acc === null) {
-      return f;
-    }
-
-    return function chainedFunction() {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      acc.apply(this, args);
-      f.apply(this, args);
-    };
-  }, null);
-}
-
-var _default = createChainedFunction;
-exports.default = _default;
-module.exports = exports["default"];
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = isOverflowing;
-
-var _isWindow = __webpack_require__(141);
-
-var _isWindow2 = _interopRequireDefault(_isWindow);
-
-var _ownerDocument = __webpack_require__(22);
-
-var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function isBody(node) {
-  return node && node.tagName.toLowerCase() === 'body';
-}
-
-function bodyIsOverflowing(node) {
-  var doc = (0, _ownerDocument2.default)(node);
-  var win = (0, _isWindow2.default)(doc);
-  var fullWidth = win.innerWidth;
-
-  // Support: ie8, no innerWidth
-  if (!fullWidth) {
-    var documentElementRect = doc.documentElement.getBoundingClientRect();
-    fullWidth = documentElementRect.right - Math.abs(documentElementRect.left);
-  }
-
-  return doc.body.clientWidth < fullWidth;
-}
-
-function isOverflowing(container) {
-  var win = (0, _isWindow2.default)(container);
-
-  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
-}
-module.exports = exports['default'];
-
-/***/ }),
-/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3748,6 +3661,101 @@ var nameShape = exports.nameShape = _propTypes2.default.oneOfType([_propTypes2.d
   appear: _propTypes2.default.string,
   appearActive: _propTypes2.default.string
 })]);
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+function createChainedFunction() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  return funcs.filter(function (f) {
+    return f != null;
+  }).reduce(function (acc, f) {
+    if (typeof f !== 'function') {
+      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
+    }
+
+    if (acc === null) {
+      return f;
+    }
+
+    return function chainedFunction() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      acc.apply(this, args);
+      f.apply(this, args);
+    };
+  }, null);
+}
+
+var _default = createChainedFunction;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = isOverflowing;
+
+var _isWindow = __webpack_require__(141);
+
+var _isWindow2 = _interopRequireDefault(_isWindow);
+
+var _ownerDocument = __webpack_require__(22);
+
+var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isBody(node) {
+  return node && node.tagName.toLowerCase() === 'body';
+}
+
+function bodyIsOverflowing(node) {
+  var doc = (0, _ownerDocument2.default)(node);
+  var win = (0, _isWindow2.default)(doc);
+  var fullWidth = win.innerWidth;
+
+  // Support: ie8, no innerWidth
+  if (!fullWidth) {
+    var documentElementRect = doc.documentElement.getBoundingClientRect();
+    fullWidth = documentElementRect.right - Math.abs(documentElementRect.left);
+  }
+
+  return doc.body.clientWidth < fullWidth;
+}
+
+function isOverflowing(container) {
+  var win = (0, _isWindow2.default)(container);
+
+  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
+}
+module.exports = exports['default'];
 
 /***/ }),
 /* 80 */
@@ -3803,7 +3811,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 var _propTypes = __webpack_require__(1);
 
@@ -4429,11 +4437,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FurhatModal = FurhatModal;
 
-var _Modal = __webpack_require__(173);
+var _Modal = __webpack_require__(177);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 var _propTypes = __webpack_require__(1);
 
@@ -4582,7 +4590,7 @@ var _reactInlinesvg = __webpack_require__(25);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4683,7 +4691,7 @@ var _propTypes = __webpack_require__(1);
 
 var PropTypes = _interopRequireWildcard(_propTypes);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 var _hamburger = __webpack_require__(205);
 
@@ -4849,6 +4857,8 @@ var _reactInlinesvg = __webpack_require__(25);
 
 var _reactInlinesvg2 = _interopRequireDefault(_reactInlinesvg);
 
+var _model = __webpack_require__(9);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -4875,13 +4885,23 @@ var Question = function (_React$PureComponent) {
         value: function render() {
             var _props = this.props,
                 showText = _props.showText,
-                title = _props.title,
                 text = _props.text,
-                options = _props.options,
                 onOptionSelected = _props.onOptionSelected,
                 selectedOption = _props.selectedOption,
                 buttonsDisabled = _props.buttonsDisabled;
 
+            var savedOptionEvent = localStorage.getItem('optionEvent');
+
+            var _ref = savedOptionEvent ? JSON.parse(savedOptionEvent) ? JSON.parse(savedOptionEvent) : this.props : this.props,
+                options = _ref.options,
+                prompt = _ref.prompt,
+                append = _ref.append,
+                delaySeconds = _ref.delaySeconds,
+                title = _ref.title;
+
+            _model.actions.ShowOptions(options, prompt, append, delaySeconds, title);
+
+            // const {showText, title, text, options, onOptionSelected, selectedOption, buttonsDisabled } = this.props
             return React.createElement(
                 'div',
                 { className: 'container-fluid question' },
@@ -5003,7 +5023,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 var _i18n = __webpack_require__(26);
 
@@ -5421,7 +5441,7 @@ var ReactDOM = _interopRequireWildcard(_reactDom);
 
 var _Screen = __webpack_require__(86);
 
-var _model = __webpack_require__(11);
+var _model = __webpack_require__(9);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -5655,6 +5675,7 @@ var FurhatGuiApp = function (_React$Component) {
                         delaySeconds = event.delaySeconds,
                         title = event.title;
 
+                    localStorage.setItem('optionEvent', JSON.stringify(event));
                     _this3.updateHandler(new _model.actions.ShowOptions(options, prompt, append, delaySeconds, title));
                 });
 
@@ -8334,6 +8355,716 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _TransitionGroup = __webpack_require__(173);
+
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
+var _CSSTransitionGroupChild = __webpack_require__(172);
+
+var _CSSTransitionGroupChild2 = _interopRequireDefault(_CSSTransitionGroupChild);
+
+var _PropTypes = __webpack_require__(77);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  transitionName: _PropTypes.nameShape.isRequired,
+
+  transitionAppear: _propTypes2.default.bool,
+  transitionEnter: _propTypes2.default.bool,
+  transitionLeave: _propTypes2.default.bool,
+  transitionAppearTimeout: (0, _PropTypes.transitionTimeout)('Appear'),
+  transitionEnterTimeout: (0, _PropTypes.transitionTimeout)('Enter'),
+  transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)('Leave')
+};
+
+var defaultProps = {
+  transitionAppear: false,
+  transitionEnter: true,
+  transitionLeave: true
+};
+
+var CSSTransitionGroup = function (_React$Component) {
+  _inherits(CSSTransitionGroup, _React$Component);
+
+  function CSSTransitionGroup() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroup);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._wrapChild = function (child) {
+      return _react2.default.createElement(_CSSTransitionGroupChild2.default, {
+        name: _this.props.transitionName,
+        appear: _this.props.transitionAppear,
+        enter: _this.props.transitionEnter,
+        leave: _this.props.transitionLeave,
+        appearTimeout: _this.props.transitionAppearTimeout,
+        enterTimeout: _this.props.transitionEnterTimeout,
+        leaveTimeout: _this.props.transitionLeaveTimeout
+      }, child);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  // We need to provide this childFactory so that
+  // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+  // leave while it is leaving.
+
+
+  CSSTransitionGroup.prototype.render = function render() {
+    return _react2.default.createElement(_TransitionGroup2.default, _extends({}, this.props, { childFactory: this._wrapChild }));
+  };
+
+  return CSSTransitionGroup;
+}(_react2.default.Component);
+
+CSSTransitionGroup.displayName = 'CSSTransitionGroup';
+
+
+CSSTransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+CSSTransitionGroup.defaultProps = defaultProps;
+
+exports.default = CSSTransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _addClass = __webpack_require__(59);
+
+var _addClass2 = _interopRequireDefault(_addClass);
+
+var _removeClass = __webpack_require__(61);
+
+var _removeClass2 = _interopRequireDefault(_removeClass);
+
+var _requestAnimationFrame = __webpack_require__(150);
+
+var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
+
+var _properties = __webpack_require__(63);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(4);
+
+var _PropTypes = __webpack_require__(77);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var events = [];
+if (_properties.transitionEnd) events.push(_properties.transitionEnd);
+if (_properties.animationEnd) events.push(_properties.animationEnd);
+
+function addEndListener(node, listener) {
+  if (events.length) {
+    events.forEach(function (e) {
+      return node.addEventListener(e, listener, false);
+    });
+  } else {
+    setTimeout(listener, 0);
+  }
+
+  return function () {
+    if (!events.length) return;
+    events.forEach(function (e) {
+      return node.removeEventListener(e, listener, false);
+    });
+  };
+}
+
+var propTypes = {
+  children: _propTypes2.default.node,
+  name: _PropTypes.nameShape.isRequired,
+
+  // Once we require timeouts to be specified, we can remove the
+  // boolean flags (appear etc.) and just accept a number
+  // or a bool for the timeout flags (appearTimeout etc.)
+  appear: _propTypes2.default.bool,
+  enter: _propTypes2.default.bool,
+  leave: _propTypes2.default.bool,
+  appearTimeout: _propTypes2.default.number,
+  enterTimeout: _propTypes2.default.number,
+  leaveTimeout: _propTypes2.default.number
+};
+
+var CSSTransitionGroupChild = function (_React$Component) {
+  _inherits(CSSTransitionGroupChild, _React$Component);
+
+  function CSSTransitionGroupChild() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroupChild);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.componentWillAppear = function (done) {
+      if (_this.props.appear) {
+        _this.transition('appear', done, _this.props.appearTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillEnter = function (done) {
+      if (_this.props.enter) {
+        _this.transition('enter', done, _this.props.enterTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillLeave = function (done) {
+      if (_this.props.leave) {
+        _this.transition('leave', done, _this.props.leaveTimeout);
+      } else {
+        done();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
+    this.classNameAndNodeQueue = [];
+    this.transitionTimeouts = [];
+  };
+
+  CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
+    this.unmounted = true;
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.transitionTimeouts.forEach(function (timeout) {
+      clearTimeout(timeout);
+    });
+
+    this.classNameAndNodeQueue.length = 0;
+  };
+
+  CSSTransitionGroupChild.prototype.transition = function transition(animationType, finishCallback, timeout) {
+    var node = (0, _reactDom.findDOMNode)(this);
+
+    if (!node) {
+      if (finishCallback) {
+        finishCallback();
+      }
+      return;
+    }
+
+    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
+    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
+    var timer = null;
+    var removeListeners = void 0;
+
+    (0, _addClass2.default)(node, className);
+
+    // Need to do this to actually trigger a transition.
+    this.queueClassAndNode(activeClassName, node);
+
+    // Clean-up the animation after the specified delay
+    var finish = function finish(e) {
+      if (e && e.target !== node) {
+        return;
+      }
+
+      clearTimeout(timer);
+      if (removeListeners) removeListeners();
+
+      (0, _removeClass2.default)(node, className);
+      (0, _removeClass2.default)(node, activeClassName);
+
+      if (removeListeners) removeListeners();
+
+      // Usually this optional callback is used for informing an owner of
+      // a leave animation and telling it to remove the child.
+      if (finishCallback) {
+        finishCallback();
+      }
+    };
+
+    if (timeout) {
+      timer = setTimeout(finish, timeout);
+      this.transitionTimeouts.push(timer);
+    } else if (_properties.transitionEnd) {
+      removeListeners = addEndListener(node, finish);
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(className, node) {
+    var _this2 = this;
+
+    this.classNameAndNodeQueue.push({
+      className: className,
+      node: node
+    });
+
+    if (!this.rafHandle) {
+      this.rafHandle = (0, _requestAnimationFrame2.default)(function () {
+        return _this2.flushClassNameAndNodeQueue();
+      });
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
+    if (!this.unmounted) {
+      this.classNameAndNodeQueue.forEach(function (obj) {
+        // This is for to force a repaint,
+        // which is necessary in order to transition styles when adding a class name.
+        /* eslint-disable no-unused-expressions */
+        obj.node.scrollTop;
+        /* eslint-enable no-unused-expressions */
+        (0, _addClass2.default)(obj.node, obj.className);
+      });
+    }
+    this.classNameAndNodeQueue.length = 0;
+    this.rafHandle = null;
+  };
+
+  CSSTransitionGroupChild.prototype.render = function render() {
+    var props = _extends({}, this.props);
+    delete props.name;
+    delete props.appear;
+    delete props.enter;
+    delete props.leave;
+    delete props.appearTimeout;
+    delete props.enterTimeout;
+    delete props.leaveTimeout;
+    delete props.children;
+    return _react2.default.cloneElement(_react2.default.Children.only(this.props.children), props);
+  };
+
+  return CSSTransitionGroupChild;
+}(_react2.default.Component);
+
+CSSTransitionGroupChild.displayName = 'CSSTransitionGroupChild';
+
+
+CSSTransitionGroupChild.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+
+exports.default = CSSTransitionGroupChild;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _chainFunction = __webpack_require__(105);
+
+var _chainFunction2 = _interopRequireDefault(_chainFunction);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _warning = __webpack_require__(46);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _ChildMapping = __webpack_require__(174);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  component: _propTypes2.default.any,
+  childFactory: _propTypes2.default.func,
+  children: _propTypes2.default.node
+};
+
+var defaultProps = {
+  component: 'span',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+};
+
+var TransitionGroup = function (_React$Component) {
+  _inherits(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    _classCallCheck(this, TransitionGroup);
+
+    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
+
+    _this.performAppear = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillAppear) {
+        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key, component));
+      } else {
+        _this._handleDoneAppearing(key, component);
+      }
+    };
+
+    _this._handleDoneAppearing = function (key, component) {
+      if (component.componentDidAppear) {
+        component.componentDidAppear();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully appeared. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performEnter = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillEnter) {
+        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key, component));
+      } else {
+        _this._handleDoneEntering(key, component);
+      }
+    };
+
+    _this._handleDoneEntering = function (key, component) {
+      if (component.componentDidEnter) {
+        component.componentDidEnter();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully entered. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performLeave = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillLeave) {
+        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key, component));
+      } else {
+        // Note that this is somewhat dangerous b/c it calls setState()
+        // again, effectively mutating the component before all the work
+        // is done.
+        _this._handleDoneLeaving(key, component);
+      }
+    };
+
+    _this._handleDoneLeaving = function (key, component) {
+      if (component.componentDidLeave) {
+        component.componentDidLeave();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+        // This entered again before it fully left. Add it again.
+        _this.keysToEnter.push(key);
+      } else {
+        _this.setState(function (state) {
+          var newChildren = _extends({}, state.children);
+          delete newChildren[key];
+          return { children: newChildren };
+        });
+      }
+    };
+
+    _this.childRefs = Object.create(null);
+
+    _this.state = {
+      children: (0, _ChildMapping.getChildMapping)(props.children)
+    };
+    return _this;
+  }
+
+  TransitionGroup.prototype.componentWillMount = function componentWillMount() {
+    this.currentlyTransitioningKeys = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  };
+
+  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
+    var initialChildMapping = this.state.children;
+    for (var key in initialChildMapping) {
+      if (initialChildMapping[key]) {
+        this.performAppear(key, this.childRefs[key]);
+      }
+    }
+  };
+
+  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var nextChildMapping = (0, _ChildMapping.getChildMapping)(nextProps.children);
+    var prevChildMapping = this.state.children;
+
+    this.setState({
+      children: (0, _ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping)
+    });
+
+    for (var key in nextChildMapping) {
+      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
+        this.keysToEnter.push(key);
+      }
+    }
+
+    for (var _key in prevChildMapping) {
+      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(_key);
+      if (prevChildMapping[_key] && !hasNext && !this.currentlyTransitioningKeys[_key]) {
+        this.keysToLeave.push(_key);
+      }
+    }
+
+    // If we want to someday check for reordering, we could do it here.
+  };
+
+  TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
+    var _this2 = this;
+
+    var keysToEnter = this.keysToEnter;
+    this.keysToEnter = [];
+    keysToEnter.forEach(function (key) {
+      return _this2.performEnter(key, _this2.childRefs[key]);
+    });
+
+    var keysToLeave = this.keysToLeave;
+    this.keysToLeave = [];
+    keysToLeave.forEach(function (key) {
+      return _this2.performLeave(key, _this2.childRefs[key]);
+    });
+  };
+
+  TransitionGroup.prototype.render = function render() {
+    var _this3 = this;
+
+    // TODO: we could get rid of the need for the wrapper node
+    // by cloning a single child
+    var childrenToRender = [];
+
+    var _loop = function _loop(key) {
+      var child = _this3.state.children[key];
+      if (child) {
+        var isCallbackRef = typeof child.ref !== 'string';
+        var factoryChild = _this3.props.childFactory(child);
+        var ref = function ref(r) {
+          _this3.childRefs[key] = r;
+        };
+
+        process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
+
+        // Always chaining the refs leads to problems when the childFactory
+        // wraps the child. The child ref callback gets called twice with the
+        // wrapper and the child. So we only need to chain the ref if the
+        // factoryChild is not different from child.
+        if (factoryChild === child && isCallbackRef) {
+          ref = (0, _chainFunction2.default)(child.ref, ref);
+        }
+
+        // You may need to apply reactive updates to a child as it is leaving.
+        // The normal React way to do it won't work since the child will have
+        // already been removed. In case you need this behavior you can provide
+        // a childFactory function to wrap every child, even the ones that are
+        // leaving.
+        childrenToRender.push(_react2.default.cloneElement(factoryChild, {
+          key: key,
+          ref: ref
+        }));
+      }
+    };
+
+    for (var key in this.state.children) {
+      _loop(key);
+    }
+
+    // Do not forward TransitionGroup props to primitive DOM nodes
+    var props = _extends({}, this.props);
+    delete props.transitionLeave;
+    delete props.transitionName;
+    delete props.transitionAppear;
+    delete props.transitionEnter;
+    delete props.childFactory;
+    delete props.transitionLeaveTimeout;
+    delete props.transitionEnterTimeout;
+    delete props.transitionAppearTimeout;
+    delete props.component;
+
+    return _react2.default.createElement(this.props.component, props, childrenToRender);
+  };
+
+  return TransitionGroup;
+}(_react2.default.Component);
+
+TransitionGroup.displayName = 'TransitionGroup';
+
+
+TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+TransitionGroup.defaultProps = defaultProps;
+
+exports.default = TransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getChildMapping = getChildMapping;
+exports.mergeChildMappings = mergeChildMappings;
+
+var _react = __webpack_require__(0);
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+function getChildMapping(children) {
+  if (!children) {
+    return children;
+  }
+  var result = {};
+  _react.Children.map(children, function (child) {
+    return child;
+  }).forEach(function (child) {
+    result[child.key] = child;
+  });
+  return result;
+}
+
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    if (next.hasOwnProperty(key)) {
+      return next[key];
+    }
+
+    return prev[key];
+  }
+
+  // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+  var nextKeysPending = {};
+
+  var pendingKeys = [];
+  for (var prevKey in prev) {
+    if (next.hasOwnProperty(prevKey)) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i = void 0;
+  var childMapping = {};
+  for (var nextKey in next) {
+    if (nextKeysPending.hasOwnProperty(nextKey)) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+    childMapping[nextKey] = getValueForKey(nextKey);
+  }
+
+  // Finally, add the keys which didn't appear before any key in `next`
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 var _interopRequireDefault = __webpack_require__(3);
@@ -8391,7 +9122,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 172 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8406,17 +9137,17 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _Transition = _interopRequireWildcard(__webpack_require__(180));
+var _Transition = _interopRequireWildcard(__webpack_require__(184));
 
 var _fadeStyles;
 
@@ -8521,7 +9252,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 173 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8532,7 +9263,7 @@ var _interopRequireDefault = __webpack_require__(3);
 exports.__esModule = true;
 exports.default = void 0;
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
@@ -8540,7 +9271,7 @@ var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(93));
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _events = _interopRequireDefault(__webpack_require__(139));
 
@@ -8556,29 +9287,29 @@ var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 var _reactDom = _interopRequireDefault(__webpack_require__(4));
 
-var _Modal = _interopRequireDefault(__webpack_require__(190));
+var _Modal = _interopRequireDefault(__webpack_require__(194));
 
-var _isOverflowing = _interopRequireDefault(__webpack_require__(78));
+var _isOverflowing = _interopRequireDefault(__webpack_require__(79));
 
 var _elementType = _interopRequireDefault(__webpack_require__(18));
 
-var _Fade = _interopRequireDefault(__webpack_require__(172));
+var _Fade = _interopRequireDefault(__webpack_require__(176));
 
-var _ModalBody = _interopRequireDefault(__webpack_require__(174));
+var _ModalBody = _interopRequireDefault(__webpack_require__(178));
 
-var _ModalDialog = _interopRequireDefault(__webpack_require__(175));
+var _ModalDialog = _interopRequireDefault(__webpack_require__(179));
 
-var _ModalFooter = _interopRequireDefault(__webpack_require__(176));
+var _ModalFooter = _interopRequireDefault(__webpack_require__(180));
 
-var _ModalHeader = _interopRequireDefault(__webpack_require__(177));
+var _ModalHeader = _interopRequireDefault(__webpack_require__(181));
 
-var _ModalTitle = _interopRequireDefault(__webpack_require__(178));
+var _ModalTitle = _interopRequireDefault(__webpack_require__(182));
 
 var _bootstrapUtils = __webpack_require__(13);
 
-var _createChainedFunction = _interopRequireDefault(__webpack_require__(77));
+var _createChainedFunction = _interopRequireDefault(__webpack_require__(78));
 
-var _splitComponentProps2 = _interopRequireDefault(__webpack_require__(179));
+var _splitComponentProps2 = _interopRequireDefault(__webpack_require__(183));
 
 var _StyleConfig = __webpack_require__(38);
 
@@ -8842,7 +9573,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 174 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8855,11 +9586,11 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
@@ -8913,7 +9644,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 175 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8926,11 +9657,11 @@ exports.default = void 0;
 
 var _extends3 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
@@ -9001,7 +9732,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 176 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9014,11 +9745,11 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
@@ -9072,7 +9803,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 177 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9085,11 +9816,11 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
@@ -9097,9 +9828,9 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _bootstrapUtils = __webpack_require__(13);
 
-var _createChainedFunction = _interopRequireDefault(__webpack_require__(77));
+var _createChainedFunction = _interopRequireDefault(__webpack_require__(78));
 
-var _CloseButton = _interopRequireDefault(__webpack_require__(171));
+var _CloseButton = _interopRequireDefault(__webpack_require__(175));
 
 // TODO: `aria-label` should be `closeLabel`.
 var propTypes = {
@@ -9179,7 +9910,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 178 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9192,11 +9923,11 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(7));
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(9));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(10));
 
 var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(8));
 
-var _classnames = _interopRequireDefault(__webpack_require__(10));
+var _classnames = _interopRequireDefault(__webpack_require__(11));
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
@@ -9250,7 +9981,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 179 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9283,7 +10014,7 @@ function splitComponentProps(props, Component) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 180 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9298,9 +10029,9 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _reactDom = _interopRequireDefault(__webpack_require__(4));
 
-var _reactLifecyclesCompat = __webpack_require__(188);
+var _reactLifecyclesCompat = __webpack_require__(192);
 
-var _PropTypes = __webpack_require__(181);
+var _PropTypes = __webpack_require__(185);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9892,7 +10623,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 181 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9947,7 +10678,7 @@ var classNamesShape = _propTypes.default.oneOfType([_propTypes.default.string, _
 exports.classNamesShape = classNamesShape;
 
 /***/ }),
-/* 182 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27386,7 +28117,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 183 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27633,7 +28364,7 @@ var Bi={default:wi},Ci=Bi&&wi||Bi;module.exports=Ci.default?Ci.default:Ci;
 
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27765,7 +28496,7 @@ var configurationError = function configurationError(message) {
 };
 
 /***/ }),
-/* 185 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27907,7 +28638,7 @@ exports.isStrictMode = isStrictMode;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 186 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27928,22 +28659,22 @@ exports.isForwardRef=function(a){return q(a)===m};exports.isFragment=function(a)
 
 
 /***/ }),
-/* 187 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(186);
+  module.exports = __webpack_require__(190);
 } else {
-  module.exports = __webpack_require__(185);
+  module.exports = __webpack_require__(189);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 188 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28110,7 +28841,7 @@ function polyfill(Component) {
 
 
 /***/ }),
-/* 189 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28252,7 +28983,7 @@ exports.default = Portal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 190 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28302,23 +29033,23 @@ var _warning = __webpack_require__(46);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _ModalManager = __webpack_require__(191);
+var _ModalManager = __webpack_require__(195);
 
 var _ModalManager2 = _interopRequireDefault(_ModalManager);
 
-var _Portal = __webpack_require__(192);
+var _Portal = __webpack_require__(196);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _RefHolder = __webpack_require__(193);
+var _RefHolder = __webpack_require__(197);
 
 var _RefHolder2 = _interopRequireDefault(_RefHolder);
 
-var _addEventListener = __webpack_require__(194);
+var _addEventListener = __webpack_require__(198);
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-var _addFocusListener = __webpack_require__(195);
+var _addFocusListener = __webpack_require__(199);
 
 var _addFocusListener2 = _interopRequireDefault(_addFocusListener);
 
@@ -28877,7 +29608,7 @@ exports.default = Modal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 191 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28897,11 +29628,11 @@ var _scrollbarSize = __webpack_require__(65);
 
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 
-var _isOverflowing = __webpack_require__(78);
+var _isOverflowing = __webpack_require__(79);
 
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 
-var _manageAriaHidden = __webpack_require__(196);
+var _manageAriaHidden = __webpack_require__(200);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29058,7 +29789,7 @@ exports.default = ModalManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 192 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29090,7 +29821,7 @@ var _ownerDocument = __webpack_require__(40);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _LegacyPortal = __webpack_require__(189);
+var _LegacyPortal = __webpack_require__(193);
 
 var _LegacyPortal2 = _interopRequireDefault(_LegacyPortal);
 
@@ -29164,7 +29895,7 @@ exports.default = _reactDom2.default.createPortal ? Portal : _LegacyPortal2.defa
 module.exports = exports['default'];
 
 /***/ }),
-/* 193 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29219,7 +29950,7 @@ exports.default = RefHolder;
 module.exports = exports['default'];
 
 /***/ }),
-/* 194 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29250,7 +29981,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = exports['default'];
 
 /***/ }),
-/* 195 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29285,7 +30016,7 @@ function addFocusListener(handler) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 196 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29335,716 +30066,6 @@ function showSiblings(container, mountNode) {
   siblings(container, mountNode, function (node) {
     return ariaHidden(false, node);
   });
-}
-
-/***/ }),
-/* 197 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _TransitionGroup = __webpack_require__(199);
-
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
-
-var _CSSTransitionGroupChild = __webpack_require__(198);
-
-var _CSSTransitionGroupChild2 = _interopRequireDefault(_CSSTransitionGroupChild);
-
-var _PropTypes = __webpack_require__(79);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = {
-  transitionName: _PropTypes.nameShape.isRequired,
-
-  transitionAppear: _propTypes2.default.bool,
-  transitionEnter: _propTypes2.default.bool,
-  transitionLeave: _propTypes2.default.bool,
-  transitionAppearTimeout: (0, _PropTypes.transitionTimeout)('Appear'),
-  transitionEnterTimeout: (0, _PropTypes.transitionTimeout)('Enter'),
-  transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)('Leave')
-};
-
-var defaultProps = {
-  transitionAppear: false,
-  transitionEnter: true,
-  transitionLeave: true
-};
-
-var CSSTransitionGroup = function (_React$Component) {
-  _inherits(CSSTransitionGroup, _React$Component);
-
-  function CSSTransitionGroup() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, CSSTransitionGroup);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._wrapChild = function (child) {
-      return _react2.default.createElement(_CSSTransitionGroupChild2.default, {
-        name: _this.props.transitionName,
-        appear: _this.props.transitionAppear,
-        enter: _this.props.transitionEnter,
-        leave: _this.props.transitionLeave,
-        appearTimeout: _this.props.transitionAppearTimeout,
-        enterTimeout: _this.props.transitionEnterTimeout,
-        leaveTimeout: _this.props.transitionLeaveTimeout
-      }, child);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  // We need to provide this childFactory so that
-  // ReactCSSTransitionGroupChild can receive updates to name, enter, and
-  // leave while it is leaving.
-
-
-  CSSTransitionGroup.prototype.render = function render() {
-    return _react2.default.createElement(_TransitionGroup2.default, _extends({}, this.props, { childFactory: this._wrapChild }));
-  };
-
-  return CSSTransitionGroup;
-}(_react2.default.Component);
-
-CSSTransitionGroup.displayName = 'CSSTransitionGroup';
-
-
-CSSTransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-CSSTransitionGroup.defaultProps = defaultProps;
-
-exports.default = CSSTransitionGroup;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _addClass = __webpack_require__(59);
-
-var _addClass2 = _interopRequireDefault(_addClass);
-
-var _removeClass = __webpack_require__(61);
-
-var _removeClass2 = _interopRequireDefault(_removeClass);
-
-var _requestAnimationFrame = __webpack_require__(150);
-
-var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
-
-var _properties = __webpack_require__(63);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(4);
-
-var _PropTypes = __webpack_require__(79);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var events = [];
-if (_properties.transitionEnd) events.push(_properties.transitionEnd);
-if (_properties.animationEnd) events.push(_properties.animationEnd);
-
-function addEndListener(node, listener) {
-  if (events.length) {
-    events.forEach(function (e) {
-      return node.addEventListener(e, listener, false);
-    });
-  } else {
-    setTimeout(listener, 0);
-  }
-
-  return function () {
-    if (!events.length) return;
-    events.forEach(function (e) {
-      return node.removeEventListener(e, listener, false);
-    });
-  };
-}
-
-var propTypes = {
-  children: _propTypes2.default.node,
-  name: _PropTypes.nameShape.isRequired,
-
-  // Once we require timeouts to be specified, we can remove the
-  // boolean flags (appear etc.) and just accept a number
-  // or a bool for the timeout flags (appearTimeout etc.)
-  appear: _propTypes2.default.bool,
-  enter: _propTypes2.default.bool,
-  leave: _propTypes2.default.bool,
-  appearTimeout: _propTypes2.default.number,
-  enterTimeout: _propTypes2.default.number,
-  leaveTimeout: _propTypes2.default.number
-};
-
-var CSSTransitionGroupChild = function (_React$Component) {
-  _inherits(CSSTransitionGroupChild, _React$Component);
-
-  function CSSTransitionGroupChild() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, CSSTransitionGroupChild);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.componentWillAppear = function (done) {
-      if (_this.props.appear) {
-        _this.transition('appear', done, _this.props.appearTimeout);
-      } else {
-        done();
-      }
-    }, _this.componentWillEnter = function (done) {
-      if (_this.props.enter) {
-        _this.transition('enter', done, _this.props.enterTimeout);
-      } else {
-        done();
-      }
-    }, _this.componentWillLeave = function (done) {
-      if (_this.props.leave) {
-        _this.transition('leave', done, _this.props.leaveTimeout);
-      } else {
-        done();
-      }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
-    this.classNameAndNodeQueue = [];
-    this.transitionTimeouts = [];
-  };
-
-  CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.unmounted = true;
-
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.transitionTimeouts.forEach(function (timeout) {
-      clearTimeout(timeout);
-    });
-
-    this.classNameAndNodeQueue.length = 0;
-  };
-
-  CSSTransitionGroupChild.prototype.transition = function transition(animationType, finishCallback, timeout) {
-    var node = (0, _reactDom.findDOMNode)(this);
-
-    if (!node) {
-      if (finishCallback) {
-        finishCallback();
-      }
-      return;
-    }
-
-    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
-    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
-    var timer = null;
-    var removeListeners = void 0;
-
-    (0, _addClass2.default)(node, className);
-
-    // Need to do this to actually trigger a transition.
-    this.queueClassAndNode(activeClassName, node);
-
-    // Clean-up the animation after the specified delay
-    var finish = function finish(e) {
-      if (e && e.target !== node) {
-        return;
-      }
-
-      clearTimeout(timer);
-      if (removeListeners) removeListeners();
-
-      (0, _removeClass2.default)(node, className);
-      (0, _removeClass2.default)(node, activeClassName);
-
-      if (removeListeners) removeListeners();
-
-      // Usually this optional callback is used for informing an owner of
-      // a leave animation and telling it to remove the child.
-      if (finishCallback) {
-        finishCallback();
-      }
-    };
-
-    if (timeout) {
-      timer = setTimeout(finish, timeout);
-      this.transitionTimeouts.push(timer);
-    } else if (_properties.transitionEnd) {
-      removeListeners = addEndListener(node, finish);
-    }
-  };
-
-  CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(className, node) {
-    var _this2 = this;
-
-    this.classNameAndNodeQueue.push({
-      className: className,
-      node: node
-    });
-
-    if (!this.rafHandle) {
-      this.rafHandle = (0, _requestAnimationFrame2.default)(function () {
-        return _this2.flushClassNameAndNodeQueue();
-      });
-    }
-  };
-
-  CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
-    if (!this.unmounted) {
-      this.classNameAndNodeQueue.forEach(function (obj) {
-        // This is for to force a repaint,
-        // which is necessary in order to transition styles when adding a class name.
-        /* eslint-disable no-unused-expressions */
-        obj.node.scrollTop;
-        /* eslint-enable no-unused-expressions */
-        (0, _addClass2.default)(obj.node, obj.className);
-      });
-    }
-    this.classNameAndNodeQueue.length = 0;
-    this.rafHandle = null;
-  };
-
-  CSSTransitionGroupChild.prototype.render = function render() {
-    var props = _extends({}, this.props);
-    delete props.name;
-    delete props.appear;
-    delete props.enter;
-    delete props.leave;
-    delete props.appearTimeout;
-    delete props.enterTimeout;
-    delete props.leaveTimeout;
-    delete props.children;
-    return _react2.default.cloneElement(_react2.default.Children.only(this.props.children), props);
-  };
-
-  return CSSTransitionGroupChild;
-}(_react2.default.Component);
-
-CSSTransitionGroupChild.displayName = 'CSSTransitionGroupChild';
-
-
-CSSTransitionGroupChild.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-
-exports.default = CSSTransitionGroupChild;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _chainFunction = __webpack_require__(105);
-
-var _chainFunction2 = _interopRequireDefault(_chainFunction);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _warning = __webpack_require__(46);
-
-var _warning2 = _interopRequireDefault(_warning);
-
-var _ChildMapping = __webpack_require__(200);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = {
-  component: _propTypes2.default.any,
-  childFactory: _propTypes2.default.func,
-  children: _propTypes2.default.node
-};
-
-var defaultProps = {
-  component: 'span',
-  childFactory: function childFactory(child) {
-    return child;
-  }
-};
-
-var TransitionGroup = function (_React$Component) {
-  _inherits(TransitionGroup, _React$Component);
-
-  function TransitionGroup(props, context) {
-    _classCallCheck(this, TransitionGroup);
-
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
-    _this.performAppear = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillAppear) {
-        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key, component));
-      } else {
-        _this._handleDoneAppearing(key, component);
-      }
-    };
-
-    _this._handleDoneAppearing = function (key, component) {
-      if (component.componentDidAppear) {
-        component.componentDidAppear();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
-        // This was removed before it had fully appeared. Remove it.
-        _this.performLeave(key, component);
-      }
-    };
-
-    _this.performEnter = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillEnter) {
-        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key, component));
-      } else {
-        _this._handleDoneEntering(key, component);
-      }
-    };
-
-    _this._handleDoneEntering = function (key, component) {
-      if (component.componentDidEnter) {
-        component.componentDidEnter();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
-        // This was removed before it had fully entered. Remove it.
-        _this.performLeave(key, component);
-      }
-    };
-
-    _this.performLeave = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillLeave) {
-        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key, component));
-      } else {
-        // Note that this is somewhat dangerous b/c it calls setState()
-        // again, effectively mutating the component before all the work
-        // is done.
-        _this._handleDoneLeaving(key, component);
-      }
-    };
-
-    _this._handleDoneLeaving = function (key, component) {
-      if (component.componentDidLeave) {
-        component.componentDidLeave();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
-        // This entered again before it fully left. Add it again.
-        _this.keysToEnter.push(key);
-      } else {
-        _this.setState(function (state) {
-          var newChildren = _extends({}, state.children);
-          delete newChildren[key];
-          return { children: newChildren };
-        });
-      }
-    };
-
-    _this.childRefs = Object.create(null);
-
-    _this.state = {
-      children: (0, _ChildMapping.getChildMapping)(props.children)
-    };
-    return _this;
-  }
-
-  TransitionGroup.prototype.componentWillMount = function componentWillMount() {
-    this.currentlyTransitioningKeys = {};
-    this.keysToEnter = [];
-    this.keysToLeave = [];
-  };
-
-  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
-    var initialChildMapping = this.state.children;
-    for (var key in initialChildMapping) {
-      if (initialChildMapping[key]) {
-        this.performAppear(key, this.childRefs[key]);
-      }
-    }
-  };
-
-  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var nextChildMapping = (0, _ChildMapping.getChildMapping)(nextProps.children);
-    var prevChildMapping = this.state.children;
-
-    this.setState({
-      children: (0, _ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping)
-    });
-
-    for (var key in nextChildMapping) {
-      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
-      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
-        this.keysToEnter.push(key);
-      }
-    }
-
-    for (var _key in prevChildMapping) {
-      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(_key);
-      if (prevChildMapping[_key] && !hasNext && !this.currentlyTransitioningKeys[_key]) {
-        this.keysToLeave.push(_key);
-      }
-    }
-
-    // If we want to someday check for reordering, we could do it here.
-  };
-
-  TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
-    var _this2 = this;
-
-    var keysToEnter = this.keysToEnter;
-    this.keysToEnter = [];
-    keysToEnter.forEach(function (key) {
-      return _this2.performEnter(key, _this2.childRefs[key]);
-    });
-
-    var keysToLeave = this.keysToLeave;
-    this.keysToLeave = [];
-    keysToLeave.forEach(function (key) {
-      return _this2.performLeave(key, _this2.childRefs[key]);
-    });
-  };
-
-  TransitionGroup.prototype.render = function render() {
-    var _this3 = this;
-
-    // TODO: we could get rid of the need for the wrapper node
-    // by cloning a single child
-    var childrenToRender = [];
-
-    var _loop = function _loop(key) {
-      var child = _this3.state.children[key];
-      if (child) {
-        var isCallbackRef = typeof child.ref !== 'string';
-        var factoryChild = _this3.props.childFactory(child);
-        var ref = function ref(r) {
-          _this3.childRefs[key] = r;
-        };
-
-        process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
-
-        // Always chaining the refs leads to problems when the childFactory
-        // wraps the child. The child ref callback gets called twice with the
-        // wrapper and the child. So we only need to chain the ref if the
-        // factoryChild is not different from child.
-        if (factoryChild === child && isCallbackRef) {
-          ref = (0, _chainFunction2.default)(child.ref, ref);
-        }
-
-        // You may need to apply reactive updates to a child as it is leaving.
-        // The normal React way to do it won't work since the child will have
-        // already been removed. In case you need this behavior you can provide
-        // a childFactory function to wrap every child, even the ones that are
-        // leaving.
-        childrenToRender.push(_react2.default.cloneElement(factoryChild, {
-          key: key,
-          ref: ref
-        }));
-      }
-    };
-
-    for (var key in this.state.children) {
-      _loop(key);
-    }
-
-    // Do not forward TransitionGroup props to primitive DOM nodes
-    var props = _extends({}, this.props);
-    delete props.transitionLeave;
-    delete props.transitionName;
-    delete props.transitionAppear;
-    delete props.transitionEnter;
-    delete props.childFactory;
-    delete props.transitionLeaveTimeout;
-    delete props.transitionEnterTimeout;
-    delete props.transitionAppearTimeout;
-    delete props.component;
-
-    return _react2.default.createElement(this.props.component, props, childrenToRender);
-  };
-
-  return TransitionGroup;
-}(_react2.default.Component);
-
-TransitionGroup.displayName = 'TransitionGroup';
-
-
-TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-TransitionGroup.defaultProps = defaultProps;
-
-exports.default = TransitionGroup;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.getChildMapping = getChildMapping;
-exports.mergeChildMappings = mergeChildMappings;
-
-var _react = __webpack_require__(0);
-
-/**
- * Given `this.props.children`, return an object mapping key to child.
- *
- * @param {*} children `this.props.children`
- * @return {object} Mapping of key to child
- */
-function getChildMapping(children) {
-  if (!children) {
-    return children;
-  }
-  var result = {};
-  _react.Children.map(children, function (child) {
-    return child;
-  }).forEach(function (child) {
-    result[child.key] = child;
-  });
-  return result;
-}
-
-/**
- * When you're adding or removing children some may be added or removed in the
- * same render pass. We want to show *both* since we want to simultaneously
- * animate elements in and out. This function takes a previous set of keys
- * and a new set of keys and merges them with its best guess of the correct
- * ordering. In the future we may expose some of the utilities in
- * ReactMultiChild to make this easy, but for now React itself does not
- * directly have this concept of the union of prevChildren and nextChildren
- * so we implement it here.
- *
- * @param {object} prev prev children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @param {object} next next children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @return {object} a key set that contains all keys in `prev` and all keys
- * in `next` in a reasonable order.
- */
-function mergeChildMappings(prev, next) {
-  prev = prev || {};
-  next = next || {};
-
-  function getValueForKey(key) {
-    if (next.hasOwnProperty(key)) {
-      return next[key];
-    }
-
-    return prev[key];
-  }
-
-  // For each key of `next`, the list of keys to insert before that key in
-  // the combined list
-  var nextKeysPending = {};
-
-  var pendingKeys = [];
-  for (var prevKey in prev) {
-    if (next.hasOwnProperty(prevKey)) {
-      if (pendingKeys.length) {
-        nextKeysPending[prevKey] = pendingKeys;
-        pendingKeys = [];
-      }
-    } else {
-      pendingKeys.push(prevKey);
-    }
-  }
-
-  var i = void 0;
-  var childMapping = {};
-  for (var nextKey in next) {
-    if (nextKeysPending.hasOwnProperty(nextKey)) {
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
-      }
-    }
-    childMapping[nextKey] = getValueForKey(nextKey);
-  }
-
-  // Finally, add the keys which didn't appear before any key in `next`
-  for (i = 0; i < pendingKeys.length; i++) {
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
-  }
-
-  return childMapping;
 }
 
 /***/ }),

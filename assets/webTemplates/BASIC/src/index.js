@@ -161,6 +161,7 @@ class FurhatGuiApp extends React.Component {
             furhat.subscribe('ShowOptionsEvent', (event) => {
                 console.log('ShowOptionsEvent event', event)
                 const {options, prompt, append, delaySeconds, title} = event
+                localStorage.setItem('optionEvent', JSON.stringify(event))
                 this.updateHandler(new actions.ShowOptions(options, prompt, append, delaySeconds, title))
             })
 

@@ -21,6 +21,7 @@ export const initState = {
 }
 
 function ClearScreen() {
+    localStorage.removeItem('optionEvent');
 }
 
 function ShowOnScreen(title, text) {
@@ -36,6 +37,12 @@ function SetLanguage(language, calledFromGui = false) {
 
 
 function ShowOptions(options, prompt, shouldAppend, delay, title) {
+    const isFirstVisit = localStorage.getItem('isFirstVisit') ;
+    if (!isFirstVisit) {
+        console.log(isFirstVisit)
+        localStorage.removeItem('optionEvent');
+        localStorage.setItem('isFirstVisit', 'no');
+    }
     Object.assign(this, {options, prompt, shouldAppend, delay, title})
 }
 
