@@ -1,6 +1,6 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.YesVeryOften
@@ -9,8 +9,8 @@ import furhatos.app.medicalscreener.i18n.NoNotOften
 import furhatos.app.medicalscreener.i18n.NoNotAtAll
 import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(EPDSStartQuestion::class.java)!!
-val EPDSQuestion05: State = state(EPDSStartQuestion) {
+private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
+val EPDSQuestion05: State = state(EPDSQuestionBase) {
     onEntry {
         log.debug("Entering EPDSQuestion5 state")
         furhat.askAndDo(i18n.phrases.EPDS_FIVE) {

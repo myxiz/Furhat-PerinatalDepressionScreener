@@ -1,6 +1,6 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.AsWellAsUsual
@@ -9,7 +9,7 @@ import furhatos.app.medicalscreener.i18n.MuchLessThanUsual
 import furhatos.app.medicalscreener.i18n.NotAtAll
 
 
-val EPDSQuestion01: State = state(EPDSStartQuestion) {
+val EPDSQuestion01: State = state(EPDSQuestionBase) {
     onEntry {
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion1 state")
         users.current.epdsData.score = 0
