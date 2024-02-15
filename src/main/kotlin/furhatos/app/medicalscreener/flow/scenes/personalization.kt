@@ -33,12 +33,6 @@ val PersonalizationQuestionBase: State = state(IntroductionBaseState) {
 private val log = CommonUtils.getLogger(PersonalizationQuestionBase::class.java)!!
 
 val PersonalizationStart: State = state(PersonalizationQuestionBase) {
-//    include(ChangeLanguageBehavior)
-//    addRepeatQuestionHandler()
-//    addGoodbyeHandler()
-//    addTellAboutStatesHandlers()
-//    addGazeAversionBehaviour()
-//    include(NoOrInvalidResponseState())
     onEntry {
         log.debug("Entering PersonalizationStart state")
         users.current.personaliztionData.startTimestamp()
@@ -118,7 +112,7 @@ val PersonalizationGender: State = state(PersonalizationQuestionBase) {
                         "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
                         "next:${i18n.phrases.GENERAL_CONTINUE}"),
                     prompt = i18n.phrases.PERSONALIZATION_GENDER_PREFERENCE,
-                    append = true))
+                    ))
         }
     }
 
@@ -168,16 +162,15 @@ val PersonalizationGender: State = state(PersonalizationQuestionBase) {
 
 val PersonalizationApplyMale: State = state(PersonalizationQuestionBase) {
     onEntry {
-        send(ClearScreen())
         log.debug("Entering PersonalizationApplyMale state")
-
         furhat.setRobotVoice(currentLang,Gender.MALE)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_MALE_VOICE) {
+            send(ClearScreen())
             send(ShowOptionsEvent(
                 listOf( "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}"
                 ,"original:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_ORIGINAL}","next:${i18n.phrases.GENERAL_MOVE_ON_REPLY}"),
                 prompt = i18n.phrases.PERSONALIZATION_MALE_VOICE,
-                append = true))
+                ))
         }
     }
 
@@ -234,7 +227,7 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
                     ,"female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
                     "next:${i18n.phrases.GENERAL_MOVE_ON_REPLY}",),
                 prompt = i18n.phrases.PERSONALIZATION_ORIGINAL_VOICE,
-                append = true))
+                ))
         }
     }
 
@@ -293,7 +286,7 @@ val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
                     ,"original:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_ORIGINAL}",
                     "next:${i18n.phrases.GENERAL_MOVE_ON_REPLY}",),
                 prompt = i18n.phrases.PERSONALIZATION_FEMALE_VOICE,
-                append = true))
+                ))
         }
     }
 
@@ -311,6 +304,7 @@ val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
 
     onResponse<Male> {
         log.debug("User responded \"male\" (\"${it.text}\")")
+        send(OptionSelectedEvent("male"))
         handleChooseMale()
     }
 
@@ -349,7 +343,6 @@ val PersonalizationFace: State = state(PersonalizationQuestionBase) {
     }
     onReentry{
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FACE_CHOOSE){
-            send(ClearScreen())
             send(ShowFacesEvent("show"))
             send(ShowOptionsEvent(
                 listOf( "yes:${i18n.phrases.GENERAL_CONTINUE}",
@@ -357,10 +350,11 @@ val PersonalizationFace: State = state(PersonalizationQuestionBase) {
         }
     }
     onResponse<Yes>{
-        sayGeneralAcknowledgement()
         send(OptionSelectedEvent("yes"))
+        sayGeneralAcknowledgement()
         handleToRememberPersonalization()
     }
+
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
         when (it.get("response")) {
@@ -394,12 +388,14 @@ val PersonalizationRemember: State = state(PersonalizationQuestionBase) {
     }
 
     onResponse<Yes>{
+        send(OptionSelectedEvent("yes"))
         sayGeneralAcknowledgement()
         users.current.personaliztionData.remember = true
         handleMoveToEPDS()
     }
 
     onResponse<No>{
+        send(OptionSelectedEvent("no"))
         sayGeneralAcknowledgement()
         users.current.personaliztionData.remember = false
         handleMoveToEPDS()
@@ -448,7 +444,6 @@ private fun TriggerRunner<*>.handleChooseMale() {
 }
 
 private fun TriggerRunner<*>.handleChooseOriginal(){
-    send(OptionSelectedEvent("neutral"))
     writeKpi(users.current, "User Chose Ori")
     furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
     delay(500, TimeUnit.MILLISECONDS)
@@ -458,14 +453,20 @@ private fun TriggerRunner<*>.handleChooseOriginal(){
 private fun TriggerRunner<*>.handleChooseFemale() {
     writeKpi(users.current, "User Chose female")
     send(OptionSelectedEvent("female"))
+
     goto(PersonalizationApplyFemale)
 }
 
 private fun TriggerRunner<*>.handleToRememberPersonalization(){
+    users.current.personaliztionData.remember = true
     writeKpi(users.current, "User Chose Remember Personalization" )
+    send(ClearScreen())
     goto(PersonalizationRemember)
 }
 
 private fun TriggerRunner<*>.handleMoveToEPDS(){
+    users.current.personaliztionData.endTimestamp()
+    writeKpi(users.current, "User end Personalization" )
+    send(ClearScreen())
     goto(EPDSStartQuestion)
 }

@@ -10,6 +10,7 @@ import furhatos.flow.kotlin.*
 import java.lang.IllegalArgumentException
 
 val ScreeningSelection: State = state(IntroductionBaseState) {
+
     withHelpOptions(i18n.phrases.GENERAL_YES, i18n.phrases.GENERAL_NO)
 
     onEntry {
@@ -95,7 +96,7 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
                                 "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
                         ),
                         prompt = i18n.phrases.INTRODUCTION_PND_PROMPT,
-                        append = true
+
                 ))
             }
         }
@@ -106,9 +107,9 @@ val ScreeningSelection: State = state(IntroductionBaseState) {
 
 val PNDIntro :State = state(IntroductionBaseState) {
     onEntry {
+        send(ClearScreen())
         log.debug("In ScreeningSelection state")
         furhat.askAndDo(utterance = i18n.phrases.INTRODUCTION_PND_PROMPT) {
-            send(ClearScreen())
             send(ShowOptionsEvent(
                 listOf(
                     "yes:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_YES}",
@@ -187,7 +188,7 @@ val PNDIntro :State = state(IntroductionBaseState) {
                         "no:${i18n.phrases.INTRODUCTION_DESCRIPTION_OPTION_NO}"
                     ),
                     prompt = i18n.phrases.INTRODUCTION_PND_PROMPT,
-                    append = true
+
                 ))
             }
         }

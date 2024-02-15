@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1c175a2889abe541139d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0c39b14708ebdac6d90f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4900,7 +4900,6 @@ var Question = function (_React$PureComponent) {
                 title = _ref.title;
 
             _model.actions.ShowOptions(options, prompt, append, delaySeconds, title);
-
             // const {showText, title, text, options, onOptionSelected, selectedOption, buttonsDisabled } = this.props
             return React.createElement(
                 'div',

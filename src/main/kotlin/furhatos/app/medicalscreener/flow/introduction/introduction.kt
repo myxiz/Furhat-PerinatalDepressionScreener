@@ -30,7 +30,7 @@ val Idle: State = state(Interaction) {
         if (users.count > 0) {
             furhat.attend(users.random)
             log.debug("Starting to attend a user")
-            goto(GreetVisitor)
+            goto(GreetTuringOn)
         }
     }
 
@@ -44,7 +44,7 @@ val Idle: State = state(Interaction) {
             } else {
                 furhat.attend(users.random)
             }
-            goto(GreetVisitor)
+            goto(GreetTuringOn)
         } else {
             furhat.attendNobody()
         }
@@ -59,7 +59,7 @@ val Idle: State = state(Interaction) {
     onUserEnter {
         furhat.attend(it)
         log.debug("Starting to attend a user ${it.id}")
-        goto(GreetVisitor)
+        goto(GreetTuringOn)
     }
 
     onResponse {

@@ -4,11 +4,9 @@ package furhatos.app.medicalscreener.flow
 
 import furhatos.app.medicalscreener.*
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.introduction.GreetVisitor
+import furhatos.app.medicalscreener.flow.introduction.GreetTuringOn
 import furhatos.app.medicalscreener.flow.introduction.Idle
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
-import furhatos.app.medicalscreener.flow.scenes.EPDS.*
-import furhatos.app.medicalscreener.flow.scenes.EPDSIntro
 import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
@@ -620,7 +618,7 @@ fun abortableStateDef(abortTo: State, onAbort: ((User) -> Unit)?): StateBuilder.
 
         onEvent("GoHome") {
             log.debug("User requested to go home from GUI")
-            ackAndGoto(GreetVisitor, lastQuestion = true)
+            ackAndGoto(GreetTuringOn, lastQuestion = true)
         }
     }
 }

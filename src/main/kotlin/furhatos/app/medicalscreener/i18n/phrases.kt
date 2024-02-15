@@ -360,6 +360,13 @@ class I18nPhrases {
         zh to "您想要继续吗?"
     )[currentLang]!!
 
+
+    val GENERAL_START = mapOf(
+        en to "Start",
+        sv to "Starta",
+        zh to "开始"
+    )[currentLang]!!
+
     val GENERAL_RESTART = mapOf(
         en to "Restart",
         sv to "Starta om",
@@ -401,8 +408,13 @@ class I18nPhrases {
     )[currentLang]!!
 
 
-
     // Introduction
+    val INTRODUCTION_GREETING_ON = mapOf(
+        en to "Good day! I am now operational！",
+        sv to "God dag! Jag är nu operativ！",
+        zh to "你好！我已出舱，感觉良好！"
+    )[currentLang]!!
+
     val INTRODUCTION_GREETING = mapOf(
         en to "Welcome! Nice to meet you.",
         sv to "Hej. Trevligt att träffa dig.",

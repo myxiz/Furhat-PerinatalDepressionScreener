@@ -12,6 +12,7 @@ import furhatos.util.CommonUtils
 val EPDSQuestionBase = state(InteractionWithBadResponse,
         stateDefinition = abortableStateDef(ScreeningSelection, { it.epdsData.endTimestamp() }))
 
+
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
 val EPDSIntro: State = state(EPDSQuestionBase) {

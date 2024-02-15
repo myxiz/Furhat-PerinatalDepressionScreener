@@ -21,6 +21,7 @@ val Goodbye: State = state(Interaction) {
             if (users.count < 1) goto(Idle) // User leaves at the end of another state leading to this one
             users.current.interactionInfo.endTimestamp()
             endAndWriteKpi(users.current)
+            send(ClearScreen())
             furhat.say({
                 +Gestures.BigSmile
                 +i18n.phrases.INTRODUCTION_SAY_GOODBYE

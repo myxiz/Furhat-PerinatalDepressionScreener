@@ -9,20 +9,46 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.util.Language
 
+//val BaseState = state(Interaction, stateDefinition = abortableStateDef(Goodbye, null))
 
-val GreetVisitor: State = state(IntroductionBaseState) {
+val GreetTuringOn : State = state(Interaction){
+    addGazeAversionBehaviour()
+
     onEntry {
         send(ClearScreen())
-        log.debug("In GreetVisitor state")
-        send(ShowOptionsEvent(allButCurrentLang()))
+        log.debug("In GreetTuringOn state")
+        furhat.say(i18n.phrases.INTRODUCTION_GREETING_ON)
+        send(ShowOptionsEvent(allButCurrentLang()+ "start: ${i18n.phrases.GENERAL_START}"))
+    }
+    onEvent("UserResponse") {
+        log.debug("User responded ${it.get("response")} through GUI")
+        val response = it.get("response") as String?
+        if (response == "start"){
+            goto(GreetVisitor)
+        }
+        else{handleLanguageChange(language = response)}
+
     }
 
     onButton ("Start"){
         users.current.interactionInfo.startTimestamp()
         writeKpi(users.current, "Interaction Started")
-        furhat.say(i18n.phrases.INTRODUCTION_GREETING + name!!)
-        furhat.gesture(Gestures.BigSmile)
-        furhat.listen(timeout = 800)
+        goto(GreetVisitor)
+    }
+}
+
+
+val GreetVisitor: State = state(IntroductionBaseState) {
+    addGazeAversionBehaviour()
+    onEntry {
+        send(ClearScreen())
+        furhat.askAndDo(i18n.phrases.INTRODUCTION_GREETING + name!!){
+
+            furhat.gesture(Gestures.BigSmile)
+            log.debug("In GreetVisitor state")
+            send(ShowOptionsEvent(allButCurrentLang()))
+            furhat.listen(300)
+        }
     }
 
     onResponse<EnglishDontUnderstandLanguage> {
