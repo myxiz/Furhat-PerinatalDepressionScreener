@@ -11,6 +11,7 @@ import furhatos.event.EventSystem.send
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.records.User
+import kotlinx.coroutines.*
 
 val goodByeTimeout = 30000
 
@@ -101,5 +102,7 @@ val GoodbyeShared = partialState {
 
 fun endAndWriteKpi(user : User) {
     user.interactionInfo.endTimestamp()
-    writeKpi(user, "Interaction Completed")
+    GlobalScope.launch {
+        writeKpi(user, "Interaction Completed")
+    }
 }

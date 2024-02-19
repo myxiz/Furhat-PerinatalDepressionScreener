@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.furhatrobotics.furhatos:furhat-commons:2.7.1'
     implementation 'com.eclipsesource.minimal-json:minimal-json:0.9.5'
     implementation 'junit:junit:4.13.1'
+    implementation("io.ktor:ktor-client-core:2.3.8")
 }
 
 jar {

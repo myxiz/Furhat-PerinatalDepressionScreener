@@ -1,7 +1,6 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
-import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.i18n.AsWellAsUsual
@@ -25,7 +24,6 @@ val EPDSQuestion04: State = state(EPDSQuestionBase) {
         delay(500)
     }
     // onResponse and onEvent handlers similar to EPDS01-EPDS03
-
 
     onResponse<AsWellAsUsual> {
         send(OptionSelectedEvent("0"))
@@ -53,7 +51,7 @@ val EPDSQuestion04: State = state(EPDSQuestionBase) {
 
     onEvent("UserResponse") {
         furhatos.app.medicalscreener.log.debug("User responded ${it.get("response")} through GUI")
-        when ((it.get("response") as String?)?.toLowerCase()) {
+        when ((it.get("response") as String?)?.lowercase()) {
             "0" -> {
                 users.current.epdsData.e4= 0
                 ackAndGoto(EPDSQuestion05)
