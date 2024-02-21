@@ -1,12 +1,8 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
+import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
-import furhatos.app.medicalscreener.i18n.YesVeryOften
-import furhatos.app.medicalscreener.i18n.YesSometimes
-import furhatos.app.medicalscreener.i18n.NoNotOften
-import furhatos.app.medicalscreener.i18n.NoNotAtAll
 import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
@@ -27,29 +23,30 @@ val EPDSQuestion05: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<YesVeryOften> {
-        send(OptionSelectedEvent("3"))
-        users.current.epdsData.e5 = 3
-        users.current.epdsData.addToScore(3, "EPDS05")
-        ackAndGoto(EPDSQuestion06) // Next question in the sequence
-    }
-    onResponse<YesSometimes> {
-        send(OptionSelectedEvent("2"))
-        users.current.epdsData.e5 = 2
-        users.current.epdsData.addToScore(2, "EPDS05")
+    onResponse<Q5_0_NoNotAtAll> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e5 = 0
         ackAndGoto(EPDSQuestion06)
     }
-    onResponse<NoNotOften> {
+    onResponse<Q5_1_NoNotMuch> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e5 = 1
         users.current.epdsData.addToScore(1, "EPDS05")
         ackAndGoto(EPDSQuestion06)
     }
-    onResponse<NoNotAtAll> {
-        send(OptionSelectedEvent("0"))
-        users.current.epdsData.e5 = 0
-        ackAndGoto(EPDSQuestion06) // Assuming there's an EPDSQuestion06 state to go to next
+    onResponse<Q5_2_YesSometimes> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e5 = 2
+        users.current.epdsData.addToScore(2, "EPDS05")
+        ackAndGoto(EPDSQuestion06)
     }
+    onResponse<Q5_3_YesQuiteALot> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e5 = 3
+        users.current.epdsData.addToScore(3, "EPDS05")
+        ackAndGoto(EPDSQuestion06)
+    }
+
 
     onEvent("UserResponse") {
         furhatos.app.medicalscreener.log.debug("User responded ${it.get("response")} through GUI")

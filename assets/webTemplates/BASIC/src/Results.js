@@ -1,7 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import {actions} from "./model"
-import i18n from './copy/i18n';
+import i18n from './i18nText/i18n';
 
 const getEPDSRisk = score => {
     switch (true) {

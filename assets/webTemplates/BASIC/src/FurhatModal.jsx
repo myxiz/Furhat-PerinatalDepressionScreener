@@ -11,7 +11,7 @@ import Face4 from "./assets/Face_4_Yumi.png"
 import Face5Alex from "./assets/Face_5_Alex.png"
 import Face6Samuel from "./assets/Face_6_Samuel.png"
 import Face7Kinoe from "./assets/Face_7_Kione.png"
-import i18n from './copy/i18n';
+import i18n from './i18nText/i18n';
 
 export function FurhatModal(props) {
     const { lang } = props

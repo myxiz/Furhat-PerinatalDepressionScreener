@@ -26,7 +26,7 @@ private val log = CommonUtils.getLogger(ScreenerSkill::class.java)!!
 
 suspend fun writeKpi(user: User, phase: String) {
     log.info("writing to: $OUTPUT_FILE")
-    customizedLog("writing to: $OUTPUT_FILE")
+    customizedLog("${user.asJson(phase)}")
     try {
         bufferedWriter.append("time stamp: ${LocalDateTime.now()},")
         bufferedWriter.appendln("${user.asJson(phase)},")

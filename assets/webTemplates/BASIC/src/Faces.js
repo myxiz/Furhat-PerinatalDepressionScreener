@@ -34,7 +34,8 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Titan"}
                                            onClick={() => onOptionSelected("Titan")}>
                                             <img src={'dist' + Face0Titan}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
+
                                             />
                                             <div className="desc" key={"Titan"}>Face 0</div>
                                         </a>}
@@ -53,7 +54,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Jane"}
                                            onClick={() => onOptionSelected("Jane")}>
                                             <img src={'dist' + Face1Jane}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 1</div>
                                         </a>}
@@ -73,7 +74,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Nazar"}
                                            onClick={() => onOptionSelected("Nazar")}>
                                             <img src={'dist' + Face2Nazar}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 2</div>
                                         </a>}
@@ -92,7 +93,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Isabel"}
                                            onClick={() => onOptionSelected("Isabel")}>
                                             <img src={'dist' + Face3Isabel}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 3</div>
                                         </a>}
@@ -111,7 +112,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Yumi"}
                                            onClick={() => onOptionSelected("Yumi")}>
                                             <img src={'dist' + Face4Yumi}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 4</div>
                                         </a>}
@@ -130,7 +131,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Alex"}
                                            onClick={() => onOptionSelected("Alex")}>
                                             <img src={'dist' + Face5Alex}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 5</div>
                                         </a>}
@@ -149,7 +150,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Samuel"}
                                            onClick={() => onOptionSelected("Samuel")}>
                                             <img src={'dist' + Face6Samuel}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img "
                                             />
                                             <div className="desc">Face 6</div>
                                         </a>}
@@ -168,7 +169,7 @@ class FaceOptions extends React.PureComponent {
                                         <a style={{borderRadius: "50%"}} key={"Kione"}
                                            onClick={() => onOptionSelected("Kione")}>
                                             <img src={'dist' + Face7Kione}
-                                                 style={{width: 200, height: 200}}
+                                                 className="div.gallery img"
                                             />
                                             <div className="desc">Face 7</div>
                                         </a>}

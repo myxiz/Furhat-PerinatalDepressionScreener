@@ -20,7 +20,7 @@ val EPDSIntro: State = state(EPDSQuestionBase) {
         log.debug("Entering EPDSIntro state")
         users.current.epdsData.score = 0
         users.current.personaliztionData.startTimestamp()
-        writeKpi(users.current, "Screening Started: EPDS intro")
+//        writeKpi(users.current, "Screening Started: EPDS intro")
         goto(PersonalizationStart)
     }
 }
@@ -82,10 +82,10 @@ val EPDSStartQuestion: State = state(EPDSQuestionBase) {
     }
 
     onEntry {
-        log.debug("Entering DiabetesStart state")
+        log.debug("Entering EPDSStart state")
         users.current.epdsData.score = 0
         users.current.epdsData.startTimestamp()
-        writeKpi(users.current, "Screening Started")
+//        writeKpi(users.current, "Screening Started")
         furhat.say({
             +i18n.phrases.EPDS_GETTING_STARTED
         })

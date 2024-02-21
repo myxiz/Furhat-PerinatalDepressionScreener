@@ -4,11 +4,6 @@ import furhatos.app.medicalscreener.currentLang
 import furhatos.app.medicalscreener.toConjugatedList
 
 class I18nPhrases {
-    val DIABETES_NAME = mapOf(
-        en to "Diabetes",
-        sv to "$SV_sayDiabetes ",
-        zh to "糖尿病"
-    )[currentLang]!!
 
 // All the other translations are listed below:
 
@@ -49,30 +44,7 @@ class I18nPhrases {
         zh to "一次"
     )[currentLang]!!
 
-    val GENERAL_SEVERAL_TIMES = mapOf(
-        en to "several times",
-        sv to "flera gånger",
-        zh to "几次"
-    )[currentLang]!!
 
-    val GENERAL_ASK_IF_DONE = mapOf(
-        en to "Are you done yet?",
-        sv to "Är du klar?",
-        zh to "您完成了吗？"
-    )[currentLang]!!
-
-    val GENERAL_OK_WAITING = mapOf(
-        en to "Ok, i'll wait.",
-        sv to "Okej, jag väntar.",
-        zh to "好的, 我会等待."
-    )[currentLang]!!
-
-
-    val GENERAL_ESTIMATE = mapOf(
-        en to "Just give me your best estimate.",
-        sv to "Ge mig bara din bästa uppskattning.",
-        zh to "请给我您最好的估计."
-    )[currentLang]!!
 
     val GENERAL_OK_NO_PROBLEM = mapOf(
         en to "Alright. No problem.",
@@ -327,20 +299,10 @@ class I18nPhrases {
         en to "Welcome, I'm a health screening Robot designed by Uppsala Social Robotics Lab to help you with interviews about your mental health.",
         sv to "Jag är en robot som är designad av Uppsala Social Robotics Lab för att hjälpa till med intervjuer som bedömer mental hälsa. " +
                 "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara fördelaktigt att kontrollera hur din mentala välbefinnande är.",
-        zh to "我是 Linda， 我是一个健康筛查机器人。我由乌普萨拉社交机器人实验室开发"
+        zh to "你好，我是一个健康筛查机器人。我由乌普萨拉社交机器人实验室开发"
     )[currentLang]!!
 
-    val GENERAL_USER_NOT_FAMILIAR_WITH_TERM = mapOf(
-        en to "It’s ok if you don’t understand all of these medical terms, we’ll just move on to the next question.",
-        sv to "Det är okej om du inte förstår alla dessa medicinska termer, vi går bara vidare till nästa fråga.",
-        zh to "如果您不了解所有这些医学术语也没关系, 我们将继续进行下一个问题."
-    )[currentLang]!!
 
-    val GENERAL_USER_NOT_FAMILIAR_WITH_TERM_2 = mapOf(
-        en to "If you're not sure about some word or symptom, that's fine, let's just go on.",
-        sv to "Om du är osäker på något ord eller symptom, är det okej, låt oss bara fortsätta.",
-        zh to "如果您不确定某些字词或症状, 没关系, 让我们继续."
-    )[currentLang]!!
 
     val GENERAL_LET_USER_KNOW_WHEN_TO_ANSWER = mapOf(
         en to "Sorry, I didn't hear you. Have you noticed that my lights turn up when I'm listening.",
@@ -540,7 +502,6 @@ class I18nPhrases {
     )[currentLang]!!
 
 
-
     // Question / Scenes
 
     // Scene - Personalization
@@ -602,6 +563,11 @@ class I18nPhrases {
         sv to "Förstått. Vi byter nu till den ursprungliga rösten åt dig. Vill du gå vidare?",
         zh to "明白了。我们现在为您切换到原始语音。您想进行下一步吗？"
     )[currentLang]!!
+    val PERSONALIZATION_VOICE_PROMT = mapOf(
+        en to "Do you want to move on or change voice? ",
+        sv to "Vill du gå vidare eller byta röst?",
+        zh to "您想继续下一步或是改变语音？"
+    )[currentLang]!!
 
     val PERSONALIZATION_FACE_CHOOSE = mapOf(
         en to "There are 8 options. Touch to apply it on the robot.",
@@ -648,11 +614,6 @@ class I18nPhrases {
 
 
     // Scene - EPDS
-//    val EPDS_GETTING_STARTED = mapOf(
-//        en to "Let's get started.",
-//        sv to "Låt oss börja.",
-//        zh to "让我们开始吧."
-//    )[currentLang]!!
 
     val INTRODUCTION_EPDS_CONSENT = mapOf(
         en to "I will help you to go through EPDS questionnaire again. Would you like to do it with me?",
@@ -671,59 +632,59 @@ class I18nPhrases {
     val EPDS_ONE = mapOf(
         en to "I have been able to laugh and see the funny side of things",
         sv to "Jag har kunnat se tillvaron från den ljusa sidan:",
-        zh to "我能够笑看事物的有趣之处"  // This is a commonly used translation for reference purposes. Please verify against the official EPDS documentation.
+        zh to "我会笑并看到事情有趣的一面"
     )[currentLang]!!
 
     val EPDS_ONE_PROMPT = EPDS_ONE
 
     val EPDS_ONE_RESPONSES_0 = mapOf(
-        en to "I have been able to laugh and see the funny side of things as much as I always could",
+        en to "As much as I always could",
         sv to "Lika bra som vanligt",
-        zh to "我能像往常一样笑和看到事情的有趣之处"
+        zh to "跟以前一样多"
     )[currentLang]!!
 
     val EPDS_ONE_RESPONSES_1 = mapOf(
-        en to "I have not been able to laugh and see the funny side of things as much as I used to",
+        en to "Not quite so much now",
         sv to "Nästan lika bra som vanligt",
-        zh to "我无法像以前那样笑和看到事情的有趣之处"
+        zh to "现在没那么多了"
     )[currentLang]!!
 
     val EPDS_ONE_RESPONSES_2 = mapOf(
-        en to "I have felt sad or miserable",
+        en to "Definitely not so much now",
         sv to "Mycket mindre än vanligt",
-        zh to "我感到悲伤或痛苦"
+        zh to "现在肯定没那么多了"
     )[currentLang]!!
 
     val EPDS_ONE_RESPONSES_3 = mapOf(
-        en to "I have been so unhappy that I have had difficulty sleeping",
+        en to "Not at all",
         sv to "Inte alls",
-        zh to "我一直很不开心，以至于难以入睡"
+        zh to "根本没有"
     )[currentLang]!!
 
     val EPDS_TWO = mapOf(
         en to "I have looked forward with enjoyment to things",
         sv to "Jag har glatt mig åt saker som skall hända:",
-        zh to "我期待着以愉悦的心情去面对将要发生的事情"  // This is a commonly used translation for reference purposes. Please verify against the official EPDS documentation.
+        zh to "我盼望着能享受事物"
     )[currentLang]!!
 
     val EPDS_TWO_PROMPT = EPDS_TWO
 
     val EPDS_TWO_RESPONSES_0 = mapOf(
-        en to "As much as I always could",
+        en to "As much as I ever did",
         sv to "Lika mycket som vanligt",
-        zh to "像往常一样期待"
+        zh to "跟我以前一样多"
     )[currentLang]!!
 
     val EPDS_TWO_RESPONSES_1 = mapOf(
         en to "Rather less than I used to",
         sv to "Något mindre än vanligt",
-        zh to "比以前稍微少一些"
+        zh to "比以前少多了"
     )[currentLang]!!
 
     val EPDS_TWO_RESPONSES_2 = mapOf(
         en to "Definitely less than I used to",
         sv to "Mycket mindre än vanligt",
-        zh to "肯定比以前少"
+        zh to "肯定比以前少了"
     )[currentLang]!!
 
     val EPDS_TWO_RESPONSES_3 = mapOf(
@@ -735,7 +696,7 @@ class I18nPhrases {
     val EPDS_THREE = mapOf(
         en to "I have blamed myself unnecessarily when things went wrong",
         sv to "Jag har lagt skulden på mig själv onödigt mycket när något har gått snett:",
-        zh to "当事情进展不顺时，我会不必要地责怪自己"  // This is provided for reference purposes. Please verify against the official EPDS documentation.
+        zh to "当事情不顺利时，我没必要地责备自己"
     )[currentLang]!!
 
 
@@ -744,19 +705,19 @@ class I18nPhrases {
     val EPDS_THREE_RESPONSES_3 = mapOf(
         en to "Yes, most of the time",
         sv to "Ja, för det mesta",
-        zh to "是的，大多数时间"
+        zh to "是，大多数时候"
     )[currentLang]!!
 
     val EPDS_THREE_RESPONSES_2 = mapOf(
-        en to "Yes, sometimes",
+        en to "Yes, some of the time",
         sv to "Ja, ibland",
-        zh to "是的，有时候"
+        zh to "是，有时候"
     )[currentLang]!!
 
     val EPDS_THREE_RESPONSES_1 = mapOf(
-        en to "No, not very often",
+        en to "Not very often",
         sv to "Nej, inte så ofta",
-        zh to "不，不太经常"
+        zh to "不是很经常"
     )[currentLang]!!
 
     val EPDS_THREE_RESPONSES_0 = mapOf(
@@ -769,7 +730,7 @@ class I18nPhrases {
     val EPDS_FOUR = mapOf(
         en to "I have been anxious or worried for no good reason",
         sv to "Jag har känt mig rädd och orolig utan egentlig anledning:",
-        zh to "我无缘无故地感到焦虑或担心"  // This is provided for reference purposes. Please verify against the official EPDS documentation.
+        zh to "我没有什么原因就焦虑或担心"
     )[currentLang]!!
 
     val EPDS_FOUR_PROMPT = EPDS_FOUR
@@ -781,21 +742,21 @@ class I18nPhrases {
     )[currentLang]!!
 
     val EPDS_FOUR_RESPONSES_1 = mapOf(
-        en to "No, hardly ever",
+        en to "Hardly ever",
         sv to "Nej, knappast alls",
-        zh to "不，几乎没有"
+        zh to "几乎没有"
     )[currentLang]!!
 
     val EPDS_FOUR_RESPONSES_2 = mapOf(
         en to "Yes, sometimes",
         sv to "Ja, ibland",
-        zh to "是的，有时候"
+        zh to "是，有时候"
     )[currentLang]!!
 
     val EPDS_FOUR_RESPONSES_3 = mapOf(
-        en to "Yes, quite often",
+        en to "Yes, very often",
         sv to "Ja, mycket ofta",
-        zh to "是的，相当频繁"
+        zh to "是，很经常"
     )[currentLang]!!
 
 
@@ -803,7 +764,7 @@ class I18nPhrases {
     val EPDS_FIVE = mapOf(
         en to "I have felt scared or panicky for no very good reason",
         sv to "Jag har känt mig skrämd eller panikslagen utan speciell anledning:",
-        zh to "我无明显理由感到害怕或惊慌失措"  // Provided for reference purposes. Please verify against the official EPDS documentation.
+        zh to "没什么理由我就觉得害怕或恐慌"
     )[currentLang]!!
 
 
@@ -816,28 +777,28 @@ class I18nPhrases {
     )[currentLang]!!
 
     val EPDS_FIVE_RESPONSES_1 = mapOf(
-        en to "No, not often",
+        en to "No, not much",
         sv to "Nej, ganska sällan",
-        zh to "不，不经常"
+        zh to "不，不多时候"
     )[currentLang]!!
 
     val EPDS_FIVE_RESPONSES_2 = mapOf(
         en to "Yes, sometimes",
         sv to "Ja, ibland",
-        zh to "是的，有时候"
+        zh to "是，有时候"
     )[currentLang]!!
 
     val EPDS_FIVE_RESPONSES_3 = mapOf(
-        en to "Yes, quite often",
+        en to "Yes, quite a lot",
         sv to "Ja, mycket ofta",
-        zh to "是的，相当频繁"
+        zh to "是，很多时候"
     )[currentLang]!!
 
 
     val EPDS_SIX = mapOf(
         en to "Things have been getting on top of me",
         sv to "Det har kört ihop sig för mig och blivit för mycket:",
-        zh to "事情变得我无法应对"  // Provided for reference purposes. Please verify against the official EPDS documentation.
+        zh to "事情超出我的控制"
     )[currentLang]!!
 
 
@@ -846,32 +807,32 @@ class I18nPhrases {
     val EPDS_SIX_RESPONSES_3 = mapOf(
         en to "Yes, most of the time I haven't been able to cope at all",
         sv to "Ja, mest hela tiden har jag inte kunnat ta itu med något alls",
-        zh to "是的，大部分时间我完全无法应对"
+        zh to "是，大多数时候我根本无法应对"
     )[currentLang]!!
 
     val EPDS_SIX_RESPONSES_2 = mapOf(
-        en to "Yes, sometimes I haven't been able to cope as well as usual",
+        en to "Yes, sometimes I haven't been coping as well as usual",
         sv to "Ja, ibland har jag inte kunnat ta itu med saker lika bra som vanligt",
-        zh to "是的，有时我无法像往常一样好地应对"
+        zh to "是，有时候我不像平时应对得那么好"
     )[currentLang]!!
 
     val EPDS_SIX_RESPONSES_1 = mapOf(
         en to "No, most of the time I have coped quite well",
         sv to "Nej, för det mesta har jag kunnat ta itu med saker ganska bra",
-        zh to "不，大部分时间我都应对得相当好"
+        zh to "不，大多数时候我应对得挺好"
     )[currentLang]!!
 
     val EPDS_SIX_RESPONSES_0 = mapOf(
         en to "No, I have been coping as well as ever",
         sv to "Nej, jag har kunnat ta itu med saker precis som vanligt",
-        zh to "不，我一如既往地应对得很好"
+        zh to "不，我和以前一样应对得好"
     )[currentLang]!!
 
 
     val EPDS_SEVEN = mapOf(
-        en to "I have been so unhappy that I have had trouble sleeping",
+        en to "I have been so unhappy that I have had difficulty sleeping",
         sv to "Jag har känt mig så ledsen och olycklig att jag har haft svårt att sova:",
-        zh to "我一直不开心到难以入睡"  // For illustrative purposes, please verify against the official EPDS documentation.
+        zh to "我非常不开心以至于睡眠困难"
     )[currentLang]!!
 
 
@@ -880,69 +841,70 @@ class I18nPhrases {
     val EPDS_SEVEN_RESPONSES_3 = mapOf(
         en to "Yes, most of the time",
         sv to "Ja, för det mesta",
-        zh to "是的，大多数时间"
+        zh to "是，大多数时候"
     )[currentLang]!!
 
     val EPDS_SEVEN_RESPONSES_2 = mapOf(
         en to "Yes, sometimes",
         sv to "Ja, ibland",
-        zh to "是的，有时候"
+        zh to "是，有时候"
     )[currentLang]!!
 
     val EPDS_SEVEN_RESPONSES_1 = mapOf(
-        en to "No, not often",
+        en to "No, not very often",
         sv to "Nej, sällan",
-        zh to "不，不经常"
+        zh to "不是很经常"
     )[currentLang]!!
 
     val EPDS_SEVEN_RESPONSES_0 = mapOf(
-        en to "No, never",
+        en to "No, not at all",
         sv to "Nej, aldrig",
-        zh to "不，从不"
+        zh to "不，根本不"
     )[currentLang]!!
 
 
     val EPDS_EIGHT = mapOf(
         en to "I have felt sad or miserable",
         sv to "Jag har känt mig ledsen och nere:",
-        zh to "我感到悲伤或痛苦"  // For illustrative purposes, please verify against the official EPDS documentation.
+        zh to "我觉得伤心或悲惨"
     )[currentLang]!!
 
 
     val EPDS_EIGHT_PROMPT = EPDS_EIGHT
 
     val EPDS_EIGHT_RESPONSES_0 = mapOf(
-        en to "No, never",
+        en to "No, not at all",
         sv to "Nej, aldrig",
         zh to "不，从不"
     )[currentLang]!!
 
     val EPDS_EIGHT_RESPONSES_1 = mapOf(
-        en to "No, not often",
+        en to "Not very often",
         sv to "Nej, sällan",
-        zh to "不，不经常"
+        zh to "不是很经常"
     )[currentLang]!!
 
     val EPDS_EIGHT_RESPONSES_2 = mapOf(
         en to "Yes, quite often",
         sv to "Ja, rätt ofta",
-        zh to "是的，相当频繁"
+        zh to "是，很经常"
     )[currentLang]!!
 
     val EPDS_EIGHT_RESPONSES_3 = mapOf(
         en to "Yes, most of the time",
         sv to "Ja, för det mesta",
-        zh to "是的，大多数时间"
+        zh to "是，大多数时候"
     )[currentLang]!!
 
     val EPDS_NINE = mapOf(
         en to "I have been so unhappy that I have been crying",
         sv to "Jag har känt mig så olycklig att jag har gråtit:",
-        zh to "我不开心到哭泣"  // For illustrative purposes, please verify against the official EPDS documentation.
+        zh to "我非常不开心以至于我一直哭"
     )[currentLang]!!
 
 
     val EPDS_NINE_PROMPT = EPDS_NINE
+
     val EPDS_NINE_RESPONSES_0 = mapOf(
         en to "No, never",
         sv to "Nej, aldrig",
@@ -950,28 +912,29 @@ class I18nPhrases {
     )[currentLang]!!
 
     val EPDS_NINE_RESPONSES_1 = mapOf(
-        en to "Only occasionally",
+        en to "Only occasion_ally",
         sv to "Bara någon gång",
-        zh to "只是偶尔"
+        zh to "仅仅偶尔"
     )[currentLang]!!
 
     val EPDS_NINE_RESPONSES_2 = mapOf(
         en to "Yes, quite often",
         sv to "Ja, ganska ofta",
-        zh to "是的，相当频繁"
+        zh to "是，很经常"
     )[currentLang]!!
 
     val EPDS_NINE_RESPONSES_3 = mapOf(
         en to "Yes, most of the time",
         sv to "Ja, nästan jämt",
-        zh to "是的，大部分时间"
+        zh to "是，大多数时候"
     )[currentLang]!!
 
     val EPDS_TEN = mapOf(
         en to "The thought of harming myself has occurred to me",
         sv to "Tankar på att göra mig själv illa har förekommit:",
-        zh to "我曾想过伤害自己"  // For illustrative purposes, please verify against the official EPDS documentation.
+        zh to "我曾经有过伤害自己的想法"
     )[currentLang]!!
+
 
     val EPDS_TEN_PROMPT = EPDS_TEN
 
@@ -984,444 +947,21 @@ class I18nPhrases {
     val EPDS_TEN_RESPONSES_1 = mapOf(
         en to "Hardly ever",
         sv to "Nästan aldrig",
-        zh to "几乎从不"
+        zh to "几乎没有"
     )[currentLang]!!
 
     val EPDS_TEN_RESPONSES_2 = mapOf(
         en to "Sometimes",
         sv to "Ibland",
-        zh to "有时"
+        zh to "有时候"
     )[currentLang]!!
 
     val EPDS_TEN_RESPONSES_3 = mapOf(
         en to "Yes, quite often",
         sv to "Ja, rätt så ofta",
-        zh to "是的，相当频繁"
+        zh to "是，很经常"
     )[currentLang]!!
 
-
-
-    val DIABETES_STARTING_SCREEN_TITLE = mapOf(
-        en to "Diabetes Screening",
-        sv to "Diabetes screening",
-        zh to "糖尿病检查."
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER = mapOf(
-        en to "In this screening I will ask you questions about your health and score you on the risk of developing type-2 diabetes. All your answers will be deleted right after the screening is finished. And remember - I'm not a doctor so the results will only be an indicator. Do you understand?",
-        sv to "I den här undersökningen kommer jag att ställa frågor om din hälsa och bedöma din risk att utveckla typ-2 diabetes. Alla dina svar kommer att raderas direkt efter att undersökningen är avslutad. Och kom ihåg - jag är inte en läkare så resultaten kommer bara vara en indikator. Förstår du?",
-        zh to "在此次检查中我将会问与您健康有关的问题,并且对患2型糖尿病的风险进行评分.检查完成后您的所有答案都将被删除.请记住-我不是医生所以结果仅仅是一个参考.您理解了吗？"
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER_PROMPT = mapOf(
-        en to DIABETES_DISCLAIMER,
-        sv to DIABETES_DISCLAIMER,
-        zh to DIABETES_DISCLAIMER
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER_REFUSED = mapOf(
-        en to "Oh, ok... Then I can unfortunately not continue with the screening. Please talk to one of my human colleagues, they can answer any questions you might have. Then you could come back. It was nice to meet you, good bye.",
-        sv to "Åh, okej... Då kan jag tyvärr inte fortsätta med undersökningen. Prata gärna med någon av mina mänskliga kollegor, de kan svara på alla frågor du kan ha. Sedan kan du komma tillbaka. Trevligt att träffa dig, hejdå.",
-        zh to "哦,好的…那我就不能再继续检查了.请与一位人类同事谈谈,他们可以回答您可能遇到的任何问题.然后您可以再回来.很高兴见到您,再见."
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER_REFUSED_PROMPT = DIABETES_DISCLAIMER_REFUSED
-
-    val DIABETES_DISCLAIMER_I_UNDERSTAND = mapOf(
-        en to "I understand",
-        sv to "Jag förstår",
-        zh to "我理解"
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER_HELP_OPTION_1 = mapOf(
-        en to "Yes if you understand and agree",
-        sv to "Ja om du förstår och samtycker",
-        zh to "是的, 如果您理解并同意"
-    )[currentLang]!!
-
-    val DIABETES_DISCLAIMER_HELP_OPTION_2 = mapOf(
-        en to "No otherwise",
-        sv to "Nej annars",
-        zh to "其他的没有"
-    )[currentLang]!!
-
-//to add questions
-
-    val DIABETES_ALREADY_DIAGNOSED_QUESTION_1 = mapOf(
-        en to "Have you already been diagnosed with diabetes?",
-        sv to "Wurde bei Ihnen bereits $SV_sayDiabetes diagnostiziert?",
-        zh to "您已经被诊断出患有糖尿病了吗？"
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_QUESTION_1_PROMPT = mapOf(
-        en to DIABETES_ALREADY_DIAGNOSED_QUESTION_1,
-        sv to "Wurde bei Ihnen bereits diabetes diagnostiziert?",
-        zh to DIABETES_ALREADY_DIAGNOSED_QUESTION_1
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_QUESTION_2 = mapOf(
-        en to "Ok. Then this will not be a reliable screening. Do you want to continue anyway?",
-        sv to "Okay. Dann ist dies keine zuverlässige Untersuchung. Möchten Sie trotzdem fortfahren?",
-        zh to "好的.那么这将不是可靠的检查.您是否仍要继续呢？"
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_QUESTION_2_PROMPT = DIABETES_ALREADY_DIAGNOSED_QUESTION_2
-
-    val DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_1 = mapOf(
-        en to "I have",
-        sv to "ich habe",
-        zh to "我要"
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_2 = mapOf(
-        en to "I was",
-        sv to "wurde es",
-        zh to "我是"
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_3 = mapOf(
-        en to "I do",
-        sv to "wurde ich",
-        zh to "我做"
-    )[currentLang]!!
-
-    val DIABETES_ALREADY_DIAGNOSED_EXTRA_YES_4 = mapOf(
-        en to "I want to",
-        sv to "ich war",
-        zh to "我想要"
-    )[currentLang]!!
-
-    val SEX_QUESTION = mapOf(
-        en to "Are you male or female?",
-        sv to "Sind Sie männlich oder weiblich?",
-        zh to "您是男性还是女性?"
-    )[currentLang]!!
-
-    val SEX_QUESTION_PROMPT = SEX_QUESTION
-
-    val SEX_QUESTION_MALE = mapOf(
-        en to "Male",
-        sv to "Männlich",
-        zh to "男性"
-    )[currentLang]!!
-
-    val SEX_QUESTION_FEMALE = mapOf(
-        en to "Female",
-        sv to "Weiblich",
-        zh to "女性"
-    )[currentLang]!!
-
-    val EPDS_1 = mapOf(
-        en to "For medical purposes, please specify your biological sex.",
-        sv to "Jag har kunnat se tillvaron från den ljusa sidan",
-        zh to "出于医疗目的, 请表明您的生理性别."
-    )[currentLang]!!
-
-
-    val DIABETES_SEX_QUESTION_BIOLOGICAL_SEX = mapOf(
-        en to "For medical purposes, please specify your biological sex.",
-        sv to "Für medizinische Zwecke, spezifizieren sie bitte ihr biologisches Geschlechtt.",
-        zh to "出于医疗目的, 请表明您的生理性别."
-    )[currentLang]!!
-
-    val DIABETES_PREGNANT_QUESTION_1 = mapOf(
-        en to "Are you currently pregnant?",
-        sv to "Sind Sie schwanger?",
-        zh to "您现在怀孕了吗?"
-    )[currentLang]!!
-
-    val DIABETES_PREGNANT_QUESTION_1_PROMPT = DIABETES_PREGNANT_QUESTION_1
-
-    val DIABETES_PREGNANT_QUESTION_2 = mapOf(
-        en to "Ok. Then this will not be a reliable screening. Do you want to continue anyway?",
-        sv to "Okay. Dann ist dies keine zuverlässige Untersuchung. Möchten Sie trotzdem fortfahren?",
-        zh to "好的，我们将没法得到一个精确的检验结果。请问你仍然希望继续吗?"
-    )[currentLang]!!
-
-    val DIABETES_PREGNANT_QUESTION_2_PROMPT = DIABETES_PREGNANT_QUESTION_2
-
-    val DIABETES_PREGNANT_EXTRA_YES_1 = mapOf(
-        en to "I am",
-        sv to "ja bin ich",
-        zh to "是的"
-    )[currentLang]!!
-
-    val DIABETES_AGE_QUESTION = mapOf(
-        en to "How old are you?",
-        sv to "Wie alt sind Sie in Jahren?",
-        zh to "你多大了呢？"
-    )[currentLang]!!
-
-    val DIABETES_AGE_QUESTION_PROMT = mapOf(
-        en to "your age in years",
-        sv to "Ihr Alter in Jahren",
-        zh to "您的年龄"
-    )[currentLang]!!
-
-    val DIABETES_AGE_OPTION1 = mapOf(
-        en to "Younger than 45",
-        sv to "Jünger als 45",
-        zh to "小于45 岁"
-    )[currentLang]!!
-
-    val DIABETES_AGE_OPTION2 = mapOf(
-        en to "45 or older but younger than 54",
-        sv to "45 oder älter, aber jünger als 54",
-        zh to "大于45 岁但小于54 岁"
-    )[currentLang]!!
-
-    val DIABETES_AGE_OPTION3 = mapOf(
-        en to "55 or older but younger than 64",
-        sv to "55 oder älter, aber jünger als 64",
-        zh to "大于55 岁但小于64 岁"
-    )[currentLang]!!
-
-    val DIABETES_AGE_OPTION4 = mapOf(
-        en to "65 or older",
-        sv to "65 oder älter",
-        zh to "65 岁以上"
-    )[currentLang]!!
-
-    val DIABETES_AGE_INVALID_ANSWER_1 = mapOf(
-        en to "Your age must be a positive number!",
-        sv to "Ihr Alter muss eine positive Zahl sein!",
-        zh to "您的年龄必须是正数！"
-    )[currentLang]!!
-
-    val DIABETES_AGE_INVALID_ANSWER_2 = mapOf(
-        en to "You must be at least 18 or older to continue this test.",
-        sv to "Sie müssen mindestens 18 oder älter sein um diesen Test fortzusetzen.",
-        zh to "您必须年满18 岁或以上才能继续此检查."
-    )[currentLang]!!
-
-    val DIABETES_AGE_INVALID_ANSWER_3 = mapOf(
-        en to "Good one! you're probably not that old, try again",
-        sv to "Guter Witz! Sie sind höchst wahrscheinlich nicht ganz so alt. Versuchen Sie es noch einmal",
-        zh to "好的！您可能还不够大, 请重试"
-    )[currentLang]!!
-
-    val DIABETES_AGE_INVALID_ANSWER_4 = mapOf(
-        en to "I couldn't get it",
-        sv to "Wie bitte?",
-        zh to "我不明白"
-    )[currentLang]!!
-
-    val DIABETES_AGE_ESTIMATE = mapOf(
-        en to "If you're not sure what your age is, please estimate",
-        sv to "Falls Sie nicht genau wissen, wie alt Sie sind, schätzen sie bitte.",
-        zh to "如果不确定自己的年龄, 请估算一下"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_QUESTION = mapOf(
-        en to "So, how tall are you in centimeters?",
-        sv to "Also, wie groß sind Sie in Zentimetern?",
-        zh to "那么，您的身高是多少厘米？"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_QUESTION_PROMT = mapOf(
-        en to "How tall are you in centimeters?",
-        sv to "Wie groß sind Sie in Zentimetern?",
-        zh to "您的身高是多少厘米?"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_ALTERNATIVE_1 = mapOf(
-        en to "Less than 160 cm",
-        sv to "Weniger als 160 cm",
-        zh to "低于160 厘米"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_ALTERNATIVE_2 = mapOf(
-        en to "160-180 cm",
-        sv to "160-180 cm",
-        zh to "160 到180 厘米"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_ALTERNATIVE_3 = mapOf(
-        en to "180-200 cm",
-        sv to "180-200 cm",
-        zh to "180 到200 厘米"
-    )[currentLang]!!
-
-    val DIABETES_HEIGHT_ALTERNATIVE_4 = mapOf(
-        en to "More than 200 cm",
-        sv to "Mehr als 200 cm",
-        zh to "高于200 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_QUESTION = mapOf(
-        en to "How much do you weigh, in kilos?",
-        sv to "Wie viel wiegen Sie in Kilogramm?",
-        zh to "您的体重是多少公斤？"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_QUESTION_PROMT = mapOf(
-        en to "How much do you weigh?",
-        sv to "Wie viel wiegen Sie?",
-        zh to "您有多重呢？"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_ALTERNATIVE_1 = mapOf(
-        en to "Less than 60 kg",
-        sv to "Weniger als 60 kg",
-        zh to "低于60 公斤"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_ALTERNATIVE_2 = mapOf(
-        en to "60-80 kg",
-        sv to "60-80 kg",
-        zh to "60 到80 公斤"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_ALTERNATIVE_3 = mapOf(
-        en to "80-100 kg",
-        sv to "80-100 kg",
-        zh to "80 到100 公斤"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_ALTERNATIVE_4 = mapOf(
-        en to "More than 100 kg",
-        sv to "Mehr als 100 kg",
-        zh to "高于100 公斤"
-    )[currentLang]!!
-
-    val DIABETES_WEIGHT_EXCEEDED = mapOf(
-        en to "I'm sorry, This screening is only reliable for weights up to 200 kilos.",
-        sv to "Es tut mir Leid, aber diese Voruntersuchung ist nur für ein Körpergewicht bis zu 200 kg ausgelegt.",
-        zh to "我很抱歉, 这项检查仅适用于200公斤以下的重量."
-    )[currentLang]!!
-
-    val DIABETES_PHYSICAL_ACTIVITY_QUESTION = mapOf(
-        en to "Would you say you get, at least, 30 minutes of physical activity per day?",
-        sv to "Würden Sie sagen dass Sie mindestens 30 Minuten Bewegung pro Tag haben?",
-        zh to "您是否每天至少要进行30分钟的运动？"
-
-    )[currentLang]!!
-
-    val DIABETES_PHYSICAL_ACTIVITY_QUESTION_PROMPT = DIABETES_PHYSICAL_ACTIVITY_QUESTION
-
-    val DIABETES_PHYSICAL_ACTIVITY_EXPLAIN = mapOf(
-        en to "A daily physical activity is something when you are activating your body and not sitting still. Do you get at least 30 minutes of physical activity daily? ",
-        sv to "Mit Bewegung meine ich alle Arten der körperlichen Anstrengung, also nicht still sitzen. Haben Sie davon mindestens 30 Minuten am Tag?",
-        zh to "日常体育锻炼就是当您活动自己的身体而不是坐着不动.您每天至少进行30分钟的体育锻炼吗?"
-    )[currentLang]!!
-
-    val DIABETES_FAMILY_HISTORY_QUESTION_1 = mapOf(
-        en to "Has a relative of yours been diagnosed with diabetes?",
-        sv to "Wurde einer ihrer Verwandten mit $SV_sayDiabetes diagnostiziert?",
-        zh to "您是否有亲戚被诊断出患有糖尿病呢？"
-    )[currentLang]!!
-
-    val DIABETES_FAMILY_HISTORY_QUESTION_2 = mapOf(
-        en to "And how are you related?",
-        sv to "Wie sind Sie verwandt miteinander?",
-        zh to "那他跟您是什么关系？"
-    )[currentLang]!!
-
-    val DIABETES_FAMILY_HISTORY_QUESTION_PROMT = mapOf(
-        en to "Do you have a relative diagnosed with diabetes?",
-        sv to "Haben Sie Verwandte mit diabetes?",
-        zh to "您有亲戚被诊断患有糖尿病吗？"
-    )[currentLang]!!
-
-    val DIABETES_FAMILY_HISTORY_ALTERNATIVE_1 = mapOf(
-        en to "Yes, Close Relative",
-        sv to "Ja, nahe Verwandte",
-        zh to "有的, 近亲"
-    )[currentLang]!!
-
-    val DIABETES_FAMILY_HISTORY_ALTERNATIVE_2 = mapOf(
-        en to "Yes, Distant Relative",
-        sv to "Ja, entfernte Verwandte",
-        zh to "有的, 远亲"
-    )[currentLang]!!
-
-    val DIABETES_VEGETABLES_QUESTION = mapOf(
-        en to "Do you eat fruit, vegetables or berries every day?",
-        sv to "Essen Sie täglich Obst, Gemüse oder Beeren?",
-        zh to "您每天吃水果, 蔬菜或浆果吗？"
-    )[currentLang]!!
-
-    val DIABETES_VEGETABLES_QUESTION_PROMPT = DIABETES_VEGETABLES_QUESTION
-
-    val DIABETES_BLOOD_PRESSURE_MEDICATION_QUESTION = mapOf(
-        en to "Have you ever taken medication for high blood pressure on a regular basis?",
-        sv to "Haben Sie jemals regelmäßig Medikamente gegen erhöhten Blutdruck genommen?",
-        zh to "您是否曾经定期服用过高血压药物？"
-    )[currentLang]!!
-
-    val DIABETES_BLOOD_GLUCOSE_QUESTION_1 = mapOf(
-        en to "Have you ever been tested for high blood glucose",
-        sv to "Sind Sie jemals auf erhöhten Blutzucker getestet worden?",
-        zh to "您是否接受过高血糖测试?"
-    )[currentLang]!!
-
-    val DIABETES_BLOOD_GLUCOSE_QUESTION_2 = mapOf(
-        en to "Did you have high blood glucose?",
-        sv to "Hatten Sie erhöhten Blutzucker?",
-        zh to "您的血糖高吗？"
-    )[currentLang]!!
-
-    val DIABETES_BLOOD_GLUCOSE_QUESTION_PROMT = mapOf(
-        en to "Have you been tested for high blood glucose?",
-        sv to "Sind Sie für erhöhten Blutzucker getestet worden?",
-        zh to "您是否接受过高血糖测试？"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_MALE_QUESTION = mapOf(
-        en to "For the next question I need you to measure your waist circumference. Pull the measuring strap around your waist and measure how many centimeters you get. Take your time.",
-        sv to "Für die nächste Frage müssen Sie den Umfang Ihrer Taille messen. Ziehen Sie das $SV_sayMasband um Ihre Taille und messen Sie wie viele Zentimeter Taillenumfang Sie haben. Nehmen Sie sich Zeit",
-        zh to "对于下一个问题, 我需要您测量您的腰围.请将测量带拉到您的腰部, 并测量您的腰围是多少厘米.慢慢来."
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_FEMALE_QUESTION = DIABETES_WAIST_CIRCUMFERENCE_MALE_QUESTION
-
-    val DIABETES_WAIST_CIRCUMFERENCE_MALE_OPTION1 = mapOf(
-        en to "Less than 94 cm",
-        sv to "Weniger als 94 cm",
-        zh to "小于94 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_MALE_OPTION2 = mapOf(
-        en to "94-102 cm",
-        sv to "94-102 cm",
-        zh to "94 到102 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_MALE_OPTION3 = mapOf(
-        en to "More than 102 cm",
-        sv to "Mehr als 102 cm",
-        zh to "大于102 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_FEMALE_OPTION1 = mapOf(
-        en to "Less than 80 cm",
-        sv to "Weniger als 80 cm",
-        zh to "小于80 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_FEMALE_OPTION2 = mapOf(
-        en to "80-88 cm",
-        sv to "80-88 cm",
-        zh to "80 到88 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_FEMALE_OPTION3 = mapOf(
-        en to "More than 88 cm",
-        sv to "Mehr als 88 cm",
-        zh to "大于88 厘米"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_2 = mapOf(
-        en to "How many centimeters did you measure?",
-        sv to "Wie viele Zentimeter haben Sie gemessen?",
-        zh to "您测量出多少厘米？"
-    )[currentLang]!!
-
-    val DIABETES_WAIST_CIRCUMFERENCE_PROMPT = mapOf(
-        en to "What is your waist circumference?",
-        sv to "Was ist Ihr Taillenumfang?",
-        zh to "您的腰围是多少？"
-    )[currentLang]!!
 
     val EPDS_READ_RESULTS_1 = mapOf(
         en to "That was the last question. See the screen for your results. And as I said in the beginning, I'm not a doctor so the results are only an indicator. Take your time, and we will have a specialist follow up with your result and get back to you later. Thank you for participating.",
@@ -1429,118 +969,258 @@ class I18nPhrases {
         zh to "那是最后一个问题。请查看屏幕上的结果。正如我刚开始所说的，我不是医生，所以结果仅供参考。别着急，我们将会有专家跟进您的结果，并稍后与您联系。谢谢您的参与。"
     )[currentLang]!!
 
-    val DIABETES_READ_RESULTS_1 = mapOf(
-        en to "That was the last question. See the screen for your result. And as I said in the beginning, I'm not a doctor so the results are only an indicator. Take your time, and if you are concerned about your result from this screening, please contact your doctor for a more accurate assessment of your health. Thank you for participating.",
-        sv to "Dies war die letzte Frage. Schauen Sie auf den Bildschirm um Ihr Resultat zu sehen. Wie schon gesagt, ich bin kein Arzt und das Resultat ist nur als Hinweis zu verstehen. Nehmen Sie sich Zeit, und falls Sie sich wegen ihres Ergebnisses Sorgen machen, kontaktieren Sie bitte Ihren Arzt oder Ihre Ärztin für eine genauere Beurteilung Ihres Gesundheitszustandes. Vielen Dank für Ihre Teilnahme.",
-        zh to "那是最后一个问题.查看屏幕上的结果.正如我刚开始所说的, 我不是医生, 所以结果仅供参考.别着急, 如果您担心此检查的结果, 请与您的医生联系, 以更准确地评估您的健康状况.感谢您的参与."
+    //MINI interview
+    val MINIInterviewIntroduction = mapOf(
+        en to "Now we will conduct a clinical interview that is more structured than usual, with very specific questions about psychological problems that only need to be answered with 'yes' or 'no'. Is that okay?",
+        sv to "Nu ska vi göra en klinisk intervju som är mer strukturerad än vanligt, med mycket specifika frågor om psykologiska problem som bara behöver besvaras med 'ja' eller 'nej'. Är det ok?",
+        zh to "现在我们将进行一次比平时更有结构的临床访谈，关于心理问题的非常具体的问题只需要用'是'或'否'回答。可以吗？"
     )[currentLang]!!
 
-    val DIABETES_READ_RESULTS_2 = mapOf(
-        en to "You can see the results, and more information about diabetes on the screen below. If you would like a more accurate assessment of your health, you should contact your doctor. Take your time, and let me known if you want to continue.",
-        sv to "Sie können Ihr Voruntersuchungsresultat und mehr Informationen über $SV_sayDiabetes auf den Bildschirm unter mir ablesen. Falls Sie eine genauere Beurteilung ihres Gesundheitszustandes wünschen, sollten Sie Ihren Arzt oder Ihre Ärztin kontaktieren.",
-        zh to "您可以在下面的屏幕上查看结果以及有关糖尿病的更多信息.如果您想更准确地评估自己的健康状况, 应该联系医生.别着急, 如果您想继续, 请告诉我."
+    val MINIInterviewIntroduction_PROMPT = MINIInterviewIntroduction
+
+    val MINIQuestion_A1a_QUESTION = mapOf(
+        en to "Have you ever felt depressed, down, or hopeless over a significant part of the day, nearly every day for two weeks?",
+        sv to "Har du någonsin känt dig deprimerad, nere eller hopplös under större delen av dagen, nästan varje dag under två veckor?",
+        zh to "您是否曾在两周内几乎每天的大部分时间感到沮丧、失落或绝望？"
     )[currentLang]!!
 
-    val DIABETES_RESTART_TEST_OPTIONS_NO = mapOf(
+    val MINIQuestion_A1a_PROMPT = MINIQuestion_A1a_QUESTION
+
+    // Question A1b
+    val MINIQuestion_A1b_QUESTION = mapOf(
+        en to "In the past 2 weeks, have you been feeling depressed, down, or sad, empty, or despairing for most of the day, nearly every day?",
+        sv to "Under de senaste 2 veckorna, har du varit deprimerad eller nere, eller känt dig ledsen, tom eller uppgiven under större delen av dagen, nästan varje dag?",
+        zh to "在过去两周内，您是否几乎每天大部分时间感到抑郁、沮丧或悲伤、空虚或绝望？"
+    )[currentLang]!!
+    val MINIQuestion_A1b_PROMPT = MINIQuestion_A1b_QUESTION
+
+
+    // Question A2a
+    val MINIQuestion_A2a_QUESTION = mapOf(
+        en to "Have you ever lost most of your interest in things around you or not been able to enjoy things you usually like for most of the time over 2 weeks?",
+        sv to "Har du någonsin tappat intresset för det mesta omkring dig eller inte kunnat ha riktigt nöje av sådant du brukar tycka om under den största delen av tiden under 2 veckor?",
+        zh to "您是否曾在两周内每天大部分时间对周围的事物失去了兴趣，或无法享受您通常喜欢的事物？"
+    )[currentLang]!!
+    val MINIQuestion_A2a_PROMPT = MINIQuestion_A2a_QUESTION
+
+
+    // Question A2b
+    val MINIQuestion_A2b_QUESTION = mapOf(
+        en to "During the most of the past 2 weeks, have you been much less interested in most things around you compared to others, or not been able to enjoy things you usually enjoy?",
+        sv to "Har du under den största delen av tiden under de senaste 2 veckorna varit mycket mindre intresserad av det mesta omkring dig jämfört med andra, eller inte kunnat ha riktigt nöje av sådant du vanligen brukar tycka om?",
+        zh to "在过去两周的大部分时间里，与其他人相比，您对周围的大多数事物的兴趣是否大大减少，或者无法享受您通常喜欢的事物？"
+    )[currentLang]!!
+    val MINIQuestion_A2b_PROMPT = MINIQuestion_A2b_QUESTION
+
+    // Bridge to A3
+    val MINITwoWeeksPeriodStatement = mapOf(
+        en to "Now, I would like to ask a few more questions about your well-being over the last two weeks.",
+        sv to "Nu vill jag ställa några fler frågor om ditt mående de senaste två veckorna.",
+        zh to "现在，我想再问几个关于你过去两周内的健康状况的问题。"
+    )[currentLang]!!
+
+
+    // Question A3
+
+    val MINIQuestion_A3a_QUESTION = mapOf(
+        en to "Did you have decreased or increased appetite almost every day? Did you unintentionally lose or gain weight (i.e., ±5% of body weight, that is, ±3.5 kg for a person weighing 70 kg, within a month)?",
+        sv to "Hade du minskad eller ökad aptit nästan varje dag? Minskade eller ökade du oavsiktligt i vikt (d.v.s. med ±5% av kroppsvikten, eller ±3,5 kg eller ±8 lb för en person som väger 70 kg, på en månad)?",
+        zh to "您是否几乎每天都感到食欲减退或增加？是否在一个月内无意中减轻或增加了体重（即体重的±5%，对于一个重70公斤的人，大约3.5公斤）？"
+    )[currentLang]!!
+    val MINIQuestion_A3a_PROMPT = MINIQuestion_A3a_QUESTION
+
+    val MINIQuestion_A3b_QUESTION = mapOf(
+        en to "Did you have trouble sleeping almost every night (difficulty falling asleep, waking up in the middle of the night, waking up too early in the morning, or sleeping too much)?",
+        sv to "Hade du problem med sömnen nästan varje natt (svårt att somna in, vaknade upp mitt i natten, vaknade alldeles för tidigt på morgonen eller sov alldeles för mycket)?",
+        zh to "您是否几乎每个夜晚都有睡眠问题（入睡困难、半夜醒来、早晨醒得太早或睡眠过多）？"
+    )[currentLang]!!
+    val MINIQuestion_A3b_PROMPT = MINIQuestion_A3b_QUESTION
+
+    val MINIQuestion_A3c_QUESTION = mapOf(
+        en to "Did you talk or move more slowly than usual, or were you restless or had difficulty sitting still almost every day? Did anyone notice this?",
+        sv to "Pratade eller rörde du dig långsammare än vanligt, eller var du rastlös eller hade svårt att sitta still nästan varje dag? Märkte någon detta?",
+        zh to "您是否讲话或动作比平时慢，或者几乎每天都感到焦躁不安或难以静坐？有人注意到这一点吗？"
+    )[currentLang]!!
+    val MINIQuestion_A3c_PROMPT = MINIQuestion_A3c_QUESTION
+
+    val MINIQuestion_A3d_QUESTION = mapOf(
+        en to "Did you feel tired or had little energy almost every day?",
+        sv to "Kände du dig trött eller orkeslös nästan varje dag?",
+        zh to "您是否几乎每天都感到疲倦或缺乏活力？"
+    )[currentLang]!!
+    val MINIQuestion_A3d_PROMPT = MINIQuestion_A3d_QUESTION
+
+    val MINIQuestion_A3e_QUESTION = mapOf(
+        en to "Did you feel worthless or had excessive guilt almost every day?",
+        sv to "Kände du dig värdelös eller hade skuldkänslor nästan varje dag?",
+        zh to "您是否几乎每天都感觉自己一文不值或有过度的罪恶感？"
+    )[currentLang]!!
+    val MINIQuestion_A3e_PROMPT = MINIQuestion_A3e_QUESTION
+
+    val MINIQuestion_A3f_QUESTION = mapOf(
+        en to "Did you have trouble concentrating, thinking, or making decisions almost every day?",
+        sv to "Hade du svårt att koncentrera dig, tänka eller fatta beslut nästan varje dag?",
+        zh to "您是否几乎每天都难以集中注意力、思考或做决定？"
+    )[currentLang]!!
+    val MINIQuestion_A3f_PROMPT = MINIQuestion_A3f_QUESTION
+
+    val MINIQuestion_A3g_QUESTION = mapOf(
+        en to "Did you often think about death (not just fear of dying), have thoughts of killing yourself, or have plans or intentions to do so? Did you attempt to take your life?",
+        sv to "Tänkte du ofta på döden (RÄDSLA FÖR ATT DÖ RÄKNAS INTE HÄR), eller hade tankar på att ta livet av dig, eller hade du avsikter eller planer på att ta ditt liv? Försökte du ta ditt liv?",
+        zh to "您是否经常考虑到死亡（不仅仅是对死亡的恐惧）、有自杀的想法或计划和意图？您是否尝试过结束自己的生命？"
+    )[currentLang]!!
+    val MINIQuestion_A3g_PROMPT = MINIQuestion_A3g_QUESTION
+
+
+    val MINIQuestion_A4_QUESTION = mapOf(
+        en to "Did these problems cause significant distress or problems in your home, work, studies, social interactions, relationships, or any other important areas, and did they represent a change from how you were previously functioning?",
+        sv to "Orsakade dessa symtom påtagliga besvär eller problem hemma, i arbetet, i dina studier, socialt, i relationer, eller på något annat viktigt sätt, och innebar de en förändring mot hur du fungerat tidigare?",
+        zh to "这些问题是否在家庭、工作、学习、社交互动、人际关系或其他重要领域造成了显著的困扰或问题，并且它们是否代表了与您以前的功能相比的变化？"
+    )[currentLang]!!
+
+    val MINI_MOVE_TO_NEXT_SECTION = mapOf(
+        en to "We will now move on to the next section.",
+        sv to "Vi går nu vidare till nästa avsnitt.",
+        zh to "我们现在将继续进行下一部分。"
+    )[currentLang]!!
+
+
+    val MINI_ASK_FOR_EXAMPLES = mapOf(
+        en to "Can you give me some examples? It's important for us to understand specific situations or thoughts that you've experienced.",
+        sv to "Kan du ge mig några exempel? Det är viktigt för oss att förstå specifika situationer eller tankar som du har upplevt.",
+        zh to "您能给我一些例子吗？对我们来说，理解您经历过的具体情况或思想是非常重要的。"
+    )[currentLang]!!
+
+
+    val MINIQuestion_B1_QUESTION = mapOf(
+        en to "Have you experienced an accident? This includes accidentally taking too many pills.",
+        sv to "Har du varit med om en olyckshändelse? Detta inbegriper att råka ta för många tabletter.",
+        zh to "你有没有经历过意外事故？这包括不小心吃了太多药片。"
+    )[currentLang]!!
+
+    val MINIQuestion_B1a_QUESTION = mapOf(
+        en to "Did you plan or intend to harm yourself in any accident, either by not avoiding a risk or by intentionally causing the accident?",
+        sv to "Planerade eller avsåg du att skada dig själv i någon olyckshändelse, antingen genom att inte undvika en risk eller att avsiktligt orsaka olyckan?",
+        zh to "你是否有意图在任何事故中伤害自己，无论是通过不避免风险还是故意引起事故？"
+    )[currentLang]!!
+
+    val MINIQuestion_B1b_QUESTION = mapOf(
+        en to "Did you intend to die as a result of any accident?",
+        sv to "Avsåg du att dö som en följd av någon olyckshändelse?",
+        zh to "你是否打算因任何事故而死亡？"
+    )[currentLang]!!
+
+    val MINIQuestion_B2_QUESTION = mapOf(
+            en to "Have you (even for a moment) thought that it would be better if you were dead, or wished you were dead, or had to be dead?",
+            sv to "Har du (om ens för ett ögonblick) tänkt att det vore bättre om du var död, eller önskat att du var död eller var tvungen att vara död?",
+            zh to "你是否（即使是一瞬间）认为如果你死了会更好，或希望你已经死了，或必须死了？"
+        )[currentLang]!!
+
+    val MINIQuestion_B3_QUESTION = mapOf(
+        en to "Have you (even for a moment) thought about harming or hurting yourself – with at least some intention or awareness that you could die as a result – or have you contemplated suicide (i.e., taking your own life)?",
+        sv to "Har du (om ens för ett ögonblick) tänkt på att skada eller göra illa dig själv – med åtminstone en viss avsikt eller medvetenhet om att du kunde dö som följd – eller har du funderat på självmord (d.v.s. att ta ditt liv)?",
+        zh to "你是否（即使是一瞬间）考虑过伤害自己或自残 — 至少有一些意图或意识到你可能因此而死 — 或者你是否考虑过自杀（即结束自己的生命）？"
+    )[currentLang]!!
+
+
+    val MINIQuestion_B4_QUESTION = mapOf(
+        en to "Have you heard a voice or voices telling you to take your life, or have you had dreams in some way related to suicide?",
+        sv to "Har du hört en röst eller röster som säger till dig att ta livet av dig, eller har du haft drömmar som på något sätt är relaterade till självmord?",
+        zh to "你是否听到一个或多个声音告诉你去结束自己的生命，或者你是否做过以某种方式与自杀相关的梦？"
+    )[currentLang]!!
+
+    val MINIQuestion_B5_QUESTION = mapOf(
+        en to "Have you figured out a way to take your life (i.e., how)?",
+        sv to "Har du tänkt ut ett sätt att ta ditt liv (d.v.s. hur)?",
+        zh to "你是否想出了结束自己生命的方法（即，如何）？"
+    )[currentLang]!!
+
+
+    val MINIQuestion_C1a_QUESTION = mapOf(
+        en to "Have you ever experienced a period when you felt 'revved up,' 'high,' or 'hyper,' and so active or full of energy or so self-satisfied that you got into trouble, or that others thought you were not yourself? (Do not count times when you were under the influence of alcohol or drugs.)",
+        sv to "Har du någonsin upplevt en period när du kände dig 'på tårna,' 'hög,' eller 'hyper,' och så aktiv eller full av energi eller så självbelåten att du hamnade i trubbel, eller att andra tyckte att du inte var dig själv? (Räkna inte tider när du var under påverkan av alkohol eller droger.)",
+        zh to "你是否曾经经历过一个时期，你感觉到'飙升'，'高涨'或'亢奋'，以至于如此活跃或充满活力或如此自我满足以至于你惹了麻烦，或者别人认为你不是你自己？ （不要计算在酒精或药物影响下的时候。）"
+    )[currentLang]!!
+
+    val MINIQuestion_C1b_QUESTION = mapOf(
+        en to "Do you currently feel 'revved up,' 'high,' 'hyper,' or full of energy?",
+        sv to "Känner du för närvarande dig 'uppvarvad,' 'hög,' 'hyper,' eller full av energi?",
+        zh to "您当前是否感到'飙升'，'高涨'，'亢奋'或充满活力？"
+    )[currentLang]!!
+
+    val MINIQuestion_C2a_QUESTION = mapOf(
+        en to "Have you ever experienced recurrent irritability over several days such that you got into arguments or fights or shouted at people outside your own family? Have you or others noticed that you were more easily annoyed or overreacted, compared to others? This includes situations where you felt your reaction was justified.",
+        sv to "Har du någonsin upplevt återkommande irritation under flera dagar så att du varit med i gräl eller slagsmål eller skrikit åt personer utanför din egen familj? Har du eller andra märkt att du varit mer lättretlig eller överreagerat, jämfört med andra? Detta gäller även situationer där du tyckte att din reaktion varit berättigad.",
+        zh to "你是否曾经经历过几天的反复烦躁，以至于你与人争吵或打架，或向自己家人之外的人大喊大叫？ 您或其他人是否注意到您更容易生气或反应过度，与其他人相比？ 这包括您觉得您的反应是正当的情况。"
+    )[currentLang]!!
+
+
+    val MINIQuestion_C2b_QUESTION = mapOf(
+        en to "Do you currently experience a recurring feeling of irritability?",
+        sv to "Upplever du för närvarande en återkommande känsla av retlighet?",
+        zh to "您当前是否经历反复出现的烦躁感？"
+    )[currentLang]!!
+
+    val MINIQuestion_C3_INTRO = mapOf(
+        en to "During the past few days, including today, when you felt elated and full of energy or irritable:",
+        sv to "Under de senaste dagarna, inklusive idag, när du kände dig upprymd och full av energi eller retlig:",
+        zh to "在过去的几天，包括今天，当您感到兴奋、充满活力或易怒时："
+    )[currentLang]!!
+
+
+    val MINIQuestion_C3a_QUESTION = mapOf(
+        en to "Did you feel that you could do things others couldn't, or that you were a particularly important person? If YES, ask for examples.",
+        sv to "Upplevde du att du kunde göra saker som andra inte kunde, eller att du var en särskilt viktig person? Om JA, be om exempel.",
+        zh to "您是否觉得自己能做别人做不到的事情，或者您是一个特别重要的人？如果是，请举例说明。"
+    )[currentLang]!!
+
+    val MINIQuestion_C3b_QUESTION = mapOf(
+        en to "Did you need less sleep (e.g., feeling rested after only a few hours of sleep)?",
+        sv to "Behövde du mindre sömn (t.ex. att du kände dig utvilad efter bara några timmars sömn)?",
+        zh to "您是否需要较少的睡眠（例如，只睡几个小时就感觉精力充沛）？"
+    )[currentLang]!!
+
+    val MINIQuestion_C3c_QUESTION = mapOf(
+        en to "Did you talk excessively without stopping, or feel compelled to continue talking?",
+        sv to "Pratade du för mycket utan uppehåll, eller kände dig tvingad att fortsätta prata?",
+        zh to "您是否不停地说话，或者感到被迫不停地说话？"
+    )[currentLang]!!
+
+    val MINIQuestion_C3d_QUESTION = mapOf(
+        en to "Did you notice that your thoughts raced, jumped from one subject to another, or were very fast-paced?",
+        sv to "Märkte du att dina tankar gick väldigt fort, löpte samman, rusade eller rörde sig väldigt snabbt från ett ämne till ett annat?",
+        zh to "您是否注意到您的思维飞快，跳跃着从一个主题到另一个主题，或者非常快速？"
+    )[currentLang]!!
+
+
+    val MINIQuestion_C3e_QUESTION = mapOf(
+        en to "Were you easily distracted, so that every little disturbance could make you lose track?",
+        sv to "Blev du lätt distraherad så att varje liten störning kunde få dig att tappa tråden?",
+        zh to "您是否容易分心，以至于每一个小干扰都会让您失去思维？"
+    )[currentLang]!!
+
+    val MINIQuestion_C3f_QUESTION = mapOf(
+        en to "Did you experience a significant increase in interest or activity regarding work/studies, or socially or sexually, or did you become physically or mentally restless? This increase in activity can be with or without a purpose.",
+        sv to "Fick du en påtaglig ökning av intresse eller aktivitet gällande arbete/studier, eller socialt eller sexuellt, eller blev du fysiskt eller psykiskt rastlös? Denna ökning av aktiviteten kan vara med eller utan något syfte.",
+        zh to "您是否在工作/学习、社交或性方面经历了显着的兴趣或活动增加，或者您是否变得身体或精神不安定？ 这种活动的增加可以有或没有目的。"
+    )[currentLang]!!
+
+    val MINIQuestion_C3g_QUESTION = mapOf(
+        en to "Were you so focused on enjoying life and having fun that you disregarded risks and consequences (e.g., excessive shopping, careless driving, or irresponsible sexual behavior)?",
+        sv to "Var du så inriktad på att njuta av livet och ha roligt att du struntade i risker och konsekvenser (t.ex. överdriven shopping, vårdslös bilkörning eller ansvarslöst sexuellt beteende)?",
+        zh to "您是否如此专注于享受生活和快乐，以至于您无视了风险和后果（例如，过度购物、粗心驾驶或不负责任的性行为）？"
+    )[currentLang]!!
+
+
+    val EPDS_RESTART_TEST_OPTIONS_NO = mapOf(
         en to "No",
-        sv to "Nein",
+        sv to "Nej",
         zh to "不用"
     )[currentLang]!!
 
-
-    // Explanation questions / answeres
-
-    val QUESTION_DIABETES = mapOf(
-        en to "diabetes",
-        sv to "$SV_sayDiabetes ",
-        zh to "糖尿病"
-    )[currentLang]!!
-
-    val QUESTION_PHYSICAL_ACTIVITY = mapOf(
-        en to "physical activity",
-        sv to "Bewegung",
-        zh to "体育活动"
-    )[currentLang]!!
-
-    val QUESTION_HIGH_BLOOD_PRESSURE = mapOf(
-        en to "high blood pressure",
-        sv to "hoher Blutdruck",
-        zh to "高血压"
-    )[currentLang]!!
-
-    val QUESTION_NAME = mapOf(
-        en to "name",
-        sv to "Name",
-        zh to "姓名"
-    )[currentLang]!!
-
-    val QUESTION_YOUR_QUEST = mapOf(
-        en to "your quest",
-        sv to "Ihre Suche",
-        zh to "您的问卷"
-    )[currentLang]!!
-
-    val EXPLANATION_DIABETES = mapOf(
-        en to "diabetes is a disease in which the body’s ability to produce or respond to the hormone insulin is impaired, ",
-        sv to "$SV_sayDiabetes ist eine Krankheit, bei der die Fähigkeit des Körpers Insulin herzustellen oder es zu nutzen zu reagieren eingeschränkt ist.",
-        zh to "糖尿病是一种人体产生或响应激素胰岛素的能力受损的疾病,  "
-    )[currentLang]!!
-
-    val EXPLANATION_PHYSICAL_ACTIVITY = mapOf(
-        en to "Physical activity simply means movement of the body that uses energy. Walking, gardening, briskly pushing a baby stroller, climbing the stairs, playing soccer, or dancing the night away are all good examples of being active.",
-        sv to "Bewegung bedeutet, in diesem Kontext, körperliche Bewegung die Energie benötigt. Spazierengehen, den Garten bestellen, das flotte Schieben eines Kinderwagens, Treppensteigen, Fussballspielen oder durch die Nacht zu tanzen sind gute Beispiele.",
-        zh to "体育活动只是意味着身体消耗能量的运动.散步, 园艺, 轻快地推婴儿车, 爬楼梯, 踢足球或在夜晚跳舞都属于这个范畴."
-    )[currentLang]!!
-
-    val EXPLANATION_HIGH_BLOOD_PRESSURE = mapOf(
-        en to "You probably have high blood pressure if your blood pressure readings are consistently 140 over 90, or higher, over a number of weeks.",
-        sv to "Sie haben vermutlich erhöhten Blutdruck, falls ihre Blutdruckmessungen über mehrere Wochen regelmäßig 140 über 90, oder mehr ergeben.",
-        zh to "如果您的血压读数在几周内始终保持在90 以上或更高的140 上, 则可能患有高血压."
-    )[currentLang]!!
-
-    val EXPLANATION_NAME = mapOf(
-        en to "My name is Petra",
-        sv to "Mein Name ist Petra",
-        zh to "我的名字是Petra"
-    )[currentLang]!!
-
-    val EXPLANATION_YOUR_QUEST = mapOf(
-        en to "I provide a pre-screening experience for diabetes",
-        sv to "Ich biete eine Voruntersuchung für $SV_sayDiabetes an",
-        zh to "我提供糖尿病的预检查"
-    )[currentLang]!!
 
     val CHANGE_TO_LANGUAGE_EN = "Change to English"
     val CHANGE_TO_LANGUAGE_SV = "Till svenska" // Changed to Swedish
     val CHANGE_TO_LANGUAGE_ZH = "切换成中文" //
 
 }
-
-/* improve pronunciations */
-// to maintain how the company name sounds, and reduce the effect of accent/localisation:
-//val SV_sayFurhat = "<phoneme alphabet=\"ipa\" ph=\"f'ɜʀ.ha:tt\">Furhat</phoneme>"
-//// to make it sound reasonably okay:
-//val SV_sayUhuh = "<phoneme alphabet=\"ipa\" ph=\"ʌ'ɦʌ\">uh-huh</phoneme>"
-//// to make it sound like a german speaker would say it:
-//val SV_sayDiabetes = "<phoneme alphabet=\"ipa\" ph=\"diaˈbeːtɛs\">Diabetes</phoneme>"
-//val SV_sayDiabetesrisiko = "<phoneme alphabet=\"ipa\" ph=\"diaˈbeːtɛs.risiko\">diabetesrisiko</phoneme>"
-//val SV_sayRoboter = "<phoneme alphabet=\"ipa\" ph=\"ˈʁɔbɔtɐ\">roboter</phoneme>"
-//val SV_sayVoruntersuchungsroboter = "<phoneme alphabet=\"ipa\" ph=\"Voruntersuchungsˈʁɔbɔtɐ\">voruntersuchungsroboter</phoneme>"
-//val SV_sayMasband = "<phoneme alphabet=\"ipa\" ph=\"ˈmaːsbant\">maßband</phoneme>"
-//// to make it sound like an english-speaker would say it:
-//val SV_sayPerformance = "<phoneme alphabet=\"ipa\" ph=\"pə.ˈfɔː.məns\">performance</phoneme>"
-//val SV_sayMaterials = "<phoneme alphabet=\"ipa\" ph=\"mɐ̯'t'i:i:i:ʀiəlz\">materials</phoneme>"
-//val SV_sayHealthcare = "<phoneme alphabet=\"ipa\" ph=\"hɛlθ.kɛə\">Healthcare</phoneme>"
-//val SV_sayLife = "<phoneme alphabet=\"ipa\" ph=\"laɪf\">Life</phoneme>"
-
-val SV_sayFurhat = "<phoneme alphabet=\"ipa\" ph=\"f'ʉːr.hɑːt\">Furhat</phoneme>"
-val SV_sayUhuh = "<phoneme alphabet=\"ipa\" ph=\"'ʉːhʉː\">uh-huh</phoneme>"
-val SV_sayDiabetes = "<phoneme alphabet=\"ipa\" ph=\"di.aˈbeːtɛs\">Diabetes</phoneme>"
-val SV_sayDiabetesrisiko = "<phoneme alphabet=\"ipa\" ph=\"di.aˈbeːtɛs.rɪs'iːkɔ\">diabetesrisiko</phoneme>"
-val SV_sayRoboter = "<phoneme alphabet=\"ipa\" ph=\"rʊˈbuːtɛr\">roboter</phoneme>"
-val SV_sayVoruntersuchungsroboter = "<phoneme alphabet=\"ipa\" ph=\"vɔr.ʉnˈtɛrsʉxʉŋs.rʊˈbuːtɛr\">voruntersuchungsroboter</phoneme>"
-val SV_sayMasband = "<phoneme alphabet=\"ipa\" ph=\"ˈmɔːsbɑnd\">måttband</phoneme>"
-val SV_sayPerformance = "<phoneme alphabet=\"ipa\" ph=\"pɛr.fɔrˈmɑns\">performance</phoneme>"
-val SV_sayMaterials = "<phoneme alphabet=\"ipa\" ph=\"mɑtɛrɪ'ɑːl\">materials</phoneme>"
-val SV_sayHealthcare = "<phoneme alphabet=\"ipa\" ph=\"hɛltsɑːr\">Healthcare</phoneme>"
-val SV_sayLife = "<phoneme alphabet=\"ipa\" ph=\"laɪf\">Life</phoneme>"

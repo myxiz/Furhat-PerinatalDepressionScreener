@@ -3,7 +3,6 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
@@ -24,29 +23,30 @@ val EPDSQuestion06: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<YesMostTimeNotCopeAtAll> {
-        send(OptionSelectedEvent("3"))
-        users.current.epdsData.e6 = 3
-        users.current.epdsData.addToScore(3, "EPDS06")
-        ackAndGoto(EPDSQuestion07) // Assuming there's an EPDSQuestion07 state to go to next
-    }
-    onResponse<YesSometimesNotCopeAsWell> {
-        send(OptionSelectedEvent("2"))
-        users.current.epdsData.e6 = 2
-        users.current.epdsData.addToScore(2, "EPDS06")
+    onResponse<Q6_0_NoIHaveBeenCopingAsWellAsEver> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e6 = 0
         ackAndGoto(EPDSQuestion07)
     }
-    onResponse<NoMostlyCopedWell> {
+    onResponse<Q6_1_NoMostOfTheTimeIHaveCopedQuiteWell> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e6 = 1
         users.current.epdsData.addToScore(1, "EPDS06")
         ackAndGoto(EPDSQuestion07)
     }
-    onResponse<NoCopedAsUsual> {
-        send(OptionSelectedEvent("0"))
-        users.current.epdsData.e6 = 0
-        ackAndGoto(EPDSQuestion07) // Proceed to the next question
+    onResponse<Q6_2_YesSometimesIHaveNotBeenCopingAsWellAsUsual> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e6 = 2
+        users.current.epdsData.addToScore(2, "EPDS06")
+        ackAndGoto(EPDSQuestion07)
     }
+    onResponse<Q6_3_YesMostOfTheTimeIHaveNotBeenAbleToCopeAtAll> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e6 = 3
+        users.current.epdsData.addToScore(3, "EPDS06")
+        ackAndGoto(EPDSQuestion07)
+    }
+
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")

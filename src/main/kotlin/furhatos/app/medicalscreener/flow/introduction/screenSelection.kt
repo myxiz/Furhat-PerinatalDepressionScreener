@@ -206,7 +206,7 @@ private fun TriggerRunner<*>.handleScreeningChoice(choice: String?, respondedFro
             furhat.say(i18n.phrases.INTRODUCTION_THANSFORTURST)
             delay(400)
             send(ClearScreen())
-            goto(PNDIntro)
+            goto(EPDSIntro)
         }
         "no" -> {
             if (!respondedFromGui) {

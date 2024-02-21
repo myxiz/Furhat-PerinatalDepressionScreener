@@ -2,20 +2,27 @@ package furhatos.app.medicalscreener.flow.introduction
 
 import furhatos.app.medicalscreener.currentLang
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.name
+import furhatos.app.medicalscreener.getUsername
+import furhatos.app.medicalscreener.userName
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.nlu.EnglishDontUnderstandLanguage
 import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.util.Language
+import kotlinx.coroutines.*
+import java.time.LocalDateTime
 
-//val BaseState = state(Interaction, stateDefinition = abortableStateDef(Goodbye, null))
 
 val GreetTuringOn : State = state(Interaction){
     addGazeAversionBehaviour()
+    val myScope = CoroutineScope(Dispatchers.Default)
 
     onEntry {
         send(ClearScreen())
+        runBlocking {
+            val name = getUsername()
+            println(name)
+        }
         log.debug("In GreetTuringOn state")
         furhat.say(i18n.phrases.INTRODUCTION_GREETING_ON)
         send(ShowOptionsEvent(allButCurrentLang()+ "start: ${i18n.phrases.GENERAL_START}"))
@@ -24,6 +31,12 @@ val GreetTuringOn : State = state(Interaction){
         log.debug("User responded ${it.get("response")} through GUI")
         val response = it.get("response") as String?
         if (response == "start"){
+            users.current.interactionInfo.robotOnTime = LocalDateTime.now()
+            myScope.launch {
+                writeKpi(users.current, "Interaction Started")
+                getUsername()
+                log.info("user name: $userName")
+            }
             goto(GreetVisitor)
         }
         else{handleLanguageChange(language = response)}
@@ -32,7 +45,9 @@ val GreetTuringOn : State = state(Interaction){
 
     onButton ("Start"){
         users.current.interactionInfo.startTimestamp()
-        writeKpi(users.current, "Interaction Started")
+        GlobalScope.launch {
+            writeKpi(users.current, "Interaction Started")
+        }
         goto(GreetVisitor)
     }
 }
@@ -42,7 +57,10 @@ val GreetVisitor: State = state(IntroductionBaseState) {
     addGazeAversionBehaviour()
     onEntry {
         send(ClearScreen())
-        furhat.askAndDo(i18n.phrases.INTRODUCTION_GREETING + name!!){
+        GlobalScope.launch {
+            getUsername()
+        }
+        furhat.askAndDo(i18n.phrases.INTRODUCTION_GREETING +' '+ userName!!){
 
             furhat.gesture(Gestures.BigSmile)
             log.debug("In GreetVisitor state")

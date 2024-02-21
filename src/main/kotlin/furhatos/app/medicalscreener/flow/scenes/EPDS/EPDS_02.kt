@@ -1,13 +1,8 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
+import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
-import furhatos.app.medicalscreener.i18n.AsMuchAsUsual
-import furhatos.app.medicalscreener.i18n.SomewhatLessThanUsual
-import furhatos.app.medicalscreener.i18n.MuchLessThanUsual
-import furhatos.app.medicalscreener.i18n.NotAtAll
-import furhatos.flow.kotlin.state
 
 
 val EPDSQuestion02: State = state(EPDSQuestionBase) {
@@ -26,24 +21,24 @@ val EPDSQuestion02: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<AsMuchAsUsual> {
+    onResponse<Q2_0_AsMuchAsIEverDid> {
         send(OptionSelectedEvent("0"))
         users.current.epdsData.e2 = 0
         ackAndGoto(EPDSQuestion03)
     }
-    onResponse<SomewhatLessThanUsual> {
+    onResponse<Q2_1_RatherLessThanIUsedTo> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e2 = 1
         users.current.epdsData.addToScore(1, "EPDS02")
         ackAndGoto(EPDSQuestion03)
     }
-    onResponse<MuchLessThanUsual> {
+    onResponse<Q2_2_DefinitelyLessThanIUsedTo> {
         send(OptionSelectedEvent("2"))
         users.current.epdsData.e2 = 2
         users.current.epdsData.addToScore(2, "EPDS02")
         ackAndGoto(EPDSQuestion03)
     }
-    onResponse<NotAtAll> {
+    onResponse<Q2_3_HardlyAtAll> {
         send(OptionSelectedEvent("3"))
         users.current.epdsData.e2 = 3
         users.current.epdsData.addToScore(3, "EPDS02")

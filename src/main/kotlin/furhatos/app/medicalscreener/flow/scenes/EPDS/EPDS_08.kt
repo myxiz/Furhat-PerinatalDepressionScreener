@@ -3,7 +3,6 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
@@ -23,29 +22,30 @@ val EPDSQuestion08: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<YesMostOfTheTime> {
-        send(OptionSelectedEvent("3"))
-        users.current.epdsData.e8 = 3
-        users.current.epdsData.addToScore(3, "EPDS08")
-        ackAndGoto(EPDSQuestion09) // Assuming there's an EPDSQuestion09 state to go to next
-    }
-    onResponse<YesQuiteOften> { // Adjust this if you have a specific intent for "ja, rätt ofta"
-        send(OptionSelectedEvent("2"))
-        users.current.epdsData.e8 = 2
-        users.current.epdsData.addToScore(2, "EPDS08")
+    onResponse<Q8_0_NoNotAtAll> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e8 = 0
         ackAndGoto(EPDSQuestion09)
     }
-    onResponse<NoRarely> {
+    onResponse<Q8_1_NotVeryOften> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e8 = 1
         users.current.epdsData.addToScore(1, "EPDS08")
         ackAndGoto(EPDSQuestion09)
     }
-    onResponse<NoNever> {
-        send(OptionSelectedEvent("0"))
-        users.current.epdsData.e8 = 0
-        ackAndGoto(EPDSQuestion09) // Proceed to the next question
+    onResponse<Q8_2_YesQuiteOften> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e8 = 2
+        users.current.epdsData.addToScore(2, "EPDS08")
+        ackAndGoto(EPDSQuestion09)
     }
+    onResponse<Q8_3_YesMostOfTheTime> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e8 = 3
+        users.current.epdsData.addToScore(3, "EPDS08")
+        ackAndGoto(EPDSQuestion09)
+    }
+
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")

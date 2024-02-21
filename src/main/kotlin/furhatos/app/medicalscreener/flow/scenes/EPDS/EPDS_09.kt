@@ -4,7 +4,6 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
@@ -24,29 +23,30 @@ val EPDSQuestion09: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<YesAlmostAlways> {
-        send(OptionSelectedEvent("3"))
-        users.current.epdsData.e9 = 3
-        users.current.epdsData.addToScore(3, "EPDS09")
-        goto(EPDSQuestion10) // Assuming there's an EPDSQuestion10 state to go to next
+    onResponse<Q9_0_NoNever> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e9 = 0
+        ackAndGoto(EPDSQuestion10)
     }
-    onResponse<YesQuiteOftenGanska> {
-        send(OptionSelectedEvent("2"))
-        users.current.epdsData.e9 = 2
-        users.current.epdsData.addToScore(2, "EPDS09")
-        goto(EPDSQuestion10)
-    }
-    onResponse<JustOccasionally> {
+    onResponse<Q9_1_OnlyOccasionally> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e9 = 1
         users.current.epdsData.addToScore(1, "EPDS09")
-        goto(EPDSQuestion10)
+        ackAndGoto(EPDSQuestion10)
     }
-    onResponse<NoNever> { // Assuming NoNever intent is already defined and suitable here
-        send(OptionSelectedEvent("0"))
-        users.current.epdsData.e9 = 0
-        goto(EPDSQuestion10) // Proceed to the next question
+    onResponse<Q9_2_YesQuiteOften> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e9 = 2
+        users.current.epdsData.addToScore(2, "EPDS09")
+        ackAndGoto(EPDSQuestion10)
     }
+    onResponse<Q9_3_YesMostOfTheTime> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e9 = 3
+        users.current.epdsData.addToScore(3, "EPDS09")
+        ackAndGoto(EPDSQuestion10)
+    }
+
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")

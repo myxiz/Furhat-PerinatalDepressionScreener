@@ -4,7 +4,7 @@ import {actions} from "./model"
 import MenuIcon from "./assets/hamburger.svg"
 import CloseIcon from "./assets/close-icon.svg"
 import SVG from "react-inlinesvg"
-import i18n from './copy/i18n'
+import i18n from './i18nText/i18n'
 
 class Menu extends React.PureComponent {
 

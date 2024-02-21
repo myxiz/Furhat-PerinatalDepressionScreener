@@ -1,9 +1,11 @@
 package furhatos.app.medicalscreener.flow.scenes.EPDS
-import furhatos.app.medicalscreener.flow.*
+import furhatos.app.medicalscreener.flow.OptionSelectedEvent
+import furhatos.app.medicalscreener.flow.ShowOptionsEvent
+import furhatos.app.medicalscreener.flow.askAndDo
+import furhatos.app.medicalscreener.flow.epdsData
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.util.CommonUtils
 
 private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
@@ -24,29 +26,30 @@ val EPDSQuestion10: State = state(EPDSQuestionBase) {
         delay(500)
     }
 
-    onResponse<YesQuiteOftenRattSa> {
-        send(OptionSelectedEvent("3"))
-        users.current.epdsData.e10 = 3
-        users.current.epdsData.addToScore(3, "EPDS10")
-        goto(EPDS_Results) // Adjust as per your flow
+    onResponse<Q10_0_Never> {
+        send(OptionSelectedEvent("0"))
+        users.current.epdsData.e10 = 0
+        goto(EPDS_Results) // Assuming this is the last question and the assessment concludes here.
     }
-    onResponse<SometimesIbland> {
-        send(OptionSelectedEvent("2"))
-        users.current.epdsData.e10 = 2
-        users.current.epdsData.addToScore(2, "EPDS10")
-        goto(EPDS_Results) // Adjust as per your flow
-    }
-    onResponse<HardlyEverNastanAldrig> {
+    onResponse<Q10_1_HardlyEver> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e10 = 1
         users.current.epdsData.addToScore(1, "EPDS10")
-        goto(EPDS_Results) // Adjust as per your flow
+        goto(EPDS_Results)
     }
-    onResponse<NoNever> { // Assuming NoNever intent is already defined and suitable here
-        send(OptionSelectedEvent("0"))
-        users.current.epdsData.e10 = 0
-        goto(EPDS_Results) // Adjust as per your flow
+    onResponse<Q10_2_Sometimes> {
+        send(OptionSelectedEvent("2"))
+        users.current.epdsData.e10 = 2
+        users.current.epdsData.addToScore(2, "EPDS10")
+        goto(EPDS_Results)
     }
+    onResponse<Q10_3_YesQuiteOften> {
+        send(OptionSelectedEvent("3"))
+        users.current.epdsData.e10 = 3
+        users.current.epdsData.addToScore(3, "EPDS10")
+        goto(EPDS_Results)
+    }
+
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")

@@ -27,12 +27,16 @@ export class Screen extends React.PureComponent {
                     </div>
                 </div>
                 <div className="content row">
-                    <div className="col-10 offset-1">
+                    <div className="col-10 offset-1" >
                         <FaceOptions
                             isShown= {showFaces.toString()}
+                            // isShown= {'show'}
                             onOptionSelected={this.respond.bind(this)}
                             buttonsDisabled={buttonsDisabled}
                             showText={showText}/>
+                    </div>
+                    <div className="col-10 offset-1">
+
                         {results == null ?
                             <Question
                                 options={options}

@@ -14,7 +14,7 @@ import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.gestures.Gestures
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
-import java.time.LocalDateTime
+//import java.time.LocalDateTime
 
 //val PersonalizationQuestionBase = state(Interaction, stateDefinition = abortableStateDef(ScreeningSelection, null))
 
@@ -111,7 +111,7 @@ val PersonalizationGender: State = state(PersonalizationQuestionBase) {
                     listOf("male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}",
                         "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
                         "next:${i18n.phrases.GENERAL_CONTINUE}"),
-                    prompt = i18n.phrases.PERSONALIZATION_GENDER_PREFERENCE,
+                    prompt = i18n.phrases.PERSONALIZATION_VOICE_PROMT,
                     ))
         }
     }
@@ -169,7 +169,7 @@ val PersonalizationApplyMale: State = state(PersonalizationQuestionBase) {
             send(ShowOptionsEvent(
                 listOf( "female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}"
                 ,"original:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_ORIGINAL}","next:${i18n.phrases.GENERAL_MOVE_ON_REPLY}"),
-                prompt = i18n.phrases.PERSONALIZATION_MALE_VOICE,
+                prompt = i18n.phrases.PERSONALIZATION_VOICE_PROMT,
                 ))
         }
     }
@@ -218,7 +218,7 @@ val PersonalizationApplyMale: State = state(PersonalizationQuestionBase) {
 val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
     onEntry {
         log.debug("Entering PersonalizationApplyOriginal state")
-        writeKpi(users.current, "User Chose PersonalizationApplyOriginal on" + LocalDateTime.now() )
+//        writeKpi(users.current, "User Chose PersonalizationApplyOriginal on" + LocalDateTime.now() )
         furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_ORIGINAL_VOICE) {
             send(ClearScreen())
@@ -226,10 +226,11 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
                 listOf( "male:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_MALE}"
                     ,"female:${i18n.phrases.PERSONALIZATION_VOICE_OPTION_FEMALE}",
                     "next:${i18n.phrases.GENERAL_MOVE_ON_REPLY}",),
-                prompt = i18n.phrases.PERSONALIZATION_ORIGINAL_VOICE,
+                prompt = i18n.phrases.PERSONALIZATION_VOICE_PROMT,
                 ))
         }
     }
+
 
     onResponse<MoveOnIntent> {
         log.debug("User responded \"move on\" (\"${it.text}\")")
@@ -249,10 +250,10 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
         handleChooseMale()
     }
 
-    onResponse<ChangeBack> {
+    onResponse<Female> {
         log.debug("User responded \"change back to neutral\" (\"${it.text}\")")
         send(OptionSelectedEvent("original"))
-        handleChooseOriginal()
+        handleChooseFemale()
     }
 
     onEvent("UserResponse") {
@@ -266,9 +267,9 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
                 log.debug("User responded ${it.get("response")} through GUI")
                 handleChooseMale()
             }
-            "original" -> {
+            "female" -> {
                 log.debug("User responded ${it.get("response")} through GUI")
-                handleChooseOriginal()
+                handleChooseFemale()
             }
         }
     }
@@ -277,7 +278,7 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
 val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
     onEntry {
         log.debug("Entering PersonalizationApplyFemale state")
-        writeKpi(users.current, "PersonalizationApplyFemale")
+//        writeKpi(users.current, "PersonalizationApplyFemale")
         furhat.setRobotVoice(currentLang,Gender.FEMALE)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FEMALE_VOICE) {
             send(ClearScreen())
@@ -438,20 +439,20 @@ private fun TriggerRunner<*>.handleMoveToGender() {
 }
 
 private fun TriggerRunner<*>.handleChooseMale() {
-    writeKpi(users.current, "User Chose Male" )
+//    writeKpi(users.current, "User Chose Male" )
     send(OptionSelectedEvent("male"))
     goto(PersonalizationApplyMale)
 }
 
 private fun TriggerRunner<*>.handleChooseOriginal(){
-    writeKpi(users.current, "User Chose Ori")
+//    writeKpi(users.current, "User Chose Ori")
     furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
     delay(500, TimeUnit.MILLISECONDS)
     goto(PersonalizationApplyOriginal)
 }
 
 private fun TriggerRunner<*>.handleChooseFemale() {
-    writeKpi(users.current, "User Chose female")
+//    writeKpi(users.current, "User Chose female")
     send(OptionSelectedEvent("female"))
 
     goto(PersonalizationApplyFemale)
@@ -459,14 +460,14 @@ private fun TriggerRunner<*>.handleChooseFemale() {
 
 private fun TriggerRunner<*>.handleToRememberPersonalization(){
     users.current.personaliztionData.remember = true
-    writeKpi(users.current, "User Chose Remember Personalization" )
+//    writeKpi(users.current, "User Chose Remember Personalization" )
     send(ClearScreen())
     goto(PersonalizationRemember)
 }
 
 private fun TriggerRunner<*>.handleMoveToEPDS(){
     users.current.personaliztionData.endTimestamp()
-    writeKpi(users.current, "User end Personalization" )
+//    writeKpi(users.current, "User end Personalization" )
     send(ClearScreen())
     goto(EPDSStartQuestion)
 }

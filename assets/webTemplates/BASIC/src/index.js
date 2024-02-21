@@ -28,7 +28,7 @@ function update(state, action) {
             results: null,
             optionsDelay: delay,
             modal: ModalState.NoModal,
-            showFaces : showFaces,
+            showFaces : showFaces.toString(),
         }),
         [actions.AppendText]: ({text}) => ({...state, text: [state.text, text].join('\n')}),
         [actions.ShowOnScreen]: ({title, text}) => ({

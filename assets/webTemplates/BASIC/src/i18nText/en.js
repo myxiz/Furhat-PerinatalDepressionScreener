@@ -12,14 +12,15 @@ export default {
     RESULTS: `Results`,
 
     // Main menu texts
-    ABOUT_PETRA: `I'm Alice - a  health screening Robot. Say "Continue" when you want to go back.`,
+    ABOUT_PETRA: `I am a robot for screening of perinatal depression. I have been designed by the social robotics laboratory at Uppsala University. I am still a first-generation prototype, and welcome to give any suggestions. Please say "Continue" when you want to go back.`,
 
     // Results page
     EPDS_LOW_RISK_INFO: <span>That means that you are not likely suffering from perinatal depression.</span>,
     EPDS_DEPRESSION_POSSIBLE_INFO: <span>That means it is possible that you are suffering from perinatal depression.</span>,
-    EPDS_MODERATE_RISK_INFO: <span>That means the risk for you currently having a perinatal depression is fairly high. <br/>We will have a specialist follow up with your result and get back to you later.</span>,
+    EPDS_MODERATE_RISK_INFO:
+        <span>That means the risk for you currently having a perinatal depression is fairly high. <br/>We will have a specialist follow up with your result and get back to you later.</span>,
     EPDS_HIGH_RISK_INFO: <span>That means you are in high risk of having a perinatal depression currently.<br/>You might need a further diagnosis. We will have a specialist follow up with your result and get back to you later.</span>,
-    EPDS_VERY_HIGH_RISK_INFO: <span>That means you are in very high risk of having a perinatal depression currently.<br/>Our nurse will talk to you in a moment. We will also have a specialist follow up with your result and get back to you later.</span>,
+    EPDS_VERY_HIGH_RISK_INFO: <span>That means you are in very high risk of having a perinatal depression currently.<br/>Our assistant will talk to you in a moment. We will also have a specialist follow up with your result and get back to you later.</span>,
 
     RESULTS_ABOUT_TEST: 'This screening and this risk assessment is based on the EPDS screening test designed by Professor John Cox at the Department of Psychiatry at the University of Edinburgh. It has been widely used in Sweden for perinatal depression screening.',
     RESULTS_MORE_ABOUT: 'More about perinatal depression and its symptoms',

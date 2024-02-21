@@ -8,6 +8,7 @@ import furhatos.app.medicalscreener.flow.introduction.GreetTuringOn
 import furhatos.app.medicalscreener.flow.introduction.Idle
 import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
 import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
+import furhatos.app.medicalscreener.flow.scenes.MINIInstructions
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.event.Event
@@ -87,6 +88,41 @@ val Interaction: State = state {
 
 }
 
+val InteractionNoLeave: State = state {
+
+    onEvent<UserDefinitelyGone> {
+        log.debug("User ${it.user.id} did not return")
+        it.user.reset()
+        goto(Goodbye)
+    }
+
+    onUserEnter(instant = true) {
+        log.debug("User ${it.id} entered")
+        furhat.glance(it)
+    }
+
+    onEvent(eventClass = MonitorSpeechStart::class, instant = true, priority = true) {
+        log.debug("Furhat is saying: \"${it.text}\" (${it.length} ms in ${this.currentState.name})")
+        send(LightsOff)
+        propagate()
+    }
+
+    onEvent("Restart") {
+        log.warn("Restarting interaction")
+        users.current.reset()
+        goto(Idle)
+    }
+
+    include(RemoteButtons)
+    include(ChangeLanguageBehavior)
+
+    onEvent<MonitorListenStart>(instant = true) {
+        send(LedLight)
+        propagate()
+    }
+
+}
+
 val RemoteButtons = partialState {
     onButton(Button("Restart")) {
         send("Restart")
@@ -118,6 +154,10 @@ val RemoteButtons = partialState {
             // Let fail silently
             log.info("Couldn't log score, $error")
         }
+    }
+
+    onButton("Start MINI") {
+        goto(MINIInstructions)
     }
 }
 
@@ -322,27 +362,27 @@ val InteractionWithBadResponse = state(Interaction) {
 
     addGazeAversionBehaviour()
 
-    addProvideExplanationsDefaultBehaviour()
+//    addProvideExplanationsDefaultBehaviour()
 
     include(NoOrInvalidResponseState())
 }
 
-fun StateBuilder.addProvideExplanationsDefaultBehaviour() {
-    onPartialResponse<WhatIs>( priority = true) {
-        log.debug("Got WhatIs intent ${it.text}, ${it.multiIntent}, ${it.secondaryIntent}")
-        if (it.secondaryIntent is SimpleIntent) {
-            val explanationIntent = Explanations.find { explanation -> it.text.contains(explanation.term) }
-            explanationIntent?.let { found -> it.secondaryIntent = found }
-        }
-        raise(it, it.secondaryIntent)
-        reentry()
-    }
-
-    onResponse(Explanations) {
-        furhat.say((it.intent as ExplanationIntent).explanation)
-        reentry()
-    }
-}
+//fun StateBuilder.addProvideExplanationsDefaultBehaviour() {
+//    onPartialResponse<WhatIs>( priority = true) {
+//        log.debug("Got WhatIs intent ${it.text}, ${it.multiIntent}, ${it.secondaryIntent}")
+//        if (it.secondaryIntent is SimpleIntent) {
+//            val explanationIntent = Explanations.find { explanation -> it.text.contains(explanation.term) }
+//            explanationIntent?.let { found -> it.secondaryIntent = found }
+//        }
+//        raise(it, it.secondaryIntent)
+//        reentry()
+//    }
+//
+//    onResponse(Explanations) {
+//        furhat.say((it.intent as ExplanationIntent).explanation)
+//        reentry()
+//    }
+//}
 
 fun StateBuilder.addGazeAversionBehaviour() {
     onEvent(MonitorSpeechStart::class, instant = true) {
@@ -684,24 +724,24 @@ fun <D> yesNoQuestion(question: String,
                 ackAndGoto(nextState, lastQuestion)
             }
 
-            onPartialResponse<WhatIsX>(prefix = true) {
-                log.debug("User is not familiar with term (\"${it.text}\")")
-                val definition = it.intent.getDefinition(it.text)
-                if (definition != null) {
-                    furhat.say(definition)
-                    reentry()
-                } else {
-                    furhat.say({
-                        random {
-                            +i18n.phrases.GENERAL_USER_NOT_FAMILIAR_WITH_TERM
-                            +i18n.phrases.GENERAL_USER_NOT_FAMILIAR_WITH_TERM_2
-                        }
-                    })
-                    send(OptionSelectedEvent("yes"))
-                    onMaybe(dataGetter(this.users.current))
-                    goto(nextState)
-                }
-            }
+//            onPartialResponse<WhatIsX>(prefix = true) {
+//                log.debug("User is not familiar with term (\"${it.text}\")")
+//                val definition = it.intent.getDefinition(it.text)
+//                if (definition != null) {
+//                    furhat.say(definition)
+//                    reentry()
+//                } else {
+//                    furhat.say({
+//                        random {
+//                            +i18n.phrases.GENERAL_USER_NOT_FAMILIAR_WITH_TERM
+//                            +i18n.phrases.GENERAL_USER_NOT_FAMILIAR_WITH_TERM_2
+//                        }
+//                    })
+//                    send(OptionSelectedEvent("yes"))
+//                    onMaybe(dataGetter(this.users.current))
+//                    goto(nextState)
+//                }
+//            }
 
             if (extraYesPhrases.isNotEmpty()) {
                 onResponse(*extraYesPhrases.toTypedArray()) {

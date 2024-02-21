@@ -4,6 +4,7 @@ import furhatos.app.medicalscreener.flow.initGUI
 import furhatos.skills.Skill
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
+import kotlinx.coroutines.*
 
 
 class ScreenerSkill : Skill() {
@@ -16,24 +17,22 @@ class ScreenerSkill : Skill() {
     }
 }
 
-val log = CommonUtils.getLogger(ScreenerSkill::class.java)!!
+val log = CommonUtils.getLogger(ScreenerSkill::class.java)
 
-var name: String? = ""
+var userName: String? = ""
 
 fun readName() {
-    name = readlnOrNull()
+    userName = readlnOrNull()
 
     // Check if the input is not null before using it
-    if (name != null && name!!.isNotEmpty()) {
-        println("Hello, $name!")
+    if (userName != null && userName!!.isNotEmpty()) {
+        println("Hello, $userName!")
     } else {
         println("No name was entered.")
     }
 }
 
 fun main(args: Array<String>) {
-    println("Please enter user name:")
-    readName()
-    // Read a line of input from the command line
+
     Skill.main(args)
 }

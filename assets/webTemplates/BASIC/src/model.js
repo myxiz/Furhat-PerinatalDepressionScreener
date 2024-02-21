@@ -62,7 +62,7 @@ function ShowResults(results) {
     Object.assign(this, {results})
 }
 
-function ShowFaces(showFaces,delay) {
+function ShowFaces(showFaces ,delay) {
     Object.assign(this, {showFaces,delay})
 }
 

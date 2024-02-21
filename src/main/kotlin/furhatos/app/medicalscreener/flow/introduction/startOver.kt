@@ -12,7 +12,7 @@ val StartOver : State = state(IntroductionBaseState) {
     onEntry {
         furhat.askAndDo(i18n.phrases.INTRODUCTION_START_OVER) {
             send(ShowOptionsEvent(
-                listOf("yes:${i18n.phrases.GENERAL_YES}","no:${i18n.phrases.DIABETES_RESTART_TEST_OPTIONS_NO}"),
+                listOf("yes:${i18n.phrases.GENERAL_YES}","no:${i18n.phrases.EPDS_RESTART_TEST_OPTIONS_NO}"),
                 i18n.phrases.INTRODUCTION_START_OVER_PROMPT
             ))
         }

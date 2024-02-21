@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0c39b14708ebdac6d90f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4315046dadc2edeaa31f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -1000,9 +1000,9 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(187);
+  module.exports = __webpack_require__(183);
 } else {
-  module.exports = __webpack_require__(186);
+  module.exports = __webpack_require__(182);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
@@ -1739,7 +1739,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIs = __webpack_require__(191);
+var _reactIs = __webpack_require__(187);
 
 var _createChainableTypeChecker = __webpack_require__(75);
 
@@ -1916,7 +1916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_httpplease___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_httpplease__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_httpplease_plugins_oldiexdomain__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(184);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -3604,11 +3604,106 @@ module.exports = exports['default'];
 
 
 
-module.exports = __webpack_require__(171);
+module.exports = __webpack_require__(197);
 
 
 /***/ }),
 /* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = void 0;
+
+/**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @param {function} functions to chain
+ * @returns {function|null}
+ */
+function createChainedFunction() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  return funcs.filter(function (f) {
+    return f != null;
+  }).reduce(function (acc, f) {
+    if (typeof f !== 'function') {
+      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
+    }
+
+    if (acc === null) {
+      return f;
+    }
+
+    return function chainedFunction() {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      acc.apply(this, args);
+      f.apply(this, args);
+    };
+  }, null);
+}
+
+var _default = createChainedFunction;
+exports.default = _default;
+module.exports = exports["default"];
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = isOverflowing;
+
+var _isWindow = __webpack_require__(141);
+
+var _isWindow2 = _interopRequireDefault(_isWindow);
+
+var _ownerDocument = __webpack_require__(22);
+
+var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isBody(node) {
+  return node && node.tagName.toLowerCase() === 'body';
+}
+
+function bodyIsOverflowing(node) {
+  var doc = (0, _ownerDocument2.default)(node);
+  var win = (0, _isWindow2.default)(doc);
+  var fullWidth = win.innerWidth;
+
+  // Support: ie8, no innerWidth
+  if (!fullWidth) {
+    var documentElementRect = doc.documentElement.getBoundingClientRect();
+    fullWidth = documentElementRect.right - Math.abs(documentElementRect.left);
+  }
+
+  return doc.body.clientWidth < fullWidth;
+}
+
+function isOverflowing(container) {
+  var win = (0, _isWindow2.default)(container);
+
+  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
+}
+module.exports = exports['default'];
+
+/***/ }),
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3661,101 +3756,6 @@ var nameShape = exports.nameShape = _propTypes2.default.oneOfType([_propTypes2.d
   appear: _propTypes2.default.string,
   appearActive: _propTypes2.default.string
 })]);
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-/**
- * Safe chained function
- *
- * Will only create a new function if needed,
- * otherwise will pass back existing functions or null.
- *
- * @param {function} functions to chain
- * @returns {function|null}
- */
-function createChainedFunction() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.filter(function (f) {
-    return f != null;
-  }).reduce(function (acc, f) {
-    if (typeof f !== 'function') {
-      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-    }
-
-    if (acc === null) {
-      return f;
-    }
-
-    return function chainedFunction() {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      acc.apply(this, args);
-      f.apply(this, args);
-    };
-  }, null);
-}
-
-var _default = createChainedFunction;
-exports.default = _default;
-module.exports = exports["default"];
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = isOverflowing;
-
-var _isWindow = __webpack_require__(141);
-
-var _isWindow2 = _interopRequireDefault(_isWindow);
-
-var _ownerDocument = __webpack_require__(22);
-
-var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function isBody(node) {
-  return node && node.tagName.toLowerCase() === 'body';
-}
-
-function bodyIsOverflowing(node) {
-  var doc = (0, _ownerDocument2.default)(node);
-  var win = (0, _isWindow2.default)(doc);
-  var fullWidth = win.innerWidth;
-
-  // Support: ie8, no innerWidth
-  if (!fullWidth) {
-    var documentElementRect = doc.documentElement.getBoundingClientRect();
-    fullWidth = documentElementRect.right - Math.abs(documentElementRect.left);
-  }
-
-  return doc.body.clientWidth < fullWidth;
-}
-
-function isOverflowing(container) {
-  var win = (0, _isWindow2.default)(container);
-
-  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
-}
-module.exports = exports['default'];
 
 /***/ }),
 /* 80 */
@@ -3908,10 +3908,15 @@ var Screen = exports.Screen = function (_React$PureComponent) {
                         "div",
                         { className: "col-10 offset-1" },
                         _react2.default.createElement(_Faces2.default, {
-                            isShown: showFaces.toString(),
-                            onOptionSelected: this.respond.bind(this),
+                            isShown: showFaces.toString()
+                            // isShown= {'show'}
+                            , onOptionSelected: this.respond.bind(this),
                             buttonsDisabled: buttonsDisabled,
-                            showText: showText }),
+                            showText: showText })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-10 offset-1" },
                         results == null ? _react2.default.createElement(_Question2.default, {
                             options: options,
                             onOptionSelected: this.respond.bind(this),
@@ -4168,7 +4173,8 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Titan");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_0_Titan2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
+
                                     }),
                                     React.createElement(
                                         'div',
@@ -4200,7 +4206,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Jane");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_1_Jane2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4232,7 +4238,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Nazar");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_2_Nazar2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4264,7 +4270,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Isabel");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_3_Isabel2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4296,7 +4302,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Yumi");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_4_Yumi2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4328,7 +4334,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Alex");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_5_Alex2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4360,7 +4366,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Samuel");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_6_Samuel2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img '
                                     }),
                                     React.createElement(
                                         'div',
@@ -4392,7 +4398,7 @@ var FaceOptions = function (_React$PureComponent) {
                                             return onOptionSelected("Kione");
                                         } },
                                     React.createElement('img', { src: 'dist' + _Face_7_Kione2.default,
-                                        style: { width: 200, height: 200 }
+                                        className: 'div.gallery img'
                                     }),
                                     React.createElement(
                                         'div',
@@ -4437,7 +4443,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FurhatModal = FurhatModal;
 
-var _Modal = __webpack_require__(177);
+var _Modal = __webpack_require__(173);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -5206,7 +5212,7 @@ exports.default = {
     RESULTS: 'Results',
 
     // Main menu texts
-    ABOUT_PETRA: 'I\'m Alice - a  health screening Robot. Say "Continue" when you want to go back.',
+    ABOUT_PETRA: 'I am a robot for screening of perinatal depression. I have been designed by the social robotics laboratory at Uppsala University. I am still a first-generation prototype, and welcome to give any suggestions. Please say "Continue" when you want to go back.',
 
     // Results page
     EPDS_LOW_RISK_INFO: React.createElement(
@@ -5238,7 +5244,7 @@ exports.default = {
         null,
         'That means you are in very high risk of having a perinatal depression currently.',
         React.createElement('br', null),
-        'Our nurse will talk to you in a moment. We will also have a specialist follow up with your result and get back to you later.'
+        'Our assistant will talk to you in a moment. We will also have a specialist follow up with your result and get back to you later.'
     ),
 
     RESULTS_ABOUT_TEST: 'This screening and this risk assessment is based on the EPDS screening test designed by Professor John Cox at the Department of Psychiatry at the University of Edinburgh. It has been widely used in Sweden for perinatal depression screening.',
@@ -5275,61 +5281,61 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = {
     // Knappar
-    CONTINUE: "Forts\xE4tt",
-    CLOSE: "St\xE4ng",
-    RESTART: "Starta om",
-    HOME: "Hem",
-    HIDE_TEXT: "D\xF6lj text",
-    SHOW_TEXT: "Visa text",
-    ABOUT_ME: "Om mig",
-    RESULTS: "Resultat",
+    CONTINUE: 'Forts\xE4tt',
+    CLOSE: 'St\xE4ng',
+    RESTART: 'Starta om',
+    HOME: 'Hem',
+    HIDE_TEXT: 'D\xF6lj text',
+    SHOW_TEXT: 'Visa text',
+    ABOUT_ME: 'Om mig',
+    RESULTS: 'Resultat',
 
     // Texter för huvudmenyn
-    ABOUT_PETRA: "Jag \xE4r Linda - en robot f\xF6r h\xE4lsounders\xF6kningar. Jag har utvecklats av Furhat Robotics - ett f\xF6retag f\xF6r social robotteknik i Stockholm. De utvecklar robotar som jag som kan interagera med m\xE4nniskor i naturliga sociala situationer. Furhat-robotar som jag anv\xE4nds redan \xF6ver hela v\xE4rlden f\xF6r att hj\xE4lpa m\xE4nniskor leva h\xE4lsosammare och mer produktiva liv. F\xF6r mer information, bes\xF6k v\xE5r webbplats. S\xE4g \"Forts\xE4tt\" f\xF6r att \xE5terv\xE4nda till menyn.",
+    ABOUT_PETRA: 'Jag \xE4r en robot f\xF6r screening av perinatal depression. Jag har designats av det sociala robotlaboratoriet vid Uppsala universitet. Jag \xE4r fortfarande en f\xF6rsta generationens prototyp, och jag v\xE4lkomnar alla f\xF6rslag till f\xF6rb\xE4ttringar. V\xE4nligen s\xE4g "Forts\xE4tt" f\xF6r att \xE5terg\xE5 till menyn.',
 
-    // Resultatsidan
+    // Results page
     EPDS_LOW_RISK_INFO: React.createElement(
-        "span",
+        'span',
         null,
-        "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 100."
+        'Det betyder att du sannolikt inte lider av perinatal depression.'
     ),
     EPDS_DEPRESSION_POSSIBLE_INFO: React.createElement(
-        "span",
+        'span',
         null,
-        "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 25."
+        'Det betyder att det \xE4r m\xF6jligt att du lider av perinatal depression.'
     ),
     EPDS_MODERATE_RISK_INFO: React.createElement(
-        "span",
+        'span',
         null,
-        "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 6. ",
-        React.createElement("br", null),
-        " Du b\xF6r allvarligt \xF6verv\xE4ga dina fysiska aktiviteter och matvanor och vara uppm\xE4rksam p\xE5 din vikt f\xF6r att f\xF6rebygga diabetes. Det \xE4r b\xE4st att kontakta en sjuksk\xF6terska eller din l\xE4kare f\xF6r vidare r\xE5dgivning."
+        'Det inneb\xE4r att risken f\xF6r att du f\xF6r n\xE4rvarande har en perinatal depression \xE4r ganska h\xF6g. ',
+        React.createElement('br', null),
+        'En specialist kommer att f\xF6lja upp ditt resultat och \xE5terkomma till dig senare.'
     ),
     EPDS_HIGH_RISK_INFO: React.createElement(
-        "span",
+        'span',
         null,
-        "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 3. ",
-        React.createElement("br", null),
-        " Du b\xF6r f\xE5 ditt blodsocker testat f\xF6r att ta reda p\xE5 om du har diabetes utan synliga symtom. Det \xE4r b\xE4st att kontakta en sjuksk\xF6terska eller din l\xE4kare f\xF6r vidare r\xE5dgivning."
+        'Det inneb\xE4r att du har en h\xF6g risk f\xF6r att f\xF6r n\xE4rvarande ha en perinatal depression.',
+        React.createElement('br', null),
+        'Du kan beh\xF6va en ytterligare diagnos. En specialist kommer att f\xF6lja upp ditt resultat och \xE5terkomma till dig senare.'
     ),
     EPDS_VERY_HIGH_RISK_INFO: React.createElement(
-        "span",
+        'span',
         null,
-        "Det inneb\xE4r att din risk f\xF6r att utveckla diabetes under de kommande tio \xE5ren ber\xE4knas vara 1 av 2. ",
-        React.createElement("br", null),
-        " Du b\xF6r f\xE5 ditt blodsocker testat f\xF6r att ta reda p\xE5 om du har diabetes utan synliga symtom. Det \xE4r b\xE4st att kontakta en sjuksk\xF6terska eller din l\xE4kare f\xF6r vidare r\xE5dgivning."
+        'Det inneb\xE4r att du har en mycket h\xF6g risk f\xF6r att f\xF6r n\xE4rvarande ha en perinatal depression.',
+        React.createElement('br', null),
+        'V\xE5r sjuksk\xF6terska kommer att prata med dig om en stund. Vi kommer ocks\xE5 att ha en specialist som f\xF6ljer upp ditt resultat och \xE5terkommer till dig senare.'
     ),
 
-    RESULTS_ABOUT_TEST: "Denna test är baserat på FINDRISK-screeningen, utvecklad av professor Jaakko Tuomilehto från Helsingfors universitet och Jaana Lindström från Institutet för folkhälsa i Finland. Det är möjligt att screeningen inte har validerats för alla länder globalt sett, var god fråga din läkare om du är osäker.",
-    RESULTS_MORE_ABOUT: "Mer om diabetes och dess relaterade symtom",
-    RESULTS_EXTRA_CONTENT: "Diabetes uppstår när kroppen inte kan producera tillräckligt med insulin (typ 1-diabetes) eller när kroppen producerar insulin men inte kan använda det korrekt (typ 2-diabetes). Insulin är ett hormon producerat av bukspottkörteln som hjälper kroppen att hantera socker från maten. Om kroppen inte kan producera eller använda insulin, stiger blodsockernivåerna till nivåer som kan leda till allvarliga hälsoproblem. Denna sjukdom förekommer särskilt ofta hos människor i industrialiserade länder. Riskfaktorerna är delvis genetiskt betingade, men livsstil och vanor - såsom rökning, övervikt, dålig kost och brist på motion - spelar en viktig roll.",
-    YOUR_RISK_IS: "Din risk är",
-    THANKS_FOR_TEST: "Tack för att du tog det här testet! Observera att jag inte är läkare och att dessa resultat bara ska ses som en indikation.",
+    RESULTS_ABOUT_TEST: 'Denna screening och denna riskbedömning baseras på EPDS-screeningtestet designat av professor John Cox vid institutionen för psykiatri vid Edinburghs universitet. Det har använts flitigt i Sverige för screening av perinatal depression.',
+    RESULTS_MORE_ABOUT: 'Mer om perinatal depression och dess symtom',
+    RESULTS_EXTRA_CONTENT: 'Perinatal depression uppstår när hormonella förändringar, fysiska förändringar och den psykologiska anpassningen till moderskapet överväldigar en kvinnas förmåga att hantera. Dessa hormonella fluktuationer kan påverka en kvinnas humör och känslor avsevärt, vilket leder till känslor av sorgsenhet, ångest, hopplöshet och i svåra fall, tankar på att skada sig själv eller barnet.',
+    YOUR_RISK_IS: 'Din risk är',
+    THANKS_FOR_TEST: 'Tack för att du gjorde testet! Observera att jag inte är en läkare och dessa resultat är endast indikatorer.',
 
-    DIABETES_RISK_LABELS: {
+    EPDS_RISK_LABELS: {
         'low': 'låg',
-        'slightly_elevated': 'något förhöjd',
-        'moderate': 'måttlig',
+        'depression_possible': 'depression möjlig',
+        'fairly_high': 'ganska hög',
         'high': 'hög',
         'very_high': 'mycket hög'
     }
@@ -5355,64 +5361,64 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 exports.default = {
     // Buttons
     CONTINUE: '\u7EE7\u7EED',
-    CLOSE: '\u7ED3\u675F',
-    RESTART: '\u91CD\u542F',
-    HOME: '\u4E3B\u9875',
+    CLOSE: '\u5173\u95ED',
+    RESTART: '\u91CD\u65B0\u5F00\u59CB',
+    HOME: '\u9996\u9875',
     HIDE_TEXT: '\u9690\u85CF\u6587\u672C',
     SHOW_TEXT: '\u663E\u793A\u6587\u672C',
-    ABOUT_SCREENER: '\u5173\u4E8E',
     ABOUT_ME: '\u5173\u4E8E\u6211',
     RESULTS: '\u7ED3\u679C',
 
     // Main menu texts
-    ABOUT_PETRA: '\u6211\u662FLinda\uFF0C \u6211\u662F\u4E00\u4E2A\u533B\u7597\u9884\u68C0\u673A\u5668\u4EBA\u3002\u6211\u662F\u7531Furhat \u673A\u5668\u4EBA\u516C\u53F8\u5F00\u53D1\u7684, \u8BE5\u516C\u53F8\u662F\u4F4D\u4E8E\u65AF\u5FB7\u54E5\u5C14\u6469\u7684\u793E\u4EA4\u673A\u5668\u4EBA\u516C\u53F8\u3002\u4ED6\u4EEC\u751F\u4EA7\u50CF\u6211\u4E00\u6837\u7684\u673A\u5668\u4EBA, \u5B83\u4EEC\u53EF\u4EE5\u5728\u793E\u4EA4\u573A\u5408\u4E2D\u4E0E\u4EBA\u7C7B\u81EA\u7136\u4E92\u52A8\u3002\u50CF\u6211\u4E00\u6837, Furhat \u673A\u5668\u4EBA\u5DF2\u7ECF\u5728\u4E16\u754C\u8303\u56F4\u5185\u4F7F\u7528, \u4EE5\u5E2E\u52A9\u4EBA\u4EEC\u8FC7\u4E0A\u66F4\u5FEB\u4E50, \u66F4\u5BCC\u6709\u6210\u6548\u7684\u751F\u6D3B\u3002\u66F4\u591A\u76F8\u5173\u4FE1\u606F, \u8BF7\u8BBF\u95EE\u5176\u7F51\u7AD9\u3002\u8981\u8FD4\u56DE\u8BF7\u8BF4\u201C\u7EE7\u7EED\u201D\u3002',
+    ABOUT_PETRA: '\u6211\u662F\u4E00\u4E2A\u56F4\u4EA7\u671F\u6291\u90C1\u75C7\u7B5B\u67E5\u673A\u5668\u4EBA\u3002\u6211\u7531\u4E4C\u666E\u8428\u62C9\u5927\u5B66\u7684\u793E\u4EA4\u673A\u5668\u4EBA\u5B9E\u9A8C\u5BA4\u8BBE\u8BA1\u3002\u6211\u8FD8\u53EA\u662F\u4E00\u4E2A\u521D\u4EE3\u539F\u578B\uFF0C\u6B22\u8FCE\u60A8\u5BF9\u6211\u63D0\u51FA\u5EFA\u8BAE\u3002\u8BF7\u8BF4\u201C\u7EE7\u7EED\u201D\u8FD4\u56DE\u83DC\u5355\u3002',
 
     // Results page
     EPDS_LOW_RISK_INFO: React.createElement(
         'span',
         null,
-        '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/100\u3002'
+        '\u8FD9\u610F\u5473\u7740\u4F60\u4E0D\u592A\u53EF\u80FD\u60A3\u6709\u4EA7\u540E\u6291\u90C1\u75C7\u3002'
     ),
     EPDS_DEPRESSION_POSSIBLE_INFO: React.createElement(
         'span',
         null,
-        '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/25\u3002'
+        '\u8FD9\u610F\u5473\u7740\u4F60\u53EF\u80FD\u60A3\u6709\u4EA7\u540E\u6291\u90C1\u75C7\u3002'
     ),
     EPDS_MODERATE_RISK_INFO: React.createElement(
         'span',
         null,
-        '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/6\u3002 ',
+        '\u8FD9\u610F\u5473\u7740\u4F60\u76EE\u524D\u60A3\u6709\u4EA7\u540E\u6291\u90C1\u75C7\u7684\u98CE\u9669\u76F8\u5F53\u9AD8\u3002',
         React.createElement('br', null),
-        '\u5F3A\u70C8\u5EFA\u8BAE\u60A8\u8BA4\u771F\u8003\u8651\u81EA\u5DF1\u7684\u8EAB\u4F53\u6D3B\u52A8\u548C\u996E\u98DF\u4E60\u60EF, \u5E76\u6CE8\u610F\u4F53\u91CD, \u4EE5\u9632\u6B62\u81EA\u5DF1\u60A3\u4E0A\u7CD6\u5C3F\u75C5\u3002\u8054\u7CFB\u516C\u5171\u536B\u751F\u62A4\u58EB\u6216\u60A8\u81EA\u5DF1\u7684\u533B\u751F\u4EE5\u83B7\u53D6\u8FDB\u4E00\u6B65\u6307\u5BFC\u3002'
+        '\u6211\u4EEC\u5C06\u5B89\u6392\u4E13\u5BB6\u8DDF\u8FDB\u4F60\u7684\u7ED3\u679C\uFF0C\u5E76\u7A0D\u540E\u4E0E\u4F60\u8054\u7CFB\u3002'
     ),
     EPDS_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
-        '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/3\u3002',
+        '\u8FD9\u610F\u5473\u7740\u4F60\u76EE\u524D\u6709\u5F88\u9AD8\u7684\u60A3\u4EA7\u540E\u6291\u90C1\u75C7\u7684\u98CE\u9669\u3002',
         React.createElement('br', null),
-        '\u60A8\u5E94\u8BE5\u5BF9\u8840\u7CD6\u8FDB\u884C\u6D4B\u91CF, \u4EE5\u786E\u5B9A\u60A8\u662F\u5426\u60A3\u6709\u65E0\u75C7\u72B6\u7684\u7CD6\u5C3F\u75C5\u3002\u8054\u7CFB\u516C\u5171\u536B\u751F\u62A4\u58EB\u6216\u60A8\u81EA\u5DF1\u7684\u533B\u751F\u4EE5\u83B7\u53D6\u8FDB\u4E00\u6B65\u6307\u5BFC\u3002'
+        '\u4F60\u53EF\u80FD\u9700\u8981\u8FDB\u4E00\u6B65\u7684\u8BCA\u65AD\u3002\u6211\u4EEC\u5C06\u5B89\u6392\u4E13\u5BB6\u8DDF\u8FDB\u4F60\u7684\u7ED3\u679C\uFF0C\u5E76\u7A0D\u540E\u4E0E\u4F60\u8054\u7CFB\u3002'
     ),
     EPDS_VERY_HIGH_RISK_INFO: React.createElement(
         'span',
         null,
-        '\u8FD9\u610F\u5473\u7740\u5728\u5341\u5E74\u5185, \u60A8\u60A3\u7CD6\u5C3F\u75C5\u7684\u98CE\u9669\u4F30\u8BA1\u4E3A1/2\u3002',
+        '\u8FD9\u610F\u5473\u7740\u4F60\u76EE\u524D\u6709\u975E\u5E38\u9AD8\u7684\u60A3\u4EA7\u540E\u6291\u90C1\u75C7\u7684\u98CE\u9669\u3002',
         React.createElement('br', null),
-        '\u60A8\u5E94\u8BE5\u5BF9\u8840\u7CD6\u8FDB\u884C\u6D4B\u91CF, \u4EE5\u786E\u5B9A\u60A8\u662F\u5426\u60A3\u6709\u65E0\u75C7\u72B6\u7684\u7CD6\u5C3F\u75C5\u3002\u8054\u7CFB\u516C\u5171\u536B\u751F\u62A4\u58EB\u6216\u60A8\u81EA\u5DF1\u7684\u533B\u751F\u4EE5\u83B7\u53D6\u8FDB\u4E00\u6B65\u6307\u5BFC\u3002'
+        '\u6211\u4EEC\u7684\u52A9\u624B\u4F1A\u5728\u4E00\u4F1A\u513F\u4E0E\u4F60\u8C08\u8BDD\u3002\u6211\u4EEC\u4E5F\u5C06\u5B89\u6392\u4E13\u5BB6\u8DDF\u8FDB\u4F60\u7684\u7ED3\u679C\uFF0C\u5E76\u7A0D\u540E\u4E0E\u4F60\u8054\u7CFB\u3002'
     ),
 
-    RESULTS_ABOUT_TEST: '这项检查和风险评估是基于赫尔辛基大学公共卫生系Jaakko Tuomilehto 教授和国家公共卫生研究院MFS 的JaanaLindström 设计的FINDRISK 检查测试。该项检查可能未在参与者所在的国家/地区进行验证。如果您不确定，请咨询您的医生。',
-    RESULTS_MORE_ABOUT: '有关糖尿病及其症状的更多信息',
-    RESULTS_EXTRA_CONTENT: '当人体无法产生足够的胰岛素（1 型糖尿病）或人体无法正常使用胰岛素（2 型糖尿病）时, 就会出现糖尿病。胰岛素是胰腺产生的一种激素, 可以帮助人体加工食物中的糖分。当人体无法使用或产生胰岛素时, 血糖就会累积到一定水平, 从而引发严重的健康问题。它主要影响发达国家的人民。尽管其病因部分是遗传原因, 但生活方式因素（例如吸烟, 肥胖, 营养不良和缺乏运动）也扮演着重要角色。',
-    YOUR_RISK_IS: '您的风险是',
-    THANKS_FOR_TEST: '感谢您进行测试！ 请注意, 我不是医生, 这些结果仅供参考。',
+    RESULTS_ABOUT_TEST: '这次筛查和风险评估是基于由爱丁堡大学精神病学系的约翰·考克斯教授设计的EPDS筛查测试。它在瑞典广泛用于产后抑郁症筛查。',
+    RESULTS_MORE_ABOUT: '更多关于产后抑郁及其症状的信息',
+    RESULTS_EXTRA_CONTENT: '产后抑郁是当激素变化、身体变化和适应母亲角色的心理调整超出了女性的应对能力时出现的。这些激素波动可以显著影响女性的情绪和感觉，导致悲伤、焦虑、绝望感，严重情况下，甚至会有伤害自己或婴儿的想法。',
+    YOUR_RISK_IS: '你的风险是',
+    THANKS_FOR_TEST: '感谢你进行测试！请注意，我不是医生，这些结果只是指标。',
 
-    DIABETES_RISK_LABELS: {
+    EPDS_RISK_LABELS: {
         'low': '低',
-        'slightly_elevated': '微高',
-        'moderate': '中等',
+        'depression_possible': '可能有抑郁',
+        'fairly_high': '相当高',
         'high': '高',
-        'very_high': '极高'
+        'very_high': '非常高'
     }
+
 };
 
 /***/ }),
@@ -5479,7 +5485,7 @@ function update(state, action) {
             results: null,
             optionsDelay: delay,
             modal: _model.ModalState.NoModal,
-            showFaces: showFaces
+            showFaces: showFaces.toString()
         });
     }), _defineProperty(_actions$ClearScreen$, _model.actions.AppendText, function (_ref) {
         var text = _ref.text;
@@ -8354,716 +8360,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _TransitionGroup = __webpack_require__(173);
-
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
-
-var _CSSTransitionGroupChild = __webpack_require__(172);
-
-var _CSSTransitionGroupChild2 = _interopRequireDefault(_CSSTransitionGroupChild);
-
-var _PropTypes = __webpack_require__(77);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = {
-  transitionName: _PropTypes.nameShape.isRequired,
-
-  transitionAppear: _propTypes2.default.bool,
-  transitionEnter: _propTypes2.default.bool,
-  transitionLeave: _propTypes2.default.bool,
-  transitionAppearTimeout: (0, _PropTypes.transitionTimeout)('Appear'),
-  transitionEnterTimeout: (0, _PropTypes.transitionTimeout)('Enter'),
-  transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)('Leave')
-};
-
-var defaultProps = {
-  transitionAppear: false,
-  transitionEnter: true,
-  transitionLeave: true
-};
-
-var CSSTransitionGroup = function (_React$Component) {
-  _inherits(CSSTransitionGroup, _React$Component);
-
-  function CSSTransitionGroup() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, CSSTransitionGroup);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._wrapChild = function (child) {
-      return _react2.default.createElement(_CSSTransitionGroupChild2.default, {
-        name: _this.props.transitionName,
-        appear: _this.props.transitionAppear,
-        enter: _this.props.transitionEnter,
-        leave: _this.props.transitionLeave,
-        appearTimeout: _this.props.transitionAppearTimeout,
-        enterTimeout: _this.props.transitionEnterTimeout,
-        leaveTimeout: _this.props.transitionLeaveTimeout
-      }, child);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  // We need to provide this childFactory so that
-  // ReactCSSTransitionGroupChild can receive updates to name, enter, and
-  // leave while it is leaving.
-
-
-  CSSTransitionGroup.prototype.render = function render() {
-    return _react2.default.createElement(_TransitionGroup2.default, _extends({}, this.props, { childFactory: this._wrapChild }));
-  };
-
-  return CSSTransitionGroup;
-}(_react2.default.Component);
-
-CSSTransitionGroup.displayName = 'CSSTransitionGroup';
-
-
-CSSTransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-CSSTransitionGroup.defaultProps = defaultProps;
-
-exports.default = CSSTransitionGroup;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 172 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _addClass = __webpack_require__(59);
-
-var _addClass2 = _interopRequireDefault(_addClass);
-
-var _removeClass = __webpack_require__(61);
-
-var _removeClass2 = _interopRequireDefault(_removeClass);
-
-var _requestAnimationFrame = __webpack_require__(150);
-
-var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
-
-var _properties = __webpack_require__(63);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(4);
-
-var _PropTypes = __webpack_require__(77);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var events = [];
-if (_properties.transitionEnd) events.push(_properties.transitionEnd);
-if (_properties.animationEnd) events.push(_properties.animationEnd);
-
-function addEndListener(node, listener) {
-  if (events.length) {
-    events.forEach(function (e) {
-      return node.addEventListener(e, listener, false);
-    });
-  } else {
-    setTimeout(listener, 0);
-  }
-
-  return function () {
-    if (!events.length) return;
-    events.forEach(function (e) {
-      return node.removeEventListener(e, listener, false);
-    });
-  };
-}
-
-var propTypes = {
-  children: _propTypes2.default.node,
-  name: _PropTypes.nameShape.isRequired,
-
-  // Once we require timeouts to be specified, we can remove the
-  // boolean flags (appear etc.) and just accept a number
-  // or a bool for the timeout flags (appearTimeout etc.)
-  appear: _propTypes2.default.bool,
-  enter: _propTypes2.default.bool,
-  leave: _propTypes2.default.bool,
-  appearTimeout: _propTypes2.default.number,
-  enterTimeout: _propTypes2.default.number,
-  leaveTimeout: _propTypes2.default.number
-};
-
-var CSSTransitionGroupChild = function (_React$Component) {
-  _inherits(CSSTransitionGroupChild, _React$Component);
-
-  function CSSTransitionGroupChild() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, CSSTransitionGroupChild);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.componentWillAppear = function (done) {
-      if (_this.props.appear) {
-        _this.transition('appear', done, _this.props.appearTimeout);
-      } else {
-        done();
-      }
-    }, _this.componentWillEnter = function (done) {
-      if (_this.props.enter) {
-        _this.transition('enter', done, _this.props.enterTimeout);
-      } else {
-        done();
-      }
-    }, _this.componentWillLeave = function (done) {
-      if (_this.props.leave) {
-        _this.transition('leave', done, _this.props.leaveTimeout);
-      } else {
-        done();
-      }
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
-    this.classNameAndNodeQueue = [];
-    this.transitionTimeouts = [];
-  };
-
-  CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.unmounted = true;
-
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.transitionTimeouts.forEach(function (timeout) {
-      clearTimeout(timeout);
-    });
-
-    this.classNameAndNodeQueue.length = 0;
-  };
-
-  CSSTransitionGroupChild.prototype.transition = function transition(animationType, finishCallback, timeout) {
-    var node = (0, _reactDom.findDOMNode)(this);
-
-    if (!node) {
-      if (finishCallback) {
-        finishCallback();
-      }
-      return;
-    }
-
-    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
-    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
-    var timer = null;
-    var removeListeners = void 0;
-
-    (0, _addClass2.default)(node, className);
-
-    // Need to do this to actually trigger a transition.
-    this.queueClassAndNode(activeClassName, node);
-
-    // Clean-up the animation after the specified delay
-    var finish = function finish(e) {
-      if (e && e.target !== node) {
-        return;
-      }
-
-      clearTimeout(timer);
-      if (removeListeners) removeListeners();
-
-      (0, _removeClass2.default)(node, className);
-      (0, _removeClass2.default)(node, activeClassName);
-
-      if (removeListeners) removeListeners();
-
-      // Usually this optional callback is used for informing an owner of
-      // a leave animation and telling it to remove the child.
-      if (finishCallback) {
-        finishCallback();
-      }
-    };
-
-    if (timeout) {
-      timer = setTimeout(finish, timeout);
-      this.transitionTimeouts.push(timer);
-    } else if (_properties.transitionEnd) {
-      removeListeners = addEndListener(node, finish);
-    }
-  };
-
-  CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(className, node) {
-    var _this2 = this;
-
-    this.classNameAndNodeQueue.push({
-      className: className,
-      node: node
-    });
-
-    if (!this.rafHandle) {
-      this.rafHandle = (0, _requestAnimationFrame2.default)(function () {
-        return _this2.flushClassNameAndNodeQueue();
-      });
-    }
-  };
-
-  CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
-    if (!this.unmounted) {
-      this.classNameAndNodeQueue.forEach(function (obj) {
-        // This is for to force a repaint,
-        // which is necessary in order to transition styles when adding a class name.
-        /* eslint-disable no-unused-expressions */
-        obj.node.scrollTop;
-        /* eslint-enable no-unused-expressions */
-        (0, _addClass2.default)(obj.node, obj.className);
-      });
-    }
-    this.classNameAndNodeQueue.length = 0;
-    this.rafHandle = null;
-  };
-
-  CSSTransitionGroupChild.prototype.render = function render() {
-    var props = _extends({}, this.props);
-    delete props.name;
-    delete props.appear;
-    delete props.enter;
-    delete props.leave;
-    delete props.appearTimeout;
-    delete props.enterTimeout;
-    delete props.leaveTimeout;
-    delete props.children;
-    return _react2.default.cloneElement(_react2.default.Children.only(this.props.children), props);
-  };
-
-  return CSSTransitionGroupChild;
-}(_react2.default.Component);
-
-CSSTransitionGroupChild.displayName = 'CSSTransitionGroupChild';
-
-
-CSSTransitionGroupChild.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-
-exports.default = CSSTransitionGroupChild;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 173 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _chainFunction = __webpack_require__(105);
-
-var _chainFunction2 = _interopRequireDefault(_chainFunction);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _warning = __webpack_require__(46);
-
-var _warning2 = _interopRequireDefault(_warning);
-
-var _ChildMapping = __webpack_require__(174);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = {
-  component: _propTypes2.default.any,
-  childFactory: _propTypes2.default.func,
-  children: _propTypes2.default.node
-};
-
-var defaultProps = {
-  component: 'span',
-  childFactory: function childFactory(child) {
-    return child;
-  }
-};
-
-var TransitionGroup = function (_React$Component) {
-  _inherits(TransitionGroup, _React$Component);
-
-  function TransitionGroup(props, context) {
-    _classCallCheck(this, TransitionGroup);
-
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
-    _this.performAppear = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillAppear) {
-        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key, component));
-      } else {
-        _this._handleDoneAppearing(key, component);
-      }
-    };
-
-    _this._handleDoneAppearing = function (key, component) {
-      if (component.componentDidAppear) {
-        component.componentDidAppear();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
-        // This was removed before it had fully appeared. Remove it.
-        _this.performLeave(key, component);
-      }
-    };
-
-    _this.performEnter = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillEnter) {
-        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key, component));
-      } else {
-        _this._handleDoneEntering(key, component);
-      }
-    };
-
-    _this._handleDoneEntering = function (key, component) {
-      if (component.componentDidEnter) {
-        component.componentDidEnter();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
-        // This was removed before it had fully entered. Remove it.
-        _this.performLeave(key, component);
-      }
-    };
-
-    _this.performLeave = function (key, component) {
-      _this.currentlyTransitioningKeys[key] = true;
-
-      if (component.componentWillLeave) {
-        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key, component));
-      } else {
-        // Note that this is somewhat dangerous b/c it calls setState()
-        // again, effectively mutating the component before all the work
-        // is done.
-        _this._handleDoneLeaving(key, component);
-      }
-    };
-
-    _this._handleDoneLeaving = function (key, component) {
-      if (component.componentDidLeave) {
-        component.componentDidLeave();
-      }
-
-      delete _this.currentlyTransitioningKeys[key];
-
-      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
-
-      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
-        // This entered again before it fully left. Add it again.
-        _this.keysToEnter.push(key);
-      } else {
-        _this.setState(function (state) {
-          var newChildren = _extends({}, state.children);
-          delete newChildren[key];
-          return { children: newChildren };
-        });
-      }
-    };
-
-    _this.childRefs = Object.create(null);
-
-    _this.state = {
-      children: (0, _ChildMapping.getChildMapping)(props.children)
-    };
-    return _this;
-  }
-
-  TransitionGroup.prototype.componentWillMount = function componentWillMount() {
-    this.currentlyTransitioningKeys = {};
-    this.keysToEnter = [];
-    this.keysToLeave = [];
-  };
-
-  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
-    var initialChildMapping = this.state.children;
-    for (var key in initialChildMapping) {
-      if (initialChildMapping[key]) {
-        this.performAppear(key, this.childRefs[key]);
-      }
-    }
-  };
-
-  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var nextChildMapping = (0, _ChildMapping.getChildMapping)(nextProps.children);
-    var prevChildMapping = this.state.children;
-
-    this.setState({
-      children: (0, _ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping)
-    });
-
-    for (var key in nextChildMapping) {
-      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
-      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
-        this.keysToEnter.push(key);
-      }
-    }
-
-    for (var _key in prevChildMapping) {
-      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(_key);
-      if (prevChildMapping[_key] && !hasNext && !this.currentlyTransitioningKeys[_key]) {
-        this.keysToLeave.push(_key);
-      }
-    }
-
-    // If we want to someday check for reordering, we could do it here.
-  };
-
-  TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
-    var _this2 = this;
-
-    var keysToEnter = this.keysToEnter;
-    this.keysToEnter = [];
-    keysToEnter.forEach(function (key) {
-      return _this2.performEnter(key, _this2.childRefs[key]);
-    });
-
-    var keysToLeave = this.keysToLeave;
-    this.keysToLeave = [];
-    keysToLeave.forEach(function (key) {
-      return _this2.performLeave(key, _this2.childRefs[key]);
-    });
-  };
-
-  TransitionGroup.prototype.render = function render() {
-    var _this3 = this;
-
-    // TODO: we could get rid of the need for the wrapper node
-    // by cloning a single child
-    var childrenToRender = [];
-
-    var _loop = function _loop(key) {
-      var child = _this3.state.children[key];
-      if (child) {
-        var isCallbackRef = typeof child.ref !== 'string';
-        var factoryChild = _this3.props.childFactory(child);
-        var ref = function ref(r) {
-          _this3.childRefs[key] = r;
-        };
-
-        process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
-
-        // Always chaining the refs leads to problems when the childFactory
-        // wraps the child. The child ref callback gets called twice with the
-        // wrapper and the child. So we only need to chain the ref if the
-        // factoryChild is not different from child.
-        if (factoryChild === child && isCallbackRef) {
-          ref = (0, _chainFunction2.default)(child.ref, ref);
-        }
-
-        // You may need to apply reactive updates to a child as it is leaving.
-        // The normal React way to do it won't work since the child will have
-        // already been removed. In case you need this behavior you can provide
-        // a childFactory function to wrap every child, even the ones that are
-        // leaving.
-        childrenToRender.push(_react2.default.cloneElement(factoryChild, {
-          key: key,
-          ref: ref
-        }));
-      }
-    };
-
-    for (var key in this.state.children) {
-      _loop(key);
-    }
-
-    // Do not forward TransitionGroup props to primitive DOM nodes
-    var props = _extends({}, this.props);
-    delete props.transitionLeave;
-    delete props.transitionName;
-    delete props.transitionAppear;
-    delete props.transitionEnter;
-    delete props.childFactory;
-    delete props.transitionLeaveTimeout;
-    delete props.transitionEnterTimeout;
-    delete props.transitionAppearTimeout;
-    delete props.component;
-
-    return _react2.default.createElement(this.props.component, props, childrenToRender);
-  };
-
-  return TransitionGroup;
-}(_react2.default.Component);
-
-TransitionGroup.displayName = 'TransitionGroup';
-
-
-TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
-TransitionGroup.defaultProps = defaultProps;
-
-exports.default = TransitionGroup;
-module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 174 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.getChildMapping = getChildMapping;
-exports.mergeChildMappings = mergeChildMappings;
-
-var _react = __webpack_require__(0);
-
-/**
- * Given `this.props.children`, return an object mapping key to child.
- *
- * @param {*} children `this.props.children`
- * @return {object} Mapping of key to child
- */
-function getChildMapping(children) {
-  if (!children) {
-    return children;
-  }
-  var result = {};
-  _react.Children.map(children, function (child) {
-    return child;
-  }).forEach(function (child) {
-    result[child.key] = child;
-  });
-  return result;
-}
-
-/**
- * When you're adding or removing children some may be added or removed in the
- * same render pass. We want to show *both* since we want to simultaneously
- * animate elements in and out. This function takes a previous set of keys
- * and a new set of keys and merges them with its best guess of the correct
- * ordering. In the future we may expose some of the utilities in
- * ReactMultiChild to make this easy, but for now React itself does not
- * directly have this concept of the union of prevChildren and nextChildren
- * so we implement it here.
- *
- * @param {object} prev prev children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @param {object} next next children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @return {object} a key set that contains all keys in `prev` and all keys
- * in `next` in a reasonable order.
- */
-function mergeChildMappings(prev, next) {
-  prev = prev || {};
-  next = next || {};
-
-  function getValueForKey(key) {
-    if (next.hasOwnProperty(key)) {
-      return next[key];
-    }
-
-    return prev[key];
-  }
-
-  // For each key of `next`, the list of keys to insert before that key in
-  // the combined list
-  var nextKeysPending = {};
-
-  var pendingKeys = [];
-  for (var prevKey in prev) {
-    if (next.hasOwnProperty(prevKey)) {
-      if (pendingKeys.length) {
-        nextKeysPending[prevKey] = pendingKeys;
-        pendingKeys = [];
-      }
-    } else {
-      pendingKeys.push(prevKey);
-    }
-  }
-
-  var i = void 0;
-  var childMapping = {};
-  for (var nextKey in next) {
-    if (nextKeysPending.hasOwnProperty(nextKey)) {
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
-      }
-    }
-    childMapping[nextKey] = getValueForKey(nextKey);
-  }
-
-  // Finally, add the keys which didn't appear before any key in `next`
-  for (i = 0; i < pendingKeys.length; i++) {
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
-  }
-
-  return childMapping;
-}
-
-/***/ }),
-/* 175 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 var _interopRequireDefault = __webpack_require__(3);
@@ -9121,7 +8417,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 176 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9146,7 +8442,7 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _Transition = _interopRequireWildcard(__webpack_require__(184));
+var _Transition = _interopRequireWildcard(__webpack_require__(180));
 
 var _fadeStyles;
 
@@ -9251,7 +8547,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 177 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9286,29 +8582,29 @@ var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 var _reactDom = _interopRequireDefault(__webpack_require__(4));
 
-var _Modal = _interopRequireDefault(__webpack_require__(194));
+var _Modal = _interopRequireDefault(__webpack_require__(190));
 
-var _isOverflowing = _interopRequireDefault(__webpack_require__(79));
+var _isOverflowing = _interopRequireDefault(__webpack_require__(78));
 
 var _elementType = _interopRequireDefault(__webpack_require__(18));
 
-var _Fade = _interopRequireDefault(__webpack_require__(176));
+var _Fade = _interopRequireDefault(__webpack_require__(172));
 
-var _ModalBody = _interopRequireDefault(__webpack_require__(178));
+var _ModalBody = _interopRequireDefault(__webpack_require__(174));
 
-var _ModalDialog = _interopRequireDefault(__webpack_require__(179));
+var _ModalDialog = _interopRequireDefault(__webpack_require__(175));
 
-var _ModalFooter = _interopRequireDefault(__webpack_require__(180));
+var _ModalFooter = _interopRequireDefault(__webpack_require__(176));
 
-var _ModalHeader = _interopRequireDefault(__webpack_require__(181));
+var _ModalHeader = _interopRequireDefault(__webpack_require__(177));
 
-var _ModalTitle = _interopRequireDefault(__webpack_require__(182));
+var _ModalTitle = _interopRequireDefault(__webpack_require__(178));
 
 var _bootstrapUtils = __webpack_require__(13);
 
-var _createChainedFunction = _interopRequireDefault(__webpack_require__(78));
+var _createChainedFunction = _interopRequireDefault(__webpack_require__(77));
 
-var _splitComponentProps2 = _interopRequireDefault(__webpack_require__(183));
+var _splitComponentProps2 = _interopRequireDefault(__webpack_require__(179));
 
 var _StyleConfig = __webpack_require__(38);
 
@@ -9572,7 +8868,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 178 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9643,7 +8939,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 179 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9731,7 +9027,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 180 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9802,7 +9098,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 181 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9827,9 +9123,9 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _bootstrapUtils = __webpack_require__(13);
 
-var _createChainedFunction = _interopRequireDefault(__webpack_require__(78));
+var _createChainedFunction = _interopRequireDefault(__webpack_require__(77));
 
-var _CloseButton = _interopRequireDefault(__webpack_require__(175));
+var _CloseButton = _interopRequireDefault(__webpack_require__(171));
 
 // TODO: `aria-label` should be `closeLabel`.
 var propTypes = {
@@ -9909,7 +9205,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 182 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9980,7 +9276,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 183 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10013,7 +9309,7 @@ function splitComponentProps(props, Component) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 184 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10028,9 +9324,9 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _reactDom = _interopRequireDefault(__webpack_require__(4));
 
-var _reactLifecyclesCompat = __webpack_require__(192);
+var _reactLifecyclesCompat = __webpack_require__(188);
 
-var _PropTypes = __webpack_require__(185);
+var _PropTypes = __webpack_require__(181);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10622,7 +9918,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 185 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10677,7 +9973,7 @@ var classNamesShape = _propTypes.default.oneOfType([_propTypes.default.string, _
 exports.classNamesShape = classNamesShape;
 
 /***/ }),
-/* 186 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28116,7 +27412,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 187 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28363,7 +27659,7 @@ var Bi={default:wi},Ci=Bi&&wi||Bi;module.exports=Ci.default?Ci.default:Ci;
 
 
 /***/ }),
-/* 188 */
+/* 184 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28495,7 +27791,7 @@ var configurationError = function configurationError(message) {
 };
 
 /***/ }),
-/* 189 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28637,7 +27933,7 @@ exports.isStrictMode = isStrictMode;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 190 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28658,22 +27954,22 @@ exports.isForwardRef=function(a){return q(a)===m};exports.isFragment=function(a)
 
 
 /***/ }),
-/* 191 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(190);
+  module.exports = __webpack_require__(186);
 } else {
-  module.exports = __webpack_require__(189);
+  module.exports = __webpack_require__(185);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 192 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28840,7 +28136,7 @@ function polyfill(Component) {
 
 
 /***/ }),
-/* 193 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28982,7 +28278,7 @@ exports.default = Portal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 194 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29032,23 +28328,23 @@ var _warning = __webpack_require__(46);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _ModalManager = __webpack_require__(195);
+var _ModalManager = __webpack_require__(191);
 
 var _ModalManager2 = _interopRequireDefault(_ModalManager);
 
-var _Portal = __webpack_require__(196);
+var _Portal = __webpack_require__(192);
 
 var _Portal2 = _interopRequireDefault(_Portal);
 
-var _RefHolder = __webpack_require__(197);
+var _RefHolder = __webpack_require__(193);
 
 var _RefHolder2 = _interopRequireDefault(_RefHolder);
 
-var _addEventListener = __webpack_require__(198);
+var _addEventListener = __webpack_require__(194);
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-var _addFocusListener = __webpack_require__(199);
+var _addFocusListener = __webpack_require__(195);
 
 var _addFocusListener2 = _interopRequireDefault(_addFocusListener);
 
@@ -29607,7 +28903,7 @@ exports.default = Modal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 195 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29627,11 +28923,11 @@ var _scrollbarSize = __webpack_require__(65);
 
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 
-var _isOverflowing = __webpack_require__(79);
+var _isOverflowing = __webpack_require__(78);
 
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 
-var _manageAriaHidden = __webpack_require__(200);
+var _manageAriaHidden = __webpack_require__(196);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29788,7 +29084,7 @@ exports.default = ModalManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 196 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29820,7 +29116,7 @@ var _ownerDocument = __webpack_require__(40);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
-var _LegacyPortal = __webpack_require__(193);
+var _LegacyPortal = __webpack_require__(189);
 
 var _LegacyPortal2 = _interopRequireDefault(_LegacyPortal);
 
@@ -29894,7 +29190,7 @@ exports.default = _reactDom2.default.createPortal ? Portal : _LegacyPortal2.defa
 module.exports = exports['default'];
 
 /***/ }),
-/* 197 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29949,7 +29245,7 @@ exports.default = RefHolder;
 module.exports = exports['default'];
 
 /***/ }),
-/* 198 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29980,7 +29276,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = exports['default'];
 
 /***/ }),
-/* 199 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30015,7 +29311,7 @@ function addFocusListener(handler) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 200 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30065,6 +29361,716 @@ function showSiblings(container, mountNode) {
   siblings(container, mountNode, function (node) {
     return ariaHidden(false, node);
   });
+}
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _TransitionGroup = __webpack_require__(199);
+
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
+var _CSSTransitionGroupChild = __webpack_require__(198);
+
+var _CSSTransitionGroupChild2 = _interopRequireDefault(_CSSTransitionGroupChild);
+
+var _PropTypes = __webpack_require__(79);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  transitionName: _PropTypes.nameShape.isRequired,
+
+  transitionAppear: _propTypes2.default.bool,
+  transitionEnter: _propTypes2.default.bool,
+  transitionLeave: _propTypes2.default.bool,
+  transitionAppearTimeout: (0, _PropTypes.transitionTimeout)('Appear'),
+  transitionEnterTimeout: (0, _PropTypes.transitionTimeout)('Enter'),
+  transitionLeaveTimeout: (0, _PropTypes.transitionTimeout)('Leave')
+};
+
+var defaultProps = {
+  transitionAppear: false,
+  transitionEnter: true,
+  transitionLeave: true
+};
+
+var CSSTransitionGroup = function (_React$Component) {
+  _inherits(CSSTransitionGroup, _React$Component);
+
+  function CSSTransitionGroup() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroup);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._wrapChild = function (child) {
+      return _react2.default.createElement(_CSSTransitionGroupChild2.default, {
+        name: _this.props.transitionName,
+        appear: _this.props.transitionAppear,
+        enter: _this.props.transitionEnter,
+        leave: _this.props.transitionLeave,
+        appearTimeout: _this.props.transitionAppearTimeout,
+        enterTimeout: _this.props.transitionEnterTimeout,
+        leaveTimeout: _this.props.transitionLeaveTimeout
+      }, child);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  // We need to provide this childFactory so that
+  // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+  // leave while it is leaving.
+
+
+  CSSTransitionGroup.prototype.render = function render() {
+    return _react2.default.createElement(_TransitionGroup2.default, _extends({}, this.props, { childFactory: this._wrapChild }));
+  };
+
+  return CSSTransitionGroup;
+}(_react2.default.Component);
+
+CSSTransitionGroup.displayName = 'CSSTransitionGroup';
+
+
+CSSTransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+CSSTransitionGroup.defaultProps = defaultProps;
+
+exports.default = CSSTransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _addClass = __webpack_require__(59);
+
+var _addClass2 = _interopRequireDefault(_addClass);
+
+var _removeClass = __webpack_require__(61);
+
+var _removeClass2 = _interopRequireDefault(_removeClass);
+
+var _requestAnimationFrame = __webpack_require__(150);
+
+var _requestAnimationFrame2 = _interopRequireDefault(_requestAnimationFrame);
+
+var _properties = __webpack_require__(63);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDom = __webpack_require__(4);
+
+var _PropTypes = __webpack_require__(79);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var events = [];
+if (_properties.transitionEnd) events.push(_properties.transitionEnd);
+if (_properties.animationEnd) events.push(_properties.animationEnd);
+
+function addEndListener(node, listener) {
+  if (events.length) {
+    events.forEach(function (e) {
+      return node.addEventListener(e, listener, false);
+    });
+  } else {
+    setTimeout(listener, 0);
+  }
+
+  return function () {
+    if (!events.length) return;
+    events.forEach(function (e) {
+      return node.removeEventListener(e, listener, false);
+    });
+  };
+}
+
+var propTypes = {
+  children: _propTypes2.default.node,
+  name: _PropTypes.nameShape.isRequired,
+
+  // Once we require timeouts to be specified, we can remove the
+  // boolean flags (appear etc.) and just accept a number
+  // or a bool for the timeout flags (appearTimeout etc.)
+  appear: _propTypes2.default.bool,
+  enter: _propTypes2.default.bool,
+  leave: _propTypes2.default.bool,
+  appearTimeout: _propTypes2.default.number,
+  enterTimeout: _propTypes2.default.number,
+  leaveTimeout: _propTypes2.default.number
+};
+
+var CSSTransitionGroupChild = function (_React$Component) {
+  _inherits(CSSTransitionGroupChild, _React$Component);
+
+  function CSSTransitionGroupChild() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CSSTransitionGroupChild);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.componentWillAppear = function (done) {
+      if (_this.props.appear) {
+        _this.transition('appear', done, _this.props.appearTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillEnter = function (done) {
+      if (_this.props.enter) {
+        _this.transition('enter', done, _this.props.enterTimeout);
+      } else {
+        done();
+      }
+    }, _this.componentWillLeave = function (done) {
+      if (_this.props.leave) {
+        _this.transition('leave', done, _this.props.leaveTimeout);
+      } else {
+        done();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  CSSTransitionGroupChild.prototype.componentWillMount = function componentWillMount() {
+    this.classNameAndNodeQueue = [];
+    this.transitionTimeouts = [];
+  };
+
+  CSSTransitionGroupChild.prototype.componentWillUnmount = function componentWillUnmount() {
+    this.unmounted = true;
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.transitionTimeouts.forEach(function (timeout) {
+      clearTimeout(timeout);
+    });
+
+    this.classNameAndNodeQueue.length = 0;
+  };
+
+  CSSTransitionGroupChild.prototype.transition = function transition(animationType, finishCallback, timeout) {
+    var node = (0, _reactDom.findDOMNode)(this);
+
+    if (!node) {
+      if (finishCallback) {
+        finishCallback();
+      }
+      return;
+    }
+
+    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
+    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
+    var timer = null;
+    var removeListeners = void 0;
+
+    (0, _addClass2.default)(node, className);
+
+    // Need to do this to actually trigger a transition.
+    this.queueClassAndNode(activeClassName, node);
+
+    // Clean-up the animation after the specified delay
+    var finish = function finish(e) {
+      if (e && e.target !== node) {
+        return;
+      }
+
+      clearTimeout(timer);
+      if (removeListeners) removeListeners();
+
+      (0, _removeClass2.default)(node, className);
+      (0, _removeClass2.default)(node, activeClassName);
+
+      if (removeListeners) removeListeners();
+
+      // Usually this optional callback is used for informing an owner of
+      // a leave animation and telling it to remove the child.
+      if (finishCallback) {
+        finishCallback();
+      }
+    };
+
+    if (timeout) {
+      timer = setTimeout(finish, timeout);
+      this.transitionTimeouts.push(timer);
+    } else if (_properties.transitionEnd) {
+      removeListeners = addEndListener(node, finish);
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.queueClassAndNode = function queueClassAndNode(className, node) {
+    var _this2 = this;
+
+    this.classNameAndNodeQueue.push({
+      className: className,
+      node: node
+    });
+
+    if (!this.rafHandle) {
+      this.rafHandle = (0, _requestAnimationFrame2.default)(function () {
+        return _this2.flushClassNameAndNodeQueue();
+      });
+    }
+  };
+
+  CSSTransitionGroupChild.prototype.flushClassNameAndNodeQueue = function flushClassNameAndNodeQueue() {
+    if (!this.unmounted) {
+      this.classNameAndNodeQueue.forEach(function (obj) {
+        // This is for to force a repaint,
+        // which is necessary in order to transition styles when adding a class name.
+        /* eslint-disable no-unused-expressions */
+        obj.node.scrollTop;
+        /* eslint-enable no-unused-expressions */
+        (0, _addClass2.default)(obj.node, obj.className);
+      });
+    }
+    this.classNameAndNodeQueue.length = 0;
+    this.rafHandle = null;
+  };
+
+  CSSTransitionGroupChild.prototype.render = function render() {
+    var props = _extends({}, this.props);
+    delete props.name;
+    delete props.appear;
+    delete props.enter;
+    delete props.leave;
+    delete props.appearTimeout;
+    delete props.enterTimeout;
+    delete props.leaveTimeout;
+    delete props.children;
+    return _react2.default.cloneElement(_react2.default.Children.only(this.props.children), props);
+  };
+
+  return CSSTransitionGroupChild;
+}(_react2.default.Component);
+
+CSSTransitionGroupChild.displayName = 'CSSTransitionGroupChild';
+
+
+CSSTransitionGroupChild.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+
+exports.default = CSSTransitionGroupChild;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _chainFunction = __webpack_require__(105);
+
+var _chainFunction2 = _interopRequireDefault(_chainFunction);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _warning = __webpack_require__(46);
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _ChildMapping = __webpack_require__(200);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var propTypes = {
+  component: _propTypes2.default.any,
+  childFactory: _propTypes2.default.func,
+  children: _propTypes2.default.node
+};
+
+var defaultProps = {
+  component: 'span',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+};
+
+var TransitionGroup = function (_React$Component) {
+  _inherits(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    _classCallCheck(this, TransitionGroup);
+
+    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
+
+    _this.performAppear = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillAppear) {
+        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key, component));
+      } else {
+        _this._handleDoneAppearing(key, component);
+      }
+    };
+
+    _this._handleDoneAppearing = function (key, component) {
+      if (component.componentDidAppear) {
+        component.componentDidAppear();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully appeared. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performEnter = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillEnter) {
+        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key, component));
+      } else {
+        _this._handleDoneEntering(key, component);
+      }
+    };
+
+    _this._handleDoneEntering = function (key, component) {
+      if (component.componentDidEnter) {
+        component.componentDidEnter();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully entered. Remove it.
+        _this.performLeave(key, component);
+      }
+    };
+
+    _this.performLeave = function (key, component) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      if (component.componentWillLeave) {
+        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key, component));
+      } else {
+        // Note that this is somewhat dangerous b/c it calls setState()
+        // again, effectively mutating the component before all the work
+        // is done.
+        _this._handleDoneLeaving(key, component);
+      }
+    };
+
+    _this._handleDoneLeaving = function (key, component) {
+      if (component.componentDidLeave) {
+        component.componentDidLeave();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = (0, _ChildMapping.getChildMapping)(_this.props.children);
+
+      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+        // This entered again before it fully left. Add it again.
+        _this.keysToEnter.push(key);
+      } else {
+        _this.setState(function (state) {
+          var newChildren = _extends({}, state.children);
+          delete newChildren[key];
+          return { children: newChildren };
+        });
+      }
+    };
+
+    _this.childRefs = Object.create(null);
+
+    _this.state = {
+      children: (0, _ChildMapping.getChildMapping)(props.children)
+    };
+    return _this;
+  }
+
+  TransitionGroup.prototype.componentWillMount = function componentWillMount() {
+    this.currentlyTransitioningKeys = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  };
+
+  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
+    var initialChildMapping = this.state.children;
+    for (var key in initialChildMapping) {
+      if (initialChildMapping[key]) {
+        this.performAppear(key, this.childRefs[key]);
+      }
+    }
+  };
+
+  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var nextChildMapping = (0, _ChildMapping.getChildMapping)(nextProps.children);
+    var prevChildMapping = this.state.children;
+
+    this.setState({
+      children: (0, _ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping)
+    });
+
+    for (var key in nextChildMapping) {
+      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
+        this.keysToEnter.push(key);
+      }
+    }
+
+    for (var _key in prevChildMapping) {
+      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(_key);
+      if (prevChildMapping[_key] && !hasNext && !this.currentlyTransitioningKeys[_key]) {
+        this.keysToLeave.push(_key);
+      }
+    }
+
+    // If we want to someday check for reordering, we could do it here.
+  };
+
+  TransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
+    var _this2 = this;
+
+    var keysToEnter = this.keysToEnter;
+    this.keysToEnter = [];
+    keysToEnter.forEach(function (key) {
+      return _this2.performEnter(key, _this2.childRefs[key]);
+    });
+
+    var keysToLeave = this.keysToLeave;
+    this.keysToLeave = [];
+    keysToLeave.forEach(function (key) {
+      return _this2.performLeave(key, _this2.childRefs[key]);
+    });
+  };
+
+  TransitionGroup.prototype.render = function render() {
+    var _this3 = this;
+
+    // TODO: we could get rid of the need for the wrapper node
+    // by cloning a single child
+    var childrenToRender = [];
+
+    var _loop = function _loop(key) {
+      var child = _this3.state.children[key];
+      if (child) {
+        var isCallbackRef = typeof child.ref !== 'string';
+        var factoryChild = _this3.props.childFactory(child);
+        var ref = function ref(r) {
+          _this3.childRefs[key] = r;
+        };
+
+        process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
+
+        // Always chaining the refs leads to problems when the childFactory
+        // wraps the child. The child ref callback gets called twice with the
+        // wrapper and the child. So we only need to chain the ref if the
+        // factoryChild is not different from child.
+        if (factoryChild === child && isCallbackRef) {
+          ref = (0, _chainFunction2.default)(child.ref, ref);
+        }
+
+        // You may need to apply reactive updates to a child as it is leaving.
+        // The normal React way to do it won't work since the child will have
+        // already been removed. In case you need this behavior you can provide
+        // a childFactory function to wrap every child, even the ones that are
+        // leaving.
+        childrenToRender.push(_react2.default.cloneElement(factoryChild, {
+          key: key,
+          ref: ref
+        }));
+      }
+    };
+
+    for (var key in this.state.children) {
+      _loop(key);
+    }
+
+    // Do not forward TransitionGroup props to primitive DOM nodes
+    var props = _extends({}, this.props);
+    delete props.transitionLeave;
+    delete props.transitionName;
+    delete props.transitionAppear;
+    delete props.transitionEnter;
+    delete props.childFactory;
+    delete props.transitionLeaveTimeout;
+    delete props.transitionEnterTimeout;
+    delete props.transitionAppearTimeout;
+    delete props.component;
+
+    return _react2.default.createElement(this.props.component, props, childrenToRender);
+  };
+
+  return TransitionGroup;
+}(_react2.default.Component);
+
+TransitionGroup.displayName = 'TransitionGroup';
+
+
+TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+TransitionGroup.defaultProps = defaultProps;
+
+exports.default = TransitionGroup;
+module.exports = exports['default'];
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.getChildMapping = getChildMapping;
+exports.mergeChildMappings = mergeChildMappings;
+
+var _react = __webpack_require__(0);
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+function getChildMapping(children) {
+  if (!children) {
+    return children;
+  }
+  var result = {};
+  _react.Children.map(children, function (child) {
+    return child;
+  }).forEach(function (child) {
+    result[child.key] = child;
+  });
+  return result;
+}
+
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    if (next.hasOwnProperty(key)) {
+      return next[key];
+    }
+
+    return prev[key];
+  }
+
+  // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+  var nextKeysPending = {};
+
+  var pendingKeys = [];
+  for (var prevKey in prev) {
+    if (next.hasOwnProperty(prevKey)) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i = void 0;
+  var childMapping = {};
+  for (var nextKey in next) {
+    if (nextKeysPending.hasOwnProperty(nextKey)) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+    childMapping[nextKey] = getValueForKey(nextKey);
+  }
+
+  // Finally, add the keys which didn't appear before any key in `next`
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
 }
 
 /***/ }),
