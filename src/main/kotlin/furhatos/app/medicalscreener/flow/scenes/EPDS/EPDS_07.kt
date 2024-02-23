@@ -3,7 +3,6 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSQuestions
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.util.CommonUtils
 import furhatos.app.medicalscreener.flow.scenes.log
 
 
