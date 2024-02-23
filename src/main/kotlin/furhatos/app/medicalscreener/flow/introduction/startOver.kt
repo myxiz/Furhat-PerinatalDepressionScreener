@@ -45,5 +45,5 @@ private fun TriggerRunner<*>.onYes() {
     furhat.say(i18n.phrases.INTRODUCTION_START_OVER_CONFIRMED)
     delay(1000)
     users.current.reset()
-    goto(ScreeningSelection)
+    goto(ScreeningConsent)
 }

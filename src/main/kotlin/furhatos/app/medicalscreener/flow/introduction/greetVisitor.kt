@@ -1,9 +1,7 @@
 package furhatos.app.medicalscreener.flow.introduction
 
-import furhatos.app.medicalscreener.currentLang
+import furhatos.app.medicalscreener.*
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.getUsername
-import furhatos.app.medicalscreener.userName
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.nlu.EnglishDontUnderstandLanguage
 import furhatos.flow.kotlin.*
@@ -19,6 +17,7 @@ val GreetTuringOn : State = state(Interaction){
 
     onEntry {
         send(ClearScreen())
+
         runBlocking {
             val name = getUsername()
             println(name)
@@ -40,10 +39,8 @@ val GreetTuringOn : State = state(Interaction){
             goto(GreetVisitor)
         }
         else{handleLanguageChange(language = response)}
-
     }
-
-    onButton ("Start"){
+    onButton ("Hello, Ask for consent"){
         users.current.interactionInfo.startTimestamp()
         GlobalScope.launch {
             writeKpi(users.current, "Interaction Started")
@@ -55,11 +52,13 @@ val GreetTuringOn : State = state(Interaction){
 
 val GreetVisitor: State = state(IntroductionBaseState) {
     addGazeAversionBehaviour()
+
     onEntry {
         send(ClearScreen())
         GlobalScope.launch {
             getUsername()
         }
+
         furhat.askAndDo(i18n.phrases.INTRODUCTION_GREETING +' '+ userName!!){
 
             furhat.gesture(Gestures.BigSmile)
@@ -75,7 +74,7 @@ val GreetVisitor: State = state(IntroductionBaseState) {
 
     onResponse {
         furhat.gesture(Gestures.Smile)
-        goto(ScreeningSelection)
+        goto(ScreeningConsent)
     }
 
     onEvent("UserResponse") {
@@ -85,7 +84,7 @@ val GreetVisitor: State = state(IntroductionBaseState) {
     }
 
     onNoResponse {
-        goto(ScreeningSelection)
+        goto(ScreeningConsent)
     }
 
     include(ChangeLanguageBehavior)

@@ -3,37 +3,23 @@
 package furhatos.app.medicalscreener.flow.scenes
 
 import furhatos.app.medicalscreener.flow.*
-import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
+import furhatos.app.medicalscreener.flow.introduction.ScreeningConsent
 import furhatos.app.medicalscreener.flow.scenes.EPDS.*
+import furhatos.app.medicalscreener.getUsername
 import furhatos.app.medicalscreener.i18n.i18n
+import furhatos.app.medicalscreener.userName
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+val log = CommonUtils.getLogger(InteractionWithBadResponse::class.java)
 
 val EPDSQuestionBase = state(InteractionWithBadResponse,
-        stateDefinition = abortableStateDef(ScreeningSelection, { it.epdsData.endTimestamp() }))
-
-
-private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
-
-val EPDSIntro: State = state(EPDSQuestionBase) {
-    onEntry {
-        log.debug("Entering EPDSIntro state")
-        users.current.epdsData.score = 0
-        users.current.personaliztionData.startTimestamp()
-//        writeKpi(users.current, "Screening Started: EPDS intro")
-        goto(PersonalizationStart)
-    }
-}
-
-val EPDSStartQuestion: State = state(EPDSQuestionBase) {
-
-    include(ChangeLanguageBehavior)
-    addRepeatQuestionHandler()
-    addGoodbyeHandler()
-    addTellAboutStatesHandlers()
-    addGazeAversionBehaviour()
-    include(NoOrInvalidResponseState())
-
+        stateDefinition = abortableStateDef(ScreeningConsent, { it.epdsData.endTimestamp() }))
+val EPDSQuestions = state(EPDSQuestionBase)
+{
     onButton("EPDS1") {
         furhat.stopSpeaking()
         goto(EPDSQuestion01)
@@ -80,12 +66,39 @@ val EPDSStartQuestion: State = state(EPDSQuestionBase) {
     onButton("Result") {
         goto(EPDS_Results)
     }
+}
+
+
+val EPDSIntro: State = state(EPDSQuestions) {
+    onEntry {
+        val myScope = CoroutineScope(Dispatchers.Default)
+        log.debug("Entering EPDSIntro state")
+        users.current.epdsData.score = 0
+        users.current.personaliztionData.startTimestamp()
+        myScope.launch {
+            writeKpi(users.current, "Personalization Started: EPDS intro")
+        }
+        goto(PersonalizationStart)
+    }
+}
+
+val EPDSStartQuestion: State = state(EPDSQuestions) {
+
+    include(ChangeLanguageBehavior)
+    addRepeatQuestionHandler()
+    addGoodbyeHandler()
+    addTellAboutStatesHandlers()
+    addGazeAversionBehaviour()
+    include(NoOrInvalidResponseState())
 
     onEntry {
+        val myScope = CoroutineScope(Dispatchers.Default)
         log.debug("Entering EPDSStart state")
         users.current.epdsData.score = 0
         users.current.epdsData.startTimestamp()
-//        writeKpi(users.current, "Screening Started")
+        myScope.launch {
+            writeKpi(users.current, "EPDS Screening Started")
+        }
         furhat.say({
             +i18n.phrases.EPDS_GETTING_STARTED
         })

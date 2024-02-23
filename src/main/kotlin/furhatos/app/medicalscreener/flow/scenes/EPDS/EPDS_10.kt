@@ -3,14 +3,15 @@ import furhatos.app.medicalscreener.flow.OptionSelectedEvent
 import furhatos.app.medicalscreener.flow.ShowOptionsEvent
 import furhatos.app.medicalscreener.flow.askAndDo
 import furhatos.app.medicalscreener.flow.epdsData
-import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestions
+import furhatos.app.medicalscreener.flow.scenes.log
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
-import furhatos.util.CommonUtils
 
-private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)!!
 
-val EPDSQuestion10: State = state(EPDSQuestionBase) {
+
+
+val EPDSQuestion10: State = state(EPDSQuestions) {
     onEntry {
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion10 state")
         furhat.askAndDo(i18n.phrases.EPDS_TEN) {

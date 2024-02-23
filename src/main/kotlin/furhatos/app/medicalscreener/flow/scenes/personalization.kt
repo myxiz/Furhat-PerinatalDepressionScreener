@@ -7,6 +7,7 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.*
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
+import furhatos.app.medicalscreener.setRobotFace
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import furhatos.util.Gender
@@ -14,6 +15,12 @@ import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.gestures.Gestures
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
+import furhatos.app.medicalscreener.flow.scenes.log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
 //import java.time.LocalDateTime
 
 //val PersonalizationQuestionBase = state(Interaction, stateDefinition = abortableStateDef(ScreeningSelection, null))
@@ -30,7 +37,6 @@ val PersonalizationQuestionBase: State = state(IntroductionBaseState) {
     }
 }
 
-private val log = CommonUtils.getLogger(PersonalizationQuestionBase::class.java)!!
 
 val PersonalizationStart: State = state(PersonalizationQuestionBase) {
     onEntry {
@@ -332,6 +338,7 @@ val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
 }
 
 val PersonalizationFace: State = state(PersonalizationQuestionBase) {
+    var face = "Titan"
     onEntry {
         log.debug("Entering PersonalizationFace state")
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FACE_CHOOSE){
@@ -353,20 +360,21 @@ val PersonalizationFace: State = state(PersonalizationQuestionBase) {
     onResponse<Yes>{
         send(OptionSelectedEvent("yes"))
         sayGeneralAcknowledgement()
-        handleToRememberPersonalization()
+        handleToRememberPersonalization(face)
     }
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
-        when (it.get("response")) {
+        when (val response = (it.get("response").toString())) {
             "yes" -> {
                 sayGeneralAcknowledgement()
                 delay(500, TimeUnit.MILLISECONDS)
-                handleToRememberPersonalization()
+                handleToRememberPersonalization(face)
             }
             else -> {
                 log.debug("User responded  ${it.get("response")} through GUI")
-                handleApplyFace((it.get("response").toString()))
+                face = response
+                handleApplyFace(response)
             }
         }
     }
@@ -428,6 +436,7 @@ private fun  TriggerRunner<*>.handleApplyFace(key: String?) {
 }
 
 private fun TriggerRunner<*>.handleMoveToFace() {
+    users.current.personaliztionData.voice = furhat.voice
     send(OptionSelectedEvent("next"))
     sayGeneralAcknowledgement()
     delay(500, TimeUnit.MILLISECONDS)
@@ -458,9 +467,11 @@ private fun TriggerRunner<*>.handleChooseFemale() {
     goto(PersonalizationApplyFemale)
 }
 
-private fun TriggerRunner<*>.handleToRememberPersonalization(){
-    users.current.personaliztionData.remember = true
-//    writeKpi(users.current, "User Chose Remember Personalization" )
+private fun TriggerRunner<*>.handleToRememberPersonalization(mask :String){
+    users.current.personaliztionData.mask = mask
+    CoroutineScope(Dispatchers.Default).launch {
+        writeKpi(users.current, "User Chose $mask " )
+    }
     send(ClearScreen())
     goto(PersonalizationRemember)
 }

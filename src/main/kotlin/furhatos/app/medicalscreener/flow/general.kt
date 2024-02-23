@@ -3,13 +3,11 @@
 package furhatos.app.medicalscreener.flow
 
 import furhatos.app.medicalscreener.*
-import furhatos.app.medicalscreener.flow.introduction.Goodbye
-import furhatos.app.medicalscreener.flow.introduction.GreetTuringOn
-import furhatos.app.medicalscreener.flow.introduction.Idle
-import furhatos.app.medicalscreener.flow.introduction.ScreeningSelection
+import furhatos.app.medicalscreener.flow.introduction.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
 import furhatos.app.medicalscreener.flow.scenes.MINIInstructions
 import furhatos.app.medicalscreener.i18n.*
+import furhatos.app.medicalscreener.log
 import furhatos.app.medicalscreener.nlu.*
 import furhatos.event.Event
 import furhatos.event.actions.ActionSetSolidLED
@@ -20,11 +18,15 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.BasicParams
 import furhatos.gestures.Gestures
 import furhatos.gestures.defineGesture
-import furhatos.nlu.SimpleIntent
 import furhatos.app.medicalscreener.nlu.Goodbye
+import furhatos.gestures.Gestures.BigSmile
+import furhatos.gestures.Gestures.Nod
+import furhatos.gestures.Gestures.Smile
 import furhatos.records.Location
 import furhatos.records.User
 import furhatos.util.Language
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
 
@@ -88,6 +90,34 @@ val Interaction: State = state {
 
 }
 
+val StandBy : State = state {
+    onUserEnter(instant = true) {
+        log.debug("User ${it.id} entered")
+        furhat.glance(it)
+    }
+
+    onEvent(eventClass = MonitorSpeechStart::class, instant = true, priority = true) {
+        log.debug("Furhat is saying: \"${it.text}\" (${it.length} ms in ${this.currentState.name})")
+        send(LightsOff)
+        propagate()
+    }
+
+    onEvent("Restart") {
+        log.warn("Restarting interaction")
+        users.current.reset()
+        goto(Idle)
+    }
+
+    include(RemoteButtons)
+    addGazeAversionBehaviour()
+
+    onEvent<MonitorListenStart>(instant = true) {
+        send(LedLight)
+        propagate()
+    }
+
+}
+
 val InteractionNoLeave: State = state {
 
     onEvent<UserDefinitelyGone> {
@@ -124,8 +154,46 @@ val InteractionNoLeave: State = state {
 }
 
 val RemoteButtons = partialState {
-    onButton(Button("Restart")) {
+    onButton("Restart") {
         send("Restart")
+    }
+
+    onButton("Standby", key = "Standby_button", visible =true, color = Color.Green) {
+        goto(StandBy)
+    }
+
+    onButton("Reset Appearance", color = Color.Red) {
+        furhat.setRobotVoice(lang = currentLang)
+        furhat.setRobotFace()
+    }
+
+    onButton("Retrieve Appearance", color = Color.Green) {
+        if (users.current.personaliztionData.voice != null){
+            furhat.voice = users.current.personaliztionData.voice
+        }
+        log.info("${users.current.personaliztionData.mask} ${users.current.personaliztionData.voice} retrieved")
+        if (users.current.personaliztionData.mask != null ){
+            furhat.setRobotFace(users.current.personaliztionData.mask!!)
+        }
+    }
+
+    onButton("Nod", instant = true, color = Color.Red) {
+        furhat.gesture(Nod)
+        delay(800)
+    }
+
+    onButton("Smile", instant = true,color = Color.Red) {
+        furhat.gesture(BigSmile)
+        delay(800)
+    }
+
+
+    onButton ("Hello, Ask for consent"){
+        users.current.interactionInfo.startTimestamp()
+        GlobalScope.launch {
+            writeKpi(users.current, "Interaction Started")
+        }
+        goto(GreetVisitor)
     }
 
     onButton("EPDS start")  {
@@ -142,14 +210,9 @@ val RemoteButtons = partialState {
         reentry()
     }
 
-    onButton("Set language: Chinese") {
-        furhat.setChineseLanguage()
-        reentry()
-    }
-
-    onButton("Log Users Current Score", instant = true) {
+    onButton("Log Current Score", instant = true) {
         try {
-            log.info("Current score, ${users.current.epdsData.score}")
+            log.info("Current score, ${users.current.epdsData}")
         } catch(error: Error) {
             // Let fail silently
             log.info("Couldn't log score, $error")
@@ -567,7 +630,7 @@ private fun StateBuilder.addGoHomeHandler() {
         val yesOrNo = furhat.askYN(i18n.phrases.GENERAL_CONFIRM_GO_TO_HOME)
         if (yesOrNo == null || yesOrNo) {
             log.debug("User confirmed to go back (\"${it.text}\")")
-            goto(ScreeningSelection)
+            goto(ScreeningConsent)
         }
     }
 }
@@ -649,7 +712,7 @@ fun abortableStateDef(abortTo: State, onAbort: ((User) -> Unit)?): StateBuilder.
             if (yesOrNo == null || yesOrNo) {
                 log.debug("User confirmed to go home")
                 if (onAbort != null) onAbort(users.current)
-                goto(ScreeningSelection)
+                goto(ScreeningConsent)
             } else {
                 furhat.say("OK, let's continue")
                 reentry()

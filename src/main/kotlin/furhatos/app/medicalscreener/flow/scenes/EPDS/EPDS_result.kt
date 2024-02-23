@@ -5,19 +5,17 @@ import furhatos.app.medicalscreener.flow.WaitForCommand
 import furhatos.app.medicalscreener.flow.epdsData
 import furhatos.app.medicalscreener.flow.introduction.Goodbye
 import furhatos.app.medicalscreener.flow.introduction.StartOver
-import furhatos.app.medicalscreener.flow.scenes.EPDSQuestionBase
 import furhatos.app.medicalscreener.flow.writeKpi
+import furhatos.app.medicalscreener.flow.scenes.EPDSQuestions
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.nlu.ImDone
 import furhatos.app.medicalscreener.nlu.RepeatQuestion
 import furhatos.app.medicalscreener.nlu.ThankYou
 import furhatos.flow.kotlin.*
 import furhatos.records.Location
-import furhatos.util.CommonUtils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
-private val log = CommonUtils.getLogger(EPDSQuestionBase::class.java)
+import furhatos.app.medicalscreener.flow.scenes.log
 
 val EPDS_Results = state(WaitForCommand(nextState = StartOver)) {
     onButton("Log Result") {
@@ -33,7 +31,7 @@ val EPDS_Results = state(WaitForCommand(nextState = StartOver)) {
         val epdsData = user.epdsData
         users.current.epdsData.completed = true
         users.current.epdsData.endTimestamp()
-        log.debug("Completed EPDS screening. Data: $epdsData")
+        log.debug("Completed EPDS screening. Data: $epdsData ")
 
         log.debug("Waiting for user to continue")
         GlobalScope.launch {

@@ -6,6 +6,7 @@ import com.eclipsesource.json.JsonValue
 import furhatos.app.medicalscreener.userName
 import furhatos.flow.kotlin.NullSafeUserDataDelegate
 import furhatos.flow.kotlin.users
+import furhatos.flow.kotlin.voice.Voice
 import furhatos.records.Record
 import furhatos.records.User
 import furhatos.util.Gender
@@ -34,9 +35,10 @@ interface Timestamped {
 
 data class PersonalizationData(
     var genderMatters : Boolean = false,
-    var gender :Gender = Gender.NEUTRAL,
-    var mask: String? = "none",
-    var remember : Boolean = true,
+    var gender: Gender = Gender.NEUTRAL,
+    var voice : Voice? = null,
+    var mask: String? = null,
+    var remember : Boolean? = null,
     override var startTime: LocalDateTime? = null,
     override var endTime: LocalDateTime? = null
 ) : Timestamped, Record()
@@ -239,9 +241,49 @@ fun User.asJson(phase: String) =
             .add("mask", personaliztionData.mask)
             .add("genderMatters", personaliztionData.genderMatters)
             .add("gender", personaliztionData.gender.toString())
-            .add("remember", personaliztionData.remember)
+            .add("voice", personaliztionData.voice.toString())
+            .add("remember", personaliztionData.remember?.toString())
             .add("startTime", epdsData.startTime?.toString())
             .add("endTime", epdsData.endTime?.toString())
+        )
+        .add("miniData", JsonObject()
+            .add("A1a", miniData.A1a?.toString())
+            .add("A1b", miniData.A1b?.toString())
+            .add("A2a", miniData.A2a?.toString())
+            .add("A2b", miniData.A2b?.toString())
+            .add("A3a", miniData.A3a?.toString())
+            .add("A3b", miniData.A3b?.toString())
+            .add("A3c", miniData.A3c?.toString())
+            .add("A3d", miniData.A3d?.toString())
+            .add("A3e", miniData.A3e?.toString())
+            .add("A3e_Delu", miniData.A3e_Delu?.toString())
+            .add("A3f", miniData.A3f?.toString())
+            .add("A3g", miniData.A3g?.toString())
+            .add("A4", miniData.A4?.toString())
+            .add("A5", miniData.A5?.toString())
+            .add("A6", miniData.A6?.toString())
+            .add("B1", miniData.B1?.toString())
+            .add("B1a", miniData.B1a?.toString())
+            .add("B1b", miniData.B1b?.toString())
+            .add("B2", miniData.B2?.toString())
+            .add("B3", miniData.B3?.toString())
+            .add("B3_fre", miniData.B3_fre?.toString())
+            .add("B3_int", miniData.B3_int?.toString())
+            .add("C1a", miniData.C1a?.toString())
+            .add("C1b", miniData.C1b?.toString())
+            .add("C2a", miniData.C2a?.toString())
+            .add("C2b", miniData.C2b?.toString())
+            .add("C3", miniData.C3?.toString())
+            .add("C3a", miniData.C3a?.toString())
+            .add("C3a_delu", miniData.C3a_delu?.toString())
+            .add("C3b", miniData.C3b?.toString())
+            .add("C3c", miniData.C3c?.toString())
+            .add("C3d", miniData.C3d?.toString())
+            .add("C3e", miniData.C3e?.toString())
+            .add("C3f", miniData.C3f?.toString())
+            .add("C3g", miniData.C3g?.toString())
+            .add("C4", miniData.C4?.toString())
+            .add("C5", miniData.C5?.toString())
         )
         .add("interactionInfo", JsonObject()
 //            .add("robotOnTime", interactionInfo.robotOnTime?.toString())

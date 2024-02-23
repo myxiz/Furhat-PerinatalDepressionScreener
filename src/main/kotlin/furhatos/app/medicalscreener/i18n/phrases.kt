@@ -1212,6 +1212,14 @@ class I18nPhrases {
     )[currentLang]!!
 
 
+    val LAST_QUESTION_MESSAGE = mapOf(
+        en to "That was the last question. The psychiatrist will follow up with you shortly.",
+        sv to "Det var den sista frågan. Psykiatern kommer att följa upp med dig snart.",
+        zh to "那就是最后一个问题了。精神科医生会很快跟进您的情况。"
+    )[currentLang]!!
+
+
+
     val EPDS_RESTART_TEST_OPTIONS_NO = mapOf(
         en to "No",
         sv to "Nej",

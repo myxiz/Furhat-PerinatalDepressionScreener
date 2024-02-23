@@ -17,6 +17,7 @@ import furhatos.gestures.Gestures.Surprise
 import furhatos.gestures.Gestures.Thoughtful
 import furhatos.gestures.Gestures.Wink
 import furhatos.records.Location
+import furhatos.skills.FurhatFace
 import furhatos.util.Gender
 import furhatos.util.Language
 
@@ -37,6 +38,9 @@ fun Furhat.attendRandomLocation() {
     )
 }
 
+fun Furhat.setRobotFace(face: String = "Titan"){
+    runner.furhat.character = face
+}
 fun Furhat.setRobotVoice(lang : Language, gen: Gender = Gender.NEUTRAL) {
     i18n = I18n(lang)
     val speakingRate = 0.95
