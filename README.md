@@ -1,6 +1,8 @@
 # README #
 
 ###  Robot Symptom Screening Station ###
+
+Based on Furhat Robotics tamplate. 
 The robot engages people to interact in a conversation, and asks them questions to screen them for pre-diabetes. 
 The interaction is assisted by a screen and supported in three languages.
 
