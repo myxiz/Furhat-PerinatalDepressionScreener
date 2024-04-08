@@ -36,7 +36,6 @@ export class Screen extends React.PureComponent {
                             showText={showText}/>
                     </div>
                     <div className="col-10 offset-1">
-
                         {results == null ?
                             <Question
                                 options={options}

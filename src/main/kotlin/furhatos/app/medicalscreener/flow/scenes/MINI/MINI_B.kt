@@ -68,7 +68,7 @@ val MINIQuestionB = state(MINIQuestionBase) {
 }
 val MINIQuestion_B_Intro: State = state(MINIQuestionBase) {
     onEntry {
-        furhat.say(i18n.phrases.MINI_MOVE_TO_NEXT_SECTION)
+        furhat.sayAndRecord(i18n.phrases.MINI_MOVE_TO_NEXT_SECTION)
         delay(10)
         goto(MINIQuestion_B1)
     }
@@ -78,7 +78,7 @@ val MINIQuestion_B_Intro: State = state(MINIQuestionBase) {
 
 val MINIQuestion_B1: State = state(MINIQuestionB) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B1_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B1_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -104,7 +104,7 @@ val MINIQuestion_B1: State = state(MINIQuestionB) {
 
 val MINIQuestion_B1a: State = state(MINIQuestionB) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B1a_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B1a_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
@@ -123,7 +123,7 @@ val MINIQuestion_B1a: State = state(MINIQuestionB) {
 
 val MINIQuestion_B1b: State = state(MINIQuestionB) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B1b_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B1b_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
@@ -142,7 +142,7 @@ val MINIQuestion_B1b: State = state(MINIQuestionB) {
 
 val MINIQuestion_B2: State = state(MINIQuestionB) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B2_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B2_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
@@ -161,16 +161,16 @@ val MINIQuestion_B2: State = state(MINIQuestionB) {
 
 
 val MINIQuestion_B3: State = state(MINIQuestionB) {
-    nextState = MINIQuestion_B4 // You need to define this function based on your flow
+    nextState = MINIQuestion_B3_2 // You need to define this function based on your flow
     currentQuestions = "B3"
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B3_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B3_QUESTION_1)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
                 "1:${i18n.phrases.GENERAL_YES}"
             ),
-            i18n.phrases.MINIQuestion_B3_QUESTION
+            i18n.phrases.MINIQuestion_B3_QUESTION_1
         ))
     }
 
@@ -187,11 +187,37 @@ val MINIQuestion_B3: State = state(MINIQuestionB) {
     }
 }
 
+val MINIQuestion_B3_2: State = state(MINIQuestionB) {
+    nextState = MINIQuestion_B4 // You need to define this function based on your flow
+    currentQuestions = "B3"
+    onEntry {
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B3_QUESTION_2)
+        send(ShowOptionsEvent(
+            listOf(
+                "0:${i18n.phrases.GENERAL_NO}",
+                "1:${i18n.phrases.GENERAL_YES}"
+            ),
+            i18n.phrases.MINIQuestion_B3_QUESTION_2
+        ))
+    }
+
+    onExit { lastState = currentState }
+
+    onButton(yesButton) {
+        handleRecordScore("yes", "B3")
+    }
+    onButton(noButton) {
+    }
+    onButton("Next") {
+        handleNext()
+    }
+}
+
 val MINIQuestion_B4: State = state(MINIQuestionB) {
     nextState = MINIQuestion_B5 // Adjust as necessary for your interview flow
     currentQuestions = "B4"
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B4_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B4_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -212,7 +238,7 @@ val MINIQuestion_B5: State = state(MINIQuestionB) {
     nextState = MINIQuestion_C_Intro // Define this function based on your flow to decide the next state
     currentQuestions = "B5"
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_B5_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_B5_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",

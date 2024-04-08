@@ -6,6 +6,9 @@ import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import kotlinx.coroutines.*
 
+var userName : String = ""
+var IP : String? = null
+val IP_ARRAY = arrayOf("10.0.1.3:5001", "130.238.16.96:5001", "localhost:5001")
 
 class ScreenerSkill : Skill() {
     override fun start() {
@@ -19,20 +22,6 @@ class ScreenerSkill : Skill() {
 
 val log = CommonUtils.getLogger(ScreenerSkill::class.java)
 
-var userName: String? = ""
-
-fun readName() {
-    userName = readlnOrNull()
-
-    // Check if the input is not null before using it
-    if (userName != null && userName!!.isNotEmpty()) {
-        println("Hello, $userName!")
-    } else {
-        println("No name was entered.")
-    }
-}
-
 fun main(args: Array<String>) {
-
     Skill.main(args)
 }

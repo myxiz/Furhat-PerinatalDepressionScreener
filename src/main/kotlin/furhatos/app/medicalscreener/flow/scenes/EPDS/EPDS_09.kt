@@ -6,10 +6,14 @@ import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.flow.scenes.log
 import furhatos.util.CommonUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 val EPDSQuestion09: State = state(EPDSQuestions) {
     onEntry {
+        nextState = EPDSQuestion10
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion9 state")
         furhat.askAndDo(i18n.phrases.EPDS_NINE) {
             send(ShowOptionsEvent(
@@ -27,49 +31,52 @@ val EPDSQuestion09: State = state(EPDSQuestions) {
     onResponse<Q9_0_NoNever> {
         send(OptionSelectedEvent("0"))
         users.current.epdsData.e9 = 0
-        ackAndGoto(EPDSQuestion10)
+        handleNext()
     }
     onResponse<Q9_1_OnlyOccasionally> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e9 = 1
         users.current.epdsData.addToScore(1, "EPDS09")
-        ackAndGoto(EPDSQuestion10)
+        handleNext()
     }
     onResponse<Q9_2_YesQuiteOften> {
         send(OptionSelectedEvent("2"))
         users.current.epdsData.e9 = 2
         users.current.epdsData.addToScore(2, "EPDS09")
-        ackAndGoto(EPDSQuestion10)
+        handleNext()
     }
     onResponse<Q9_3_YesMostOfTheTime> {
         send(OptionSelectedEvent("3"))
         users.current.epdsData.e9 = 3
         users.current.epdsData.addToScore(3, "EPDS09")
-        ackAndGoto(EPDSQuestion10)
+        handleNext()
     }
 
 
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current,"User responded ${it.get("response")} through GUI")
+        }
         when ((it.get("response") as String?)?.toLowerCase()) {
             "0" -> {
                 users.current.epdsData.e9 = 0
-                goto(EPDSQuestion10)
+                handleNext()
             }
             "1" -> {
                 users.current.epdsData.e9 = 1
                 users.current.epdsData.addToScore(1)
-                goto(EPDSQuestion10)
+                handleNext()
             }
             "2" -> {
                 users.current.epdsData.e9 = 2
                 users.current.epdsData.addToScore(2)
-                goto(EPDSQuestion10)
+                handleNext()
             }
             "3" -> {
                 users.current.epdsData.e9 = 3
                 users.current.epdsData.addToScore(3)
-                goto(EPDSQuestion10)
+                handleNext()
             }
         }
     }

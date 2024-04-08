@@ -7,19 +7,15 @@ import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.*
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.app.medicalscreener.nlu.*
-import furhatos.app.medicalscreener.setRobotFace
 import furhatos.flow.kotlin.*
-import furhatos.util.CommonUtils
 import furhatos.util.Gender
 import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.gestures.Gestures
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
-import furhatos.app.medicalscreener.flow.scenes.log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 //import java.time.LocalDateTime
 
@@ -284,6 +280,7 @@ val PersonalizationApplyOriginal : State = state(PersonalizationQuestionBase) {
 val PersonalizationApplyFemale: State = state(PersonalizationQuestionBase) {
     onEntry {
         log.debug("Entering PersonalizationApplyFemale state")
+
 //        writeKpi(users.current, "PersonalizationApplyFemale")
         furhat.setRobotVoice(currentLang,Gender.FEMALE)
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FEMALE_VOICE) {
@@ -341,6 +338,9 @@ val PersonalizationFace: State = state(PersonalizationQuestionBase) {
     var face = "Titan"
     onEntry {
         log.debug("Entering PersonalizationFace state")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current, "Entering PersonalizationFace state")
+        }
         furhat.askAndDo(i18n.phrases.PERSONALIZATION_FACE_CHOOSE){
             send(ClearScreen())
             send(ShowFacesEvent("show"))
@@ -384,6 +384,9 @@ val PersonalizationRemember: State = state(PersonalizationQuestionBase) {
     onEntry{
         log.debug("Entering PersonalizationRemember state")
         send(ClearScreen())
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current, "Entering PersonalizationRemember state")
+        }
         furhat.askAndDo(
             utterance { Gestures.Smile
                 +i18n.phrases.PERSONALIZATION_REMEMBER_CHOICE
@@ -448,29 +451,34 @@ private fun TriggerRunner<*>.handleMoveToGender() {
 }
 
 private fun TriggerRunner<*>.handleChooseMale() {
-//    writeKpi(users.current, "User Chose Male" )
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current, "User Chose Male")
+    }
     send(OptionSelectedEvent("male"))
     goto(PersonalizationApplyMale)
 }
 
 private fun TriggerRunner<*>.handleChooseOriginal(){
-//    writeKpi(users.current, "User Chose Ori")
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current, "User Chose Ori")
+    }
     furhat.setRobotVoice(currentLang,Gender.NEUTRAL)
     delay(500, TimeUnit.MILLISECONDS)
     goto(PersonalizationApplyOriginal)
 }
 
 private fun TriggerRunner<*>.handleChooseFemale() {
-//    writeKpi(users.current, "User Chose female")
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current, "User Chose female")
+    }
     send(OptionSelectedEvent("female"))
-
     goto(PersonalizationApplyFemale)
 }
 
 private fun TriggerRunner<*>.handleToRememberPersonalization(mask :String){
     users.current.personaliztionData.mask = mask
     CoroutineScope(Dispatchers.Default).launch {
-        writeKpi(users.current, "User Chose $mask " )
+        writeApi(users.current, "User Chose $mask " )
     }
     send(ClearScreen())
     goto(PersonalizationRemember)
@@ -478,7 +486,9 @@ private fun TriggerRunner<*>.handleToRememberPersonalization(mask :String){
 
 private fun TriggerRunner<*>.handleMoveToEPDS(){
     users.current.personaliztionData.endTimestamp()
-//    writeKpi(users.current, "User end Personalization" )
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current, "User end Personalization")
+    }
     send(ClearScreen())
     goto(EPDSStartQuestion)
 }

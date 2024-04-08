@@ -1,10 +1,26 @@
 package furhatos.app.medicalscreener.flow.scenes.MINI
 
+import furhatos.app.medicalscreener.*
 import furhatos.app.medicalscreener.flow.*
+import furhatos.app.medicalscreener.flow.introduction.GreetVisitor
+import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
+import furhatos.app.medicalscreener.flow.scenes.MINIInstructions
 import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.flow.kotlin.*
 import furhatos.app.medicalscreener.flow.scenes.MINIQuestionBase
+import furhatos.gestures.Gestures
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
+val DelusionButtons = partialState {
+    onButton ("Delusion yes") {
+        handleRecordScore("yes", "C3a_delu")
+    }
+    onButton("Delusion No") {
+        handleRecordScore("no", "C3a_delu")
+    }
+}
 
 val MINIQuestionC = state(MINIQuestionBase) {
 
@@ -26,7 +42,7 @@ val MINIQuestionC = state(MINIQuestionBase) {
     onButton("MINI C2a") {
         furhat.stopSpeaking()
         delay(10)
-        goto(MINIQuestion_C2a)
+        goto(MINIQuestion_C2a_1)
     }
 
 // Transition to MINIQuestion_C2b state
@@ -36,12 +52,12 @@ val MINIQuestionC = state(MINIQuestionBase) {
         goto(MINIQuestion_C2b)
     }
 
-// Transition to MINIQuestion_C3 Intro state
-    onButton("MINI C3 Intro") {
-        furhat.stopSpeaking()
-        delay(10)
-        goto(MINIQuestion_C3_Intro)
-    }
+//// Transition to MINIQuestion_C3 Intro state
+//    onButton("MINI C3 Intro") {
+//        furhat.stopSpeaking()
+//        delay(10)
+//        goto(MINIQuestion_C3_Intro)
+//    }
 
 // Transition to MINIQuestion_C3a state
     onButton("MINI C3a") {
@@ -107,7 +123,7 @@ val MINIQuestionC = state(MINIQuestionBase) {
 // Hypothetical implementation for MINI B intro or bridge state
 val MINIQuestion_C_Intro: State = state(MINIQuestionBase) {
     onEntry {
-        furhat.say(i18n.phrases.MINI_MOVE_TO_NEXT_SECTION)
+        furhat.sayAndRecord(i18n.phrases.MINI_MOVE_TO_NEXT_SECTION)
         delay(10)
         goto(MINIQuestion_C1a)
     }
@@ -118,7 +134,7 @@ val MINIQuestion_C_Intro: State = state(MINIQuestionBase) {
 
 val MINIQuestion_C1a: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C1a_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C1a_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
@@ -126,31 +142,60 @@ val MINIQuestion_C1a: State = state(MINIQuestionC) {
         handleRecordScore("yes", "C1a")
     }
     onButton(noButton) {
-        nextState = MINIQuestion_C2a
+        nextState = MINIQuestion_C2a_1
         handleRecordScore("no", "C1a")
+    }
+    onButton("Next") {
+        handleNext()
     }
 }
 
 val MINIQuestion_C1b: State = state(MINIQuestionC) {
+    nextState = MINIQuestion_C2a_1
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C1b_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C1b_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
-        nextState = MINIQuestion_C2a // Assuming you want to continue to C2 regardless of answer
         handleRecordScore("yes", "C1b")
     }
     onButton(noButton) {
-        nextState = MINIQuestion_C2a
         handleRecordScore("no", "C1b")
     }
     onButton("Next"){
         handleNext()
     }
 }
-val MINIQuestion_C2a: State = state(MINIQuestionC) {
+val MINIQuestion_C2a_1: State = state(MINIQuestionC) {
+    nextState = MINIQuestion_C2a_2
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C2a_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C2a_QUESTION_1)
+    }
+    onExit { lastState = currentState }
+    onButton(yesButton) {
+        handleRecordScore("yes", "C2a")
+    }
+    onButton(noButton) {
+        handleRecordScore("no", "C2a")
+    }
+    onButton("Next"){
+        handleNext()
+    }
+}
+
+val MINIQuestion_C2a_2: State = state(MINIQuestionC) {
+    onEntry {
+        if (users.current.miniData.C2a == 1){
+            nextState = MINIQuestion_C2b
+        }
+        else{
+            nextState = if (users.current.miniData.C1b == 0){
+                MINIQuestionFinished
+            } else{
+                MINIQuestion_C3a
+            }
+        }
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C2a_QUESTION_2)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
@@ -158,12 +203,7 @@ val MINIQuestion_C2a: State = state(MINIQuestionC) {
         handleRecordScore("yes", "C2a")
     }
     onButton(noButton) {
-        nextState = if (users.current.miniData.C1b == 0){
-            MINIQuestionFinished
-        } else{
-            MINIQuestion_C3_Intro
-        }
-        handleRecordScore("no", "C2a")
+        //doesn't change the status
     }
     onButton("Next"){
         handleNext()
@@ -172,18 +212,18 @@ val MINIQuestion_C2a: State = state(MINIQuestionC) {
 
 val MINIQuestion_C2b: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C2b_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C2b_QUESTION)
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
-        nextState = MINIQuestion_C3_Intro // Change to the appropriate next state
+        nextState = MINIQuestion_C3a // Change to the appropriate next state
         handleRecordScore("yes", "C2b")
     }
     onButton(noButton) {
         nextState = if (users.current.miniData.C1b == 0){
             MINIQuestionFinished
         } else{
-            MINIQuestion_C3_Intro
+            MINIQuestion_C3a
         }
         handleRecordScore("no", "C2b")
     }
@@ -192,25 +232,27 @@ val MINIQuestion_C2b: State = state(MINIQuestionC) {
     }
 }
 
+//
+//val MINIQuestion_C3_Intro: State = state(MINIQuestionC) {
+//    nextState = MINIQuestion_C3a // You need to define this function based on your flow
+//    onEntry {
+//        furhat.speak(i18n.phrases.MINIQuestion_C3_INTRO)
+//        send(ShowOptionsEvent(
+//            listOf(
+//                "0:${i18n.phrases.GENERAL_NO}",
+//                "1:${i18n.phrases.GENERAL_YES}"
+//            ),
+//            i18n.phrases.MINIQuestion_C3_INTRO
+//        ))
+//    }
+//}
 
-val MINIQuestion_C3_Intro: State = state(MINIQuestionC) {
-    nextState = MINIQuestion_C3a // You need to define this function based on your flow
-    currentQuestions = "C3"
-    onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3_INTRO)
-        send(ShowOptionsEvent(
-            listOf(
-                "0:${i18n.phrases.GENERAL_NO}",
-                "1:${i18n.phrases.GENERAL_YES}"
-            ),
-            i18n.phrases.MINIQuestion_C3_INTRO
-        ))
-    }
-}
 
 val MINIQuestion_C3a: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3a_QUESTION)
+        nextState = MINIQuestion_C3b
+        currentQuestions = "C3a"
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3_INTRO + i18n.phrases.MINIQuestion_C3a_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -222,25 +264,30 @@ val MINIQuestion_C3a: State = state(MINIQuestionC) {
     onExit { lastState = currentState }
     onButton(yesButton) {
         handleRecordScore("yes", "C3a")
-        nextState = MINIQuestion_C3b
-        furhat.say(i18n.phrases.MINI_ASK_FOR_EXAMPLES)
-        onButton ("Delusion yes") {
-            handleRecordScore("yes", "C3a_delu")
-        }
-        onButton("Delusion No") {
-            handleRecordScore("no", "C3a_delu")
-        }
-
+//        furhat.sayAndRecord(i18n.phrases.MINI_ASK_FOR_EXAMPLES)
     }
+    var showDelusionButtons = 0
+    onButton("Ask Example") {
+        if  (showDelusionButtons==0){
+            include(DelusionButtons)
+            showDelusionButtons = 1
+        }
+        furhat.sayAndRecord(i18n.phrases.MINI_ASK_FOR_EXAMPLES)
+    }
+
+
+
     onButton(noButton) {
-        nextState = MINIQuestion_C3b
         handleRecordScore("no", "C3a")
+    }
+    onButton("Next") {
+        handleNext()
     }
 }
 
 val MINIQuestion_C3b: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3b_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3b_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -258,11 +305,14 @@ val MINIQuestion_C3b: State = state(MINIQuestionC) {
         nextState = MINIQuestion_C3c
         handleRecordScore("no", "C3b")
     }
+    onButton("Next") {
+        handleNext()
+    }
 }
 
 val MINIQuestion_C3c: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3c_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3c_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -280,11 +330,14 @@ val MINIQuestion_C3c: State = state(MINIQuestionC) {
         nextState = MINIQuestion_C3d
         handleRecordScore("no", "C3c")
     }
+    onButton("Next") {
+        handleNext()
+    }
 }
 
 val MINIQuestion_C3d: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3d_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3d_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -302,11 +355,14 @@ val MINIQuestion_C3d: State = state(MINIQuestionC) {
         nextState = MINIQuestion_C3e
         handleRecordScore("no", "C3d")
     }
+    onButton("Next") {
+        handleNext()
+    }
 }
 
 val MINIQuestion_C3e: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3e_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3e_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -324,11 +380,14 @@ val MINIQuestion_C3e: State = state(MINIQuestionC) {
         nextState = MINIQuestion_C3f
         handleRecordScore("no", "C3e")
     }
+    onButton("Next") {
+        handleNext()
+    }
 }
 
 val MINIQuestion_C3f: State = state(MINIQuestionC) {
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3f_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3f_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -346,12 +405,15 @@ val MINIQuestion_C3f: State = state(MINIQuestionC) {
         nextState = MINIQuestion_C3g
         handleRecordScore("no", "C3f")
     }
+    onButton("Next") {
+        handleNext()
+    }
 }
 
 val MINIQuestion_C3g: State = state(MINIQuestionC) {
     nextState = MINIQuestionFinished
     onEntry {
-        furhat.say(i18n.phrases.MINIQuestion_C3g_QUESTION)
+        furhat.sayAndRecord(i18n.phrases.MINIQuestion_C3g_QUESTION)
         send(ShowOptionsEvent(
             listOf(
                 "0:${i18n.phrases.GENERAL_NO}",
@@ -362,12 +424,13 @@ val MINIQuestion_C3g: State = state(MINIQuestionC) {
     }
     onExit { lastState = currentState }
     onButton(yesButton) {
-        // Set next state or handle continue based on your flow
         handleRecordScore("yes", "C3g")
     }
     onButton(noButton) {
-        // Set next state or handle continue based on your flow
         handleRecordScore("no", "C3g")
+    }
+    onButton("Next") {
+        handleNext()
     }
 }
 

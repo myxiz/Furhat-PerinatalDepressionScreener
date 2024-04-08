@@ -8,31 +8,49 @@ import furhatos.flow.kotlin.*
 import furhatos.gestures.Gestures
 import furhatos.util.Language
 import kotlinx.coroutines.*
-import java.time.LocalDateTime
 
 
-val GreetTuringOn : State = state(Interaction){
+
+val GreetTuringOn : State = state(InteractionNoLeave){
     addGazeAversionBehaviour()
     val myScope = CoroutineScope(Dispatchers.Default)
 
     onEntry {
         send(ClearScreen())
+        runBlocking {
+            IP = test_IP(IP_ARRAY)
+        }
+        runBlocking {
+            println(getUsername())
+        }
+        log.debug("In GreetTuringOn state")
+        furhat.sayAndRecord(i18n.phrases.INTRODUCTION_GREETING_ON)
+        send(ShowOptionsEvent(allButCurrentLang()+ "start: ${i18n.phrases.GENERAL_START}"))
+    }
 
+    onReentry {
+        send(ClearScreen())
         runBlocking {
             val name = getUsername()
             println(name)
         }
-        log.debug("In GreetTuringOn state")
-        furhat.say(i18n.phrases.INTRODUCTION_GREETING_ON)
+        log.debug("Reentry GreetTuringOn state")
+        furhat.gesture(Gestures.BigSmile)
         send(ShowOptionsEvent(allButCurrentLang()+ "start: ${i18n.phrases.GENERAL_START}"))
     }
     onEvent("UserResponse") {
         log.debug("User responded ${it.get("response")} through GUI")
         val response = it.get("response") as String?
         if (response == "start"){
-            users.current.interactionInfo.robotOnTime = LocalDateTime.now()
+            if (users.current.interactionInfo.startTime == null){
+                users.current.interactionInfo.startTimestamp()
+            }
+            else{
+                users.current.interactionInfo.robotOnTime
+            }
+
             myScope.launch {
-                writeKpi(users.current, "Interaction Started")
+                writeApi(users.current, "Interaction Started")
                 getUsername()
                 log.info("user name: $userName")
             }
@@ -42,10 +60,12 @@ val GreetTuringOn : State = state(Interaction){
     }
     onButton ("Hello, Ask for consent"){
         users.current.interactionInfo.startTimestamp()
-        GlobalScope.launch {
-            writeKpi(users.current, "Interaction Started")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current, "Interaction Started")
         }
+        delay(300)
         goto(GreetVisitor)
+
     }
 }
 
@@ -54,17 +74,12 @@ val GreetVisitor: State = state(IntroductionBaseState) {
     addGazeAversionBehaviour()
 
     onEntry {
-        send(ClearScreen())
-        GlobalScope.launch {
-            getUsername()
-        }
-
         furhat.askAndDo(i18n.phrases.INTRODUCTION_GREETING +' '+ userName!!){
-
             furhat.gesture(Gestures.BigSmile)
+            send(ClearScreen())
             log.debug("In GreetVisitor state")
-            send(ShowOptionsEvent(allButCurrentLang()))
-            furhat.listen(300)
+//            send(ShowOptionsEvent(allButCurrentLang()))
+            furhat.listen(100)
         }
     }
 

@@ -1,7 +1,6 @@
 @file:Suppress("MoveLambdaOutsideParentheses")
 
 package furhatos.app.medicalscreener.flow
-
 import furhatos.app.medicalscreener.*
 import furhatos.app.medicalscreener.flow.introduction.*
 import furhatos.app.medicalscreener.flow.scenes.EPDSStartQuestion
@@ -21,11 +20,11 @@ import furhatos.gestures.defineGesture
 import furhatos.app.medicalscreener.nlu.Goodbye
 import furhatos.gestures.Gestures.BigSmile
 import furhatos.gestures.Gestures.Nod
-import furhatos.gestures.Gestures.Smile
 import furhatos.records.Location
 import furhatos.records.User
 import furhatos.util.Language
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
@@ -39,7 +38,6 @@ data class UserLeft(val user: User): Event()
 data class UserDefinitelyGone(val user: User): Event()
 
 val Interaction: State = state {
-
     onUserLeave(instant = true) {
         when {
             users.current == it -> { // user.other == it means that there is no other user
@@ -76,6 +74,8 @@ val Interaction: State = state {
 
     onEvent("Restart") {
         log.warn("Restarting interaction")
+        furhat.setRobotVoice(lang = currentLang)
+        furhat.setRobotFace()
         users.current.reset()
         goto(Idle)
     }
@@ -87,13 +87,12 @@ val Interaction: State = state {
         send(LedLight)
         propagate()
     }
-
 }
 
 val StandBy : State = state {
     onUserEnter(instant = true) {
         log.debug("User ${it.id} entered")
-        furhat.glance(it)
+        furhat.attend(it)
     }
 
     onEvent(eventClass = MonitorSpeechStart::class, instant = true, priority = true) {
@@ -115,11 +114,9 @@ val StandBy : State = state {
         send(LedLight)
         propagate()
     }
-
 }
 
 val InteractionNoLeave: State = state {
-
     onEvent<UserDefinitelyGone> {
         log.debug("User ${it.user.id} did not return")
         it.user.reset()
@@ -128,7 +125,7 @@ val InteractionNoLeave: State = state {
 
     onUserEnter(instant = true) {
         log.debug("User ${it.id} entered")
-        furhat.glance(it)
+        furhat.attend(it)
     }
 
     onEvent(eventClass = MonitorSpeechStart::class, instant = true, priority = true) {
@@ -145,12 +142,10 @@ val InteractionNoLeave: State = state {
 
     include(RemoteButtons)
     include(ChangeLanguageBehavior)
-
     onEvent<MonitorListenStart>(instant = true) {
         send(LedLight)
         propagate()
     }
-
 }
 
 val RemoteButtons = partialState {
@@ -187,11 +182,10 @@ val RemoteButtons = partialState {
         delay(800)
     }
 
-
     onButton ("Hello, Ask for consent"){
         users.current.interactionInfo.startTimestamp()
-        GlobalScope.launch {
-            writeKpi(users.current, "Interaction Started")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current, "Interaction Started")
         }
         goto(GreetVisitor)
     }
@@ -205,6 +199,7 @@ val RemoteButtons = partialState {
         furhat.setEnglishLanguage()
         reentry()
     }
+
     onButton("Set language: Swedish") {
         furhat.setSwedishLanguage()
         reentry()
@@ -229,6 +224,7 @@ fun waitForUserReturn(user: User) = state(null) {
     onEntry {
         log.debug("Waiting for user ${user.id} to return")
     }
+
     onUserEnter(instant = true, priority = true) {
         log.debug("${it.id} entered, while waiting for user ${pendingUserReturn?.id} to return")
         if (it == pendingUserReturn) {
@@ -276,12 +272,10 @@ fun AboutState(text: String, event: Event): State = state(Interaction) {
 
     onNoResponse {
         waitedPeriods++
-
         if (waitedPeriods > 5) {
-            furhat.say(i18n.phrases.GENERAL_REMIND_TO_MOVE_ON)
+            furhat.sayAndRecord(i18n.phrases.GENERAL_REMIND_TO_MOVE_ON)
             waitedPeriods = 0
         }
-
         furhat.listen()
     }
 
@@ -695,7 +689,7 @@ fun abortableStateDef(abortTo: State, onAbort: ((User) -> Unit)?): StateBuilder.
                 if (onAbort != null) onAbort(users.current)
                 goto(abortTo)
             } else {
-                furhat.say("OK, let's continue")
+//                furhat.speak("OK, let's continue")
                 reentry()
             }
         }
@@ -706,18 +700,18 @@ fun abortableStateDef(abortTo: State, onAbort: ((User) -> Unit)?): StateBuilder.
             goto(Goodbye)
         }
 
-        onResponse<GoHome> {
-            log.debug("User requested to go home (\"${it.text}\")")
-            val yesOrNo = furhat.askYN(i18n.phrases.GENERAL_CONFIRM_GO_TO_HOME)
-            if (yesOrNo == null || yesOrNo) {
-                log.debug("User confirmed to go home")
-                if (onAbort != null) onAbort(users.current)
-                goto(ScreeningConsent)
-            } else {
-                furhat.say("OK, let's continue")
-                reentry()
-            }
-        }
+//        onResponse<GoHome> {
+//            log.debug("User requested to go home (\"${it.text}\")")
+//            val yesOrNo = furhat.askYN(i18n.phrases.GENERAL_CONFIRM_GO_TO_HOME)
+//            if (yesOrNo == null || yesOrNo) {
+//                log.debug("User confirmed to go home")
+//                if (onAbort != null) onAbort(users.current)
+//                goto(ScreeningConsent)
+//            } else {
+//                furhat.say("OK, let's continue")
+//                reentry()
+//            }
+//        }
 
         onEvent("GoHome") {
             log.debug("User requested to go home from GUI")

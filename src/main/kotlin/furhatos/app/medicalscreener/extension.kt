@@ -17,7 +17,6 @@ import furhatos.gestures.Gestures.Surprise
 import furhatos.gestures.Gestures.Thoughtful
 import furhatos.gestures.Gestures.Wink
 import furhatos.records.Location
-import furhatos.skills.FurhatFace
 import furhatos.util.Gender
 import furhatos.util.Language
 
@@ -46,7 +45,7 @@ fun Furhat.setRobotVoice(lang : Language, gen: Gender = Gender.NEUTRAL) {
     val speakingRate = 0.95
     petraVoice = mapOf<Language, AzureVoice>(
             Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
-            Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
+            Language.MANDARIN to AzureVoice(name="XiaochenMultilingualNeural", language = Language.MANDARIN, rate = speakingRate),
             Language.SWEDISH to AzureVoice(name = "HilleviNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
     petraVoiceM = mapOf<Language, AzureVoice>(

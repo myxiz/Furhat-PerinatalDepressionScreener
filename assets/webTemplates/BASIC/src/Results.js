@@ -50,16 +50,16 @@ class Results extends React.PureComponent {
                             </span>
                         </p>
                         <p>
-                            {i18n[lang].RESULTS_ABOUT_TEST}
+                            {/*{i18n[lang].RESULTS_ABOUT_TEST}*/}
                             <br/>
                             {i18n[lang].THANKS_FOR_TEST}
                         </p>
-                        <div className="row">
-                            <div className="col">
-                                <h2 className="title-box text-left">{i18n[lang].RESULTS_MORE_ABOUT}</h2>
-                                <p className="" dangerouslySetInnerHTML={{__html: i18n[lang].RESULTS_EXTRA_CONTENT}}/>
-                            </div>
-                        </div>
+                        {/*<div className="row">*/}
+                        {/*    <div className="col">*/}
+                        {/*        <h2 className="title-box text-left">{i18n[lang].RESULTS_MORE_ABOUT}</h2>*/}
+                        {/*        <p className="" dangerouslySetInnerHTML={{__html: i18n[lang].RESULTS_EXTRA_CONTENT}}/>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
                 <div className="row continue-btn">

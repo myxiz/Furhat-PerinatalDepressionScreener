@@ -5,35 +5,45 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.client.statement.*
 
+suspend fun test_IP(IP_array: Array<String> ): String? {
+    val client = HttpClient() // Consider reusing the client or providing it externally for efficiency
+    IP_array.forEach { ip ->
+        try {
+            val url = "http://$ip/log" // Ensure your IP array does not contain protocol part
+            val postResponse: HttpResponse = client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody("testing IP")
+            }
+            if (postResponse.status == HttpStatusCode.OK) {
+                log.info("Connected to $ip")
+                client.close()
+                return ip // Return the working IP
+            }
+        } catch (e: Exception) {
+        }
+    }
+    client.close()
+    return null // Return null or throw if no IP worked
+}
+
 suspend fun customizedLog(content: String){
     HttpClient().use { client ->
         try {
-//            val postResponse: HttpResponse = client.post("http://localhost:5001/log") {
-//            val postResponse: HttpResponse = client.post("http://130.238.16.96:5001/log") {
-            val postResponse: HttpResponse = client.post("http://10.0.1.3:5001/log") {
+            val postResponse: HttpResponse = client.post("http://$IP/log") {
                     contentType(ContentType.Application.Json)
                     setBody(content)
-
             }
-//            val getResponse = client.get("http://localhost:5001/user") {
-//            }
             log.info("Writing to the web logger:  Response status: ${postResponse.status}")
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 }
 
 suspend fun getUsername(): String? {
     HttpClient().use { client ->
         try {
-//Local run
-//            val getResponse = client.get("http://localhost:5001/user") {
-//Ethernet IP
-//            val getResponse = client.get("http://130.238.16.96:5001/user") {
-//Lab router
-            val getResponse = client.get("http://10.0.1.3:5001/user") {
+            val getResponse = client.get("http://$IP/user") {
             }
             userName = getResponse.bodyAsText()
             log.info("Web: Got User Name: $userName")

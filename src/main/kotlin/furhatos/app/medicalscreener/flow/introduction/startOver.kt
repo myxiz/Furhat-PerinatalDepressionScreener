@@ -35,14 +35,14 @@ val StartOver : State = state(IntroductionBaseState) {
 
 private fun TriggerRunner<*>.onNo() {
     send(OptionSelectedEvent("no"))
-    furhat.say(i18n.phrases.GENERAL_OK_NO_PROBLEM)
+    furhat.sayAndRecord(i18n.phrases.GENERAL_OK_NO_PROBLEM)
     delay(500)
     goto(Goodbye)
 }
 
 private fun TriggerRunner<*>.onYes() {
     send(OptionSelectedEvent("yes"))
-    furhat.say(i18n.phrases.INTRODUCTION_START_OVER_CONFIRMED)
+    furhat.sayAndRecord(i18n.phrases.INTRODUCTION_START_OVER_CONFIRMED)
     delay(1000)
     users.current.reset()
     goto(ScreeningConsent)

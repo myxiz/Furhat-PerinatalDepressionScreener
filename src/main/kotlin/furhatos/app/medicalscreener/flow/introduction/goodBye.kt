@@ -5,7 +5,6 @@ package furhatos.app.medicalscreener.flow.introduction
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.i18n.Abort
 import furhatos.app.medicalscreener.i18n.i18n
-import furhatos.app.medicalscreener.nlu.GoHome
 import furhatos.app.medicalscreener.nlu.Goodbye
 import furhatos.event.EventSystem.send
 import furhatos.flow.kotlin.*
@@ -13,7 +12,7 @@ import furhatos.gestures.Gestures
 import furhatos.records.User
 import kotlinx.coroutines.*
 
-val goodByeTimeout = 30000
+val goodByeTimeout = 300000
 
 val Goodbye: State = state(Interaction) {
         onEntry {
@@ -21,7 +20,7 @@ val Goodbye: State = state(Interaction) {
 
             if (users.count < 1) goto(Idle) // User leaves at the end of another state leading to this one
             users.current.interactionInfo.endTimestamp()
-            endAndWriteKpi(users.current)
+            endAndWriteApi(users.current)
             send(ClearScreen())
             furhat.say({
                 +Gestures.BigSmile
@@ -42,7 +41,7 @@ val Goodbye: State = state(Interaction) {
 val GoodbyeNoSpeech: State = state(Interaction) {
         onEntry {
             log.debug("In GoodbyeNoSpeech state")
-            endAndWriteKpi(users.current)
+            endAndWriteApi(users.current)
 
             furhat.listen(timeout = goodByeTimeout)
         }
@@ -56,23 +55,22 @@ val GoodbyeNoSpeech: State = state(Interaction) {
 val GoodbyeShared = partialState {
     onUserEnter {
         log.debug("User entered during goodbye-state")
-
         users.current = it
-        users.current.reset()
+//        users.current.reset()
         goto(Idle)
     }
 
     onUserLeave {
         log.debug("User exited during goodbye-state")
-        users.current.reset()
+//        users.current.reset()
         goto(Idle)
     }
 
-    onResponse(listOf(Abort(), GoHome())) {
-        furhat.say(i18n.phrases.GENERAL_OK_NO_PROBLEM)
+    onResponse(listOf(Abort())) {
+        furhat.sayAndRecord(i18n.phrases.GENERAL_OK_NO_PROBLEM)
         send(OptionSelectedEvent("restart"))
         delay(1000)
-        users.current.reset()
+//        users.current.reset()
         goto(Idle)
     }
 
@@ -100,9 +98,9 @@ val GoodbyeShared = partialState {
     }
 }
 
-fun endAndWriteKpi(user : User) {
+fun endAndWriteApi(user : User) {
     user.interactionInfo.endTimestamp()
-    GlobalScope.launch {
-        writeKpi(user, "Interaction Completed")
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(user, "Interaction Completed")
     }
 }

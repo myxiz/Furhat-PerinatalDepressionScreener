@@ -5,9 +5,8 @@ package furhatos.app.medicalscreener.flow.scenes
 import furhatos.app.medicalscreener.flow.*
 import furhatos.app.medicalscreener.flow.introduction.ScreeningConsent
 import furhatos.app.medicalscreener.flow.scenes.EPDS.*
-import furhatos.app.medicalscreener.getUsername
 import furhatos.app.medicalscreener.i18n.i18n
-import furhatos.app.medicalscreener.userName
+import furhatos.app.medicalscreener.nlu.PreviousQuestion
 import furhatos.flow.kotlin.*
 import furhatos.util.CommonUtils
 import kotlinx.coroutines.CoroutineScope
@@ -66,17 +65,20 @@ val EPDSQuestions = state(EPDSQuestionBase)
     onButton("Result") {
         goto(EPDS_Results)
     }
+
+    onResponse<PreviousQuestion> {
+        handlePrevious()
+    }
 }
 
 
 val EPDSIntro: State = state(EPDSQuestions) {
     onEntry {
-        val myScope = CoroutineScope(Dispatchers.Default)
         log.debug("Entering EPDSIntro state")
         users.current.epdsData.score = 0
         users.current.personaliztionData.startTimestamp()
-        myScope.launch {
-            writeKpi(users.current, "Personalization Started: EPDS intro")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current, "Entering EPDSIntro state")
         }
         goto(PersonalizationStart)
     }
@@ -97,12 +99,10 @@ val EPDSStartQuestion: State = state(EPDSQuestions) {
         users.current.epdsData.score = 0
         users.current.epdsData.startTimestamp()
         myScope.launch {
-            writeKpi(users.current, "EPDS Screening Started")
+            writeApi(users.current, "EPDS Screening Started")
         }
-        furhat.say({
-            +i18n.phrases.EPDS_GETTING_STARTED
-        })
-        delay(500)
+        furhat.sayAndRecord( i18n.phrases.EPDS_GETTING_STARTED + i18n.phrases.EPDS_OPTIONS_LIST)
+        delay(1000)
         goto(EPDSQuestion01)
     }
 

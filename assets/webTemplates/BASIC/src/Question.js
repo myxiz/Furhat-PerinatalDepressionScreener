@@ -10,7 +10,10 @@ import Face5Alex from "./assets/Face_5_Alex.png"
 import SVG from 'react-inlinesvg';
 import {actions} from "./model";
 
+let eventHandled = false;
+
 class Question extends React.PureComponent {
+
     render() {
         let {showText, text, onOptionSelected, selectedOption, buttonsDisabled } = this.props
         let savedOptionEvent = localStorage.getItem('optionEvent');
@@ -56,7 +59,22 @@ class Question extends React.PureComponent {
                                             type="button"
                                             disabled={buttonsDisabled}
                                             className={`reply btn btn-lg btn-svg fading-btn fading-btn-${index+1} ${Question.getActiveClass(selectedOption, value)}`}
-                                            onClick={() => onOptionSelected(value)}>
+                                            onClick={() => {
+                                                if (!eventHandled) {
+                                                    onOptionSelected(value);
+                                                    eventHandled = true;
+                                                    // Optionally reset the flag here as well, if clicks are not followed by touchEnds
+                                                }}}
+                                            onTouchEnd = {() => {
+                                                if (!eventHandled) {
+                                                    setTimeout(() => {
+                                                        // delay 500 ms onOptionSelected
+                                                        onOptionSelected(value);
+                                                    }, 1)
+                                                    eventHandled = true;
+                                                    // Reset the flag after a short delay to handle subsequent actions
+                                                    setTimeout(() => { eventHandled = false; }, 300); // 300ms or adjust as needed
+                                                }}}>
                                             {title || value}
                                             { value==="en" && <SVG alt="English Flag" src={EnglishFlagIcon}/> }
                                             { value==="zh" && <SVG alt="Chinese Flag" src={ChineseFlagIcon}/> }
@@ -76,6 +94,8 @@ class Question extends React.PureComponent {
         return selectedOption != null && value.toLowerCase() === selectedOption.toLowerCase() ? "active" : ""
     }
 }
+
+
 
 Question.propTypes = {
     text: PropTypes.string,

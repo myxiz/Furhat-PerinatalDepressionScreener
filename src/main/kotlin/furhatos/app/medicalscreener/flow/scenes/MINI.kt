@@ -9,7 +9,6 @@ import furhatos.app.medicalscreener.i18n.i18n
 import furhatos.app.medicalscreener.setRobotFace
 import furhatos.app.medicalscreener.setRobotVoice
 import furhatos.flow.kotlin.*
-import furhatos.util.CommonUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,9 +28,9 @@ val MINIInstructions = state(MINIQuestionBase) {
         }
         users.current.miniData.startTimestamp()
         CoroutineScope(Dispatchers.Default).launch {
-            writeKpi(users.current,"MINI started")
+            writeApi(users.current,"MINI started")
         }
-        furhat.say(i18n.phrases.MINIInterviewIntroduction)
+        furhat.sayAndRecord(i18n.phrases.MINIInterviewIntroduction)
         delay(300)
     }
 

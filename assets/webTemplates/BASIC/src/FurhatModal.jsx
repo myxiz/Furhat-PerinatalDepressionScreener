@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/lib/Modal"
 import {ModalState} from "./model"
 import PropTypes from "prop-types"
 import React from "react"
-import FurhatLogo  from "./assets/furhat-logo-white.png"
+import LabLogo  from "./assets/logo_white.png"
 import Face0Titan from "./assets/Face_0_Titan.png"
 import Face1Jane from "./assets/Face_1_Jane.png"
 import Face2Nazar from "./assets/Face_2_Nazar.png"
@@ -23,7 +23,7 @@ export function FurhatModal(props) {
         <Modal.Header>
             {
                 {  [ModalState.AboutFurhat]: <Modal.Title>
-                        <img src={'dist' + FurhatLogo}
+                        <img src={'dist' + LabLogo}
                              className={"logo"}
                         />
                     </Modal.Title>
@@ -36,7 +36,7 @@ export function FurhatModal(props) {
                 [ModalState.AboutFurhat]: (<div>
                         <p>{i18n[lang].ABOUT_PETRA}</p>
                         <p className="about-link">
-                            www.furhatrobotics.com
+                            https://usr-lab.github.io
                         </p>
                     </div>
                 )

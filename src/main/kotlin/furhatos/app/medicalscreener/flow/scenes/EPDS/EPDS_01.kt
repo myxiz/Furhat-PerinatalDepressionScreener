@@ -4,10 +4,20 @@ import furhatos.app.medicalscreener.flow.scenes.EPDSQuestions
 import furhatos.app.medicalscreener.flow.scenes.log
 import furhatos.app.medicalscreener.i18n.*
 import furhatos.flow.kotlin.*
+import furhatos.gestures.Gestures
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 
 
+var nextState: State = EPDSQuestions
+var lastState: State = EPDSQuestions
 val EPDSQuestion01: State = state(EPDSQuestions) {
+
     onEntry {
+        nextState =EPDSQuestion02
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion1 state")
         users.current.epdsData.score = 0
 //        writeKpi(users.current, "Screening Started : EPDSQuestion1")
@@ -27,50 +37,74 @@ val EPDSQuestion01: State = state(EPDSQuestions) {
     onResponse<Q1_0_AsMuchAsIAlwaysCould> {
         send(OptionSelectedEvent("0"))
         users.current.epdsData.e1= 0
-        ackAndGoto(EPDSQuestion02)
+        handleNext()
     }
     onResponse<Q1_1_NotQuiteSoMuchNow> {
         send(OptionSelectedEvent("1"))
         users.current.epdsData.e1= 1
         users.current.epdsData.addToScore(1, "EPDS01")
-        ackAndGoto(EPDSQuestion02)
+        handleNext()
     }
     onResponse<Q1_2_DefinitelyNotSoMuchNow> {
         send(OptionSelectedEvent("2"))
         users.current.epdsData.e1= 2
         users.current.epdsData.addToScore(2, "EPDS01")
-        ackAndGoto(EPDSQuestion02)
+        handleNext()
     }
     onResponse<Q1_3_NotAtAll> {
         send(OptionSelectedEvent("3"))
         users.current.epdsData.e1= 3
         users.current.epdsData.addToScore(3, "EPDS01")
-        ackAndGoto(EPDSQuestion02)
+        handleNext()
     }
 
     onEvent("UserResponse") {
         furhatos.app.medicalscreener.log.debug("User responded ${it.get("response")} through GUI")
+        CoroutineScope(Dispatchers.Default).launch {
+            writeApi(users.current,"User responded ${it.get("response")} through GUI")
+        }
         when ((it.get("response") as String?)?.toLowerCase()) {
             "0" -> {
                 users.current.epdsData.e1 = 0
-                goto(EPDSQuestion02)
+                 handleNext()
+
             }
             "1" -> {
                 users.current.epdsData.e1 = 1
                 users.current.epdsData.addToScore(1)
-                goto(EPDSQuestion02)
+                 handleNext()
             }
             "2" -> {
                 users.current.epdsData.e1 = 2
                 users.current.epdsData.addToScore(2)
-                goto(EPDSQuestion02)
+                 handleNext()
             }
             "3" -> {
                 users.current.epdsData.e1 = 3
                 users.current.epdsData.addToScore(3)
-                goto(EPDSQuestion02)
+                 handleNext()
             }
         }
     }
 }
+
+
+fun TriggerRunner<*>.handleNext() {
+    furhat.gesture(Gestures.Nod, priority = 10)
+    delay(1000)
+    lastState = currentState
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current,"going to next EPDS ${nextState.name}")
+    }
+    goto(nextState)
+}
+fun TriggerRunner<*>.handlePrevious() {
+    furhat.gesture(Gestures.Nod, priority = 10)
+    delay(1000)
+    CoroutineScope(Dispatchers.Default).launch {
+        writeApi(users.current,"User requested to go to the previous EPDS ${lastState.name}")
+    }
+    goto(lastState)
+}
+
 

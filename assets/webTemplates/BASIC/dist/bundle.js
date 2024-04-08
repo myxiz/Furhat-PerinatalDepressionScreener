@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4315046dadc2edeaa31f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ba8eee5ae99ebeb1c663"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4457,9 +4457,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _furhatLogoWhite = __webpack_require__(204);
+var _logo_white = __webpack_require__(205);
 
-var _furhatLogoWhite2 = _interopRequireDefault(_furhatLogoWhite);
+var _logo_white2 = _interopRequireDefault(_logo_white);
 
 var _Face_0_Titan = __webpack_require__(41);
 
@@ -4517,7 +4517,7 @@ function FurhatModal(props) {
             _defineProperty({}, _model.ModalState.AboutFurhat, _react2.default.createElement(
                 _Modal2.default.Title,
                 null,
-                _react2.default.createElement("img", { src: 'dist' + _furhatLogoWhite2.default,
+                _react2.default.createElement("img", { src: 'dist' + _logo_white2.default,
                     className: "logo"
                 })
             ))[props.modal]
@@ -4536,7 +4536,7 @@ function FurhatModal(props) {
                 _react2.default.createElement(
                     "p",
                     { className: "about-link" },
-                    "www.furhatrobotics.com"
+                    "https://usr-lab.github.io"
                 )
             ))[props.modal]
         ),
@@ -4699,7 +4699,7 @@ var PropTypes = _interopRequireWildcard(_propTypes);
 
 var _model = __webpack_require__(9);
 
-var _hamburger = __webpack_require__(205);
+var _hamburger = __webpack_require__(204);
 
 var _hamburger2 = _interopRequireDefault(_hamburger);
 
@@ -4877,6 +4877,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import GermanFlagIcon from "./assets/german_flag.svg"
 
 
+var eventHandled = false;
+
 var Question = function (_React$PureComponent) {
     _inherits(Question, _React$PureComponent);
 
@@ -4971,7 +4973,24 @@ var Question = function (_React$PureComponent) {
                                         disabled: buttonsDisabled,
                                         className: 'reply btn btn-lg btn-svg fading-btn fading-btn-' + (index + 1) + ' ' + Question.getActiveClass(selectedOption, value),
                                         onClick: function onClick() {
-                                            return onOptionSelected(value);
+                                            if (!eventHandled) {
+                                                onOptionSelected(value);
+                                                eventHandled = true;
+                                                // Optionally reset the flag here as well, if clicks are not followed by touchEnds
+                                            }
+                                        },
+                                        onTouchEnd: function onTouchEnd() {
+                                            if (!eventHandled) {
+                                                setTimeout(function () {
+                                                    // delay 500 ms onOptionSelected
+                                                    onOptionSelected(value);
+                                                }, 1);
+                                                eventHandled = true;
+                                                // Reset the flag after a short delay to handle subsequent actions
+                                                setTimeout(function () {
+                                                    eventHandled = false;
+                                                }, 300); // 300ms or adjust as needed
+                                            }
                                         } },
                                     title || value,
                                     value === "en" && React.createElement(_reactInlinesvg2.default, { alt: 'English Flag', src: _english_flag2.default }),
@@ -5122,23 +5141,8 @@ var Results = function (_React$PureComponent) {
                         React.createElement(
                             "p",
                             null,
-                            _i18n2.default[lang].RESULTS_ABOUT_TEST,
                             React.createElement("br", null),
                             _i18n2.default[lang].THANKS_FOR_TEST
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "row" },
-                            React.createElement(
-                                "div",
-                                { className: "col" },
-                                React.createElement(
-                                    "h2",
-                                    { className: "title-box text-left" },
-                                    _i18n2.default[lang].RESULTS_MORE_ABOUT
-                                ),
-                                React.createElement("p", { className: "", dangerouslySetInnerHTML: { __html: _i18n2.default[lang].RESULTS_EXTRA_CONTENT } })
-                            )
                         )
                     )
                 ),
@@ -31604,15 +31608,15 @@ module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGlu
 
 /***/ }),
 /* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "images/c48c288aa14b9a3a2e4ea8101070ba5e-furhat-logo-white.png";
-
-/***/ }),
-/* 205 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTBweCIgaGVpZ2h0PSIzNXB4IiB2aWV3Qm94PSIwIDAgNTAgMzUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUxLjMgKDU3NTQ0KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5iYXJzIC0gRm9udEF3ZXNvbWU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iV2VsY29tZSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Ik5hdmlnYXRpb24tYmFyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtOTMyLjAwMDAwMCwgLTQxLjAwMDAwMCkiIGZpbGw9IiNGRkZGRkYiPgogICAgICAgICAgICA8cGF0aCBkPSJNOTgyLDcwLjE0Mjg5MTkgTDk4Miw3My41NzE0Njc0IEM5ODIsNzQuNTA4OTY4NSA5ODEuMDU1OTksNzUuMjg1NzU1MiA5NzkuOTE2NjY3LDc1LjI4NTc1NTIgTDkzNC4wODMzMzMsNzUuMjg1NzU1MiBDOTMyLjk0NDAxLDc1LjI4NTc1NTIgOTMyLDc0LjUwODk2ODUgOTMyLDczLjU3MTQ2NzQgTDkzMiw3MC4xNDI4OTE5IEM5MzIsNjkuMjA1MzkwOCA5MzIuOTQ0MDEsNjguNDI4NjA0MSA5MzQuMDgzMzMzLDY4LjQyODYwNDEgTDk3OS45MTY2NjcsNjguNDI4NjA0MSBDOTgxLjA1NTk5LDY4LjQyODYwNDEgOTgyLDY5LjIwNTM5MDggOTgyLDcwLjE0Mjg5MTkgWiBNOTgyLDU2LjQyODU4OTggTDk4Miw1OS44NTcxNjUzIEM5ODIsNjAuNzk0NjY2NSA5ODEuMDU1OTksNjEuNTcxNDUzMSA5NzkuOTE2NjY3LDYxLjU3MTQ1MzEgTDkzNC4wODMzMzMsNjEuNTcxNDUzMSBDOTMyLjk0NDAxLDYxLjU3MTQ1MzEgOTMyLDYwLjc5NDY2NjUgOTMyLDU5Ljg1NzE2NTMgTDkzMiw1Ni40Mjg1ODk4IEM5MzIsNTUuNDkxMDg4NyA5MzIuOTQ0MDEsNTQuNzE0MzAyMSA5MzQuMDgzMzMzLDU0LjcxNDMwMjEgTDk3OS45MTY2NjcsNTQuNzE0MzAyMSBDOTgxLjA1NTk5LDU0LjcxNDMwMjEgOTgyLDU1LjQ5MTA4ODcgOTgyLDU2LjQyODU4OTggWiBNOTgyLDQyLjcxNDI4NzggTDk4Miw0Ni4xNDI4NjMzIEM5ODIsNDcuMDgwMzY0NCA5ODEuMDU1OTksNDcuODU3MTUxIDk3OS45MTY2NjcsNDcuODU3MTUxIEw5MzQuMDgzMzMzLDQ3Ljg1NzE1MSBDOTMyLjk0NDAxLDQ3Ljg1NzE1MSA5MzIsNDcuMDgwMzY0NCA5MzIsNDYuMTQyODYzMyBMOTMyLDQyLjcxNDI4NzggQzkzMiw0MS43NzY3ODY2IDkzMi45NDQwMSw0MSA5MzQuMDgzMzMzLDQxIEw5NzkuOTE2NjY3LDQxIEM5ODEuMDU1OTksNDEgOTgyLDQxLjc3Njc4NjYgOTgyLDQyLjcxNDI4NzggWiIgaWQ9ImJhcnMtLS1Gb250QXdlc29tZSI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+"
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "images/a063b6f2e0940e09d9987a41a912043d-logo_white.png";
 
 /***/ }),
 /* 206 */

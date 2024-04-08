@@ -115,6 +115,8 @@ button:focus {
 }
 
 button.reply {
+
+    cursor:pointer;
     background-color: var(--green);
     border-radius: 15px;
     font-family: Signika, Verdana, sans-serif;

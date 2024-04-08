@@ -4,10 +4,7 @@ import furhatos.app.medicalscreener.ScreenerSkill
 import furhatos.app.medicalscreener.customizedLog
 import furhatos.records.User
 import furhatos.util.CommonUtils
-import io.ktor.client.*
-import io.ktor.client.request.*
 import java.io.IOException
-import java.net.URL
 import java.nio.file.Paths
 import java.time.LocalDateTime
 import kotlin.io.resolve
@@ -24,7 +21,7 @@ private val bufferedWriter = OUTPUT_FILE.bufferedWriter()
 
 private val log = CommonUtils.getLogger(ScreenerSkill::class.java)!!
 
-suspend fun writeKpi(user: User, phase: String) {
+suspend fun writeApi(user: User, phase: String) {
     log.info("writing to: $OUTPUT_FILE")
     customizedLog("${user.asJson(phase)}")
     try {

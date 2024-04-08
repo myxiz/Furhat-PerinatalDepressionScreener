@@ -23,13 +23,13 @@ class I18nPhrases {
     val GENERAL_YES = mapOf(
         en to "Yes",
         sv to "Ja",
-        zh to "是的"
+        zh to "是"
     )[currentLang]!!
 
     val GENERAL_NO = mapOf(
         en to "No",
         sv to "Nej",
-        zh to "没有"
+        zh to "否"
     )[currentLang]!!
 
     val GENERAL_SELECT = mapOf(
@@ -201,7 +201,7 @@ class I18nPhrases {
 
     val GENERAL_ACKNOWLEDGE_ALRIGHT = mapOf(
         en to "Alright,",
-        sv to "Bra,",
+        sv to "Okej",
         zh to "好的, "
     )[currentLang]!!
 
@@ -219,7 +219,7 @@ class I18nPhrases {
 
     val GENERAL_ACKNOWLEDGE_AHA = mapOf(
         en to "Uh-huh,",
-        sv to "Mm-hmm,",
+        sv to "Jo,",
         zh to "嗯, "
     )[currentLang]!!
 
@@ -279,26 +279,20 @@ class I18nPhrases {
 
     val GENERAL_CONFIRM_GO_TO_HOME = mapOf(
         en to "Do you want to start the screening again?",
-        sv to "Vill du börja screeningen igen?",
+        sv to "Vill du börja om screeningen igen från början?",
         zh to "您是否想要重新开始测试？"
     )[currentLang]!!
 
     val GENERAL_OPTIONS_LIST = mapOf(
-        en to { options: Iterable<String> -> "You can answer me with ${options.toConjugatedList(separator = ", ", conjugate = " or ")}. You can also say 'repeat', to ask me to repeat the question; 'stop' to go back; or 'goodbye' to let me know you're leaving." },
-        sv to { options: Iterable<String> -> "Du kan svara mig med ${options.toConjugatedList(separator = ", ", conjugate = " eller ")}. Du kan också säga 'repeat', för att be mig upprepa frågan; 'stop' för att gå tillbaka; eller 'goodbye' för att låta mig veta att du lämnar." },
-        zh to { options: Iterable<String> -> "您可以回答我 ${options.toConjugatedList(separator = ", ", conjugate = " 或者 ")}.您同样可以说'重复', 让我重复这个问题; '终止' 来返回; 或者'再见' 来让我知道您离开了." }
+        en to { options: Iterable<String> -> "You can answer me with the options on the screen: ${options.toConjugatedList(separator = ", ", conjugate = " or ")}. You can also say 'repeat', to ask me to repeat the question; 'stop' to go back to the start;" },
+        sv to { options: Iterable<String> -> "Du kan svara mig med alternativen på skärmen: ${options.toConjugatedList(separator = ", ", conjugate = " eller ")}. Du kan också säga 'upprepa', för att be mig upprepa frågan; eller 'Hejdå' för att låta mig veta att du lämnar" },
+        zh to { options: Iterable<String> -> "您可以回答我屏幕上的选项 ${options.toConjugatedList(separator = ", ", conjugate = " 或者 ")}.您同样可以说'重复', 让我重复这个问题; '返回' 来返回;" }
     )[currentLang]!!
 
-//    val GENERAL_OPTIONS_LIST = mapOf(
-//        en to { options: Iterable<String> -> "You can answer me with ${options.toConjugatedList(separator = ", ", conjugate = " or ")}. You can also say 'repeat', to ask me to repeat the question; 'stop' to go back; or 'goodbye' to let me know you're leaving." },
-//        sv to { options: Iterable<String> -> "Sie können mir wie folgt antworten: ${options.toConjugatedList(separator = ", ", conjugate = " oder ")} . Sie können auch 'wiederholen' sagen, um mich zu bitten die Frage zu wiederholen; 'stop' um zurück zu gehen; oder 'Auf Widersehen' um mich wissen zu lassen dass sie gehen." },
-//        zh to { options: Iterable<String> -> "您可以回答我 ${options.toConjugatedList(separator = ", ", conjugate = " 或者 ")}.您同样可以说'重复', 让我重复这个问题; '终止' 来返回; 或者'再见' 来让我知道您离开了." }
-//    )[currentLang]!!
 
     val GENERAL_ABOUT_FURHAT = mapOf(
         en to "Welcome, I'm a health screening Robot designed by Uppsala Social Robotics Lab to help you with interviews about your mental health.",
-        sv to "Jag är en robot som är designad av Uppsala Social Robotics Lab för att hjälpa till med intervjuer som bedömer mental hälsa. " +
-                "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara fördelaktigt att kontrollera hur din mentala välbefinnande är.",
+        sv to "Jag är en robot som är designad av Uppsala Social Robotics Lab för att hjälpa till med intervjuer som bedömer mental hälsa. ",
         zh to "你好，我是一个健康筛查机器人。我由乌普萨拉社交机器人实验室开发"
     )[currentLang]!!
 
@@ -306,7 +300,7 @@ class I18nPhrases {
 
     val GENERAL_LET_USER_KNOW_WHEN_TO_ANSWER = mapOf(
         en to "Sorry, I didn't hear you. Have you noticed that my lights turn up when I'm listening.",
-        sv to "Ursäkta, jag hörde dig inte. Har du märkt att mina ljus tänds när jag lyssnar?",
+        sv to "Ursäkta, jag hörde dig inte. Har du märkt att min lampa tänds när jag lyssnar?",
         zh to "抱歉, 我没有听到你的声音.您是否注意到我在聆听时灯亮了."
     )[currentLang]!!
 
@@ -385,10 +379,10 @@ class I18nPhrases {
 
     val INTRODUCTION_ROBOTINTRO = mapOf(
         //en does not need to match the swedish
-        en to "I am a robot designed to assist you with interviews for assessing mental health. We notice that you have scored high on the EPDS screening. It would be beneficial to check on your mental well-being.",
+        en to "I am a robot designed to assist you with interviews for assessing mental health. We notice that you have scored high on the EPDS screening. It would be good to explore further how you are feeling.",
         sv to "Jag är en robot designad för att hjälpa dig med intervjuer för bedömning av mental hälsa. " +
-                "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara fördelaktigt att kontrollera hur din mentala välbefinnande är.",
-        zh to "我是一个为了帮助您进行心理健康评估访谈而设计的机器人。我们注意到您在EPDS筛查中得分较高。检查一下您的心理健康状况将会是有益的。"
+                "Vi ser att du har fått högt resultat på EPDS-screeningen. Det skulle vara bra att undersöka mer hur du mår.",
+        zh to "我是一个为了帮助您进行心理健康评估访谈而设计的机器人。我们注意到您在EPDS筛查中得分较高。我们希望可以进一步了解您的感受。"
     )[currentLang]!!
 
 
@@ -399,33 +393,28 @@ class I18nPhrases {
         zh to "谢谢您的信任。"
     )[currentLang]!!
 
-    val INTRODUCTION_ALL_DONE = mapOf(
-        en to "You have completed the screening. Would you like to repeat it?",
-        sv to "Sie haben die Voruntersuchung abgeschlossen. Möchten Sie sie noch einmal durchführen?",
-        zh to "您已经完成了检查.您想要再重复一遍吗？"
-    )[currentLang]!!
 
-    val INTRODUCTION_PND_PROMPT = mapOf(
-        en to "Would you like to know more about perinatal depression, before we start the screening?",
-        sv to "Vill du veta mer om perinatal depression innan vi börjar screeningen?",
-        zh to "在开始检查之前, 您想了解有关围产期抑郁症的更多信息吗？"
-    )[currentLang]!!
+//    val INTRODUCTION_PND_PROMPT = mapOf(
+//        en to "Would you like to know more about perinatal depression, before we start the screening?",
+//        sv to "Vill du veta mer om perinatal depression innan vi börjar screeningen?",
+//        zh to "在开始检查之前, 您想了解有关围产期抑郁症的更多信息吗？"
+//    )[currentLang]!!
 
-    val INTRODUCTION_REPEAT_OPTIONS_VAR1  = mapOf(
-        en to "First, can I tell you a bit about why this is important?",
-        sv to "Först, kan jag berätta lite om varför detta är viktigt?",
-        zh to "首先，我可以告诉您为什么这很重要吗？"
-    )[currentLang]!!
-
-    val INTRODUCTION_REPEAT_OPTIONS_VAR2 = mapOf(
-        en to "Would you like me to tell you more about perinatal depression?",
-        sv to "Vill du berättar mer om perinatal depression?",
-        zh to "你想我告诉你更多有关围产期抑郁症的信息吗？"
-    )[currentLang]!!
+//    val INTRODUCTION_REPEAT_OPTIONS_VAR1  = mapOf(
+//        en to "First, can I tell you a bit about why this is important?",
+//        sv to "Först, kan jag berätta lite om varför detta är viktigt?",
+//        zh to "首先，我可以告诉您为什么这很重要吗？"
+//    )[currentLang]!!
+//
+//    val INTRODUCTION_REPEAT_OPTIONS_VAR2 = mapOf(
+//        en to "Would you like me to tell you more about perinatal depression?",
+//        sv to "Vill du berättar mer om perinatal depression?",
+//        zh to "你想我告诉你更多有关围产期抑郁症的信息吗？"
+//    )[currentLang]!!
 
     val INTRODUCTION_INVALID_RESPONSE_VAR1 = mapOf(
         en to "I'm sorry, I can't help you with that.",
-        sv to "Es tut mir sehr Leid, aber damit kann ich Ihnen nicht helfen.",
+        sv to "Jag är väldigt ledsen, men jag kan inte hjälpa dig med det.",
         zh to "很抱歉, 我不能帮您."
     )[currentLang]!!
 
@@ -456,36 +445,39 @@ class I18nPhrases {
         zh to "再见！"
     )[currentLang]!!
 
-    val INTRODUCTION_PND_DESCRIPTION = mapOf(
-        en to "Perinatal depression is a form of clinical depression that can occur in women during pregnancy and after childbirth. It involves intense feelings of sadness, anxiety, and fatigue that can interfere with a woman's ability to care for herself and her baby, extending beyond the typical \"baby blues.\"",
-        sv to "Perinatal depression är en form av klinisk depression som kan drabba kvinnor under graviditeten och efter förlossningen. Den innefattar intensiva känslor av sorg, ångest och trötthet som kan störa en kvinnas förmåga att ta hand om sig själv och sitt barn, vilket går utöver de typiska \"babybluesen\".",
-        zh to "围产期抑郁症是一种可以在怀孕期间和分娩后影响女性的临床抑郁症。它涉及到强烈的悲伤、焦虑和疲劳感，这些感觉可能会干扰女性照顾自己和婴儿的能力，超出了典型的“产后忧郁”范畴。"
-    )[currentLang]!!
+    //----------------------------not using-------------------------
+//    val INTRODUCTION_PND_DESCRIPTION = mapOf(
+//        en to "Perinatal depression is a form of clinical depression that can occur in women during pregnancy and after childbirth. It involves intense feelings of sadness, anxiety, and fatigue that can interfere with a woman's ability to care for herself and her baby, extending beyond the typical \"baby blues.\"",
+//        sv to "Perinatal depression är en form av klinisk depression som kan drabba kvinnor under graviditeten och efter förlossningen. Den innefattar intensiva känslor av sorg, ångest och trötthet som kan störa en kvinnas förmåga att ta hand om sig själv och sitt barn, vilket går utöver de typiska \"babybluesen\".",
+//        zh to "围产期抑郁症是一种可以在怀孕期间和分娩后影响女性的临床抑郁症。它涉及到强烈的悲伤、焦虑和疲劳感，这些感觉可能会干扰女性照顾自己和婴儿的能力，超出了典型的“产后忧郁”范畴。"
+//    )[currentLang]!!
+//
+//
+//    val INTRODUCTION_EPDS_NO_DESCRIPTION = mapOf(
+//        en to "Ok. Then we will skip directly to the questions.",
+//        sv to "Okej. Då hoppar vi direkt till frågorna.",
+//        zh to "好的。然后我们将直接跳转到问题。"
+//    )[currentLang]!!
+//
+//    val INTRODUCTION_EPDS_DESCRIPTION = mapOf(
+//        en to "This screening and this risk assessment is based on the Edinburgh Postnatal Depression Scale (EPDS) screening test designed by Professor John Cox. Since 2010, the National Board of Health and Welfare has recommended general screening of all new mothers for depression.",
+//        sv to "Denna screening och riskbedömning är baserad på Edinburghs skala för efterfödseldepression (EPDS), ett screeningtest som utformats av professor John Cox. Sedan 2010 har Socialstyrelsen rekommenderat generell screening av alla nyblivna mammor för depression.",
+//        zh to "该筛查和风险评估是基于由约翰·考克斯教授设计的爱丁堡产后抑郁量表（EPDS）筛查测试。自2010年起，瑞典国家卫生和福利委员会推荐对所有新妈妈进行抑郁症的普遍筛查。"
+//    )[currentLang]!!
+//
+//    val INTRODUCTION_DESCRIPTION_OPTION_YES = mapOf(
+//        en to "Yes, tell me more",
+//        sv to "Ja, berätta mer för mig",
+//        zh to "好的，告诉我更多"
+//    )[currentLang]!!
+//
+//    val INTRODUCTION_DESCRIPTION_OPTION_NO = mapOf(
+//        en to "No, start screening",
+//        sv to "Nej, starta screeningen",
+//        zh to "不用，开始检查"
+//    )[currentLang]!!
 
-
-    val INTRODUCTION_EPDS_NO_DESCRIPTION = mapOf(
-        en to "Ok. Then we will skip directly to the questions.",
-        sv to "Okej. Då hoppar vi direkt till frågorna.",
-        zh to "好的。然后我们将直接跳转到问题。"
-    )[currentLang]!!
-
-    val INTRODUCTION_EPDS_DESCRIPTION = mapOf(
-        en to "This screening and this risk assessment is based on the Edinburgh Postnatal Depression Scale (EPDS) screening test designed by Professor John Cox. Since 2010, the National Board of Health and Welfare has recommended general screening of all new mothers for depression.",
-        sv to "Denna screening och riskbedömning är baserad på Edinburghs skala för efterfödseldepression (EPDS), ett screeningtest som utformats av professor John Cox. Sedan 2010 har Socialstyrelsen rekommenderat generell screening av alla nyblivna mammor för depression.",
-        zh to "该筛查和风险评估是基于由约翰·考克斯教授设计的爱丁堡产后抑郁量表（EPDS）筛查测试。自2010年起，瑞典国家卫生和福利委员会推荐对所有新妈妈进行抑郁症的普遍筛查。"
-    )[currentLang]!!
-
-    val INTRODUCTION_DESCRIPTION_OPTION_YES = mapOf(
-        en to "Yes, tell me more",
-        sv to "Ja, berätta mer för mig",
-        zh to "好的，告诉我更多"
-    )[currentLang]!!
-
-    val INTRODUCTION_DESCRIPTION_OPTION_NO = mapOf(
-        en to "No, start screening",
-        sv to "Nej, starta screeningen",
-        zh to "不用，开始检查"
-    )[currentLang]!!
+//    ------------------end-----------------------
 
     val INTRODUCTION_START_OVER = mapOf(
         en to "Would you like to do the screening again?",
@@ -507,15 +499,15 @@ class I18nPhrases {
     // Scene - Personalization
 
     val PERSONALIZATION_GENDER_MATTERS = mapOf(
-        en to "A few set up before we start. Would you prefer to interact with a robot with a particular gender?",
-        sv to "Några inställningar innan vi börjar. Föredrar du att interagera med en robot av ett specifikt kön?",
-        zh to "在我们开始之前先进行一些设置。您是否更喜欢与特定性别的机器人互动？"
+        en to "A few set up before we start. Would you prefer to talk to a robot with a particular gender?",
+        sv to "Några inställningar innan vi börjar. Skulle du föredra att prata med en robot med ett särskilt kön?",
+        zh to "在我们开始之前先进行一些设置。您是否更喜欢与特定性别的机器人对话？"
     )[currentLang]!!
 
     val PERSONALIZATION_GENDER_MATTERS_PROMPT = mapOf(
-        en to " Would you prefer to interact with a robot with a particular gender?",
-        sv to " Föredrar du att interagera med en robot av ett specifikt kön?",
-        zh to "您是否更喜欢与特定性别的机器人互动?"
+        en to " Would you prefer to talk to a robot with a particular gender?",
+        sv to " Skulle du föredra att prata med en robot med ett särskilt kön?",
+        zh to "您是否更喜欢与特定性别的机器人对话?"
     )[currentLang]!!
 
     val PERSONALIZATION_GENDER_PREFERENCE = mapOf(
@@ -570,21 +562,21 @@ class I18nPhrases {
     )[currentLang]!!
 
     val PERSONALIZATION_FACE_CHOOSE = mapOf(
-        en to "There are 8 options. Touch to apply it on the robot.",
-        sv to "Det finns 8 alternativ. Tryck för att tillämpa det på roboten.",
-        zh to "请触摸选择的8个选项其中之一。"
+        en to "There are 8 appearance options. Touch to apply it on the robot.",
+        sv to "Det finns 8 utseendealternativ. Tryck för att tillämpa det på roboten.",
+        zh to "请触摸选择的8个外观选项其中之一。"
     )[currentLang]!!
 
     val PERSONALIZATION_REMEMBER_CHOICE = mapOf(
-        en to "Do you want me to remember your personalization setting for the next time you visit?",
-        sv to "Vill du att jag ska komma ihåg dina anpassningsinställningar till nästa gång du besöker?",
-        zh to "您希望在您下次访问时记住您的个性化设置吗？"
+        en to "Would you like me to save your customization settings for your next visit to the hospital?",
+        sv to "Vill du att jag ska spara dina anpassningsinställningar inför ditt nästa besök på sjukhuset?",
+        zh to "您希望我在您下次前来医院时记住您的个性化设置吗？"
     )[currentLang]!!
 
     val PERSONALIZATION_CONFIRMATION = mapOf(
         en to "Hi, do you want me to conduct the interview with you?",
         sv to "Hej, vill du att jag ska genomföra intervjun med dig?",
-        zh to "你好，你希望由我来进行这次访问吗？"
+        zh to "你好，你希望由我来进行这次测试吗？"
     )[currentLang]!!
 
     val PERSONALIZATION_RESELECT_PROMPT = mapOf(
@@ -621,13 +613,21 @@ class I18nPhrases {
         zh to "我将协助您再次填写EPDS问卷。您想由我来进行检查吗？"
     )[currentLang]!!
 
-    val EPDS_GETTING_STARTED  = mapOf(
-        en to "Now I will ask you a few questions. It might take around 10 minutes."
-            + "Please chose the response that best reflects how you have been feeling over the last 7 days, not just how you are feeling today.",
-        sv to "Nu ska jag ställa några frågor. Det kan ta cirka 10 minuter."
-            + "Var god välj det svar som bäst återspeglar hur du har känt dig under de senaste 7 dagarna, inte bara hur du mår idag.",
-        zh to ""
+    val EPDS_GETTING_STARTED = mapOf(
+        en to "Now I will ask you a few questions. It might take around 5 minutes. " +
+                "Please choose the response that best reflects how you have been feeling over the last 7 days, not just how you are feeling today.",
+        sv to "Nu ska jag ställa några frågor. Det kan ta cirka 5 minuter. " +
+                "Var god välj det svar som bäst återspeglar hur du har känt dig under de senaste 7 dagarna, inte bara hur du mår idag.",
+        zh to "现在我将问你几个问题。可能需要大约5分钟。" +
+                "请选择最能反映您过去7天内的感受的答案，而不仅仅是今天的感受。"
     )[currentLang]!!
+
+    val EPDS_OPTIONS_LIST = mapOf(
+        en to "You can answer me by read the options on the screen. You can also say 'repeat', to ask me to repeat the question; or 'go back' to return to the previous question." ,
+        sv to "Du kan svara mig genom att läsa alternativen på skärmen. Du kan också säga 'upprepa', för att be mig upprepa frågan; eller 'Tillbaka' för att återgå till föregående fråga." ,
+        zh to "您可以回答我屏幕上的选项. 您同样可以说'重复', 让我重复这个问题; '返回' 来返回;"
+    )[currentLang]!!
+
 
     val EPDS_ONE = mapOf(
         en to "I have been able to laugh and see the funny side of things",
@@ -964,9 +964,9 @@ class I18nPhrases {
 
 
     val EPDS_READ_RESULTS_1 = mapOf(
-        en to "That was the last question. See the screen for your results. And as I said in the beginning, I'm not a doctor so the results are only an indicator. Take your time, and we will have a specialist follow up with your result and get back to you later. Thank you for participating.",
-        sv to "Det var den sista frågan. Se skärmen för dina resultat. Och som jag sa i början, jag är inte läkare så resultaten är endast en indikator. Ta din tid, och vi kommer att ha en specialist som följer upp ditt resultat och återkommer till dig senare. Tack för att du deltog.",
-        zh to "那是最后一个问题。请查看屏幕上的结果。正如我刚开始所说的，我不是医生，所以结果仅供参考。别着急，我们将会有专家跟进您的结果，并稍后与您联系。谢谢您的参与。"
+        en to "That was the last question. See the screen for your results. And as I said in the beginning, I'm not a doctor so the results are only an indicator.",
+        sv to "Det var den sista frågan. Se skärmen för dina resultat. Och som jag sa i början, jag är inte läkare så resultaten är endast en indikator.",
+        zh to "那是最后一个问题。请查看屏幕上的结果。正如我刚开始所说的，我不是医生，所以结果仅供参考。"
     )[currentLang]!!
 
     //MINI interview
@@ -1022,60 +1022,66 @@ class I18nPhrases {
 
     // Question A3
 
-    val MINIQuestion_A3a_QUESTION = mapOf(
-        en to "Did you have decreased or increased appetite almost every day? Did you unintentionally lose or gain weight (i.e., ±5% of body weight, that is, ±3.5 kg for a person weighing 70 kg, within a month)?",
-        sv to "Hade du minskad eller ökad aptit nästan varje dag? Minskade eller ökade du oavsiktligt i vikt (d.v.s. med ±5% av kroppsvikten, eller ±3,5 kg eller ±8 lb för en person som väger 70 kg, på en månad)?",
-        zh to "您是否几乎每天都感到食欲减退或增加？是否在一个月内无意中减轻或增加了体重（即体重的±5%，对于一个重70公斤的人，大约3.5公斤）？"
+    val MINIQuestion_A3a_QUESTION_1 = mapOf(
+        en to "During the last two weeks, did you have decreased or increased appetite almost every day?",
+        sv to "Under de senaste två veckorna, hade du minskad eller ökad aptit nästan varje dag?",
+        zh to "在过去的两周里，您是否几乎每天都感到食欲减退或增加?"
     )[currentLang]!!
-    val MINIQuestion_A3a_PROMPT = MINIQuestion_A3a_QUESTION
+
+    val MINIQuestion_A3a_QUESTION_2 = mapOf(
+        en to "Did you unintentionally lose or gain weight (i.e., ±5% of body weight, that is, ±3.5 kg for a person weighing 70 kg, within a month)?",
+        sv to "Minskade eller ökade du oavsiktligt i vikt (d.v.s. med ±5% av kroppsvikten, eller ±3,5 kg för en person som väger 70 kg, på en månad)?",
+        zh to "是否在一个月内无意中减轻或增加了体重（即体重的±5%，对于一个重70公斤的人，大约3.5公斤）？"
+    )[currentLang]!!
+//    val MINIQuestion_A3a_PROMPT = MINIQuestion_A3a_QUESTION
 
     val MINIQuestion_A3b_QUESTION = mapOf(
-        en to "Did you have trouble sleeping almost every night (difficulty falling asleep, waking up in the middle of the night, waking up too early in the morning, or sleeping too much)?",
-        sv to "Hade du problem med sömnen nästan varje natt (svårt att somna in, vaknade upp mitt i natten, vaknade alldeles för tidigt på morgonen eller sov alldeles för mycket)?",
-        zh to "您是否几乎每个夜晚都有睡眠问题（入睡困难、半夜醒来、早晨醒得太早或睡眠过多）？"
+        en to "During the last two weeks, did you have trouble sleeping almost every night (difficulty falling asleep, waking up in the middle of the night, waking up too early in the morning, or sleeping too much)?",
+        sv to "Under de senaste två veckorna, hade du problem med sömnen nästan varje natt (svårt att somna in, vaknade upp mitt i natten, vaknade alldeles för tidigt på morgonen eller sov alldeles för mycket)?",
+        zh to "在过去的两周里，您是否几乎每个夜晚都有睡眠问题（入睡困难、半夜醒来、早晨醒得太早或睡眠过多）？"
     )[currentLang]!!
     val MINIQuestion_A3b_PROMPT = MINIQuestion_A3b_QUESTION
 
     val MINIQuestion_A3c_QUESTION = mapOf(
-        en to "Did you talk or move more slowly than usual, or were you restless or had difficulty sitting still almost every day? Did anyone notice this?",
-        sv to "Pratade eller rörde du dig långsammare än vanligt, eller var du rastlös eller hade svårt att sitta still nästan varje dag? Märkte någon detta?",
-        zh to "您是否讲话或动作比平时慢，或者几乎每天都感到焦躁不安或难以静坐？有人注意到这一点吗？"
+        en to "During the last two weeks, did you talk or move more slowly than usual, or were you restless or had difficulty sitting still almost every day? Did anyone notice this?",
+        sv to "Under de senaste två veckorna, pratade eller rörde du dig långsammare än vanligt, eller var du rastlös eller hade svårt att sitta still nästan varje dag? Eller märkte någon detta?",
+        zh to "在过去的两周里，您是否讲话或动作比平时慢，或者几乎每天都感到焦躁不安或难以静坐？有人注意到这一点吗？"
     )[currentLang]!!
     val MINIQuestion_A3c_PROMPT = MINIQuestion_A3c_QUESTION
 
     val MINIQuestion_A3d_QUESTION = mapOf(
-        en to "Did you feel tired or had little energy almost every day?",
-        sv to "Kände du dig trött eller orkeslös nästan varje dag?",
-        zh to "您是否几乎每天都感到疲倦或缺乏活力？"
+        en to "During the last two weeks, did you feel tired or had little energy almost every day?",
+        sv to "Under de senaste två veckorna, kände du dig trött eller orkeslös nästan varje dag?",
+        zh to "在过去的两周里，您是否几乎每天都感到疲倦或缺乏活力？"
     )[currentLang]!!
     val MINIQuestion_A3d_PROMPT = MINIQuestion_A3d_QUESTION
 
     val MINIQuestion_A3e_QUESTION = mapOf(
-        en to "Did you feel worthless or had excessive guilt almost every day?",
-        sv to "Kände du dig värdelös eller hade skuldkänslor nästan varje dag?",
-        zh to "您是否几乎每天都感觉自己一文不值或有过度的罪恶感？"
+        en to "During the last two weeks, did you feel worthless or had excessive guilt almost every day?",
+        sv to "Under de senaste två veckorna, kände du dig värdelös eller hade skuldkänslor nästan varje dag?",
+        zh to "在过去的两周里，您是否几乎每天都感觉自己一文不值或有过度的罪恶感？"
     )[currentLang]!!
     val MINIQuestion_A3e_PROMPT = MINIQuestion_A3e_QUESTION
 
     val MINIQuestion_A3f_QUESTION = mapOf(
-        en to "Did you have trouble concentrating, thinking, or making decisions almost every day?",
-        sv to "Hade du svårt att koncentrera dig, tänka eller fatta beslut nästan varje dag?",
-        zh to "您是否几乎每天都难以集中注意力、思考或做决定？"
+        en to "During the last two weeks, did you have trouble concentrating, thinking, or making decisions almost every day?",
+        sv to "Under de senaste två veckorna, hade du svårt att koncentrera dig, tänka eller fatta beslut nästan varje dag?",
+        zh to "在过去的两周里，您是否几乎每天都难以集中注意力、思考或做决定？"
     )[currentLang]!!
     val MINIQuestion_A3f_PROMPT = MINIQuestion_A3f_QUESTION
 
     val MINIQuestion_A3g_QUESTION = mapOf(
-        en to "Did you often think about death (not just fear of dying), have thoughts of killing yourself, or have plans or intentions to do so? Did you attempt to take your life?",
-        sv to "Tänkte du ofta på döden (RÄDSLA FÖR ATT DÖ RÄKNAS INTE HÄR), eller hade tankar på att ta livet av dig, eller hade du avsikter eller planer på att ta ditt liv? Försökte du ta ditt liv?",
-        zh to "您是否经常考虑到死亡（不仅仅是对死亡的恐惧）、有自杀的想法或计划和意图？您是否尝试过结束自己的生命？"
+        en to "During the last two weeks, did you often think about death, have thoughts of killing yourself, or have plans or intentions to do so? ",
+        sv to "Under de senaste två veckorna, tänkte du ofta på döden, eller hade tankar på att ta livet av dig, eller hade du avsikter eller planer på att ta ditt liv? ",
+        zh to "在过去的两周里，您是否经常考虑到死亡（不仅仅是对死亡的恐惧）、有自杀的想法或计划和意图？"
     )[currentLang]!!
-    val MINIQuestion_A3g_PROMPT = MINIQuestion_A3g_QUESTION
+
 
 
     val MINIQuestion_A4_QUESTION = mapOf(
-        en to "Did these problems cause significant distress or problems in your home, work, studies, social interactions, relationships, or any other important areas, and did they represent a change from how you were previously functioning?",
-        sv to "Orsakade dessa symtom påtagliga besvär eller problem hemma, i arbetet, i dina studier, socialt, i relationer, eller på något annat viktigt sätt, och innebar de en förändring mot hur du fungerat tidigare?",
-        zh to "这些问题是否在家庭、工作、学习、社交互动、人际关系或其他重要领域造成了显著的困扰或问题，并且它们是否代表了与您以前的功能相比的变化？"
+        en to "During the last two weeks, did these problems, as we have now discussed, cause significant distress or problems in your home, work, studies, social interactions, relationships, or any other important areas, and did they represent a change from how you were previously functioning?",
+        sv to "Under de senaste två veckorna, orsakade dessa symtom, som vi nu pratat om, påtagliga besvär eller problem hemma, i arbetet, i dina studier, socialt, i relationer, eller på något annat viktigt sätt, och innebar de en förändring mot hur du fungerat tidigare?",
+        zh to "在过去的两周里，我们讨论过的这些问题是否在家庭、工作、学习、社交互动、人际关系或其他重要领域造成了显著的困扰或问题，并且它们是否代表了与您以前的功能相比的变化？"
     )[currentLang]!!
 
     val MINI_MOVE_TO_NEXT_SECTION = mapOf(
@@ -1085,61 +1091,59 @@ class I18nPhrases {
     )[currentLang]!!
 
 
-    val MINI_ASK_FOR_EXAMPLES = mapOf(
-        en to "Can you give me some examples? It's important for us to understand specific situations or thoughts that you've experienced.",
-        sv to "Kan du ge mig några exempel? Det är viktigt för oss att förstå specifika situationer eller tankar som du har upplevt.",
-        zh to "您能给我一些例子吗？对我们来说，理解您经历过的具体情况或思想是非常重要的。"
-    )[currentLang]!!
-
-
     val MINIQuestion_B1_QUESTION = mapOf(
-        en to "Have you experienced an accident? This includes accidentally taking too many pills.",
-        sv to "Har du varit med om en olyckshändelse? Detta inbegriper att råka ta för många tabletter.",
-        zh to "你有没有经历过意外事故？这包括不小心吃了太多药片。"
+        en to "During the last month, have you experienced an accident? This includes accidentally taking too many pills.",
+        sv to "Under den senaste månaden, har du varit med om en olyckshändelse? Detta inbegriper att råka ta för många tabletter.",
+        zh to "在过去的一个月里，你有没有经历过意外事故？这包括不小心吃了太多药片。"
     )[currentLang]!!
 
     val MINIQuestion_B1a_QUESTION = mapOf(
-        en to "Did you plan or intend to harm yourself in any accident, either by not avoiding a risk or by intentionally causing the accident?",
-        sv to "Planerade eller avsåg du att skada dig själv i någon olyckshändelse, antingen genom att inte undvika en risk eller att avsiktligt orsaka olyckan?",
-        zh to "你是否有意图在任何事故中伤害自己，无论是通过不避免风险还是故意引起事故？"
+        en to "During the last month, did you plan or intend to harm yourself in any accident, either by not avoiding a risk or by intentionally causing the accident?",
+        sv to "Under den senaste månaden, planerade eller avsåg du att skada dig själv i någon olyckshändelse, antingen genom att inte undvika en risk eller att avsiktligt orsaka olyckan?",
+        zh to "在过去的一个月里，你是否有意图在任何事故中伤害自己，无论是通过不避免风险还是故意引起事故？"
     )[currentLang]!!
 
     val MINIQuestion_B1b_QUESTION = mapOf(
-        en to "Did you intend to die as a result of any accident?",
-        sv to "Avsåg du att dö som en följd av någon olyckshändelse?",
-        zh to "你是否打算因任何事故而死亡？"
+        en to "During the last month, did you intend to die as a result of any accident?",
+        sv to "Under den senaste månaden, avsåg du att dö som en följd av någon olyckshändelse?",
+        zh to "在过去的一个月里，你是否打算因任何事故而死亡？"
     )[currentLang]!!
 
     val MINIQuestion_B2_QUESTION = mapOf(
-            en to "Have you (even for a moment) thought that it would be better if you were dead, or wished you were dead, or had to be dead?",
-            sv to "Har du (om ens för ett ögonblick) tänkt att det vore bättre om du var död, eller önskat att du var död eller var tvungen att vara död?",
-            zh to "你是否（即使是一瞬间）认为如果你死了会更好，或希望你已经死了，或必须死了？"
-        )[currentLang]!!
-
-    val MINIQuestion_B3_QUESTION = mapOf(
-        en to "Have you (even for a moment) thought about harming or hurting yourself – with at least some intention or awareness that you could die as a result – or have you contemplated suicide (i.e., taking your own life)?",
-        sv to "Har du (om ens för ett ögonblick) tänkt på att skada eller göra illa dig själv – med åtminstone en viss avsikt eller medvetenhet om att du kunde dö som följd – eller har du funderat på självmord (d.v.s. att ta ditt liv)?",
-        zh to "你是否（即使是一瞬间）考虑过伤害自己或自残 — 至少有一些意图或意识到你可能因此而死 — 或者你是否考虑过自杀（即结束自己的生命）？"
+        en to "During the last month, have you (even for a moment) thought that it would be better if you were dead, or wished you were dead, or had to be dead?",
+        sv to "Under den senaste månaden, har du (om ens för ett ögonblick) tänkt att det vore bättre om du var död, eller önskat att du var död eller var tvungen att vara död?",
+        zh to "在过去的一个月里，你是否（即使是一瞬间）认为如果你死了会更好，或希望你已经死了，或必须死了？"
     )[currentLang]!!
 
+    val MINIQuestion_B3_QUESTION_1 = mapOf(
+        en to "During the last month, have you (even for a moment) thought about harming or hurting yourself, with at least some intention or awareness that you could die as a result?",
+        sv to "Under den senaste månaden, har du (om ens för ett ögonblick) tänkt på att skada eller göra illa dig själv, med åtminstone en viss avsikt eller medvetenhet om att du kunde dö som följd?",
+        zh to "在过去的一个月里，你是否（即使是一瞬间）考虑过伤害自己或自残, 至少有一些意图或意识到你可能因此而死？"
+    )[currentLang]!!
+
+    val MINIQuestion_B3_QUESTION_2 = mapOf(
+        en to "Or have you contemplated suicide (i.e., taking your own life)?",
+        sv to "Eller har du funderat på självmord (d.v.s. att ta ditt liv)?",
+        zh to "或者你是否考虑过自杀（即结束自己的生命）？"
+    )[currentLang]!!
 
     val MINIQuestion_B4_QUESTION = mapOf(
-        en to "Have you heard a voice or voices telling you to take your life, or have you had dreams in some way related to suicide?",
-        sv to "Har du hört en röst eller röster som säger till dig att ta livet av dig, eller har du haft drömmar som på något sätt är relaterade till självmord?",
-        zh to "你是否听到一个或多个声音告诉你去结束自己的生命，或者你是否做过以某种方式与自杀相关的梦？"
+        en to "During the last month, have you heard a voice or voices telling you to take your life, or have you had dreams in some way related to suicide?",
+        sv to "Under den senaste månaden, har du hört en röst eller röster som säger till dig att ta livet av dig, eller har du haft drömmar som på något sätt är relaterade till självmord?",
+        zh to "在过去的一个月里，你是否听到一个或多个声音告诉你去结束自己的生命，或者你是否做过以某种方式与自杀相关的梦？"
     )[currentLang]!!
 
     val MINIQuestion_B5_QUESTION = mapOf(
-        en to "Have you figured out a way to take your life (i.e., how)?",
-        sv to "Har du tänkt ut ett sätt att ta ditt liv (d.v.s. hur)?",
-        zh to "你是否想出了结束自己生命的方法（即，如何）？"
+        en to "During the last month, have you figured out a way to take your life (i.e., how)?",
+        sv to "Under den senaste månaden, har du tänkt ut ett sätt att ta ditt liv (d.v.s. hur)?",
+        zh to "在过去的一个月里，你是否想出了结束自己生命的方法（即，如何）？"
     )[currentLang]!!
 
 
     val MINIQuestion_C1a_QUESTION = mapOf(
-        en to "Have you ever experienced a period when you felt 'revved up,' 'high,' or 'hyper,' and so active or full of energy or so self-satisfied that you got into trouble, or that others thought you were not yourself? (Do not count times when you were under the influence of alcohol or drugs.)",
-        sv to "Har du någonsin upplevt en period när du kände dig 'på tårna,' 'hög,' eller 'hyper,' och så aktiv eller full av energi eller så självbelåten att du hamnade i trubbel, eller att andra tyckte att du inte var dig själv? (Räkna inte tider när du var under påverkan av alkohol eller droger.)",
-        zh to "你是否曾经经历过一个时期，你感觉到'飙升'，'高涨'或'亢奋'，以至于如此活跃或充满活力或如此自我满足以至于你惹了麻烦，或者别人认为你不是你自己？ （不要计算在酒精或药物影响下的时候。）"
+        en to "Have you ever experienced a period when you felt 'revved up,' 'high,' or 'hyper,' and so active or full of energy or so self-satisfied that you got into trouble, or that others thought you were not yourself? Do not count times when you were under the influence of alcohol or drugs.",
+        sv to "Har du någonsin upplevt en period när du kände dig 'på tårna,' 'hög,' eller 'hyper,' och så aktiv eller full av energi eller så självbelåten att du hamnade i trubbel, eller att andra tyckte att du inte var dig själv? Räkna inte tider när du var under påverkan av alkohol eller droger.",
+        zh to "你是否曾经经历过一个时期，你感觉到'飙升'，'高涨'或'亢奋'，以至于如此活跃或充满活力或如此自我满足以至于你惹了麻烦，或者别人认为你不是你自己？不要计算在酒精或药物影响下的时候。"
     )[currentLang]!!
 
     val MINIQuestion_C1b_QUESTION = mapOf(
@@ -1148,10 +1152,16 @@ class I18nPhrases {
         zh to "您当前是否感到'飙升'，'高涨'，'亢奋'或充满活力？"
     )[currentLang]!!
 
-    val MINIQuestion_C2a_QUESTION = mapOf(
-        en to "Have you ever experienced recurrent irritability over several days such that you got into arguments or fights or shouted at people outside your own family? Have you or others noticed that you were more easily annoyed or overreacted, compared to others? This includes situations where you felt your reaction was justified.",
-        sv to "Har du någonsin upplevt återkommande irritation under flera dagar så att du varit med i gräl eller slagsmål eller skrikit åt personer utanför din egen familj? Har du eller andra märkt att du varit mer lättretlig eller överreagerat, jämfört med andra? Detta gäller även situationer där du tyckte att din reaktion varit berättigad.",
-        zh to "你是否曾经经历过几天的反复烦躁，以至于你与人争吵或打架，或向自己家人之外的人大喊大叫？ 您或其他人是否注意到您更容易生气或反应过度，与其他人相比？ 这包括您觉得您的反应是正当的情况。"
+    val MINIQuestion_C2a_QUESTION_1 = mapOf(
+        en to "Have you ever experienced recurrent irritability over several days such that you got into arguments or fights or shouted at people outside your own family? This includes situations where you felt your reaction was justified.",
+        sv to "Har du någonsin upplevt återkommande irritation under flera dagar så att du varit med i gräl eller slagsmål eller skrikit åt personer utanför din egen familj? Detta gäller även situationer där du tyckte att din reaktion varit berättigad.",
+        zh to "你是否曾经经历过几天的反复烦躁，以至于你与人争吵或打架，或向自己家人之外的人大喊大叫？这包括您觉得您的反应是正当的情况。"
+    )[currentLang]!!
+
+    val MINIQuestion_C2a_QUESTION_2 = mapOf(
+        en to "Have you or others noticed that you were more easily annoyed or overreacted, compared to others? This includes situations where you felt your reaction was justified.",
+        sv to "Har du eller andra märkt att du varit mer lättretlig eller överreagerat, jämfört med andra? Detta gäller även situationer där du tyckte att din reaktion varit berättigad.",
+        zh to "您或其他人是否注意到您更容易生气或反应过度，与其他人相比？ 这包括您觉得您的反应是正当的情况。"
     )[currentLang]!!
 
 
@@ -1169,15 +1179,21 @@ class I18nPhrases {
 
 
     val MINIQuestion_C3a_QUESTION = mapOf(
-        en to "Did you feel that you could do things others couldn't, or that you were a particularly important person? If YES, ask for examples.",
-        sv to "Upplevde du att du kunde göra saker som andra inte kunde, eller att du var en särskilt viktig person? Om JA, be om exempel.",
+        en to "Did you feel that you could do things others couldn't, or that you were a particularly important person? ",
+        sv to "Upplevde du att du kunde göra saker som andra inte kunde, eller att du var en särskilt viktig person? Om JA, ge några exempel.",
         zh to "您是否觉得自己能做别人做不到的事情，或者您是一个特别重要的人？如果是，请举例说明。"
     )[currentLang]!!
 
+    val MINI_ASK_FOR_EXAMPLES = mapOf(
+        en to "If YES, can you give some examples.",
+        sv to "Om JA, ge några exempel.",
+        zh to "如果是，请举例说明"
+    )[currentLang]!!
+
     val MINIQuestion_C3b_QUESTION = mapOf(
-        en to "Did you need less sleep (e.g., feeling rested after only a few hours of sleep)?",
-        sv to "Behövde du mindre sömn (t.ex. att du kände dig utvilad efter bara några timmars sömn)?",
-        zh to "您是否需要较少的睡眠（例如，只睡几个小时就感觉精力充沛）？"
+        en to "During the past few days, including today, when you felt elated and full of energy or irritable, did you need less sleep (e.g., feeling rested after only a few hours of sleep)?",
+        sv to "Under de senaste dagarna, inklusive idag, när du kände dig upprymd och full av energi eller retlig, behövde du mindre sömn (t.ex. att du kände dig utvilad efter bara några timmars sömn)?",
+        zh to "在过去的几天里，包括今天，当您感到情绪高涨、充满活力或易怒时，您是否需要较少的睡眠（例如，只睡几个小时就感觉精力充沛）？"
     )[currentLang]!!
 
     val MINIQuestion_C3c_QUESTION = mapOf(
@@ -1214,10 +1230,9 @@ class I18nPhrases {
 
     val LAST_QUESTION_MESSAGE = mapOf(
         en to "That was the last question. The psychiatrist will follow up with you shortly.",
-        sv to "Det var den sista frågan. Psykiatern kommer att följa upp med dig snart.",
+        sv to "Det var den sista frågan.  Psykiatern kommer att komma till  dig snart.",
         zh to "那就是最后一个问题了。精神科医生会很快跟进您的情况。"
     )[currentLang]!!
-
 
 
     val EPDS_RESTART_TEST_OPTIONS_NO = mapOf(
@@ -1232,3 +1247,4 @@ class I18nPhrases {
     val CHANGE_TO_LANGUAGE_ZH = "切换成中文" //
 
 }
+
