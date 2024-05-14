@@ -36,7 +36,6 @@ val EPDS_Results = state(WaitForCommand(nextState = StandBy)) {
 
         send(ShowResultsEvent("EPDS", isPositive, epdsData.score))
         furhat.ask {
-            +attend(Location.DOWN)
             +i18n.phrases.EPDS_READ_RESULTS_1
             +attend(user)
         }
@@ -45,6 +44,7 @@ val EPDS_Results = state(WaitForCommand(nextState = StandBy)) {
 
     onResponse<ThankYou> { goto(StandBy) }
     onResponse<ImDone> { goto(StandBy) }
+    addGazeAversionBehaviour()
 
     onUserLeave(instant = true) {
         when {

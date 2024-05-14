@@ -12,12 +12,11 @@ import furhatos.gestures.Gestures
 import furhatos.records.User
 import kotlinx.coroutines.*
 
-val goodByeTimeout = 300000
+val goodByeTimeout = 100000
 
 val Goodbye: State = state(Interaction) {
         onEntry {
             log.debug("In Goodbye state")
-
             if (users.count < 1) goto(Idle) // User leaves at the end of another state leading to this one
             users.current.interactionInfo.endTimestamp()
             endAndWriteApi(users.current)
@@ -28,11 +27,10 @@ val Goodbye: State = state(Interaction) {
                 +behavior { send(ShowScreenEvent(i18n.phrases.INTRODUCTION_SAY_GOODBYE_PROMPT, i18n.phrases.INTRODUCTION_GOODBYE_TITLE_PROMPT)) }
             })
 
-            delay(2000)
+            delay(3000)
             send(ShowOptionsEvent(
                 listOf("restart:${i18n.phrases.GENERAL_RESTART}"))
             )
-
             furhat.listen(timeout = goodByeTimeout)
         }
         include(GoodbyeShared)
@@ -42,7 +40,6 @@ val GoodbyeNoSpeech: State = state(Interaction) {
         onEntry {
             log.debug("In GoodbyeNoSpeech state")
             endAndWriteApi(users.current)
-
             furhat.listen(timeout = goodByeTimeout)
         }
 
@@ -93,7 +90,6 @@ val GoodbyeShared = partialState {
             users.current.reset()
             goto(Idle)
         }
-
         handleLanguageChange(language = response)
     }
 }

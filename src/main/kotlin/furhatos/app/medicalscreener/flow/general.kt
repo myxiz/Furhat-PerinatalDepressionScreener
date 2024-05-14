@@ -46,7 +46,7 @@ val Interaction: State = state {
             }
             users.count < 1 -> {
                 log.debug("the last user left while being unattended")
-                goto(Idle)
+                goto(StandBy)
             }
             else -> {
                 log.debug("Someone who is not the user left (user ${it.id})")
@@ -63,7 +63,7 @@ val Interaction: State = state {
 
     onUserEnter(instant = true) {
         log.debug("User ${it.id} entered")
-        furhat.glance(it)
+        furhat.attend(it)
     }
 
     onEvent(eventClass = MonitorSpeechStart::class, instant = true, priority = true) {
@@ -117,6 +117,22 @@ val StandBy : State = state {
 }
 
 val InteractionNoLeave: State = state {
+    onUserLeave(instant = true) {
+        when {
+            users.current == it -> { // user.other == it means that there is no other user
+                log.debug("Current user ${it.id} left at state ${this.currentState.name}")
+                parallel(waitForUserReturn(it), abortOnExit = false)
+            }
+            users.count < 1 -> {
+                log.debug("the last user left while being unattended")
+//                goto(StandBy)
+            }
+            else -> {
+                log.debug("Someone who is not the user left (user ${it.id})")
+                furhat.glance(it)
+            }
+        }
+    }
     onEvent<UserDefinitelyGone> {
         log.debug("User ${it.user.id} did not return")
         it.user.reset()
@@ -236,7 +252,8 @@ fun waitForUserReturn(user: User) = state(null) {
         }
     }
 
-    onTime(delay = 2500) {
+    onTime(delay = 5000) {
+//        Wait for 5 sec, switch to new user if any, else send even UserDefinitelyGone
         if (users.count > 0) {
             val newUser = users.random
             furhat.attend(newUser)
@@ -247,7 +264,7 @@ fun waitForUserReturn(user: User) = state(null) {
         }
     }
 
-    onTime(repeat=3000) {
+    onTime(repeat=2000) {
         log.debug("State ${thisState.name} is active")
     }
 }
@@ -339,12 +356,12 @@ fun NoOrInvalidResponseState(customBadResponse: (StateBuilder.() -> Unit)? = nul
                     utterance {
                         random {
                             utterance {
-                                +attend(Location.DOWN)
+//                                +attend(Location.DOWN)
                                 +i18n.phrases.GENERAL_NO_RESPONSE_USE_SCREEN_VAR1
                                 +attend(users.current)
                             }
                             utterance {
-                                +attend(Location.DOWN)
+//                                +attend(Location.DOWN)
                                 +i18n.phrases.GENERAL_NO_RESPONSE_USE_SCREEN_VAR2
                                 +attend(users.current)
                             }
@@ -399,7 +416,7 @@ fun NoOrInvalidResponseState(customBadResponse: (StateBuilder.() -> Unit)? = nul
                 }
                 else -> {
                     furhat.ask {
-                        +attend(Location.DOWN)
+//                        +attend(Location.DOWN)
                         +i18n.phrases.GENERAL_CANNOT_UNDERSTAND_PLEASE_USE_SCREEN
                         +attend(users.current)
                     }

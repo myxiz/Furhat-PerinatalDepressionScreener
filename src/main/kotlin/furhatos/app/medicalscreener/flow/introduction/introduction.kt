@@ -12,16 +12,19 @@ import furhatos.autobehavior.prominenceGesture
 import furhatos.autobehavior.userSpeechStartGesture
 import furhatos.flow.kotlin.*
 import furhatos.flow.kotlin.voice.AzureVoice
+import furhatos.flow.kotlin.voice.PollyNeuralVoice
+import furhatos.flow.kotlin.voice.Voice
+
 import furhatos.gestures.Gestures
 import furhatos.util.CommonUtils
 import furhatos.util.Language
 
 val log = CommonUtils.getLogger(Interaction::class.java)!!
 
-//var petraVoice : PollyVoice = PollyVoice()
-var petraVoice : AzureVoice = AzureVoice()
-var petraVoiceM : AzureVoice = AzureVoice()
-var petraVoiceF : AzureVoice = AzureVoice()
+//var pollyVoice : PollyNeuralVoice = PollyNeuralVoice()
+var petraVoice : Voice = Voice()
+var petraVoiceM : Voice = Voice()
+var petraVoiceF : Voice = Voice()
 
 val Idle: State = state(Interaction) {
     init {

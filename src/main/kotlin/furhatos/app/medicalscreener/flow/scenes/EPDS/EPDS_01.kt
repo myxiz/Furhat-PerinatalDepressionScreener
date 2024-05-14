@@ -15,7 +15,6 @@ import java.lang.IllegalArgumentException
 var nextState: State = EPDSQuestions
 var lastState: State = EPDSQuestions
 val EPDSQuestion01: State = state(EPDSQuestions) {
-
     onEntry {
         nextState =EPDSQuestion02
         furhatos.app.medicalscreener.log.debug("Entering EPDSQuestion1 state")
@@ -67,7 +66,6 @@ val EPDSQuestion01: State = state(EPDSQuestions) {
             "0" -> {
                 users.current.epdsData.e1 = 0
                  handleNext()
-
             }
             "1" -> {
                 users.current.epdsData.e1 = 1
@@ -82,7 +80,7 @@ val EPDSQuestion01: State = state(EPDSQuestions) {
             "3" -> {
                 users.current.epdsData.e1 = 3
                 users.current.epdsData.addToScore(3)
-                 handleNext()
+                handleNext()
             }
         }
     }

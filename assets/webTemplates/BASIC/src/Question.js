@@ -13,7 +13,6 @@ import {actions} from "./model";
 let eventHandled = false;
 
 class Question extends React.PureComponent {
-
     render() {
         let {showText, text, onOptionSelected, selectedOption, buttonsDisabled } = this.props
         let savedOptionEvent = localStorage.getItem('optionEvent');
@@ -63,6 +62,7 @@ class Question extends React.PureComponent {
                                                 if (!eventHandled) {
                                                     onOptionSelected(value);
                                                     eventHandled = true;
+                                                    setTimeout(() => { eventHandled = false; }, 300);
                                                     // Optionally reset the flag here as well, if clicks are not followed by touchEnds
                                                 }}}
                                             onTouchEnd = {() => {

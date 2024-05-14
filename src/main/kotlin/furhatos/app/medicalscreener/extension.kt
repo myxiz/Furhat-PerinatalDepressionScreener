@@ -11,6 +11,8 @@ import furhatos.event.EventSystem.send
 import furhatos.flow.kotlin.Furhat
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.voice.AzureVoice
+import furhatos.flow.kotlin.voice.PollyNeuralVoice
+import furhatos.flow.kotlin.voice.Voice
 import furhatos.gestures.Gestures.BigSmile
 import furhatos.gestures.Gestures.Nod
 import furhatos.gestures.Gestures.Surprise
@@ -40,21 +42,22 @@ fun Furhat.attendRandomLocation() {
 fun Furhat.setRobotFace(face: String = "Titan"){
     runner.furhat.character = face
 }
+
 fun Furhat.setRobotVoice(lang : Language, gen: Gender = Gender.NEUTRAL) {
     i18n = I18n(lang)
     val speakingRate = 0.95
-    petraVoice = mapOf<Language, AzureVoice>(
-            Language.ENGLISH_US to AzureVoice(name = "NancyNeural", language = Language.ENGLISH_US, rate = speakingRate),
+    petraVoice = mapOf<Language, Voice>(
+            Language.ENGLISH_US to PollyNeuralVoice(name = "Salli-Neural", language = Language.ENGLISH_US, rate = speakingRate),
             Language.MANDARIN to AzureVoice(name="XiaochenMultilingualNeural", language = Language.MANDARIN, rate = speakingRate),
             Language.SWEDISH to AzureVoice(name = "HilleviNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
-    petraVoiceM = mapOf<Language, AzureVoice>(
-        Language.ENGLISH_US to AzureVoice(name = "BlueNeural", language = Language.ENGLISH_US, rate = speakingRate),
+    petraVoiceM = mapOf<Language, Voice>(
+        Language.ENGLISH_US to PollyNeuralVoice(name = "Brian-Neural", language = Language.ENGLISH_GB, rate = speakingRate),
         Language.MANDARIN to AzureVoice(name="YunyiMultilingualNeural", language = Language.MANDARIN, rate = speakingRate),
         Language.SWEDISH to AzureVoice(name = "MattiasNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!
-    petraVoiceF = mapOf<Language, AzureVoice>(
-        Language.ENGLISH_US to AzureVoice(name = "Emma-Neural", language = Language.ENGLISH_GB, rate = speakingRate),
+    petraVoiceF = mapOf<Language, Voice>(
+        Language.ENGLISH_US to PollyNeuralVoice(name = "Joanna-neural", language = Language.ENGLISH_US, rate = speakingRate),
         Language.MANDARIN to AzureVoice(name="XiaoxiaoNeural", language = Language.MANDARIN, rate = speakingRate),
         Language.SWEDISH to AzureVoice(name = "SofieNeural", language = Language.SWEDISH, rate = speakingRate)
     )[lang]!!

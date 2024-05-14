@@ -230,20 +230,20 @@ class I18nPhrases {
     )[currentLang]!!
 
     val GENERAL_NEXT_QUESTION_VAR1 = mapOf(
-        en to "next...",
-        sv to "nästa...",
+        en to "Next...",
+        sv to "Nästa...",
         zh to "接下来..."
     )[currentLang]!!
 
     val GENERAL_NEXT_QUESTION_VAR2 = mapOf(
-        en to "next question",
-        sv to "nästa fråga",
+        en to "Next question",
+        sv to "Nästa fråga",
         zh to "下一个问题"
     )[currentLang]!!
 
     val GENERAL_NEXT_QUESTION_VAR3 = mapOf(
-        en to "going on",
-        sv to "fortsätter",
+        en to "Going on",
+        sv to "Fortsätter",
         zh to "让我们继续"
     )[currentLang]!!
 
@@ -517,20 +517,20 @@ class I18nPhrases {
     )[currentLang]!!
 
     val PERSONALIZATION_VOICE_OPTION_MALE = mapOf(
-        en to "male",
-        sv to "manlig",
+        en to "Male",
+        sv to "Manlig",
         zh to "男性"
     )[currentLang]!!
 
     val PERSONALIZATION_VOICE_OPTION_FEMALE = mapOf(
-        en to "female",
-        sv to "kvinnlig",
+        en to "Female",
+        sv to "Kvinnlig",
         zh to "女性"
     )[currentLang]!!
 
     val PERSONALIZATION_VOICE_OPTION_ORIGINAL = mapOf(
-        en to "original voice",
-        sv to "ursprungliga rösten",
+        en to "Original voice",
+        sv to "Ursprungliga rösten",
         zh to "原始语音"
     )[currentLang]!!
 
@@ -912,7 +912,7 @@ class I18nPhrases {
     )[currentLang]!!
 
     val EPDS_NINE_RESPONSES_1 = mapOf(
-        en to "Only occasion_ally",
+        en to "Only occasionally",
         sv to "Bara någon gång",
         zh to "仅仅偶尔"
     )[currentLang]!!

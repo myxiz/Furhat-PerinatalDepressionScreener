@@ -18,7 +18,8 @@ val ScreeningConsent: State = state(IntroductionBaseState) {
     onEntry {
         log.debug("In ScreeningSelection state")
         furhat.askAndDo(i18n.phrases.INTRODUCTION_ROBOTINTRO
-                +i18n.phrases.INTRODUCTION_EPDS_CONSENT) {
+                + ' '
+                + i18n.phrases.INTRODUCTION_EPDS_CONSENT) {
                 send(ClearScreen())
                 send(ShowOptionsEvent(
                 options,
@@ -44,10 +45,7 @@ val ScreeningConsent: State = state(IntroductionBaseState) {
     onReentry {
         log.debug("Reentering ScreenSelection state")
         furhat.askAndDo(utterance {
-            random {
-                +i18n.phrases.INTRODUCTION_EPDS_CONSENT
-                +i18n.phrases.INTRODUCTION_EPDS_CONSENT
-            }
+                i18n.phrases.INTRODUCTION_EPDS_CONSENT
         }) {
             delay(800)
             send(ShowOptionsEvent(

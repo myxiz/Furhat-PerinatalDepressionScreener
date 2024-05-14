@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 
 var userName : String = ""
 var IP : String? = null
-val IP_ARRAY = arrayOf("10.0.1.3:5001", "130.238.16.96:5001", "localhost:5001")
+val IP_ARRAY = arrayOf("10.0.1.2:5001", "130.238.16.96:5001", "localhost:5001")
 
 class ScreenerSkill : Skill() {
     override fun start() {

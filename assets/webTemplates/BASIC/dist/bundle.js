@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ba8eee5ae99ebeb1c663"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6ebb3cccc025098e8a37"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -4976,6 +4976,9 @@ var Question = function (_React$PureComponent) {
                                             if (!eventHandled) {
                                                 onOptionSelected(value);
                                                 eventHandled = true;
+                                                setTimeout(function () {
+                                                    eventHandled = false;
+                                                }, 300);
                                                 // Optionally reset the flag here as well, if clicks are not followed by touchEnds
                                             }
                                         },
